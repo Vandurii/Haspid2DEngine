@@ -4,6 +4,8 @@ import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
 
+import java.sql.SQLOutput;
+
 import static main.Configuration.*;
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
@@ -50,12 +52,13 @@ public class Window {
         // Create the window
         glfwWindow = glfwCreateWindow(windowWidth, windowHeight, windowTitle, NULL, NULL);
         if(glfwWindow == NULL)  throw new RuntimeException("Failed to create te GLFW window");
-//
-//        // Setup a key callback. It will be called every time a key is pressed, repeated or released.
-//        glfwSetKeyCallback(windowPtr, (windowPtr, key, scancode, action, mods) -> {
-//            if(key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE) glfwSetWindowShouldClose(windowPtr, true);
-//        });
-//
+
+        // Setup a key callback. It will be called every time a key is pressed, repeated or released.
+        glfwSetKeyCallback(glfwWindow, KeyListener::keyCallback);
+        glfwSetCursorPosCallback(glfwWindow, MouseListener::cursorPositionCallback);
+        glfwSetMouseButtonCallback(glfwWindow, MouseListener::mouseButtonCallback);
+        glfwSetScrollCallback(glfwWindow, MouseListener::scrollCallback);
+
 //        // Get the thread stack and push a new frame
 //
 //        try(MemoryStack stack = stackPush()) {
@@ -93,6 +96,7 @@ public class Window {
         // Run the rendering loop until the user has attempted to close
         // the window or has pressed the ESCAPE key.
         while(!glfwWindowShouldClose(glfwWindow)){
+            System.out.println(String.format("x:%s | y:%s", MouseListener.getInstance().getX(), MouseListener.getInstance().getY()));
             // Set the clear color
             glClearColor(clearColor.getRed() / 255f, clearColor.getGreen() / 255f, clearColor.getBlue() / 255f, clearColor.getAlpha());
 
