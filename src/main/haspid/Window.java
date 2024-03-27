@@ -4,8 +4,6 @@ import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
 
-import java.sql.SQLOutput;
-
 import static main.Configuration.*;
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
@@ -16,8 +14,8 @@ public class Window {
 
     private static Window instance;
 
-    // The window handle
-    private long glfwWindow;
+    private static long glfwWindow;
+    private static Scene currentScene;
 
     private Window(){}
 
@@ -70,7 +68,7 @@ public class Window {
 //
 //            // Get the resolution of the primary monitor
 //            GLFWVidMode vidMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-//~~
+//
 //            // Center the window
 //            glfwSetWindowPos(windowPtr, (vidMode.width() - pWidht.get(0)) / 2, (vidMode.height() - pHeight.get(0)) / 2);
 //        }// the stack frame is popped automatically
@@ -90,13 +88,14 @@ public class Window {
         // bindings available for use.
 
         GL.createCapabilities();
+        changeScene(new EditorScene());
     }
 
     private void loop(){
-        // Run the rendering loop until the user has attempted to close
-        // the window or has pressed the ESCAPE key.
+        float lastFrameTime = -1;
+
+        // Run the rendering loop until the user has attempted to close the window.
         while(!glfwWindowShouldClose(glfwWindow)){
-            System.out.println(String.format("x:%s | y:%s", MouseListener.getInstance().getX(), MouseListener.getInstance().getY()));
             // Set the clear color
             glClearColor(clearColor.getRed() / 255f, clearColor.getGreen() / 255f, clearColor.getBlue() / 255f, clearColor.getAlpha());
 
@@ -105,6 +104,19 @@ public class Window {
 
             // Poll for window events. The key callback above wil only be invoked during this call
             glfwPollEvents();
+
+            float beginTime = (float) glfwGetTime();
+            float deltaTime = beginTime - lastFrameTime;
+            if(lastFrameTime == -1) deltaTime = 1f / 60f;
+            lastFrameTime = beginTime;
+           // System.out.println(1 / deltaTime + "FPS");
+            currentScene.update(deltaTime);
+
+            if(KeyListener.getInstance().isKeyPressed(GLFW_KEY_1)){
+                changeScene(new EditorScene());
+            }else if(KeyListener.getInstance().isKeyPressed(GLFW_KEY_2)){
+                changeScene(new GameScene());
+            }
         }
     }
 
@@ -112,5 +124,9 @@ public class Window {
         if(instance == null) instance = new Window();
 
         return instance;
+    }
+
+    public void changeScene(Scene  scene){
+        currentScene = scene;
     }
 }
