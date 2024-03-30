@@ -1,39 +1,19 @@
 package main.haspid;
 
+import main.renderer.Shader;
 import org.lwjgl.BufferUtils;
-import org.lwjgl.opengl.GL;
 
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
-import java.sql.SQLOutput;
 
+import static main.Configuration.*;
 import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL30.*;
 
 public class EditorScene extends Scene{
 
     private int VAO, EBO, VBO;
-    private int shaderProgramID, vertexShaderID, fragmentShaderID;
-
-    private String vertexShaderSource = "#version 330 core\n" +
-            "layout (location = 0) in vec3 aPos;\n" +
-            "layout (location = 1) in vec4 aColor;\n" +
-            "\n" +
-            "out vec4 fColor;\n" +
-            "\n" +
-            "void main(){\n" +
-            "    fColor = aColor;\n" +
-            "    gl_Position = vec4(aPos, 1);\n" +
-            "}";
-
-    private String fragmentShaderSource = "#version 330 core\n" +
-            "in vec4 fColor;\n" +
-            "\n" +
-            "out vec4 color;\n" +
-            "\n" +
-            "void main(){\n" +
-            "    color = fColor;\n" +
-            "}";
+    private Shader defaultShader;
 
     private float[] vertexArray = {
              0.5f, -0.5f, 0f,        1f, 0f, 0f, 1f,
@@ -49,42 +29,8 @@ public class EditorScene extends Scene{
 
     @Override
     public void init() {
-        // Compile vertex shader
-        vertexShaderID = glCreateShader(GL_VERTEX_SHADER);
-        glShaderSource(vertexShaderID, vertexShaderSource);
-        glCompileShader(vertexShaderID);
-        int success = glGetShaderi(vertexShaderID, GL_COMPILE_STATUS);
-        if(success == GL_FALSE){
-            int len = glGetShaderi(vertexShaderID, GL_INFO_LOG_LENGTH);
-            System.out.println("Unable to compile vertex shader.");
-            System.out.println(glGetShaderInfoLog(vertexShaderID, len));
-            throw new IllegalStateException();
-        }
-
-        // Compile fragment shader
-        fragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
-        glShaderSource(fragmentShaderID, fragmentShaderSource);
-        glCompileShader(fragmentShaderID);
-        success = glGetShaderi(fragmentShaderID, GL_COMPILE_STATUS);
-        if(success == GL_FALSE){
-            int len = glGetShaderi(fragmentShaderID, GL_INFO_LOG_LENGTH);
-            System.out.println("Unable to compile fragment shader.");
-            System.out.println(glGetShaderInfoLog(fragmentShaderID, len));
-            throw new IllegalStateException();
-        }
-
-        // link shaders and compile program
-        shaderProgramID = glCreateProgram();
-        glAttachShader(shaderProgramID, vertexShaderID);
-        glAttachShader(shaderProgramID, fragmentShaderID);
-        glLinkProgram(shaderProgramID);
-        success = glGetProgrami(shaderProgramID, GL_LINK_STATUS);
-        if(success == GL_FALSE){
-            int len = glGetProgrami(shaderProgramID, GL_INFO_LOG_LENGTH);
-            System.out.println("Unable to link shader program.");
-            System.out.println(glGetShaderInfoLog(shaderProgramID, len));
-            throw new IllegalStateException();
-        }
+        defaultShader = new Shader(defaultShaderPath);
+        defaultShader.compile();
 
         // Generate VAO
         VAO = glGenVertexArrays();
@@ -118,7 +64,7 @@ public class EditorScene extends Scene{
 
     @Override
     public void update(float dt) {
-        glUseProgram(shaderProgramID);
+        defaultShader.use();
         glBindVertexArray(VAO);
         glEnableVertexAttribArray(0);
         glEnableVertexAttribArray(1);
@@ -128,6 +74,6 @@ public class EditorScene extends Scene{
         glDisableVertexAttribArray(1);
 
         glBindVertexArray(0);
-        glUseProgram(0);
+        defaultShader.detach();
     }
 }

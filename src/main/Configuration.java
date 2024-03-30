@@ -7,4 +7,7 @@ public class Configuration {
     public static int windowHeight = 540;
     public static String windowTitle = "Haspid";
     public static Color clearColor = new Color(150, 150, 150, 1);
+
+    public static String defaultShaderPath = "assets/shaders/default.glsl";
+
 }
