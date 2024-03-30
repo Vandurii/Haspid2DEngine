@@ -1,6 +1,7 @@
 package main.haspid;
 
 import main.renderer.Shader;
+import org.joml.Vector2f;
 import org.lwjgl.BufferUtils;
 
 import java.nio.FloatBuffer;
@@ -16,10 +17,10 @@ public class EditorScene extends Scene{
     private Shader defaultShader;
 
     private float[] vertexArray = {
-             0.5f, -0.5f, 0f,        1f, 0f, 0f, 1f,
-            -0.5f,  0.5f, 0f,        0f, 1f, 0f, 1f,
-             0.5f,  0.5f, 0f,        0f, 0f, 1f, 1f,
-            -0.5f, -0.5f, 0f,        1f, 1f, 0f, 1f
+             100f,  0f,   0f,       1f, 0f, 0f, 1f,
+             0f,    100f, 0f,      0f, 1f, 0f, 1f,
+             100f,  100f, 0f,      0f, 0f, 1f, 1f,
+             0f,    0f,   0f,        1f, 1f, 0f, 1f
     };
 
     private int[] elementArrray = {
@@ -29,6 +30,7 @@ public class EditorScene extends Scene{
 
     @Override
     public void init() {
+        camera = new Camera(new Vector2f());
         defaultShader = new Shader(defaultShaderPath);
         defaultShader.compile();
 
@@ -65,6 +67,8 @@ public class EditorScene extends Scene{
     @Override
     public void update(float dt) {
         defaultShader.use();
+        defaultShader.uploadMat4f("uProjection", camera.getUProjection());
+        defaultShader.uploadMat4f("uView", camera.getUView());
         glBindVertexArray(VAO);
         glEnableVertexAttribArray(0);
         glEnableVertexAttribArray(1);

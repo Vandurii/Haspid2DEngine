@@ -10,4 +10,9 @@ public class Configuration {
 
     public static String defaultShaderPath = "assets/shaders/default.glsl";
 
+    public static float uViewX = 32f * 40;
+    public static float uViewY = 32f * 21;
+    public static float uViewZ = 100f;
+
+
 }
