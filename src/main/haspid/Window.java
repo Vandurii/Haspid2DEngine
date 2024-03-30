@@ -96,21 +96,22 @@ public class Window {
 
         // Run the rendering loop until the user has attempted to close the window.
         while(!glfwWindowShouldClose(glfwWindow)){
+            // Poll for window events. The key callback above wil only be invoked during this call
+            glfwPollEvents();
+
             // Set the clear color
             glClearColor(clearColor.getRed() / 255f, clearColor.getGreen() / 255f, clearColor.getBlue() / 255f, clearColor.getAlpha());
 
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //clear the framebuffer
-            glfwSwapBuffers(glfwWindow); // swap the color buffers
-
-            // Poll for window events. The key callback above wil only be invoked during this call
-            glfwPollEvents();
 
             float beginTime = (float) glfwGetTime();
             float deltaTime = beginTime - lastFrameTime;
             if(lastFrameTime == -1) deltaTime = 1f / 60f;
             lastFrameTime = beginTime;
-           // System.out.println(1 / deltaTime + "FPS");
+            //System.out.println(1 / deltaTime + "FPS");
             currentScene.update(deltaTime);
+
+            glfwSwapBuffers(glfwWindow); // swap the color buffers
 
             if(KeyListener.getInstance().isKeyPressed(GLFW_KEY_1)){
                 changeScene(new EditorScene());
@@ -126,7 +127,8 @@ public class Window {
         return instance;
     }
 
-    public void changeScene(Scene  scene){
+    public void changeScene(Scene scene){
         currentScene = scene;
+        currentScene.init();
     }
 }
