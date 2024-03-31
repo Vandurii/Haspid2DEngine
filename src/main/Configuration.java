@@ -9,10 +9,13 @@ public class Configuration {
     public static Color clearColor = new Color(150, 150, 150, 1);
 
     public static String defaultShaderPath = "assets/shaders/default.glsl";
+    public static String marioImagePath = "assets/images/mario.png";
 
     public static float uViewX = 32f * 40;
     public static float uViewY = 32f * 21;
     public static float uViewZ = 100f;
+
+    public static float scale = 100f;
 
 
 }

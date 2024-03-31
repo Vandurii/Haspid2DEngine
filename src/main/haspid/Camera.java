@@ -38,4 +38,8 @@ public class Camera {
     public Vector2f getPosition(){
         return position;
     }
+
+    public void setPosition(Vector2f position){
+        this.position = position;
+    }
 }

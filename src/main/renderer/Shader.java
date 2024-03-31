@@ -1,6 +1,6 @@
 package main.renderer;
 
-import org.joml.Matrix4f;
+import org.joml.*;
 import org.lwjgl.BufferUtils;
 
 import java.io.IOException;
@@ -18,6 +18,7 @@ public class Shader {
     private String filePath;
     private String vertexShaderSource;
     private String fragmentShaderSource;
+    private boolean isUsed;
 
     public Shader(String filePath){
         this.filePath = filePath;
@@ -93,17 +94,38 @@ public class Shader {
     }
 
     public void use(){
-        glUseProgram(shaderProgramID);
+        if(!isUsed) {
+            glUseProgram(shaderProgramID);
+            isUsed = true;
+        }
     }
 
     public void detach(){
         glUseProgram(0);
+        isUsed = false;
     }
 
-    public void uploadMat4f(String varName, Matrix4f mat4){
-        FloatBuffer matBuff = BufferUtils.createFloatBuffer(16);
+    public <T> void uploadValue(String varName, T type){
         int varLocation = glGetUniformLocation(shaderProgramID, varName);
-        mat4.get(matBuff);
-        glUniformMatrix4fv(varLocation,false, matBuff);
+        use();
+        if(type instanceof Matrix4f) {
+            FloatBuffer matBuff = BufferUtils.createFloatBuffer(16);
+            ((Matrix4f)type).get(matBuff);
+            glUniformMatrix4fv(varLocation, false, matBuff);
+        }else if (type instanceof Matrix3f){
+            FloatBuffer matBuff = BufferUtils.createFloatBuffer(9);
+            ((Matrix3f)type).get(matBuff);
+            glUniformMatrix3fv(varLocation, false, matBuff);
+        }else if(type instanceof Vector4f value){
+            glUniform4f(varLocation, value.x, value.y, value.z, value.w);
+        }else if(type instanceof Vector3f value){
+            glUniform3f(varLocation, value.x, value.y, value.z);
+        }else if(type instanceof Vector2f value){
+            glUniform2f(varLocation, value.x, value.y);
+        }else if(type instanceof Float value){
+            glUniform1f(varLocation, value);
+        }else if(type instanceof Integer value){
+            glUniform1i(varLocation, value);
+        }
     }
 }
