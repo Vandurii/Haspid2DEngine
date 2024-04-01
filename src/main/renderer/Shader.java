@@ -16,8 +16,7 @@ public class Shader {
 
     private int shaderProgramID;
     private String filePath;
-    private String vertexShaderSource;
-    private String fragmentShaderSource;
+    private String vertexShaderSource, fragmentShaderSource;
     private boolean isUsed;
 
     public Shader(String filePath){

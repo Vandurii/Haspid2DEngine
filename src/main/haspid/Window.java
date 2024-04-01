@@ -1,5 +1,8 @@
 package main.haspid;
 
+import main.scene.EditorScene;
+import main.scene.GameScene;
+import main.scene.Scene;
 import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
@@ -130,5 +133,6 @@ public class Window {
     public void changeScene(Scene scene){
         currentScene = scene;
         currentScene.init();
+        currentScene.start();
     }
 }
