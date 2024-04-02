@@ -135,4 +135,8 @@ public class Window {
         currentScene.init();
         currentScene.start();
     }
+
+    public Scene getCurrentScene(){
+        return currentScene;
+    }
 }

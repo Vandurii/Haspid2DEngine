@@ -8,10 +8,18 @@ import java.util.List;
 public class GameObject {
     private List<Component> componentList;
     private String name;
+    private Transform transform;
 
     public GameObject(String name){
-        componentList = new ArrayList<>();
+        this.componentList = new ArrayList<>();
         this.name = name;
+        this.transform = new Transform();
+    }
+
+    public GameObject(String name, Transform transform){
+        this.componentList = new ArrayList<>();
+        this.name = name;
+        this.transform = transform;
     }
 
     public void addComponent(Component c){
@@ -49,5 +57,13 @@ public class GameObject {
         for(Component c: componentList){
             c.update(dt);
         }
+    }
+
+    public Transform getTransform(){
+        return transform;
+    }
+
+    public String getName(){
+        return name;
     }
 }
