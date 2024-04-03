@@ -1,5 +1,6 @@
 package main.renderer;
 
+import main.components.Sprite;
 import main.components.SpriteRenderer;
 import main.haspid.Camera;
 import main.haspid.Transform;
@@ -126,8 +127,8 @@ public class RenderBatch {
     public void loadVertexArray(int index){
         SpriteRenderer spriteRenderer = spriteListToRender[index];
         Transform transform = spriteRenderer.getParent().getTransform();
-        Vector2f[] texCords = spriteRenderer.getTextureCords();
-        Vector4f color = spriteRenderer.getColor();
+        Vector2f[] texCords = spriteRenderer.getSprite().getSpriteCords();
+        Vector4f color = spriteRenderer.getSprite().getColor();
         Vector2f position = transform.getPosition();
         Vector2f scale = transform.getScale();
         int offset = index * squareSizeFloat;
@@ -150,7 +151,7 @@ public class RenderBatch {
             vertexArray[offset + 6] = texCords[j].x;
             vertexArray[offset + 7] = texCords[j].y;
 
-            vertexArray[offset + 8] = spriteRenderer.getRenderID();;
+            vertexArray[offset + 8] = spriteRenderer.getSprite().getSpriteID();;
 
             offset += pointSizeFloat;
         }
@@ -161,11 +162,11 @@ public class RenderBatch {
         spriteListToRender[index] = spriteRenderer;
         if(spriteCount + 1 >= maxBathSize) hasRoom = false;
 
-        if(spriteRenderer.hasTexture() && spriteRenderer.isIDDefault()) {
-            if(!textureList.contains(spriteRenderer.getTexture())){
+        if(spriteRenderer.getSprite().hasTexture() && spriteRenderer.getSprite().isIDDefault()) {
+            if(!textureList.contains(spriteRenderer.getSprite().getTexture())){
                 int id = textureList.size() + 1;
-                spriteRenderer.setRenderID(id);
-                textureList.add(spriteRenderer.getTexture());
+                spriteRenderer.getSprite().setSpriteID(id);
+                textureList.add(spriteRenderer.getSprite().getTexture());
             }
         }
 
@@ -227,6 +228,15 @@ public class RenderBatch {
     public boolean hasRoom(){
         return hasRoom;
     }
+
+    public boolean hasTexture(Texture texture){
+        return textureList.contains(texture);
+    }
+
+    public boolean hasTextureListRoom(){
+        return textureList.size() < 7;
+    }
+
 
     public void printPointsValues(){
         System.out.println(spriteCount);

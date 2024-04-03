@@ -61,5 +61,6 @@ public abstract class Scene {
 
     private void loadResources(){
         AssetPool.getShader(defaultShaderPath);
+        AssetPool.getSpriteSheet(firstSpriteSheet);
     }
 }

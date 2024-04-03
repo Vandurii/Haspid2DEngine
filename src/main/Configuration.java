@@ -13,6 +13,7 @@ public class Configuration {
 
     public static String defaultShaderPath = "assets/shaders/default.glsl";
     public static String marioImagePath = "assets/images/mario.png";
+    public static SpriteConfig firstSpriteSheet = new SpriteConfig("assets/images/spritesheet.png", 16, 16, 26, 0);
 
     public static float uViewX = 32f * 40;
     public static float uViewY = 32f * 21;
