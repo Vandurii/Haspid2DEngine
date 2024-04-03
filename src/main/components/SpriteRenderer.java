@@ -10,6 +10,7 @@ public class SpriteRenderer extends Component{
 
     public SpriteRenderer(Sprite sprite){
         this.sprite = sprite;
+        isDirty = true;
     }
 
     @Override

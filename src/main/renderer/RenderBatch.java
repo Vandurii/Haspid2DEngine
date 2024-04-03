@@ -11,6 +11,7 @@ import org.joml.Vector2f;
 import org.joml.Vector4f;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import static main.Configuration.*;
@@ -21,7 +22,7 @@ import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL30.glBindVertexArray;
 import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 
-public class RenderBatch {
+public class RenderBatch implements Comparable<RenderBatch> {
 
     private int pointSizeFloat;
     private int pointsInSquare;
@@ -43,9 +44,14 @@ public class RenderBatch {
     private List<Texture> textureList;
     private int[] uTextures = {0, 1, 2, 3, 4, 5, 6, 7};
 
-    public RenderBatch(int maxBathSize){
-        textureList = new ArrayList<>();
-        initVertexAttribPointer(false);
+    private int zIndex;
+
+    public RenderBatch(int maxBathSize, int zIndex){
+        System.out.println("Created new render batch: zIndex:" + zIndex);
+
+        this.zIndex = zIndex;
+        this.textureList = new ArrayList<>();
+        this.initVertexAttribPointer(false);
 
         this.hasRoom = true;
         this.maxBathSize = maxBathSize;
@@ -167,13 +173,20 @@ public class RenderBatch {
                 int id = textureList.size() + 1;
                 spriteRenderer.getSprite().setSpriteID(id);
                 textureList.add(spriteRenderer.getSprite().getTexture());
+            }else {
+                for(int i = 0; i < textureList.size(); i++){
+                    Texture texture = textureList.get(i);
+                   if(texture.equals(spriteRenderer.getSprite().getTexture())){
+                       spriteRenderer.getSprite().setSpriteID(i + 1);
+                   }
+                }
             }
         }
 
         loadVertexArray(index);
         spriteCount++;
 
-       // printPointsValues();
+    //    printPointsValues();
     }
 
     public void render(){
@@ -182,7 +195,6 @@ public class RenderBatch {
         for(int i = 0; i < spriteCount; i++){
             SpriteRenderer spriteRenderer = spriteListToRender[i];
             if(spriteRenderer.isDirty()){
-                System.out.println(spriteRenderer.getParent().getName());
                 loadVertexArray(i);
                 spriteRenderer.setClean();
 
@@ -190,7 +202,6 @@ public class RenderBatch {
                 glBufferSubData(GL_ARRAY_BUFFER, 0, vertexArray);
             }
         }
-
 
         defaultShader.use();
         defaultShader.uploadValue("uProjection", camera.getUProjection());
@@ -258,6 +269,11 @@ public class RenderBatch {
         System.out.println("*****************************");
     }
 
+    @Override
+    public int compareTo(RenderBatch o) {
+        return Integer.compare(this.zIndex, o.zIndex);
+    }
+
     public class Attribute{
         private int size;
         private String name;
@@ -266,5 +282,9 @@ public class RenderBatch {
             this.name = name;
             this.size = size;
         }
+    }
+
+    public int getzIndex(){
+        return zIndex;
     }
 }
