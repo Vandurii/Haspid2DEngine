@@ -125,6 +125,8 @@ public class Shader {
             glUniform1f(varLocation, value);
         }else if(type instanceof Integer value){
             glUniform1i(varLocation, value);
+        }else{
+            throw new IllegalStateException("Unexpected value in shader class uploadValue method");
         }
     }
 }

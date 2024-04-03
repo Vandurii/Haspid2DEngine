@@ -3,9 +3,12 @@ package main.scene;
 import main.haspid.Camera;
 import main.haspid.GameObject;
 import main.renderer.Renderer;
+import main.util.AssetPool;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static main.Configuration.*;
 
 public abstract class Scene {
 
@@ -15,6 +18,8 @@ public abstract class Scene {
     private Renderer renderer;
 
     public Scene(){
+        loadResources();
+
         sceneObjectList = new ArrayList<>();
         renderer = new Renderer();
     }
@@ -50,5 +55,9 @@ public abstract class Scene {
 
     public Renderer getRenderer(){
         return renderer;
+    }
+
+    private void loadResources(){
+        AssetPool.getShader(defaultShaderPath);
     }
 }

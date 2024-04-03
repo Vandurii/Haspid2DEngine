@@ -5,6 +5,7 @@ import main.haspid.Camera;
 import main.haspid.Transform;
 import main.haspid.Window;
 
+import main.util.AssetPool;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
 
@@ -52,8 +53,7 @@ public class RenderBatch {
         this.vertexArrayBytes = vertexArray.length * Float.BYTES;
 
         // shader
-        this.defaultShader = new Shader(defaultShaderPath);
-        this.defaultShader.compile();
+        this.defaultShader = AssetPool.getShader(defaultShaderPath);
     }
 
     public void start(){
