@@ -14,6 +14,7 @@ import org.joml.Vector4f;
 import static main.Configuration.*;
 
 public class EditorScene extends Scene {
+    private GameObject textureObject3;
 
     public EditorScene() {}
 
@@ -39,17 +40,18 @@ public class EditorScene extends Scene {
         textureObject2.addComponent(tex2);
         addGameObjectToScene(textureObject2);
 
-        GameObject textureObject3 = new GameObject("objTex3", new Transform(new Vector2f(800f, 300), new Vector2f(256f, 256f)));
+        textureObject3 = new GameObject("objTex3", new Transform(new Vector2f(800f, 300), new Vector2f(256f, 256f)));
         SpriteRenderer tex3 = new SpriteRenderer(spriteSheet.getSprite(5));
         textureObject3.addComponent(tex3);
         addGameObjectToScene(textureObject3);
-
     }
 
     @Override
     public void update(float dt) {
         camera.getPosition().x += 1.f;
-       // System.out.println("FPS: " + (1.0f / dt));
+       //System.out.println("FPS: " + (1.0f / dt));
+
+        if(textureObject3.getTransform().getPosition().x < 850)textureObject3.getTransform().setPosition(new Vector2f(textureObject3.getTransform().getPosition().x + 0.5f, textureObject3.getTransform().getPosition().y));
 
         for (GameObject go : getSceneObjectList()) {
             go.update(dt);

@@ -35,4 +35,21 @@ public class Transform {
     public void setScale(Vector2f scale) {
         this.scale = scale;
     }
+
+    public Transform copy(){
+        return new Transform(new Vector2f(this.position), new Vector2f(this.scale));
+    }
+
+    public void copy(Transform to){
+        to.position.set(new Vector2f(this.position));
+        to.scale.set(new Vector2f(this.scale));
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if(!(o instanceof Transform)) return false;
+        Transform t = (Transform) o;
+
+        return (this.scale.equals(t.getScale()) && this.position.equals(t.getPosition()));
+    }
 }

@@ -50,10 +50,6 @@ public class Sprite {
         return texCords;
     }
 
-    public Vector4f getColor(){
-        return color;
-    }
-
     public boolean hasTexture(){
         return texture != null;
     }
@@ -68,5 +64,13 @@ public class Sprite {
 
     public boolean isIDDefault() {
         return spriteID == 0;
+    }
+
+    public void setColor(Vector4f color){
+        this.color = color;
+    }
+
+    public Vector4f getColor(){
+        return color;
     }
 }

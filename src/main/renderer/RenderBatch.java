@@ -179,9 +179,18 @@ public class RenderBatch {
     public void render(){
         Camera camera = Window.getInstance().getCurrentScene().getCamera();
 
-        // For now, rebuffer all data every frame
-        glBindBuffer(GL_ARRAY_BUFFER, VBO);
-        glBufferSubData(GL_ARRAY_BUFFER, 0, vertexArray);
+        for(int i = 0; i < spriteCount; i++){
+            SpriteRenderer spriteRenderer = spriteListToRender[i];
+            if(spriteRenderer.isDirty()){
+                System.out.println(spriteRenderer.getParent().getName());
+                loadVertexArray(i);
+                spriteRenderer.setClean();
+
+                glBindBuffer(GL_ARRAY_BUFFER, VBO);
+                glBufferSubData(GL_ARRAY_BUFFER, 0, vertexArray);
+            }
+        }
+
 
         defaultShader.use();
         defaultShader.uploadValue("uProjection", camera.getUProjection());
