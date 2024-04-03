@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static main.Configuration.*;
+import static org.lwjgl.opengl.GL11.GL_MAX_TEXTURE_SIZE;
+import static org.lwjgl.opengl.GL11.glGetIntegerv;
 
 public abstract class Scene {
 

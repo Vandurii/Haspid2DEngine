@@ -10,6 +10,7 @@ import org.joml.Vector2f;
 import org.joml.Vector4f;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static main.Configuration.*;
 import static org.lwjgl.opengl.GL11.GL_FLOAT;
@@ -38,7 +39,11 @@ public class RenderBatch {
     private int spriteCount;
     private SpriteRenderer[] spriteListToRender;
 
+    private List<Texture> textureList;
+    private int[] uTextures = {0, 1, 2, 3, 4, 5, 6, 7};
+
     public RenderBatch(int maxBathSize){
+        textureList = new ArrayList<>();
         initVertexAttribPointer(false);
 
         this.hasRoom = true;
@@ -79,6 +84,8 @@ public class RenderBatch {
         attributes = new ArrayList<>();
         attributes.add(new Attribute("position", 2));
         attributes.add(new Attribute("color", 4));
+        attributes.add(new Attribute("texCords", 2));
+        attributes.add(new Attribute("texID", 1));
 
         pointSizeFloat = 0;
         for(Attribute a: attributes){
@@ -119,6 +126,7 @@ public class RenderBatch {
     public void loadVertexArray(int index){
         SpriteRenderer spriteRenderer = spriteListToRender[index];
         Transform transform = spriteRenderer.getParent().getTransform();
+        Vector2f[] texCords = spriteRenderer.getTextureCords();
         Vector4f color = spriteRenderer.getColor();
         Vector2f position = transform.getPosition();
         Vector2f scale = transform.getScale();
@@ -139,6 +147,11 @@ public class RenderBatch {
             vertexArray[offset + 4] = color.z;
             vertexArray[offset + 5] = color.w;;
 
+            vertexArray[offset + 6] = texCords[j].x;
+            vertexArray[offset + 7] = texCords[j].y;
+
+            vertexArray[offset + 8] = spriteRenderer.getRenderID();;
+
             offset += pointSizeFloat;
         }
     }
@@ -148,8 +161,17 @@ public class RenderBatch {
         spriteListToRender[index] = spriteRenderer;
         if(spriteCount + 1 >= maxBathSize) hasRoom = false;
 
+        if(spriteRenderer.hasTexture() && spriteRenderer.isIDDefault()) {
+            if(!textureList.contains(spriteRenderer.getTexture())){
+                int id = textureList.size() + 1;
+                spriteRenderer.setRenderID(id);
+                textureList.add(spriteRenderer.getTexture());
+            }
+        }
+
         loadVertexArray(index);
         spriteCount++;
+
        // printPointsValues();
     }
 
@@ -163,12 +185,15 @@ public class RenderBatch {
         defaultShader.use();
         defaultShader.uploadValue("uProjection", camera.getUProjection());
         defaultShader.uploadValue("uView", camera.getUView());
+        defaultShader.uploadValue("uTextures", uTextures);
 
+        activeAndBindTextures();
         glBindVertexArray(VAO);
         enableAttribArrays();
 
         glDrawElements(GL_TRIANGLES, spriteCount * pointsIn2Triangles, GL_UNSIGNED_INT, 0);
 
+        unbindTextures();
         disableAttribArrays();
         glBindVertexArray(0);
         defaultShader.detach();
@@ -186,13 +211,26 @@ public class RenderBatch {
         }
     }
 
+    public void activeAndBindTextures(){
+        for(int i = 0; i < textureList.size(); i++){
+            glActiveTexture(GL_TEXTURE0 + i + 1);
+            textureList.get(i).bind();
+        }
+    }
+
+    public void unbindTextures(){
+        for(int i = 0; i < textureList.size(); i++){
+            textureList.get(i).unbind();
+        }
+    }
+
     public boolean hasRoom(){
         return hasRoom;
     }
 
     public void printPointsValues(){
         System.out.println(spriteCount);
-        for(int i = 1; i < (spriteCount * pointSizeFloat * pointsInSquare) + 1; i++){
+        for(int i = 1; i < ((spriteCount + 1) * pointSizeFloat * pointsInSquare) + 1; i++){
             System.out.print(vertexArray[i - 1] + " ");
             if(i % pointSizeFloat == 0) System.out.println();
             if(i % squareSizeFloat == 0) System.out.println();
