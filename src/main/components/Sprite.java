@@ -1,6 +1,6 @@
 package main.components;
 
-import main.renderer.Texture;
+import main.util.Texture;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
 

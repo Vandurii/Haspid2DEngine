@@ -1,8 +1,9 @@
 package main;
 
-import java.awt.*;
+import main.util.SpriteConfig;
+import org.joml.Vector3f;
 
-import static java.awt.Color.red;
+import java.awt.*;
 
 public class Configuration {
     public static int windowWidth = 960;
@@ -15,13 +16,10 @@ public class Configuration {
     public static String marioImagePath = "assets/images/mario.png";
     public static SpriteConfig firstSpriteSheet = new SpriteConfig("assets/images/spritesheet.png", 16, 16, 26, 0);
 
-    public static float uViewX = 32f * 40;
-    public static float uViewY = 32f * 21;
-    public static float uViewZ = 100f;
-
-    public static float scale = 100f;
+    public static Vector3f uViewDimension = new Vector3f(32 * 40, 32 * 21, 100);
 
     public static int batchSize = 10000;
-
-
+    public static int numberOfPointsInSquare = 4;
+    public static int numberOfPointsIn2Triangles = 6;
+    public static int[]  texturesSlots = {0, 1, 2, 3, 4, 5, 6, 7};
 }

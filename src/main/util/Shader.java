@@ -1,4 +1,4 @@
-package main.renderer;
+package main.util;
 
 import org.joml.*;
 import org.lwjgl.BufferUtils;
@@ -14,40 +14,41 @@ import static org.lwjgl.opengl.GL20.glGetShaderInfoLog;
 
 public class Shader {
 
-    private int shaderProgramID;
-    private String filePath;
-    private String vertexShaderSource, fragmentShaderSource;
     private boolean isUsed;
+    private int shaderProgramID;
+    private final String filePath;
+    private String vertexShaderSource, fragmentShaderSource;
 
-    public Shader(String filePath){
+    protected Shader(String filePath){
         this.filePath = filePath;
         try{
-            String source = new String(Files.readAllBytes(Paths.get(filePath)));
-            String[] splitString = source.split("(#type)( )*([a-zA-Z])*");
-            String eol = "\n";
-            String pattern = ("#type");
-            int length = pattern.length() + 1;
+            String source = new String(Files.readAllBytes(Paths.get(filePath).toAbsolutePath()));
 
-            int startFirst = source.indexOf(pattern) + length;
-            String firstPattern = source.substring(startFirst, source.indexOf(eol));
+            String token = "#type";
+            String regex = token +"( )+[a-zA-Z]*";
+            String[] split = source.split(regex);
 
-            int startSecond = source.indexOf(pattern, source.indexOf(eol)) + length;
-            String secondPattern = source.substring(startSecond, source.indexOf(eol, startSecond));
+            int sIndex = source.indexOf(token) + token.length();
+            int eIndex = source.indexOf("\n");
+            String firstAttrib = source.substring(sIndex, eIndex);
 
-            if(firstPattern.trim().equals("vertexShader") && secondPattern.trim().equals("fragmentShader")){
-                vertexShaderSource = splitString[1];
-                fragmentShaderSource = splitString[2];
-            }else if(firstPattern.trim().equals("fragmentShader") && secondPattern.trim().equals("vertexShader")){
-                fragmentShaderSource = splitString[1];
-                vertexShaderSource = splitString[2];
+            sIndex = source.indexOf(token, eIndex) + token.length();
+            eIndex = source.indexOf("\n", sIndex);
+            String secondAttrib = source.substring(sIndex, eIndex);
+
+            if("fragmentShader".equals(firstAttrib.trim()) && "vertexShader".equals(secondAttrib.trim())){
+                fragmentShaderSource = split[1];
+                vertexShaderSource = split[2];
+            }else if("fragmentShader".equals(secondAttrib.trim()) && "vertexShader".equals(firstAttrib.trim())){
+                fragmentShaderSource = split[2];
+                vertexShaderSource = split[1];
             }else{
-                System.out.println("Unexpected token: ");
-                System.out.println(firstPattern);
-                System.out.println(secondPattern);
+                throw new IllegalStateException("Unable to load shader, unexpected type: " + token);
             }
+
         }catch (IOException e){
-            System.out.println("Unable to open shader file: " + filePath);
             e.printStackTrace();
+            throw new IllegalStateException("Unable to open shader file: " + filePath);
         }
     }
 
@@ -90,6 +91,11 @@ public class Shader {
             System.out.println(glGetShaderInfoLog(shaderProgramID, len));
             throw new IllegalStateException();
         }
+
+        glDeleteShader(vertexShaderID);
+        glDeleteShader(fragmentShaderID);
+        vertexShaderSource = null;
+        fragmentShaderSource = null;
     }
 
     public void use(){

@@ -1,5 +1,6 @@
-package main.renderer;
+package main.util;
 
+import main.util.AssetPool;
 import org.lwjgl.BufferUtils;
 
 import java.nio.ByteBuffer;
@@ -8,12 +9,12 @@ import java.nio.IntBuffer;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.stb.STBImage.*;
 
-public class Texture {
+public class Texture{
     private String filePath;
     private int texID;
     private int width, height;
 
-    public Texture(String filePath){
+    protected Texture(String filePath){
         this.filePath = filePath;
 
         texID = glGenTextures();

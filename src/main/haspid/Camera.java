@@ -19,7 +19,7 @@ public class Camera {
 
     public void adjustProjection(){
         uProjection.identity();
-        uProjection.ortho(0f, uViewX, 0f, uViewY, 0f, uViewZ);
+        uProjection.ortho(0f, uViewDimension.x, 0f, uViewDimension.y, 0f, uViewDimension.z);
     }
 
     public Matrix4f getUView(){

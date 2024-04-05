@@ -1,17 +1,17 @@
 package main.renderer;
 
-import main.components.Sprite;
 import main.components.SpriteRenderer;
 import main.haspid.Camera;
 import main.haspid.Transform;
 import main.haspid.Window;
 
 import main.util.AssetPool;
+import main.util.Shader;
+import main.util.Texture;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 import static main.Configuration.*;
@@ -29,6 +29,7 @@ public class RenderBatch implements Comparable<RenderBatch> {
     private int squareSizeFloat;
     private int pointsIn2Triangles;
 
+    private int zIndex;
     private int VAO, VBO;
     private int maxBathSize;
     private Shader defaultShader;
@@ -42,29 +43,26 @@ public class RenderBatch implements Comparable<RenderBatch> {
     private SpriteRenderer[] spriteListToRender;
 
     private List<Texture> textureList;
-    private int[] uTextures = {0, 1, 2, 3, 4, 5, 6, 7};
-
-    private int zIndex;
+    private int[] uTextures;
 
     public RenderBatch(int maxBathSize, int zIndex){
         System.out.println("Created new render batch: zIndex:" + zIndex);
 
         this.zIndex = zIndex;
         this.textureList = new ArrayList<>();
+        this.uTextures = texturesSlots;
         this.initVertexAttribPointer(false);
 
         this.hasRoom = true;
         this.maxBathSize = maxBathSize;
-        this.attributes = new ArrayList<>();
         this.spriteListToRender = new SpriteRenderer[maxBathSize];
 
-        this.pointsInSquare = 4;
-        this.pointsIn2Triangles = 6;
+        this.pointsInSquare = numberOfPointsInSquare;
+        this.pointsIn2Triangles = numberOfPointsIn2Triangles;
         this.squareSizeFloat = pointsInSquare * pointSizeFloat;
         this.vertexArray = new float[maxBathSize * squareSizeFloat];
         this.vertexArrayBytes = vertexArray.length * Float.BYTES;
 
-        // shader
         this.defaultShader = AssetPool.getShader(defaultShaderPath);
     }
 
@@ -186,22 +184,12 @@ public class RenderBatch implements Comparable<RenderBatch> {
         loadVertexArray(index);
         spriteCount++;
 
-    //    printPointsValues();
+        printPointsValues();
     }
 
     public void render(){
         Camera camera = Window.getInstance().getCurrentScene().getCamera();
-
-        for(int i = 0; i < spriteCount; i++){
-            SpriteRenderer spriteRenderer = spriteListToRender[i];
-            if(spriteRenderer.isDirty()){
-                loadVertexArray(i);
-                spriteRenderer.setClean();
-
-                glBindBuffer(GL_ARRAY_BUFFER, VBO);
-                glBufferSubData(GL_ARRAY_BUFFER, 0, vertexArray);
-            }
-        }
+        reloadIfDirty();
 
         defaultShader.use();
         defaultShader.uploadValue("uProjection", camera.getUProjection());
@@ -218,6 +206,23 @@ public class RenderBatch implements Comparable<RenderBatch> {
         disableAttribArrays();
         glBindVertexArray(0);
         defaultShader.detach();
+    }
+
+    public void reloadIfDirty(){
+        boolean reload = false;
+        for(int i = 0; i < spriteCount; i++){
+            SpriteRenderer spriteRenderer = spriteListToRender[i];
+            if(spriteRenderer.isDirty()){
+                loadVertexArray(i);
+                spriteRenderer.setClean();
+                reload = true;
+            }
+        }
+
+        if(reload){
+            glBindBuffer(GL_ARRAY_BUFFER, VBO);
+            glBufferSubData(GL_ARRAY_BUFFER, 0, vertexArray);
+        }
     }
 
     public void enableAttribArrays(){

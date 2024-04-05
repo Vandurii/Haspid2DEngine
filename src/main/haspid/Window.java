@@ -59,6 +59,7 @@ public class Window {
         glfwSetCursorPosCallback(glfwWindow, MouseListener::cursorPositionCallback);
         glfwSetMouseButtonCallback(glfwWindow, MouseListener::mouseButtonCallback);
         glfwSetScrollCallback(glfwWindow, MouseListener::scrollCallback);
+        glfwSetWindowSizeCallback(glfwWindow, (w, newWidth, newHeight) -> {setWidth(newWidth); setHeight(newHeight);});
 
 //        // Get the thread stack and push a new frame
 //
@@ -91,6 +92,7 @@ public class Window {
         // bindings available for use.
 
         GL.createCapabilities();
+
         glEnable(GL_BLEND);
         glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -141,5 +143,17 @@ public class Window {
 
     public Scene getCurrentScene(){
         return currentScene;
+    }
+
+    public long getGlfwWindow(){
+        return  glfwWindow;
+    }
+
+    public void setWidth(int width){
+        windowWidth = width;
+    }
+
+    public void setHeight(int height){
+        windowHeight = height;
     }
 }

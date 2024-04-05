@@ -1,7 +1,6 @@
-package main.components;
+package main.util;
 
-import main.SpriteConfig;
-import main.renderer.Texture;
+import main.components.Sprite;
 import org.joml.Vector2f;
 
 import java.util.ArrayList;
@@ -12,7 +11,7 @@ public class SpriteSheet {
     private Texture parentTexture;
     private static List<Sprite> spriteList;
 
-    public SpriteSheet(SpriteConfig config){
+    protected SpriteSheet(SpriteConfig config){
         this.spriteList = new ArrayList<>();
         this.parentTexture = config.texture;
 

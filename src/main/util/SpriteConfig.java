@@ -1,6 +1,6 @@
-package main;
+package main.util;
 
-import main.renderer.Texture;
+import main.util.Texture;
 
 public class SpriteConfig {
     public String filePath;
