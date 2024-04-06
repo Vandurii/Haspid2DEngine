@@ -4,7 +4,7 @@ import main.haspid.GameObject;
 
 public abstract class Component {
 
-    private GameObject parentObject;
+    private transient GameObject parentObject;
 
     public void setParent(GameObject gameObject){
         this.parentObject = gameObject;
@@ -13,10 +13,14 @@ public abstract class Component {
 
     public void start(){}
 
-    public abstract void update(float dt);
+    public void update(float dt){}
+
+    public void dearGui(){
+    }
 
     public GameObject getParent(){
         return parentObject;
     }
+
 
 }

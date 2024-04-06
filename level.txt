@@ -1,0 +1,110 @@
+[
+  {
+    "name": "red",
+    "transform": {
+      "position": {
+        "x": 200.0,
+        "y": 200.0
+      },
+      "scale": {
+        "x": 300.0,
+        "y": 300.0
+      }
+    },
+    "zIndex": 0,
+    "componentList": [
+      {
+        "Type": "main.components.SpriteRenderer",
+        "Properties": {
+          "sprite": {
+            "texture": {
+              "filePath": "assets/images/red.png",
+              "texID": 3,
+              "width": 256,
+              "height": 256
+            },
+            "texCords": [
+              {
+                "x": 1.0,
+                "y": 1.0
+              },
+              {
+                "x": 1.0,
+                "y": 0.0
+              },
+              {
+                "x": 0.0,
+                "y": 0.0
+              },
+              {
+                "x": 0.0,
+                "y": 1.0
+              }
+            ],
+            "color": {
+              "x": 0.6308725,
+              "y": 0.37682986,
+              "z": 0.37682986,
+              "w": 1.0
+            },
+            "spriteID": 1
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "red",
+    "transform": {
+      "position": {
+        "x": 200.0,
+        "y": 200.0
+      },
+      "scale": {
+        "x": 300.0,
+        "y": 300.0
+      }
+    },
+    "zIndex": 0,
+    "componentList": [
+      {
+        "Type": "main.components.SpriteRenderer",
+        "Properties": {
+          "sprite": {
+            "texture": {
+              "filePath": "assets/images/red.png",
+              "texID": 3,
+              "width": 256,
+              "height": 256
+            },
+            "texCords": [
+              {
+                "x": 1.0,
+                "y": 1.0
+              },
+              {
+                "x": 1.0,
+                "y": 0.0
+              },
+              {
+                "x": 0.0,
+                "y": 0.0
+              },
+              {
+                "x": 0.0,
+                "y": 1.0
+              }
+            ],
+            "color": {
+              "x": 0.12494936,
+              "y": 0.377408,
+              "z": 0.9798658,
+              "w": 1.0
+            },
+            "spriteID": 1
+          }
+        }
+      }
+    ]
+  }
+]

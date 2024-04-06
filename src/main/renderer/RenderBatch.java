@@ -184,7 +184,7 @@ public class RenderBatch implements Comparable<RenderBatch> {
         loadVertexArray(index);
         spriteCount++;
 
-        printPointsValues();
+        //printPointsValues();
     }
 
     public void render(){

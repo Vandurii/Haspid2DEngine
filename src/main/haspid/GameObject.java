@@ -6,10 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameObject {
-    private List<Component> componentList;
+
     private String name;
     private Transform transform;
     private int zIndex;
+    private List<Component> componentList;
 
     public GameObject(String name){
         this.componentList = new ArrayList<>();
@@ -61,6 +62,13 @@ public class GameObject {
             c.update(dt);
         }
     }
+
+    public void dearGui(){
+        for(Component c: componentList){
+            c.dearGui();
+        }
+    }
+
 
     public Transform getTransform(){
         return transform;

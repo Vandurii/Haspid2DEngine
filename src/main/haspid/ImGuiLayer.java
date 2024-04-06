@@ -10,9 +10,10 @@ import imgui.flag.ImGuiConfigFlags;
 import imgui.flag.ImGuiKey;
 import imgui.flag.ImGuiMouseCursor;
 import imgui.gl3.ImGuiImplGl3;
+import main.scene.EditorScene;
+import main.scene.Scene;
 
-import static main.Configuration.windowHeight;
-import static main.Configuration.windowWidth;
+import static main.Configuration.*;
 import static org.lwjgl.glfw.GLFW.*;
 
 public  class ImGuiLayer {
@@ -38,7 +39,7 @@ public  class ImGuiLayer {
         // Initialize ImGuiIO config
         final ImGuiIO io = ImGui.getIO();
 
-        io.setIniFilename(null); // We don't want to save .ini file
+        io.setIniFilename(pathToImGuiConfigFile); // We don't want to save .ini file
         io.setConfigFlags(ImGuiConfigFlags.NavEnableKeyboard); // Navigation with keyboard
         io.setBackendFlags(ImGuiBackendFlags.HasMouseCursors); // Mouse cursors to display while resizing windows etc.
         io.setBackendPlatformName("imgui_java_impl_glfw");
@@ -151,10 +152,13 @@ public  class ImGuiLayer {
     }
 
     public void update(float dt){
+        Scene currentScene = Window.getInstance().getCurrentScene();
+
         startFrame(dt);
 
         ImGui.newFrame();
-        ImGui.showDemoWindow();
+        if (currentScene instanceof EditorScene) ((EditorScene) currentScene).dearGui();
+      //  ImGui.showDemoWindow();
         ImGui.render();
 
         endFrame();

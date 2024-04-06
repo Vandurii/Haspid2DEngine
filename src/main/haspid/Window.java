@@ -28,6 +28,7 @@ public class Window {
         init();
         loop();
 
+        currentScene.save();
         // Free the window callbacks and destroy the window
         glfwFreeCallbacks(glfwWindow);
         glfwDestroyWindow(glfwWindow);

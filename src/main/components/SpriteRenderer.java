@@ -4,9 +4,9 @@ import main.haspid.Transform;
 import org.joml.Vector4f;
 
 public class SpriteRenderer extends Component{
-    private Transform lastTransform;
     private Sprite sprite;
-    private boolean isDirty;
+    private transient boolean isDirty;
+    private  transient Transform lastTransform;
 
     public SpriteRenderer(Sprite sprite){
         this.sprite = sprite;
@@ -23,6 +23,11 @@ public class SpriteRenderer extends Component{
     @Override
     public void start(){
         lastTransform = getParent().getTransform().copy();
+    }
+
+    @Override
+    public void dearGui(){
+        isDirty = sprite.dearGui();
     }
 
     public Sprite getSprite(){
@@ -47,5 +52,9 @@ public class SpriteRenderer extends Component{
 
     public void setClean(){
         isDirty = false;
+    }
+
+    public void setDirty(){
+        isDirty = true;
     }
 }
