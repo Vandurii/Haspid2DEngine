@@ -44,9 +44,7 @@ public abstract class Scene {
     public abstract void init();
 
     public void start(){
-        System.out.println("game");
         for(GameObject gameObject: sceneObjectList){
-            System.out.println(gameObject.getName());
             gameObject.start();
             renderer.add(gameObject);
         }
@@ -119,6 +117,7 @@ public abstract class Scene {
             String data = new String(Files.readAllBytes(Paths.get(levelPath)));
             if(!data.trim().equals("")) {
                 GameObject[] gameObjects = gson.fromJson(data, GameObject[].class);
+                activeGameObject = gameObjects[0];
                 addGameObjectToScene(gameObjects);
             }
         }catch (IOException e){

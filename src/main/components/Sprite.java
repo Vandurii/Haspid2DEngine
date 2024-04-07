@@ -10,8 +10,11 @@ public class Sprite {
     private Vector2f[] texCords;
     private Vector4f color;
     private int spriteID;
+    private transient boolean isDirty;
+    private float width, height;
 
     public Sprite(Vector4f color){
+        this.isDirty = true;
         this.color = color;
         this.texCords = new Vector2f[]{
                 new Vector2f(1, 1),
@@ -22,6 +25,7 @@ public class Sprite {
     }
 
     public Sprite(Texture texture){
+        this.isDirty = true;
         this.texture = texture;
         this.color = new Vector4f(1, 1, 1, 1);
         this.texCords = new Vector2f[]{
@@ -33,11 +37,15 @@ public class Sprite {
     }
 
     public Sprite(Vector4f color, Vector2f[] texCords) {
+        this.isDirty = true;
         this.color = color;
         this.texCords = texCords;
     }
 
-    public Sprite(Texture texture, Vector2f[] texCords){
+    public Sprite(Texture texture, float width, float height, Vector2f[] texCords){
+        this.width = width;
+        this.height = height;
+        this.isDirty = true;
         this.texture = texture;
         this.color = new Vector4f(1, 1, 1, 1);
         this.texCords = texCords;
@@ -68,22 +76,46 @@ public class Sprite {
     }
 
     public void setColor(Vector4f color){
-        this.color = color;
+        if(!this.color.equals(color)) {
+            isDirty = true;
+            this.color = color;
+        }
     }
 
     public Vector4f getColor(){
         return color;
     }
 
-    public boolean dearGui(){
+    public boolean isDirty(){
+        return isDirty;
+    }
 
+    public void setClean(){
+        isDirty = false;
+    }
+
+    public void setDirty(){
+        isDirty = true;
+    }
+
+    public void dearGui(){
         float[] imColor = {color.x, color.y, color.z, color.w};
 
         if(ImGui.colorPicker4("color Picker", imColor)){
             color.set(imColor);
-            return true;
+            isDirty = true;
         }
+    }
 
-        return false;
+    public int getTexID(){
+        return texture.getTexID();
+    }
+
+    public float getWidth(){
+        return  width;
+    }
+
+    public float getHeight(){
+        return  height;
     }
 }

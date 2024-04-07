@@ -3,13 +3,17 @@ package main.scene;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import imgui.ImGui;
+import imgui.ImVec2;
 import main.components.Component;
+import main.components.RigidBody;
 import main.components.Sprite;
 import main.components.SpriteRenderer;
 import main.haspid.*;
+import main.util.SpriteConfig;
 import main.util.SpriteSheet;
 import main.util.AssetPool;
 import org.joml.Vector2f;
+import org.joml.Vector3f;
 import org.joml.Vector4f;
 
 import static main.Configuration.*;
@@ -22,46 +26,18 @@ public class EditorScene extends Scene {
 
     @Override
     public void init() {
-        SpriteSheet spriteSheet = AssetPool.getSpriteSheet(firstSpriteSheet);
         imGuiLayer = new ImGuiLayer(Window.getInstance().getGlfwWindow());
         imGuiLayer.initImGui();
 
         camera = new Camera(new Vector2f(-250, 0));
 
-//        GameObject textureObject = new GameObject("objTex", new Transform(new Vector2f(100f, 100f), new Vector2f(256f, 256f)), 0);
-//        SpriteRenderer tex = new SpriteRenderer(new Sprite(AssetPool.getTexture(marioImagePath)));
-//        textureObject.addComponent(tex);
-//        addGameObjectToScene(textureObject);
-//
-//        GameObject textureObject2 = new GameObject("objTex2", new Transform(new Vector2f(500f, 300), new Vector2f(256f, 256f)), 0);
-//        SpriteRenderer tex2 = new SpriteRenderer(new Sprite(new Vector4f(0, 0, 1, 1)));
-//        //SpriteRenderer tex2 = new SpriteRenderer(new Sprite(new Vector4f(1 ,1 ,1,1)));
-//        textureObject2.addComponent(tex2);
-//        addGameObjectToScene(textureObject2);
-//        activeGameObject = textureObject2;
-//
-//        textureObject3 = new GameObject("objTex3", new Transform(new Vector2f(800f, 300), new Vector2f(256f, 256f)),0 );
-//        SpriteRenderer tex3 = new SpriteRenderer(spriteSheet.getSprite(5));
-//        textureObject3.addComponent(tex3);
-//        addGameObjectToScene(textureObject3);
-//
-//        GameObject green = new GameObject("green", new Transform(new Vector2f(300, 65), new Vector2f(300, 300)), 0);
-//        SpriteRenderer greenR = new SpriteRenderer(new Sprite(AssetPool.getTexture("assets/images/green.png")));
-//        green.addComponent(greenR);
-//        addGameObjectToScene(green);
-
         load();
-
-        GameObject red = new GameObject("red", new Transform(new Vector2f(200, 200), new Vector2f(300, 300)), 0);
-        SpriteRenderer redR = new SpriteRenderer(new Sprite(AssetPool.getTexture("assets/images/red.png")));
-        red.addComponent(redR);
-        addGameObjectToScene(red);
-        activeGameObject = red;
     }
 
     @Override
     public void update(float dt) {
         imGuiLayer.update(dt);
+        System.out.println(MouseListener.getInstance().getOrthoX());
 
         for (GameObject go : getSceneObjectList()) {
             go.update(dt);
@@ -72,6 +48,7 @@ public class EditorScene extends Scene {
     }
 
     public void dearGui(){
+        SpriteSheet properties = AssetPool.getSpriteSheet(new SpriteConfig("assets/images/decorationsAndBlocks.png", 16, 16, 81, 0));
 
         if(activeGameObject != null){
            ImGui.begin("Inspector"); //todo
@@ -79,8 +56,41 @@ public class EditorScene extends Scene {
            ImGui.end(); //todo
         }
 
-        ImGui.begin("Window");
-        ImGui.text("some Text");
+        ImGui.begin("Properties Winow");
+
+        ImVec2 windowPos = new ImVec2();
+        ImGui.getWindowPos(windowPos);
+
+        ImVec2 windowSize = new ImVec2();
+        ImGui.getWindowSize(windowSize);
+
+        ImVec2 itemSpacing = new ImVec2();
+        ImGui.getStyle().getItemSpacing(itemSpacing);
+
+        float window = windowPos.x + windowSize.x;
+
+        for(int i = 0; i < properties.getSize(); i++){
+            Sprite sprite = properties.getSprite(i);
+            float spriteWidth = sprite.getWidth();
+            float spriteHeight = sprite.getHeight();
+            int texID = sprite.getTexID();
+            Vector2f[] cords = sprite.getSpriteCords();
+
+            ImGui.pushID(i);
+            if(ImGui.imageButton(texID, spriteWidth, spriteHeight, cords[0].x, cords[0].y, cords[2].x, cords[2].y)){
+                System.out.println("item click:  " + i);
+            }
+            ImGui.popID();
+
+            ImVec2 lastButton = new ImVec2();
+            ImGui.getItemRectMax(lastButton); // todo
+            float nextButton = lastButton.x + itemSpacing.x + spriteWidth;
+
+            if(nextButton < window){
+                ImGui.sameLine();
+            }
+        }
+
         ImGui.end();
     }
 }

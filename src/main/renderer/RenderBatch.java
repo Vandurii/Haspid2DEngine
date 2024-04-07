@@ -1,7 +1,9 @@
 package main.renderer;
 
+import main.components.Component;
 import main.components.SpriteRenderer;
 import main.haspid.Camera;
+import main.haspid.GameObject;
 import main.haspid.Transform;
 import main.haspid.Window;
 
@@ -166,7 +168,7 @@ public class RenderBatch implements Comparable<RenderBatch> {
         spriteListToRender[index] = spriteRenderer;
         if(spriteCount + 1 >= maxBathSize) hasRoom = false;
 
-        if(spriteRenderer.getSprite().hasTexture() && spriteRenderer.getSprite().isIDDefault()) {
+        if(spriteRenderer.hasSprite() && spriteRenderer.getSprite().hasTexture() && spriteRenderer.getSprite().isIDDefault()) {
             if(!textureList.contains(spriteRenderer.getSprite().getTexture())){
                 int id = textureList.size() + 1;
                 spriteRenderer.getSprite().setSpriteID(id);
@@ -183,7 +185,6 @@ public class RenderBatch implements Comparable<RenderBatch> {
 
         loadVertexArray(index);
         spriteCount++;
-
         //printPointsValues();
     }
 
@@ -210,11 +211,12 @@ public class RenderBatch implements Comparable<RenderBatch> {
 
     public void reloadIfDirty(){
         boolean reload = false;
-        for(int i = 0; i < spriteCount; i++){
+        for(int i = 0; i < spriteCount; i++){;
             SpriteRenderer spriteRenderer = spriteListToRender[i];
-            if(spriteRenderer.isDirty()){
+            if(spriteRenderer.getSprite().isDirty()){
+                System.out.println("reload");
                 loadVertexArray(i);
-                spriteRenderer.setClean();
+                spriteRenderer.getSprite().setClean();
                 reload = true;
             }
         }
@@ -261,7 +263,6 @@ public class RenderBatch implements Comparable<RenderBatch> {
     public boolean hasTextureListRoom(){
         return textureList.size() < 7;
     }
-
 
     public void printPointsValues(){
         System.out.println(spriteCount);

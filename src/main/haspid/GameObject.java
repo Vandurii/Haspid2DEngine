@@ -1,6 +1,7 @@
 package main.haspid;
 
 import main.components.Component;
+import main.components.SpriteRenderer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,10 @@ public class GameObject {
         }
 
         return null;
+    }
+
+    public List<Component> getAllComponent(){
+       return componentList;
     }
 
     public <T extends Component> boolean removeComponent(Class<T> component){

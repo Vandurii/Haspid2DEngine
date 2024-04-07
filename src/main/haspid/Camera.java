@@ -9,17 +9,22 @@ import static main.Configuration.*;
 public class Camera {
     private Matrix4f uProjection, uView;
     private Vector2f position;
+    private Matrix4f inverseUProjection, inverseUView;
 
     public Camera(Vector2f position){
         this.position = position;
         this.uProjection = new Matrix4f();
         this.uView = new Matrix4f();
+        this.inverseUProjection = new Matrix4f();
+        this.inverseUView = new Matrix4f();
         adjustProjection();
     }
 
     public void adjustProjection(){
         uProjection.identity();
-        uProjection.ortho(0f, uViewDimension.x, 0f, uViewDimension.y, 0f, uViewDimension.z);
+        uProjection.ortho(0f, uProjectionDimension.x, 0f, uProjectionDimension.y, 0f, uProjectionDimension.z);
+
+        uProjection.invert(inverseUProjection);
     }
 
     public Matrix4f getUView(){
@@ -41,5 +46,14 @@ public class Camera {
 
     public void setPosition(Vector2f position){
         this.position = position;
+    }
+
+    public Matrix4f getInverseUProjection(){
+        return inverseUProjection;
+    }
+
+    public Matrix4f getInverseUView(){
+        uView.invert(inverseUView); // todo
+        return inverseUView;
     }
 }

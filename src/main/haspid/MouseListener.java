@@ -1,5 +1,9 @@
 package main.haspid;
 
+import org.joml.Vector4f;
+
+import static main.Configuration.windowHeight;
+import static main.Configuration.windowWidth;
 import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
 import static org.lwjgl.glfw.GLFW.GLFW_RELEASE;
 
@@ -54,6 +58,26 @@ public class MouseListener {
         if(instance == null) instance = new MouseListener();
 
         return instance;
+    }
+
+    public double getOrthoX(){
+        Camera cam = Window.getInstance().getCurrentScene().getCamera();
+
+        float currentX = (((float) x) / windowWidth) * 2f - 1f;
+        Vector4f vec4 = new Vector4f(currentX, 0 , 0, 1);
+        vec4 = vec4.mul(cam.getInverseUProjection()).mul(cam.getInverseUView());
+
+        return vec4.x;
+    }
+
+    public double getOrthoY(){
+        Camera cam = Window.getInstance().getCurrentScene().getCamera();
+
+        float currentY = (((float) y) / windowHeight) * 2f - 1f;
+        Vector4f vec4 = new Vector4f(0, currentY , 0, 1);
+        vec4 = vec4.mul(cam.getInverseUProjection()).mul(cam.getInverseUView());
+
+        return vec4.y;
     }
 
     public double getX() {

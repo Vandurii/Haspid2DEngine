@@ -34,7 +34,7 @@ public class SpriteSheet {
             float y0 = row * spriteHeight;;
             float y1 = row * spriteHeight + spriteHeight;
 
-            spriteList.add(new Sprite(parentTexture,  new Vector2f[]{
+            spriteList.add(new Sprite(parentTexture,config.spriteWidth, config.spriteHeight,  new Vector2f[]{
                     new Vector2f(x1, y1),
                     new Vector2f(x1, y0),
                     new Vector2f(x0, y0),
@@ -45,5 +45,9 @@ public class SpriteSheet {
 
     public Sprite getSprite(int index){
         return spriteList.get(index);
+    }
+
+    public int getSize(){
+        return spriteList.size();
     }
 }

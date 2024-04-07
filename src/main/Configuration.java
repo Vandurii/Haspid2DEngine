@@ -20,7 +20,7 @@ public class Configuration {
 
     public static String levelPath = "level.txt";
 
-    public static Vector3f uViewDimension = new Vector3f(32 * 40, 32 * 21, 100);
+    public static Vector3f uProjectionDimension = new Vector3f(32 * 40, 32 * 21, 100);
 
     public static int batchSize = 10000;
     public static int numberOfPointsInSquare = 4;
