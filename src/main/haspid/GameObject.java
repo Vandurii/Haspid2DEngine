@@ -8,16 +8,19 @@ import java.util.List;
 
 public class GameObject {
 
+    private int gameObjectID;
     private String name;
     private Transform transform;
     private int zIndex;
     private List<Component> componentList;
+    private static int ID_COUNTER;
 
     public GameObject(String name){
         this.componentList = new ArrayList<>();
         this.name = name;
         this.transform = new Transform();
         this.zIndex = 0;
+        this.gameObjectID = ++ID_COUNTER;
     }
 
     public GameObject(String name, Transform transform, int zIndex){
@@ -25,6 +28,7 @@ public class GameObject {
         this.transform = transform;
         this.zIndex = zIndex;
         this.name = name;
+        this.gameObjectID = ++ID_COUNTER;
     }
 
     public void addComponent(Component c){
@@ -74,7 +78,6 @@ public class GameObject {
         }
     }
 
-
     public Transform getTransform(){
         return transform;
     }
@@ -86,4 +89,13 @@ public class GameObject {
     public int getzIndex(){
         return zIndex;
     }
+
+    public int getGameObjectID(){
+        return gameObjectID;
+    }
+
+    public int getIDCounter(){
+        return ID_COUNTER;
+    }
+
 }

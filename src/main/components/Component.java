@@ -11,12 +11,13 @@ import java.rmi.MarshalledObject;
 
 public abstract class Component {
 
+    private int componentID;
     private transient GameObject parentObject;
+    private static int ID_COUNTER = -1;
 
-    public void setParent(GameObject gameObject){
-        this.parentObject = gameObject;
+    public Component(){
+        componentID = ++ID_COUNTER;
     }
-
 
     public void start(){}
 
@@ -63,5 +64,24 @@ public abstract class Component {
         return parentObject;
     }
 
+    public void setParent(GameObject gameObject){
+        this.parentObject = gameObject;
+    }
 
+    public int getComponentID(){
+        return componentID;
+    }
+
+    public int getIDCounter(){
+        return ID_COUNTER;
+    }
+
+    public void updateIDCounter(){
+        if(ID_COUNTER >= componentID) throw new IllegalStateException("IDCounter is higher then this component ID! Check if you did create any component before the scene was loaded.");
+        ID_COUNTER = componentID;
+    }
+
+    public static void resetCounter(){
+        ID_COUNTER = -1;
+    }
 }

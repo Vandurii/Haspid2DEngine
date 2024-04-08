@@ -214,7 +214,6 @@ public class RenderBatch implements Comparable<RenderBatch> {
         for(int i = 0; i < spriteCount; i++){;
             SpriteRenderer spriteRenderer = spriteListToRender[i];
             if(spriteRenderer.getSprite().isDirty()){
-                System.out.println("reload");
                 loadVertexArray(i);
                 spriteRenderer.getSprite().setClean();
                 reload = true;

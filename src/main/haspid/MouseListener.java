@@ -73,7 +73,7 @@ public class MouseListener {
     public double getOrthoY(){
         Camera cam = Window.getInstance().getCurrentScene().getCamera();
 
-        float currentY = (((float) y) / windowHeight) * 2f - 1f;
+        float currentY = ((windowHeight - (float) y) / windowHeight) * 2f - 1f;
         Vector4f vec4 = new Vector4f(0, currentY , 0, 1);
         vec4 = vec4.mul(cam.getInverseUProjection()).mul(cam.getInverseUView());
 

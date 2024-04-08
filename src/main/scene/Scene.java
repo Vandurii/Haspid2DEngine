@@ -3,16 +3,13 @@ package main.scene;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import main.components.Component;
-import main.components.SpriteRenderer;
 import main.haspid.Camera;
-import main.haspid.ComponentSerializer;
+import main.components.ComponentSerializer;
 import main.haspid.GameObject;
 import main.haspid.GameObjectDeserializer;
 import main.renderer.Renderer;
 import main.util.AssetPool;
 
-import javax.imageio.IIOException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -21,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static main.Configuration.*;
-import static org.lwjgl.opengl.GL11.GL_MAX_TEXTURE_SIZE;
 import static org.lwjgl.opengl.GL11.glGetIntegerv;
 
 public abstract class Scene {
@@ -33,6 +29,7 @@ public abstract class Scene {
     protected GameObject activeGameObject;
 
     public Scene(){
+        Component.resetCounter();
         loadResources();
 
         sceneObjectList = new ArrayList<>();

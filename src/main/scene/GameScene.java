@@ -5,7 +5,7 @@ import main.scene.Scene;
 public class GameScene extends Scene {
     @Override
     public void update(float dt) {
-       // System.out.println("inside gameScene");
+        System.out.println("inside gameScene");
     }
 
     @Override

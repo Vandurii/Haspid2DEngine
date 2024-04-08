@@ -1,4 +1,4 @@
-package main.haspid;
+package main.components;
 
 import com.google.gson.*;
 import main.components.Component;
@@ -14,7 +14,10 @@ public class ComponentSerializer implements JsonSerializer<Component>, JsonDeser
         JsonElement element = jObject.get("Properties");
 
         try {
-            return jsonDeserializationContext.deserialize(element, Class.forName(clazz));
+            Component component = jsonDeserializationContext.deserialize(element, Class.forName(clazz));
+            component.updateIDCounter();
+
+            return component;
         } catch (ClassNotFoundException e) {
             throw new RuntimeException("Unable to deserialize component: " + clazz);
         }

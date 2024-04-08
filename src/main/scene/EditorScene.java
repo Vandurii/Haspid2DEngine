@@ -4,11 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import imgui.ImGui;
 import imgui.ImVec2;
-import main.components.Component;
-import main.components.RigidBody;
-import main.components.Sprite;
-import main.components.SpriteRenderer;
+import main.components.*;
 import main.haspid.*;
+import main.prefabs.Prefabs;
 import main.util.SpriteConfig;
 import main.util.SpriteSheet;
 import main.util.AssetPool;
@@ -19,6 +17,7 @@ import org.joml.Vector4f;
 import static main.Configuration.*;
 
 public class EditorScene extends Scene {
+    private MouseControls mouseControls;
     private GameObject textureObject3;
     private ImGuiLayer imGuiLayer;
 
@@ -26,18 +25,29 @@ public class EditorScene extends Scene {
 
     @Override
     public void init() {
+//        GameObject red = new GameObject("red", new Transform(new Vector2f(200, 200), new Vector2f(250, 250)), 0);
+//        SpriteRenderer renderer = new SpriteRenderer(new Sprite(new Vector4f(0, 1, 0, 1)));
+//        red.addComponent(renderer);
+//        red.addComponent(new RigidBody(1, 1f, new Vector3f(), new Vector4f()));
+//        addGameObjectToScene(red);
+        load();
+        mouseControls = new MouseControls();
         imGuiLayer = new ImGuiLayer(Window.getInstance().getGlfwWindow());
         imGuiLayer.initImGui();
 
         camera = new Camera(new Vector2f(-250, 0));
 
-        load();
+
+
+
+
     }
 
     @Override
     public void update(float dt) {
         imGuiLayer.update(dt);
-        System.out.println(MouseListener.getInstance().getOrthoX());
+
+        mouseControls.update(dt);
 
         for (GameObject go : getSceneObjectList()) {
             go.update(dt);
@@ -78,7 +88,8 @@ public class EditorScene extends Scene {
 
             ImGui.pushID(i);
             if(ImGui.imageButton(texID, spriteWidth, spriteHeight, cords[0].x, cords[0].y, cords[2].x, cords[2].y)){
-                System.out.println("item click:  " + i);
+                GameObject holdingObject = Prefabs.generateSpriteObject( sprite,  spriteWidth,  spriteHeight);
+                mouseControls.pickupObject(holdingObject);
             }
             ImGui.popID();
 

@@ -26,4 +26,6 @@ public class Configuration {
     public static int numberOfPointsInSquare = 4;
     public static int numberOfPointsIn2Triangles = 6;
     public static int[]  texturesSlots = {0, 1, 2, 3, 4, 5, 6, 7};
+
+    public static int spriteSize = 3;
 }
