@@ -29,6 +29,7 @@ public class Window {
         loop();
 
         currentScene.save();
+        currentScene.end();
         // Free the window callbacks and destroy the window
         glfwFreeCallbacks(glfwWindow);
         glfwDestroyWindow(glfwWindow);
@@ -61,22 +62,6 @@ public class Window {
         glfwSetMouseButtonCallback(glfwWindow, MouseListener::mouseButtonCallback);
         glfwSetScrollCallback(glfwWindow, MouseListener::scrollCallback);
         glfwSetWindowSizeCallback(glfwWindow, (w, newWidth, newHeight) -> {setWidth(newWidth); setHeight(newHeight);});
-
-//        // Get the thread stack and push a new frame
-//
-//        try(MemoryStack stack = stackPush()) {
-//            IntBuffer pWidht = stack.mallocInt(1); //int*
-//            IntBuffer pHeight = stack.mallocInt(1); //int*
-//
-//            // Get the window size passed to glfwCreateWindow
-//            glfwGetWindowSize(windowPtr, pWidht, pHeight);
-//
-//            // Get the resolution of the primary monitor
-//            GLFWVidMode vidMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-//
-//            // Center the window
-//            glfwSetWindowPos(windowPtr, (vidMode.width() - pWidht.get(0)) / 2, (vidMode.height() - pHeight.get(0)) / 2);
-//        }// the stack frame is popped automatically
 
         // Make the OpenGL context current
         glfwMakeContextCurrent(glfwWindow);

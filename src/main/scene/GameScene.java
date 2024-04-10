@@ -12,4 +12,9 @@ public class GameScene extends Scene {
     public void init() {
 
     }
+
+    @Override
+    public void end() {
+
+    }
 }

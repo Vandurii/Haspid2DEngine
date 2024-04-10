@@ -40,6 +40,8 @@ public abstract class Scene {
 
     public abstract void init();
 
+    public abstract void end();
+
     public void start(){
         for(GameObject gameObject: sceneObjectList){
             gameObject.start();

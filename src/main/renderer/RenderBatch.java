@@ -222,7 +222,7 @@ public class RenderBatch implements Comparable<RenderBatch> {
 
         if(reload){
             glBindBuffer(GL_ARRAY_BUFFER, VBO);
-            glBufferSubData(GL_ARRAY_BUFFER, 0, vertexArray);
+            glBufferSubData(GL_ARRAY_BUFFER, 0, vertexArray); // todo copy of range
         }
     }
 
@@ -249,6 +249,10 @@ public class RenderBatch implements Comparable<RenderBatch> {
         for(int i = 0; i < textureList.size(); i++){
             textureList.get(i).unbind();
         }
+    }
+
+    public int getzIndex(){
+        return zIndex;
     }
 
     public boolean hasRoom(){
@@ -287,9 +291,5 @@ public class RenderBatch implements Comparable<RenderBatch> {
             this.name = name;
             this.size = size;
         }
-    }
-
-    public int getzIndex(){
-        return zIndex;
     }
 }
