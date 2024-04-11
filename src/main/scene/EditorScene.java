@@ -13,8 +13,7 @@ import main.util.SpriteConfig;
 import main.util.SpriteSheet;
 import main.util.AssetPool;
 import org.joml.Vector2f;
-import org.joml.Vector3f;
-import org.joml.Vector4f;
+
 
 import static main.Configuration.*;
 
@@ -30,19 +29,35 @@ public class EditorScene extends Scene {
     @Override
     public void init() {
         load();
-        decorationAndBlocks = AssetPool.getSpriteSheet(decorationAndBlockConfig);
+
         mouseControls = new MouseControls();
+
         imGuiLayer = new ImGuiLayer(Window.getInstance().getGlfwWindow());
         imGuiLayer.init(new Configuration());
 
         camera = new Camera(new Vector2f(-250, 0));
+
+
+        AssetPool.getTexture(marioImagePath);
+        decorationAndBlocks = AssetPool.getSpriteSheet(decorationAndBlockConfig);
+
+//
+//        GameObject g1 = new GameObject("1", new Transform(new Vector2f(250, 250), new Vector2f(250, 250)), 0);
+//        g1.addComponent(new SpriteRenderer(new Sprite(AssetPool.getTexture(marioImagePath))));
+//
+//        GameObject g2 = new GameObject("2", new Transform(new Vector2f(600, 250), new Vector2f(250, 250)), 0);
+//        g2.addComponent(new SpriteRenderer(new Sprite(AssetPool.getTexture(marioImagePath))));
+//
+//        GameObject g3 = new GameObject("3", new Transform(new Vector2f(900, 250), new Vector2f(250, 250)), 0);
+//        g3.addComponent(new SpriteRenderer(new Sprite(AssetPool.getTexture(marioImagePath))));
+//
+//        addGameObjectToScene(g1, g2, g3);
     }
 
     @Override
     public void update(float dt) {
         dearGui();
         mouseControls.update(dt);
-        Window.getInstance().getFrameBuffer().bind();
         DebugDraw.draw();
         DebugDraw.drawBoxes2D(new Vector2f(10, 500), new Vector2f(100, 200), c, colorBlue);
         DebugDraw.drawCircle2D(new Vector2f(600, 500), 50);
@@ -52,6 +67,8 @@ public class EditorScene extends Scene {
         }
 
         getRenderer().render();
+        Window.getInstance().getFrameBuffer().bind();
+       // AssetPool.printResources();
     }
 
     public void dearGui(){
@@ -97,6 +114,7 @@ public class EditorScene extends Scene {
                 ImGui.sameLine();
             }
         }
+        ImGui.end();
         ImGui.end();
 
         imGuiLayer.endFrame();

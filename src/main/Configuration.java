@@ -38,3 +38,6 @@ public class Configuration {
     public static Vector4f colorGreenAlpha = new Vector4f(0, 1, 0, 1);
     public static Vector4f colorBlueAlpha = new Vector4f(0, 0, 1, 1);
 }
+
+
+//

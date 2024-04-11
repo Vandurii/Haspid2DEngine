@@ -1,7 +1,9 @@
 package main.components;
 
 import com.google.gson.*;
+import jdk.dynalink.linker.LinkerServices;
 import main.components.Component;
+import main.util.AssetPool;
 
 import java.lang.reflect.Type;
 
@@ -16,6 +18,12 @@ public class ComponentSerializer implements JsonSerializer<Component>, JsonDeser
         try {
             Component component = jsonDeserializationContext.deserialize(element, Class.forName(clazz));
             component.updateIDCounter();
+
+            if(component instanceof  SpriteRenderer){
+                SpriteRenderer spriteRenderer = (SpriteRenderer) component;
+                String filePath = spriteRenderer.getSprite().getTexture().getFilePath();
+                spriteRenderer.getSprite().setTexture(AssetPool.getTexture(filePath));
+            }
 
             return component;
         } catch (ClassNotFoundException e) {

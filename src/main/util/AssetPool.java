@@ -36,4 +36,19 @@ public class AssetPool{
 
             return spriteSheetList.get(resourceName);
     }
+
+    public static void printResources(){
+        System.out.println("*********************");
+        System.out.println("Total: " + (shaders.size() + textures.size() + spriteSheetList.size()));
+        System.out.println("Shaders: " + shaders.size());
+        System.out.print(shaders.keySet());
+        System.out.println();
+        System.out.println("Textures: " + textures.size());
+        System.out.print(textures.keySet());
+        System.out.println();
+        System.out.println("SpriteSheets: " + spriteSheetList.size());
+        System.out.print(spriteSheetList.keySet());
+        System.out.println("\n\n\n\n\n");
+    }
+
 }

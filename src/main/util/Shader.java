@@ -138,4 +138,8 @@ public class Shader {
             throw new IllegalStateException("Unexpected value in shader class uploadValue method");
         }
     }
+
+    public String getFilePath(){
+        return  filePath;
+    }
 }

@@ -1,11 +1,20 @@
 package main.haspid;
 
 import imgui.ImGui;
+import imgui.ImGuiIO;
+import imgui.ImGuiWindowClass;
 import imgui.app.Configuration;
+import imgui.flag.ImGuiCond;
 import imgui.flag.ImGuiConfigFlags;
+import imgui.flag.ImGuiStyleVar;
+import imgui.flag.ImGuiWindowFlags;
 import imgui.gl3.ImGuiImplGl3;
 import imgui.glfw.ImGuiImplGlfw;
+import imgui.type.ImBoolean;
 import org.lwjgl.glfw.GLFW;
+
+import static main.Configuration.windowHeight;
+import static main.Configuration.windowWidth;
 
 public class ImGuiLayer {
     private long glfwWindow;
@@ -24,11 +33,30 @@ public class ImGuiLayer {
 
     private void initImGui(final Configuration config) {
         ImGui.createContext();
+        ImGuiIO io = ImGui.getIO();
+        io.addConfigFlags(ImGuiConfigFlags.DockingEnable);;
     }
 
     public void startFrame() {
         imGuiGlfw.newFrame();
         ImGui.newFrame();
+        setupDockSpace();
+    }
+
+    private void setupDockSpace(){
+        int windowFlags = ImGuiWindowFlags.MenuBar | ImGuiWindowFlags.NoDocking;
+
+        ImGui.setNextWindowPos(0f, 0f, ImGuiCond.Always);
+        ImGui.setNextWindowSize(windowWidth, windowHeight);
+        ImGui.pushStyleVar(ImGuiStyleVar.WindowRounding, 0f);
+        ImGui.pushStyleVar(ImGuiStyleVar.WindowBorderSize, 0f);
+        windowFlags |= ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoResize
+                | ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoBringToFrontOnFocus | ImGuiWindowFlags.NoNavFocus;
+
+        ImGui.begin("DockSpace", new ImBoolean(true), windowFlags);
+        ImGui.popStyleVar(2);
+
+        ImGui.dockSpace(ImGui.getID("DockSpace"));
     }
 
     public void endFrame() {

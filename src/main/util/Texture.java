@@ -78,4 +78,8 @@ public class Texture{
     public int getTexID(){
         return texID;
     }
+
+    public String getFilePath(){
+        return filePath;
+    }
 }
