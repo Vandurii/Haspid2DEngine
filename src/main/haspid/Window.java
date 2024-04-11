@@ -1,5 +1,6 @@
 package main.haspid;
 
+import main.renderer.FrameBuffer;
 import main.scene.EditorScene;
 import main.scene.GameScene;
 import main.scene.Scene;
@@ -20,6 +21,7 @@ public class Window {
 
     private static long glfwWindow;
     private static Scene currentScene;
+    private static FrameBuffer frameBuffer;
 
     private Window(){}
 
@@ -65,15 +67,8 @@ public class Window {
         glfwSetWindowSizeCallback(glfwWindow, (w, newWidth, newHeight) -> {
             setWidth(newWidth);
             setHeight(newHeight);
-            glViewport(0, 0, windowWidth,windowHeight);
+            //glViewport(0, 0, windowWidth,windowHeight);
         });
-
-//        glfwSetWindowSizeCallback(glfwWindow, new GLFWWindowSizeCallback() {
-//            @Override
-//            public void invoke(long window, int argWidth, int argHeight) {
-//                resizeWindow(argWidth, argHeight);
-//            }
-//        });
 
         // Make the OpenGL context current
         glfwMakeContextCurrent(glfwWindow);
@@ -94,6 +89,7 @@ public class Window {
         glEnable(GL_BLEND);
         glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 
+        frameBuffer = new FrameBuffer(1920, 1080);
         changeScene(new EditorScene());
     }
 
@@ -116,6 +112,7 @@ public class Window {
             lastFrameTime = beginTime;
             //System.out.println(1 / deltaTime + "FPS");
             currentScene.update(deltaTime);
+            frameBuffer.unBind();
 
             glfwSwapBuffers(glfwWindow); // swap the color buffers
 
@@ -153,5 +150,9 @@ public class Window {
 
     public void setHeight(int height){
         windowHeight = height;
+    }
+
+    public FrameBuffer getFrameBuffer(){
+        return  frameBuffer;
     }
 }

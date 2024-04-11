@@ -7,12 +7,22 @@ import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL30.*;
 import static org.lwjgl.stb.STBImage.*;
 
 public class Texture{
     private String filePath;
     private int texID;
     private int width, height;
+
+    public Texture(int width, int height){
+        this.filePath = "Generated";
+
+        texID = glGenTextures();
+        glBindTexture(GL_TEXTURE_2D, texID);
+
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, 0);
+    }
 
     protected Texture(String filePath){
         this.filePath = filePath;

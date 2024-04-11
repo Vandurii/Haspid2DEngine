@@ -42,12 +42,11 @@ public class EditorScene extends Scene {
     public void update(float dt) {
         dearGui();
         mouseControls.update(dt);
-
+        Window.getInstance().getFrameBuffer().bind();
         DebugDraw.draw();
         DebugDraw.drawBoxes2D(new Vector2f(10, 500), new Vector2f(100, 200), c, colorBlue);
         DebugDraw.drawCircle2D(new Vector2f(600, 500), 50);
         DebugDraw.addLine2D(new Vector2f(c++, 100), new Vector2f(800, 800));
-
         for (GameObject go : getSceneObjectList()) {
             go.update(dt);
         }
