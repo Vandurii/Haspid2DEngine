@@ -1,11 +1,15 @@
 package main.components;
 
 import main.haspid.*;
+import main.util.AssetPool;
+import main.util.Texture;
 import org.joml.Vector2f;
+import org.joml.Vector4f;
 import org.lwjgl.glfw.GLFW;
 
 import java.sql.SQLOutput;
 
+import static main.Configuration.marioImagePath;
 import static org.lwjgl.glfw.GLFW.GLFW_MOUSE_BUTTON_1;
 
 public class MouseControls extends Component implements Helper {

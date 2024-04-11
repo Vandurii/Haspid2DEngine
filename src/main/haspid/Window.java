@@ -5,6 +5,7 @@ import main.scene.GameScene;
 import main.scene.Scene;
 import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
+import org.lwjgl.glfw.GLFWWindowSizeCallback;
 import org.lwjgl.opengl.GL;
 
 import static main.Configuration.*;
@@ -61,7 +62,18 @@ public class Window {
         glfwSetCursorPosCallback(glfwWindow, MouseListener::cursorPositionCallback);
         glfwSetMouseButtonCallback(glfwWindow, MouseListener::mouseButtonCallback);
         glfwSetScrollCallback(glfwWindow, MouseListener::scrollCallback);
-        glfwSetWindowSizeCallback(glfwWindow, (w, newWidth, newHeight) -> {setWidth(newWidth); setHeight(newHeight);});
+        glfwSetWindowSizeCallback(glfwWindow, (w, newWidth, newHeight) -> {
+            setWidth(newWidth);
+            setHeight(newHeight);
+            glViewport(0, 0, windowWidth,windowHeight);
+        });
+
+//        glfwSetWindowSizeCallback(glfwWindow, new GLFWWindowSizeCallback() {
+//            @Override
+//            public void invoke(long window, int argWidth, int argHeight) {
+//                resizeWindow(argWidth, argHeight);
+//            }
+//        });
 
         // Make the OpenGL context current
         glfwMakeContextCurrent(glfwWindow);

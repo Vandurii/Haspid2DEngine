@@ -1,9 +1,15 @@
 package main.components;
 
 import imgui.ImGui;
+import main.haspid.GameObject;
+import main.haspid.Transform;
+import main.haspid.Window;
+import main.util.AssetPool;
 import main.util.Texture;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
+
+import static main.Configuration.marioImagePath;
 
 public class Sprite {
     private Texture texture;

@@ -1,4 +1,4 @@
-package main.Haspid;
+package main.haspid;
 
 import imgui.ImGui;
 import imgui.app.Configuration;

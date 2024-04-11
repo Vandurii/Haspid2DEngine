@@ -14,6 +14,7 @@ import org.joml.Vector2f;
 import org.joml.Vector4f;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static main.Configuration.*;
@@ -168,17 +169,19 @@ public class RenderBatch implements Comparable<RenderBatch> {
         spriteListToRender[index] = spriteRenderer;
         if(spriteCount + 1 >= maxBathSize) hasRoom = false;
 
-        if(spriteRenderer.hasSprite() && spriteRenderer.getSprite().hasTexture() && spriteRenderer.getSprite().isIDDefault()) {
+        if(spriteRenderer.hasSprite() && spriteRenderer.getSprite().hasTexture() ) {
             if(!textureList.contains(spriteRenderer.getSprite().getTexture())){
                 int id = textureList.size() + 1;
                 spriteRenderer.getSprite().setSpriteID(id);
                 textureList.add(spriteRenderer.getSprite().getTexture());
             }else {
-                for(int i = 0; i < textureList.size(); i++){
-                    Texture texture = textureList.get(i);
-                   if(texture.equals(spriteRenderer.getSprite().getTexture())){
-                       spriteRenderer.getSprite().setSpriteID(i + 1);
-                   }
+                if(spriteRenderer.getSprite().isIDDefault()) {
+                    for (int i = 0; i < textureList.size(); i++) {
+                        Texture texture = textureList.get(i);
+                        if (texture.equals(spriteRenderer.getSprite().getTexture())) {
+                            spriteRenderer.getSprite().setSpriteID(i + 1);
+                        }
+                    }
                 }
             }
         }
@@ -222,7 +225,7 @@ public class RenderBatch implements Comparable<RenderBatch> {
 
         if(reload){
             glBindBuffer(GL_ARRAY_BUFFER, VBO);
-            glBufferSubData(GL_ARRAY_BUFFER, 0, vertexArray); // todo copy of range
+            glBufferSubData(GL_ARRAY_BUFFER, 0, Arrays.copyOfRange(vertexArray, 0, spriteCount * squareSizeFloat));
         }
     }
 
@@ -268,14 +271,12 @@ public class RenderBatch implements Comparable<RenderBatch> {
     }
 
     public void printPointsValues(){
-        System.out.println(spriteCount);
+        System.out.println("**** " + spriteCount + " ****");
         for(int i = 1; i < ((spriteCount + 1) * pointSizeFloat * pointsInSquare) + 1; i++){
             System.out.print(vertexArray[i - 1] + " ");
             if(i % pointSizeFloat == 0) System.out.println();
             if(i % squareSizeFloat == 0) System.out.println();
         }
-        System.out.println();
-        System.out.println("*****************************");
     }
 
     @Override

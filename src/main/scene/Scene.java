@@ -3,6 +3,7 @@ package main.scene;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import main.components.Component;
+import main.components.SpriteRenderer;
 import main.haspid.Camera;
 import main.components.ComponentSerializer;
 import main.haspid.GameObject;
@@ -59,8 +60,9 @@ public abstract class Scene {
         }
     }
 
-    public void addGameObjectToScene(GameObject ...gameObjects){
+    public void addGameObjectToScene(GameObject ...gameObjects){;
         for(GameObject gameObject: gameObjects) {
+
             sceneObjectList.add(gameObject);
 
             if (isRunning) {

@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder;
 import imgui.ImGui;
 import imgui.ImVec2;
 import imgui.app.Configuration;
-import main.Haspid.ImGuiLayer;
 import main.components.*;
 import main.haspid.*;
 import main.prefabs.Prefabs;
@@ -23,8 +22,8 @@ public class EditorScene extends Scene {
     private MouseControls mouseControls;
     private GameObject textureObject3;
     private ImGuiLayer imGuiLayer;
-    SpriteSheet decorationAndBlocks;
-
+    private SpriteSheet decorationAndBlocks;
+    private int c;
 
     public EditorScene() {}
 
@@ -32,13 +31,6 @@ public class EditorScene extends Scene {
     public void init() {
         load();
         decorationAndBlocks = AssetPool.getSpriteSheet(decorationAndBlockConfig);
-
-//        GameObject red = new GameObject("red", new Transform(new Vector2f(200, 200), new Vector2f(250, 250)), 0);
-//        SpriteRenderer renderer = new SpriteRenderer(new Sprite(new Vector4f(0, 1, 0, 1)));
-//        red.addComponent(renderer);
-//        red.addComponent(new RigidBody(1, 1f, new Vector3f(), new Vector4f()));
-//        addGameObjectToScene(red);
-
         mouseControls = new MouseControls();
         imGuiLayer = new ImGuiLayer(Window.getInstance().getGlfwWindow());
         imGuiLayer.init(new Configuration());
@@ -52,9 +44,9 @@ public class EditorScene extends Scene {
         mouseControls.update(dt);
 
         DebugDraw.draw();
-        DebugDraw.addLine2D(new Vector3f(100, 100, 0), new Vector3f(800, 800, 1));
-        DebugDraw.addLine2D(new Vector3f(500, 100, 1), new Vector3f(100, 800, 1));
-        DebugDraw.addLine2D(new Vector3f(100, 100, 1), new Vector3f(300, 800, 1));
+        DebugDraw.drawBoxes2D(new Vector2f(10, 500), new Vector2f(100, 200), c, colorBlue);
+        DebugDraw.drawCircle2D(new Vector2f(600, 500), 50);
+        DebugDraw.addLine2D(new Vector2f(c++, 100), new Vector2f(800, 800));
 
         for (GameObject go : getSceneObjectList()) {
             go.update(dt);
