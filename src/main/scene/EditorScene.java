@@ -1,15 +1,14 @@
 package main.scene;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import imgui.ImGui;
 import imgui.ImVec2;
 import imgui.app.Configuration;
+import main.Editor.MouseControls;
+import main.Editor.ViewPort;
 import main.components.*;
 import main.haspid.*;
 import main.prefabs.Prefabs;
 import main.renderer.DebugDraw;
-import main.util.SpriteConfig;
 import main.util.SpriteSheet;
 import main.util.AssetPool;
 import org.joml.Vector2f;
@@ -29,6 +28,8 @@ public class EditorScene extends Scene {
     @Override
     public void init() {
         load();
+        AssetPool.getTexture(marioImagePath);
+        decorationAndBlocks = AssetPool.getSpriteSheet(decorationAndBlockConfig);
 
         mouseControls = new MouseControls();
 
@@ -36,27 +37,10 @@ public class EditorScene extends Scene {
         imGuiLayer.init(new Configuration());
 
         camera = new Camera(new Vector2f(-250, 0));
-
-
-        AssetPool.getTexture(marioImagePath);
-        decorationAndBlocks = AssetPool.getSpriteSheet(decorationAndBlockConfig);
-
-//
-//        GameObject g1 = new GameObject("1", new Transform(new Vector2f(250, 250), new Vector2f(250, 250)), 0);
-//        g1.addComponent(new SpriteRenderer(new Sprite(AssetPool.getTexture(marioImagePath))));
-//
-//        GameObject g2 = new GameObject("2", new Transform(new Vector2f(600, 250), new Vector2f(250, 250)), 0);
-//        g2.addComponent(new SpriteRenderer(new Sprite(AssetPool.getTexture(marioImagePath))));
-//
-//        GameObject g3 = new GameObject("3", new Transform(new Vector2f(900, 250), new Vector2f(250, 250)), 0);
-//        g3.addComponent(new SpriteRenderer(new Sprite(AssetPool.getTexture(marioImagePath))));
-//
-//        addGameObjectToScene(g1, g2, g3);
     }
 
     @Override
     public void update(float dt) {
-        dearGui();
         mouseControls.update(dt);
         DebugDraw.draw();
         DebugDraw.drawBoxes2D(new Vector2f(10, 500), new Vector2f(100, 200), c, colorBlue);
@@ -67,12 +51,14 @@ public class EditorScene extends Scene {
         }
 
         getRenderer().render();
-        Window.getInstance().getFrameBuffer().bind();
+        Window.getInstance().getFrameBuffer().unBind();
+        dearGui();
        // AssetPool.printResources();
     }
 
     public void dearGui(){
         imGuiLayer.startFrame();
+        ViewPort.displayViewPort();
 
         if(activeGameObject != null){
            ImGui.begin("Inspector");

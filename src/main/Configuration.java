@@ -7,8 +7,11 @@ import org.joml.Vector4f;
 import java.awt.*;
 
 public class Configuration {
+    public static float aspectRatio = 16f / 9f;
     public static int windowWidth = 960;
     public static int windowHeight = 540;
+    public static int viewPortWidth = 0;
+    public static int viewPortHeight = 0;
     public static String windowTitle = "Haspid";
     public static Color clearColor = new Color(60, 60, 60, 1);
 

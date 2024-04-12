@@ -67,7 +67,7 @@ public class Window {
         glfwSetWindowSizeCallback(glfwWindow, (w, newWidth, newHeight) -> {
             setWidth(newWidth);
             setHeight(newHeight);
-            //glViewport(0, 0, windowWidth,windowHeight);
+          //  glViewport(0, 0, windowWidth,windowHeight);
         });
 
         // Make the OpenGL context current
@@ -89,7 +89,7 @@ public class Window {
         glEnable(GL_BLEND);
         glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 
-        frameBuffer = new FrameBuffer(1920, 1080);
+        frameBuffer = new FrameBuffer(windowWidth, windowHeight);
         changeScene(new EditorScene());
     }
 
@@ -98,9 +98,10 @@ public class Window {
 
         // Run the rendering loop until the user has attempted to close the window.
         while(!glfwWindowShouldClose(glfwWindow)){
+            frameBuffer.bind();
+
             // Poll for window events. The key callback above wil only be invoked during this call
             glfwPollEvents();
-
             // Set the clear color
             glClearColor(clearColor.getRed() / 255f, clearColor.getGreen() / 255f, clearColor.getBlue() / 255f, clearColor.getAlpha());
 
@@ -112,7 +113,7 @@ public class Window {
             lastFrameTime = beginTime;
             //System.out.println(1 / deltaTime + "FPS");
             currentScene.update(deltaTime);
-            frameBuffer.unBind();
+         //   frameBuffer.unBind();
 
             glfwSwapBuffers(glfwWindow); // swap the color buffers
 

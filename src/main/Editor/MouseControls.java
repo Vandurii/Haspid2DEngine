@@ -1,5 +1,6 @@
-package main.components;
+package main.Editor;
 
+import main.components.Component;
 import main.haspid.*;
 import main.util.AssetPool;
 import main.util.Texture;
