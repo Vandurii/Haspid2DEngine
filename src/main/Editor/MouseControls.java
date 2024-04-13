@@ -10,6 +10,7 @@ import org.lwjgl.glfw.GLFW;
 
 import java.sql.SQLOutput;
 
+import static main.Configuration.gridSize;
 import static main.Configuration.marioImagePath;
 import static org.lwjgl.glfw.GLFW.GLFW_MOUSE_BUTTON_1;
 
@@ -30,7 +31,10 @@ public class MouseControls extends Component implements Helper {
         MouseListener mouse = MouseListener.getInstance();
 
         if(isNotNull(holdingObject)){
-            holdingObject.getTransform().setPosition(new Vector2f((float) mouse.getOrthoX() - 16, (float) mouse.getOrthoY() - 16));
+            int  objectX = (int)(mouse.getOrthoX() / gridSize) * gridSize;
+            int  objectY = (int)(mouse.getOrthoY() / gridSize) * gridSize;
+
+            holdingObject.getTransform().setPosition(new Vector2f(objectX, objectY));
             if(mouse.isButtonPressed(GLFW_MOUSE_BUTTON_1)){
                 place();
             }

@@ -116,7 +116,7 @@ public abstract class Scene {
 
         try{
             String data = new String(Files.readAllBytes(Paths.get(levelPath)));
-            if(!data.trim().equals("")) {
+            if(!data.trim().isEmpty() && !data.trim().equals("[]")) {
                 GameObject[] gameObjects = gson.fromJson(data, GameObject[].class);
                 activeGameObject = gameObjects[0];
                 addGameObjectToScene(gameObjects);

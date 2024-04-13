@@ -27,6 +27,7 @@ public class DebugDraw {
     private static int lineSizeFloat;
     private static ArrayList<Line2D> linesList;
     private static Shader line2DShader;
+    static float[] cVertexArray;
 
     private static void start(){
         maxLines = 500;
@@ -50,7 +51,7 @@ public class DebugDraw {
         glVertexAttribPointer(0, 3, GL_FLOAT, false, pointSizeFloat * Float.BYTES, 0);
         glVertexAttribPointer(1, 3, GL_FLOAT, false, pointSizeFloat * Float.BYTES, 3 * Float.BYTES);
 
-        glLineWidth(2);
+        glLineWidth(1);
         started = true;
     }
 
@@ -88,7 +89,8 @@ public class DebugDraw {
         }
 
         glBindBuffer(GL_ARRAY_BUFFER, VBO);
-        glBufferSubData(GL_ARRAY_BUFFER, 0, Arrays.copyOfRange(vertexArray, 0,  linesList.size() * lineSizeFloat));
+        cVertexArray = Arrays.copyOfRange(vertexArray, 0,  linesList.size() * lineSizeFloat);
+        glBufferSubData(GL_ARRAY_BUFFER, 0, cVertexArray);
 
         Camera camera = Window.getInstance().getCurrentScene().getCamera();
         line2DShader.use();
@@ -179,7 +181,6 @@ public class DebugDraw {
         }
     }
 
-
     public static void rotate(Vector2f vec, float angleDeg, Vector2f origin) {
         float x = vec.x - origin.x;
         float y = vec.y - origin.y;
@@ -195,5 +196,10 @@ public class DebugDraw {
 
         vec.x = xPrime;
         vec.y = yPrime;
+    }
+
+    public static void printValues() {
+        System.out.println("******************");
+        System.out.println(Arrays.toString(cVertexArray));
     }
 }

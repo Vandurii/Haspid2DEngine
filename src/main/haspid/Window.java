@@ -1,18 +1,25 @@
 package main.haspid;
 
+import main.renderer.DebugDraw;
 import main.renderer.FrameBuffer;
 import main.scene.EditorScene;
 import main.scene.GameScene;
 import main.scene.Scene;
 import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
+import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.glfw.GLFWWindowSizeCallback;
 import org.lwjgl.opengl.GL;
+import org.lwjgl.system.MemoryStack;
 
+import java.nio.IntBuffer;
+
+import static java.awt.SystemColor.window;
 import static main.Configuration.*;
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.system.MemoryStack.stackPush;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 public class Window {
@@ -68,6 +75,7 @@ public class Window {
             setWidth(newWidth);
             setHeight(newHeight);
           //  glViewport(0, 0, windowWidth,windowHeight);
+         //   DebugDraw.printValues();
         });
 
         // Make the OpenGL context current
@@ -113,7 +121,6 @@ public class Window {
             lastFrameTime = beginTime;
             //System.out.println(1 / deltaTime + "FPS");
             currentScene.update(deltaTime);
-         //   frameBuffer.unBind();
 
             glfwSwapBuffers(glfwWindow); // swap the color buffers
 

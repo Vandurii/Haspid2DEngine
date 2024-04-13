@@ -21,12 +21,14 @@ public class EditorScene extends Scene {
     private GameObject textureObject3;
     private ImGuiLayer imGuiLayer;
     private SpriteSheet decorationAndBlocks;
+    private GridLines gridLines;
     private int c;
 
     public EditorScene() {}
 
     @Override
     public void init() {
+        gridLines = new GridLines();
         load();
         AssetPool.getTexture(marioImagePath);
         decorationAndBlocks = AssetPool.getSpriteSheet(decorationAndBlockConfig);
@@ -36,16 +38,13 @@ public class EditorScene extends Scene {
         imGuiLayer = new ImGuiLayer(Window.getInstance().getGlfwWindow());
         imGuiLayer.init(new Configuration());
 
-        camera = new Camera(new Vector2f(-250, 0));
+        camera = new Camera(new Vector2f(0, 0));
     }
 
     @Override
     public void update(float dt) {
         mouseControls.update(dt);
         DebugDraw.draw();
-        DebugDraw.drawBoxes2D(new Vector2f(10, 500), new Vector2f(100, 200), c, colorBlue);
-        DebugDraw.drawCircle2D(new Vector2f(600, 500), 50);
-        DebugDraw.addLine2D(new Vector2f(c++, 100), new Vector2f(800, 800));
         for (GameObject go : getSceneObjectList()) {
             go.update(dt);
         }
@@ -53,6 +52,7 @@ public class EditorScene extends Scene {
         getRenderer().render();
         Window.getInstance().getFrameBuffer().unBind();
         dearGui();
+        gridLines.update(dt);
        // AssetPool.printResources();
     }
 
