@@ -8,6 +8,7 @@ import main.haspid.Transform;
 import main.haspid.Window;
 
 import main.util.AssetPool;
+import main.util.Attribute;
 import main.util.Shader;
 import main.util.Texture;
 import org.joml.Vector2f;
@@ -35,7 +36,6 @@ public class RenderBatch implements Comparable<RenderBatch> {
     private int zIndex;
     private int VAO, VBO;
     private int maxBathSize;
-    private Shader defaultShader;
     private ArrayList<Attribute> attributes;
 
     private float[] vertexArray;
@@ -65,8 +65,6 @@ public class RenderBatch implements Comparable<RenderBatch> {
         this.squareSizeFloat = pointsInSquare * pointSizeFloat;
         this.vertexArray = new float[maxBathSize * squareSizeFloat];
         this.vertexArrayBytes = vertexArray.length * Float.BYTES;
-
-        this.defaultShader = AssetPool.getShader(defaultShaderPath);
     }
 
     public void start(){
@@ -94,6 +92,7 @@ public class RenderBatch implements Comparable<RenderBatch> {
         attributes.add(new Attribute("color", 4));
         attributes.add(new Attribute("texCords", 2));
         attributes.add(new Attribute("texID", 1));
+        attributes.add(new Attribute("gameObjID", 1));
 
         pointSizeFloat = 0;
         for(Attribute a: attributes){
@@ -160,6 +159,8 @@ public class RenderBatch implements Comparable<RenderBatch> {
 
             vertexArray[offset + 8] = spriteRenderer.getSprite().getSpriteID();;
 
+            vertexArray[offset + 9] = spriteRenderer.getParent().getGameObjectID();
+
             offset += pointSizeFloat;
         }
     }
@@ -193,12 +194,13 @@ public class RenderBatch implements Comparable<RenderBatch> {
 
     public void render(){
         Camera camera = Window.getInstance().getCurrentScene().getCamera();
+        Shader shader = Renderer.getInstance().getShader();
         reloadIfDirty();
 
-        defaultShader.use();
-        defaultShader.uploadValue("uProjection", camera.getUProjection());
-        defaultShader.uploadValue("uView", camera.getUView());
-        defaultShader.uploadValue("uTextures", uTextures);
+        shader.use();
+        shader.uploadValue("uProjection", camera.getUProjection());
+        shader.uploadValue("uView", camera.getUView());
+        shader.uploadValue("uTextures", uTextures);
 
         activeAndBindTextures();
         glBindVertexArray(VAO);
@@ -209,7 +211,7 @@ public class RenderBatch implements Comparable<RenderBatch> {
         unbindTextures();
         disableAttribArrays();
         glBindVertexArray(0);
-        defaultShader.detach();
+        shader.detach();
     }
 
     public void reloadIfDirty(){
@@ -282,15 +284,5 @@ public class RenderBatch implements Comparable<RenderBatch> {
     @Override
     public int compareTo(RenderBatch o) {
         return Integer.compare(this.zIndex, o.zIndex);
-    }
-
-    public class Attribute{
-        private int size;
-        private String name;
-
-        public Attribute(String name, int size){
-            this.name = name;
-            this.size = size;
-        }
     }
 }

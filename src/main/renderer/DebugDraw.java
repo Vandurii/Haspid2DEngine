@@ -9,6 +9,7 @@ import org.joml.Vector3f;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static main.Configuration.*;
 import static org.lwjgl.opengl.GL15.*;
@@ -55,7 +56,7 @@ public class DebugDraw {
         started = true;
     }
 
-    public static void beginFrame(){
+    private static void beginFrame(){
         if(!started) start();
 
         for(int i = 0; i < linesList.size(); i++){
@@ -176,6 +177,7 @@ public class DebugDraw {
     }
 
     public static void addLine2D(Vector2f from, Vector2f to, Vector3f color, int lifeTime){
+        if(!started) start();
         if(linesList.size() < maxLines){
             linesList.add(new Line2D(from, to, color, lifeTime));
         }
@@ -196,6 +198,10 @@ public class DebugDraw {
 
         vec.x = xPrime;
         vec.y = yPrime;
+    }
+
+    public static List<Line2D> getLineList(){
+        return linesList;
     }
 
     public static void printValues() {

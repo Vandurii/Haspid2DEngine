@@ -2,6 +2,8 @@ package main.renderer;
 
 import main.components.SpriteRenderer;
 import main.haspid.GameObject;
+import main.util.AssetPool;
+import main.util.Shader;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,11 +12,20 @@ import java.util.List;
 import static main.Configuration.*;
 
 public class Renderer {
-    private int maxBatchSize = batchSize;
-    private List<RenderBatch> rendererBatchList;
+    private static int maxBatchSize = batchSize;
+    private static List<RenderBatch> rendererBatchList;
+    private static Shader currentShader;
+    private static Renderer instance;
 
-    public Renderer(){
+    private Renderer(){
+        currentShader = AssetPool.getShader(defaultShaderPath);
         rendererBatchList = new ArrayList<>();
+    }
+
+    public static Renderer getInstance(){
+        if(instance == null) instance = new Renderer();
+
+        return  instance;
     }
 
     public void add(GameObject gameObject){
@@ -22,7 +33,7 @@ public class Renderer {
         if(spriteRenderer != null) add(spriteRenderer);
     }
 
-    public void add(SpriteRenderer spriteRenderer){
+    private void add(SpriteRenderer spriteRenderer){
 
         boolean added = false;
         for(RenderBatch rBatch: rendererBatchList){
@@ -48,6 +59,14 @@ public class Renderer {
         for(RenderBatch rBatch: rendererBatchList){
             rBatch.render();
         }
+    }
+
+    public void replaceShader(Shader shader){
+        currentShader  = shader;
+    }
+
+    public Shader getShader(){
+        return currentShader;
     }
 
     public List<RenderBatch> getRenderBatchList(){

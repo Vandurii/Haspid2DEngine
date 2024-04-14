@@ -25,5 +25,6 @@ public class GridLines extends Component{
         for(int i = 0; i < horizontalLines; i++){
             DebugDraw.addLine2D(new Vector2f(cam.getPosition().x, cam.getPosition().y + (i * gridSize)), new Vector2f( uProjectionDimension.x, cam.getPosition().y + (i * gridSize)), gridLinesColor, 1);
         }
+
     }
 }

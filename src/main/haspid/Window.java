@@ -2,9 +2,12 @@ package main.haspid;
 
 import main.renderer.DebugDraw;
 import main.renderer.FrameBuffer;
+import main.renderer.IDBuffer;
+import main.renderer.Renderer;
 import main.scene.EditorScene;
 import main.scene.GameScene;
 import main.scene.Scene;
+import main.util.AssetPool;
 import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
@@ -29,6 +32,8 @@ public class Window {
     private static long glfwWindow;
     private static Scene currentScene;
     private static FrameBuffer frameBuffer;
+    private static IDBuffer idBuffer;
+    private static Renderer renderer;
 
     private Window(){}
 
@@ -78,6 +83,25 @@ public class Window {
          //   DebugDraw.printValues();
         });
 
+        // Get the thread stack and push a new frame
+        try ( MemoryStack stack = stackPush() ) {
+            IntBuffer pWidth = stack.mallocInt(1); // int*
+            IntBuffer pHeight = stack.mallocInt(1); // int*
+
+            // Get the window size passed to glfwCreateWindow
+            glfwGetWindowSize(glfwWindow, pWidth, pHeight);
+
+            // Get the resolution of the primary monitor
+            GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+
+            // Center the window
+            glfwSetWindowPos(
+                    glfwWindow,
+                    (vidmode.width() - pWidth.get(0)) / 2,
+                    (vidmode.height() - pHeight.get(0)) / 2
+            );
+        } // the stack frame is popped automatically
+
         // Make the OpenGL context current
         glfwMakeContextCurrent(glfwWindow);
         // Enable v-sync
@@ -97,7 +121,9 @@ public class Window {
         glEnable(GL_BLEND);
         glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 
+        renderer = Renderer.getInstance();
         frameBuffer = new FrameBuffer(windowWidth, windowHeight);
+        idBuffer = new IDBuffer(windowWidth, windowHeight);
         changeScene(new EditorScene());
     }
 
@@ -106,29 +132,48 @@ public class Window {
 
         // Run the rendering loop until the user has attempted to close the window.
         while(!glfwWindowShouldClose(glfwWindow)){
-            frameBuffer.bind();
-
             // Poll for window events. The key callback above wil only be invoked during this call
             glfwPollEvents();
-            // Set the clear color
-            glClearColor(clearColor.getRed() / 255f, clearColor.getGreen() / 255f, clearColor.getBlue() / 255f, clearColor.getAlpha());
 
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //clear the framebuffer
-
+            // delta time
             float beginTime = (float) glfwGetTime();
             float deltaTime = beginTime - lastFrameTime;
             if(lastFrameTime == -1) deltaTime = 1f / 60f;
             lastFrameTime = beginTime;
-            //System.out.println(1 / deltaTime + "FPS");
+
+            // Update current scene
             currentScene.update(deltaTime);
 
-            glfwSwapBuffers(glfwWindow); // swap the color buffers
+            //Bind id buffer and write to it.
+            glDisable(GL_BLEND);
+            idBuffer.bind();
 
-            if(KeyListener.getInstance().isKeyPressed(GLFW_KEY_1)){
-                changeScene(new EditorScene());
-            }else if(KeyListener.getInstance().isKeyPressed(GLFW_KEY_2)){
-                changeScene(new GameScene());
+            glClearColor(0, 0, 0, 0);
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+            renderer.replaceShader(AssetPool.getShader(idShaderPath));
+            currentScene.render(deltaTime, true);
+
+            if(MouseListener.getInstance().isButtonPressed(GLFW_MOUSE_BUTTON_1)){
+                int x = (int) MouseListener.getInstance().getScreenX();
+                int y = (int) MouseListener.getInstance().getScreenY();
+                System.out.println(idBuffer.readIDFromPixel(x, y));
             }
+
+            idBuffer.unbind();
+            glEnable(GL_BLEND);
+
+            // Bind frame buffer and write to it.
+            frameBuffer.bind();
+            renderer.replaceShader(AssetPool.getShader(defaultShaderPath));
+            glClearColor(clearColor.getRed() / 255f, clearColor.getGreen() / 255f, clearColor.getBlue() / 255f, clearColor.getAlpha());
+
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //clear the framebuffer
+
+            getCurrentScene().render(deltaTime, false);
+            frameBuffer.unBind();
+
+            // swap the color buffers
+            glfwSwapBuffers(glfwWindow);
         }
     }
 

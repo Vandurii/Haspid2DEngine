@@ -2,7 +2,7 @@ package main.Editor;
 
 import imgui.ImGui;
 import imgui.ImVec2;
-import imgui.flag.ImGuiConfigFlags;
+import imgui.flag.ImGuiStyleVar;
 import imgui.flag.ImGuiWindowFlags;
 import main.haspid.Window;
 import org.joml.Vector2f;
@@ -11,11 +11,14 @@ import static main.Configuration.*;
 
 public class ViewPort {
 
-    public static float startFromX, startFromY;
+    public static float viewPortStartFromX, viewPortStartFromY;
     public static float viewPortWidth, viewPortHeight;
+    public static float windowStartFromX, windowStartFromY;
 
     public static void displayViewPort(){
+        ImGui.pushStyleVar(ImGuiStyleVar.WindowPadding, 0f, 0f);
         ImGui.begin("View Port", ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse);
+        ImGui.popStyleVar(1);
 
         Vector2f viewSize = calculateViewSize();
         Vector2f center = getStartPosition(viewSize);
@@ -26,6 +29,7 @@ public class ViewPort {
         ImGui.image(textID, viewSize.x, viewSize.y, 0, 1, 1, 0);
 
         ImGui.end();
+
     }
 
     public static Vector2f calculateViewSize(){
@@ -50,8 +54,12 @@ public class ViewPort {
 
         float startX = ((windowSize.x - viewSize.x) / 2f);
         float startY = ((windowSize.y - viewSize.y) / 2f);
-        startFromX = startX;
-        startFromY = startY;
+
+        viewPortStartFromX = startX;
+        viewPortStartFromY = startY;
+
+        windowStartFromX = ImGui.getWindowPosX();
+        windowStartFromY = ImGui.getWindowPosY();
 
         return  new Vector2f(startX , startY);
     }

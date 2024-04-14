@@ -17,4 +17,9 @@ public class GameScene extends Scene {
     public void end() {
 
     }
+
+    @Override
+    public void render(float dt, boolean bufferIDMode) {
+
+    }
 }

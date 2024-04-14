@@ -14,26 +14,29 @@ import main.util.AssetPool;
 import org.joml.Vector2f;
 
 
+import java.util.Arrays;
+
 import static main.Configuration.*;
+import static org.lwjgl.glfw.GLFW.GLFW_MOUSE_BUTTON_1;
+import static org.lwjgl.opengl.GL11.*;
 
 public class EditorScene extends Scene {
-    private MouseControls mouseControls;
-    private GameObject textureObject3;
     private ImGuiLayer imGuiLayer;
     private SpriteSheet decorationAndBlocks;
-    private GridLines gridLines;
-    private int c;
+    private GameObject levelEditorStuff;
 
     public EditorScene() {}
 
     @Override
     public void init() {
-        gridLines = new GridLines();
         load();
+
+        levelEditorStuff = new GameObject("LevelEditorStuff");
+        levelEditorStuff.addComponent(new GridLines());
+        levelEditorStuff.addComponent(new MouseControls());
+
         AssetPool.getTexture(marioImagePath);
         decorationAndBlocks = AssetPool.getSpriteSheet(decorationAndBlockConfig);
-
-        mouseControls = new MouseControls();
 
         imGuiLayer = new ImGuiLayer(Window.getInstance().getGlfwWindow());
         imGuiLayer.init(new Configuration());
@@ -43,17 +46,20 @@ public class EditorScene extends Scene {
 
     @Override
     public void update(float dt) {
-        mouseControls.update(dt);
-        DebugDraw.draw();
+        dearGui();
+        levelEditorStuff.update(dt);
+
         for (GameObject go : getSceneObjectList()) {
             go.update(dt);
         }
-
-        getRenderer().render();
-        Window.getInstance().getFrameBuffer().unBind();
-        dearGui();
-        gridLines.update(dt);
        // AssetPool.printResources();
+    }
+
+    public void render(float dt, boolean bufferIdMode){
+        if(!bufferIdMode){
+            DebugDraw.draw();
+        }
+        getRenderer().render();
     }
 
     public void dearGui(){
@@ -88,7 +94,7 @@ public class EditorScene extends Scene {
             ImGui.pushID(i);
             if(ImGui.imageButton(texID, spriteWidth, spriteHeight, cords[0].x, cords[0].y, cords[2].x, cords[2].y)){
                 GameObject holdingObject = Prefabs.generateSpriteObject( sprite,  spriteWidth,  spriteHeight);
-                mouseControls.pickupObject(holdingObject);
+                levelEditorStuff.getComponent(MouseControls.class).pickupObject(holdingObject);
             }
             ImGui.popID();
 

@@ -1,6 +1,7 @@
 package main;
 
 import main.util.SpriteConfig;
+import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
@@ -8,13 +9,15 @@ import java.awt.*;
 
 public class Configuration {
     public static float aspectRatio = 16f / 9f;
-    public static int windowWidth = 1920;
-    public static int windowHeight = 1080;
+    public static int windowWidth = 1728;
+    public static int windowHeight = 972;
     public static String windowTitle = "Haspid";
+    public static Vector3f uProjectionDimension = new Vector3f(1280, 672, 100);
 
 
     public static String defaultShaderPath = "assets/shaders/default.glsl";
     public static String line2DShaderPath = "assets/shaders/line2D.glsl";
+    public static String idShaderPath = "assets/shaders/idShader.glsl";
 
     public static String marioImagePath = "assets/images/mario.png";
     public static SpriteConfig firstSpriteSheet = new SpriteConfig("assets/images/spritesheet.png", 16, 16, 26, 0);
@@ -45,5 +48,6 @@ public class Configuration {
 
     public static String levelPath = "level.txt";
 
-    public static Vector3f uProjectionDimension = new Vector3f(32 * 40, 32 * 21, 100);
+    public static Vector2f windowsScale = new Vector2f(windowWidth / uProjectionDimension.x, windowHeight /  uProjectionDimension.y);
+
 }

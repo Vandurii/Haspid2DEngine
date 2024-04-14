@@ -3,8 +3,9 @@ package main.haspid;
 import main.Editor.ViewPort;
 import org.joml.Vector4f;
 
-import static main.Configuration.windowHeight;
-import static main.Configuration.windowWidth;
+import java.security.UnresolvedPermission;
+
+import static main.Configuration.*;
 import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
 import static org.lwjgl.glfw.GLFW.GLFW_RELEASE;
 
@@ -61,20 +62,30 @@ public class MouseListener {
         return instance;
     }
 
-    public double getOrthoX(){
-        Camera cam = Window.getInstance().getCurrentScene().getCamera();
+    public double getScreenX(){
+        return getWorldX() * windowsScale.x;
+    }
 
-        float currentX = (((float) x - ViewPort.startFromX) / ViewPort.viewPortWidth) * 2f - 1f;
+    public double getScreenY(){
+        return getWorldY() * windowsScale.y;
+    }
+
+    public double getWorldX(){
+        Camera cam = Window.getInstance().getCurrentScene().getCamera();
+        float xPosViewPort = (float) (x - ViewPort.windowStartFromX);
+
+        float currentX = ((xPosViewPort - ViewPort.viewPortStartFromX) / ViewPort.viewPortWidth) * 2f - 1f;
         Vector4f vec4 = new Vector4f(currentX, 0 , 0, 1);
         vec4 = vec4.mul(cam.getInverseUProjection()).mul(cam.getInverseUView());
 
         return vec4.x;
     }
 
-    public double getOrthoY(){
+    public double getWorldY(){
         Camera cam = Window.getInstance().getCurrentScene().getCamera();
+        float yPosViewPort = (float)(y - ViewPort.windowStartFromY);
 
-        float currentY = ((ViewPort.viewPortHeight - (float) y + ViewPort.startFromY) / ViewPort.viewPortHeight) * 2f - 1f;
+        float currentY = ((ViewPort.viewPortHeight - yPosViewPort + ViewPort.viewPortStartFromY) / ViewPort.viewPortHeight) * 2f - 1f;
         Vector4f vec4 = new Vector4f(0, currentY , 0, 1);
         vec4 = vec4.mul(cam.getInverseUProjection()).mul(cam.getInverseUView());
 

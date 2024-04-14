@@ -34,7 +34,7 @@ public abstract class Scene {
         loadResources();
 
         sceneObjectList = new ArrayList<>();
-        renderer = new Renderer();
+        renderer = Renderer.getInstance();
     }
 
     public abstract void update(float dt);
@@ -42,6 +42,8 @@ public abstract class Scene {
     public abstract void init();
 
     public abstract void end();
+
+    public abstract void render(float dt, boolean bufferIDMode);
 
     public void start(){
         for(GameObject gameObject: sceneObjectList){

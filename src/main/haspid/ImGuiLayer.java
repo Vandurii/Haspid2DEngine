@@ -49,12 +49,13 @@ public class ImGuiLayer {
         ImGui.setNextWindowPos(0f, 0f, ImGuiCond.Always);
         ImGui.setNextWindowSize(windowWidth, windowHeight);
         ImGui.pushStyleVar(ImGuiStyleVar.WindowRounding, 0f);
+        ImGui.pushStyleVar(ImGuiStyleVar.WindowPadding, 0f, 0f);
         ImGui.pushStyleVar(ImGuiStyleVar.WindowBorderSize, 0f);
         windowFlags |= ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoResize
                 | ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoBringToFrontOnFocus | ImGuiWindowFlags.NoNavFocus;
 
         ImGui.begin("DockSpace", new ImBoolean(true), windowFlags);
-        ImGui.popStyleVar(2);
+        ImGui.popStyleVar(3);
 
         ImGui.dockSpace(ImGui.getID("DockSpace"));
     }
