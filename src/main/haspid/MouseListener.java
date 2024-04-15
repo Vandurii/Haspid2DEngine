@@ -72,9 +72,11 @@ public class MouseListener {
 
     public double getWorldX(){
         Camera cam = Window.getInstance().getCurrentScene().getCamera();
-        float xPosViewPort = (float) (x - ViewPort.windowStartFromX);
+        ViewPort viewPort = ViewPort.getInstance();
 
-        float currentX = ((xPosViewPort - ViewPort.viewPortStartFromX) / ViewPort.viewPortWidth) * 2f - 1f;
+        float xPosViewPort = (float) (x - viewPort.getWindowStartFromX());
+
+        float currentX = ((xPosViewPort - viewPort.getViewPortStartFromX()) / viewPort.getViewPortWidth()) * 2f - 1f;
         Vector4f vec4 = new Vector4f(currentX, 0 , 0, 1);
         vec4 = vec4.mul(cam.getInverseUProjection()).mul(cam.getInverseUView());
 
@@ -83,9 +85,10 @@ public class MouseListener {
 
     public double getWorldY(){
         Camera cam = Window.getInstance().getCurrentScene().getCamera();
-        float yPosViewPort = (float)(y - ViewPort.windowStartFromY);
+        ViewPort viewPort = ViewPort.getInstance();
+        float yPosViewPort = (float)(y - viewPort.getWindowStartFromY());
 
-        float currentY = ((ViewPort.viewPortHeight - yPosViewPort + ViewPort.viewPortStartFromY) / ViewPort.viewPortHeight) * 2f - 1f;
+        float currentY = ((viewPort.getViewPortHeight() - yPosViewPort + viewPort.getViewPortStartFromY()) / viewPort.getViewPortHeight()) * 2f - 1f;
         Vector4f vec4 = new Vector4f(0, currentY , 0, 1);
         vec4 = vec4.mul(cam.getInverseUProjection()).mul(cam.getInverseUView());
 

@@ -1,5 +1,6 @@
 package main.renderer;
 
+import main.Editor.ViewPort;
 import main.haspid.Camera;
 import main.haspid.Window;
 import main.util.AssetPool;
@@ -52,7 +53,6 @@ public class DebugDraw {
         glVertexAttribPointer(0, 3, GL_FLOAT, false, pointSizeFloat * Float.BYTES, 0);
         glVertexAttribPointer(1, 3, GL_FLOAT, false, pointSizeFloat * Float.BYTES, 3 * Float.BYTES);
 
-        glLineWidth(1);
         started = true;
     }
 
@@ -68,6 +68,8 @@ public class DebugDraw {
     }
 
     public static void draw(){
+        if(ViewPort.getInstance().getViewPortWidth() < 400) return;
+        setLineWidth();
         beginFrame();
 
         int offset = 0;
@@ -198,6 +200,11 @@ public class DebugDraw {
 
         vec.x = xPrime;
         vec.y = yPrime;
+    }
+
+    private static void setLineWidth(){
+        float width = 0.8f + ((1920f - ViewPort.getInstance().getViewPortWidth()) / 1920f);
+        glLineWidth(width * width * width);
     }
 
     public static List<Line2D> getLineList(){

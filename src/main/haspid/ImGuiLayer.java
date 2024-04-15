@@ -4,17 +4,14 @@ import imgui.ImGui;
 import imgui.ImGuiIO;
 import imgui.ImGuiWindowClass;
 import imgui.app.Configuration;
-import imgui.flag.ImGuiCond;
-import imgui.flag.ImGuiConfigFlags;
-import imgui.flag.ImGuiStyleVar;
-import imgui.flag.ImGuiWindowFlags;
+import imgui.flag.*;
 import imgui.gl3.ImGuiImplGl3;
 import imgui.glfw.ImGuiImplGlfw;
 import imgui.type.ImBoolean;
 import org.lwjgl.glfw.GLFW;
 
-import static main.Configuration.windowHeight;
-import static main.Configuration.windowWidth;
+import static main.Configuration.*;
+import static main.Configuration.imGuiColor;
 
 public class ImGuiLayer {
     private long glfwWindow;
@@ -51,13 +48,16 @@ public class ImGuiLayer {
         ImGui.pushStyleVar(ImGuiStyleVar.WindowRounding, 0f);
         ImGui.pushStyleVar(ImGuiStyleVar.WindowPadding, 0f, 0f);
         ImGui.pushStyleVar(ImGuiStyleVar.WindowBorderSize, 0f);
+        ImGui.pushStyleColor(ImGuiCol.WindowBg, imGuiColor.x, imGuiColor.y, imGuiColor.z, imGuiColor.w);
         windowFlags |= ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoResize
                 | ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoBringToFrontOnFocus | ImGuiWindowFlags.NoNavFocus;
 
         ImGui.begin("DockSpace", new ImBoolean(true), windowFlags);
         ImGui.popStyleVar(3);
+        ImGui.popStyleColor(1);
 
         ImGui.dockSpace(ImGui.getID("DockSpace"));
+        ImGui.end();
     }
 
     public void endFrame() {

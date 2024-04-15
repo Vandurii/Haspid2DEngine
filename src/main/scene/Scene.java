@@ -2,12 +2,14 @@ package main.scene;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import main.Editor.InspectorWindow;
 import main.components.Component;
 import main.components.SpriteRenderer;
 import main.haspid.Camera;
 import main.components.ComponentSerializer;
 import main.haspid.GameObject;
 import main.haspid.GameObjectDeserializer;
+import main.haspid.Window;
 import main.renderer.Renderer;
 import main.util.AssetPool;
 
@@ -27,7 +29,6 @@ public abstract class Scene {
     private boolean isRunning;
     private static List<GameObject> sceneObjectList;
     private Renderer renderer;
-    protected GameObject activeGameObject;
 
     public Scene(){
         Component.resetCounter();
@@ -72,6 +73,14 @@ public abstract class Scene {
                 renderer.add(gameObject);
             }
         }
+    }
+
+    public GameObject getGameObjectFromID(int id){
+        for(GameObject go: sceneObjectList){
+            if(go.getGameObjectID() == id) return go;
+        }
+
+        return null;
     }
 
     public Camera getCamera(){
@@ -120,7 +129,6 @@ public abstract class Scene {
             String data = new String(Files.readAllBytes(Paths.get(levelPath)));
             if(!data.trim().isEmpty() && !data.trim().equals("[]")) {
                 GameObject[] gameObjects = gson.fromJson(data, GameObject[].class);
-                activeGameObject = gameObjects[0];
                 addGameObjectToScene(gameObjects);
             }
         }catch (IOException e){

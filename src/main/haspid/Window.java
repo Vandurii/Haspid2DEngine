@@ -1,5 +1,6 @@
 package main.haspid;
 
+import main.Editor.InspectorWindow;
 import main.renderer.DebugDraw;
 import main.renderer.FrameBuffer;
 import main.renderer.IDBuffer;
@@ -153,12 +154,6 @@ public class Window {
             renderer.replaceShader(AssetPool.getShader(idShaderPath));
             currentScene.render(deltaTime, true);
 
-            if(MouseListener.getInstance().isButtonPressed(GLFW_MOUSE_BUTTON_1)){
-                int x = (int) MouseListener.getInstance().getScreenX();
-                int y = (int) MouseListener.getInstance().getScreenY();
-                System.out.println(idBuffer.readIDFromPixel(x, y));
-            }
-
             idBuffer.unbind();
             glEnable(GL_BLEND);
 
@@ -207,5 +202,9 @@ public class Window {
 
     public FrameBuffer getFrameBuffer(){
         return  frameBuffer;
+    }
+
+    public IDBuffer getIdBuffer(){
+        return idBuffer;
     }
 }

@@ -45,6 +45,7 @@ public class Configuration {
 
     public static Color clearColor = new Color(60, 60, 60, 1);
 
+    public static Vector4f imGuiColor = new Vector4f(0.15f, 0.15f, 0.15f, 1);
 
     public static String levelPath = "level.txt";
 

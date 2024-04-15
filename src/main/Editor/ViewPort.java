@@ -2,43 +2,52 @@ package main.Editor;
 
 import imgui.ImGui;
 import imgui.ImVec2;
+import imgui.flag.ImGuiCol;
 import imgui.flag.ImGuiStyleVar;
 import imgui.flag.ImGuiWindowFlags;
 import main.haspid.Window;
-import org.joml.Vector2f;
 
 import static main.Configuration.*;
 
 public class ViewPort {
 
-    public static float viewPortStartFromX, viewPortStartFromY;
-    public static float viewPortWidth, viewPortHeight;
-    public static float windowStartFromX, windowStartFromY;
+    private static ViewPort instance;
+    private static float viewPortStartFromX, viewPortStartFromY;
+    private static float viewPortWidth, viewPortHeight;
+    private static float windowStartFromX, windowStartFromY;
 
-    public static void displayViewPort(){
+    private ViewPort(){};
+
+    public static ViewPort getInstance(){
+        if(instance == null) instance = new ViewPort();
+
+        return instance;
+    }
+
+    public void display() {
+        ImGui.pushStyleColor(ImGuiCol.WindowBg, imGuiColor.x, imGuiColor.y, imGuiColor.z, imGuiColor.w);
         ImGui.pushStyleVar(ImGuiStyleVar.WindowPadding, 0f, 0f);
         ImGui.begin("View Port", ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse);
         ImGui.popStyleVar(1);
+        ImGui.popStyleColor(1);
 
-        Vector2f viewSize = calculateViewSize();
-        Vector2f center = getStartPosition(viewSize);
+        update();
 
-        ImGui.setCursorPos(center.x, center.y);
+        ImGui.setCursorPos(viewPortStartFromX, viewPortStartFromY);
 
         int textID = Window.getInstance().getFrameBuffer().getTextureID();
-        ImGui.image(textID, viewSize.x, viewSize.y, 0, 1, 1, 0);
+        ImGui.image(textID, viewPortWidth, viewPortHeight, 0, 1, 1, 0);
 
         ImGui.end();
-
     }
 
-    public static Vector2f calculateViewSize(){
+    private void update() {
         ImVec2 windowSize = ImGui.getContentRegionAvail();
 
         float width = windowSize.x;
         float height = width / aspectRatio;
 
-        if(height > windowSize.y){
+        if (height > windowSize.y) {
             height = windowSize.y;
             width = height * aspectRatio;
         }
@@ -46,21 +55,34 @@ public class ViewPort {
         viewPortWidth = width;
         viewPortHeight = height;
 
-        return new Vector2f(width, height);
-    }
-
-    public static Vector2f getStartPosition(Vector2f viewSize){
-        ImVec2 windowSize = ImGui.getContentRegionAvail();
-
-        float startX = ((windowSize.x - viewSize.x) / 2f);
-        float startY = ((windowSize.y - viewSize.y) / 2f);
-
-        viewPortStartFromX = startX;
-        viewPortStartFromY = startY;
+        viewPortStartFromX = ((windowSize.x - width) / 2f);
+        viewPortStartFromY = ((windowSize.y - height) / 2f);
 
         windowStartFromX = ImGui.getWindowPosX();
         windowStartFromY = ImGui.getWindowPosY();
+    }
 
-        return  new Vector2f(startX , startY);
+    public float getViewPortStartFromX() {
+        return viewPortStartFromX;
+    }
+
+    public float getViewPortStartFromY() {
+        return viewPortStartFromY;
+    }
+
+    public float getViewPortWidth() {
+        return viewPortWidth;
+    }
+
+    public float getViewPortHeight() {
+        return viewPortHeight;
+    }
+
+    public float getWindowStartFromX() {
+        return windowStartFromX;
+    }
+
+    public float getWindowStartFromY() {
+        return windowStartFromY;
     }
 }

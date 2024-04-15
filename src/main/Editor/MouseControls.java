@@ -7,11 +7,20 @@ import org.joml.Vector2f;
 import static main.Configuration.gridSize;
 import static org.lwjgl.glfw.GLFW.GLFW_MOUSE_BUTTON_1;
 
-public class MouseControls extends Component implements Helper {
-    private GameObject holdingObject;
+public class MouseControls extends Component {
+    private static MouseControls instance;
+    private static GameObject holdingObject;
+
+    private MouseControls(){};
 
     public void place(){
         holdingObject = null;
+    }
+
+    public static MouseControls getInstance(){
+        if(instance == null) instance = new MouseControls();
+
+        return instance;
     }
 
     public void pickupObject(GameObject holdingObject){
@@ -23,7 +32,7 @@ public class MouseControls extends Component implements Helper {
     public void update(float dt) {
         MouseListener mouse = MouseListener.getInstance();
 
-        if(isNotNull(holdingObject)){
+        if(holdingObject != null){
             int  objectX = (int)(mouse.getWorldX() / gridSize) * gridSize;
             int  objectY = (int)(mouse.getWorldY() / gridSize) * gridSize;
 
@@ -32,10 +41,5 @@ public class MouseControls extends Component implements Helper {
                 place();
             }
         }
-    }
-
-    @Override
-    public boolean isNotNull(Object obj) {
-        return obj != null;
     }
 }
