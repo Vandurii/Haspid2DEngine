@@ -19,6 +19,7 @@ import static org.lwjgl.opengl.GL30.glBindVertexArray;
 import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 
 public class DebugDraw {
+    private static boolean sleep;
     private static int VAO, VBO;
     private static float[] vertexArray;
     private static int vertexArrayBytes;
@@ -68,7 +69,9 @@ public class DebugDraw {
     }
 
     public static void draw(){
-        if(ViewPort.getInstance().getViewPortWidth() < 400) return;
+        if(ViewPort.getInstance().getViewPortWidth() < minimalWidthForGrid || uProjectionDimension.x * zoom > maximalWidthForGrid) return;
+        if(sleep) return;;
+
         setLineWidth();
         beginFrame();
 
@@ -204,7 +207,7 @@ public class DebugDraw {
 
     private static void setLineWidth(){
         float width = 0.8f + ((1920f - ViewPort.getInstance().getViewPortWidth()) / 1920f);
-        glLineWidth(width * width * width);
+        glLineWidth((float)Math.pow(width, 3));
     }
 
     public static List<Line2D> getLineList(){
@@ -214,5 +217,14 @@ public class DebugDraw {
     public static void printValues() {
         System.out.println("******************");
         System.out.println(Arrays.toString(cVertexArray));
+    }
+
+    public static void sleep(){
+        sleep = true;
+    }
+
+    public static void yield(){
+        linesList.clear();
+        sleep = false;
     }
 }

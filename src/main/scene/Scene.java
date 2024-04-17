@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import main.Editor.InspectorWindow;
 import main.components.Component;
+import main.components.Sprite;
 import main.components.SpriteRenderer;
 import main.haspid.Camera;
 import main.components.ComponentSerializer;
@@ -12,6 +13,7 @@ import main.haspid.GameObjectDeserializer;
 import main.haspid.Window;
 import main.renderer.Renderer;
 import main.util.AssetPool;
+import main.util.Texture;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -135,4 +137,34 @@ public abstract class Scene {
             e.printStackTrace();
         }
     }
+
+    public static void printSceneObjects(){
+        List<GameObject> goList = new ArrayList<>();
+        List<Component> cList = new ArrayList<>();
+        List<Sprite> sList = new ArrayList<>();
+        List<Texture> tList = new ArrayList<>();
+
+        System.out.println("*********************");
+        System.out.println("Object in Scene");
+        System.out.println("*********************");
+        for(GameObject gameObject: sceneObjectList){
+            if(!goList.contains(gameObject)) goList.add(gameObject);
+            for(Component component: gameObject.getAllComponent()){
+                if(!cList.contains(component)) cList.add(component);
+
+                if(component instanceof SpriteRenderer){
+                    SpriteRenderer spriteRenderer = (SpriteRenderer) component;
+                    if(!sList.contains(spriteRenderer.getSprite()))sList.add(spriteRenderer.getSprite());
+                    if(!tList.contains(spriteRenderer.getSprite().getTexture()))tList.add(spriteRenderer.getSprite().getTexture());
+                }
+            }
+        }
+
+        System.out.println("Objects : " + goList.size());
+        System.out.println("component : " + goList.size());
+        System.out.println("sprites : " + goList.size());
+        System.out.println("textures : " + goList.size());
+        System.out.println("\n\n\n\n\n");
+    }
+
 }

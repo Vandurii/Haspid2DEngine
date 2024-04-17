@@ -10,6 +10,7 @@ public class Camera {
     private Matrix4f uProjection, uView;
     private Vector2f position;
     private Matrix4f inverseUProjection, inverseUView;
+    private float xBuffer, yBuffer;
 
     public Camera(Vector2f position){
         this.position = position;
@@ -22,9 +23,52 @@ public class Camera {
 
     public void adjustProjection(){
         uProjection.identity();
-        uProjection.ortho(0f, uProjectionDimension.x, 0f, uProjectionDimension.y, 0f, uProjectionDimension.z);
+        uProjection.ortho(0f, uProjectionDimension.x * zoom, 0f, uProjectionDimension.y * zoom, 0f, uProjectionDimension.z);
 
         uProjection.invert(inverseUProjection);
+    }
+
+    public void addToBuffer(float x, float y){
+        xBuffer += x;
+        yBuffer += y;
+
+        if(Math.abs(xBuffer) >= gridSize){
+            position.x -= xBuffer > 0 ? gridSize : gridSize * -1;
+            resetXBuffer();
+        }
+
+        if(Math.abs(yBuffer) >= gridSize){
+            position.y -= yBuffer > 0 ? gridSize : gridSize * -1;
+            resetYBuffer();
+        }
+    }
+
+    public void resetXBuffer(){
+        xBuffer = 0;
+    }
+
+    public void resetYBuffer(){
+        yBuffer = 0;
+    }
+
+    public void zoom(float value){
+        float val = value * scrollSensivity * zoom;
+        if(zoom - val < minZoomValue || zoom - val > maxZoomValue) return;
+        zoom -= val;
+        adjustProjection();
+    }
+
+    public void decreasingZoom(){
+        if(Math.abs(zoom) > 1.2){
+            zoom -= 0.1f;
+        }else{
+            zoom = 1;
+        }
+        adjustProjection();
+    }
+
+    public void resetPosition(){
+        position = new Vector2f();
     }
 
     public Matrix4f getUView(){
@@ -36,6 +80,15 @@ public class Camera {
         return uView;
     }
 
+    public Matrix4f getInverseUProjection(){
+        return inverseUProjection;
+    }
+
+    public Matrix4f getInverseUView(){
+        uView.invert(inverseUView);
+        return inverseUView;
+    }
+
     public Matrix4f getUProjection(){
         return uProjection;
     }
@@ -44,16 +97,20 @@ public class Camera {
         return position;
     }
 
-    public void setPosition(Vector2f position){
+    public void setPositionX(float position){
+        this.position.x = position;
+    }
+
+    public void setPositionY(float position){
+        this.position.y = position;
+    }
+
+    public void setPositionX(Vector2f position){
         this.position = position;
     }
 
-    public Matrix4f getInverseUProjection(){
-        return inverseUProjection;
-    }
-
-    public Matrix4f getInverseUView(){
-        uView.invert(inverseUView); // todo
-        return inverseUView;
+    public void setPosition(float x, float y){
+        position.x = x;
+        position.y = y;
     }
 }

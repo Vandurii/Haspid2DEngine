@@ -1,9 +1,8 @@
 package main.haspid;
 
 import main.Editor.ViewPort;
+import org.joml.Vector2f;
 import org.joml.Vector4f;
-
-import java.security.UnresolvedPermission;
 
 import static main.Configuration.*;
 import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
@@ -12,7 +11,9 @@ import static org.lwjgl.glfw.GLFW.GLFW_RELEASE;
 public class MouseListener {
 
     private static MouseListener instance;
-    private static double x, y, lastX, lastY, scroll;
+    private static float x, y, lastX, lastY, scroll;
+    private Vector2f startFrameCursorPos;
+    private Vector2f endFrameCursorPos;
     private static boolean[] buttonPressed;
     private static boolean isMouseDragged;
 
@@ -24,8 +25,8 @@ public class MouseListener {
         if(instance == null) getInstance();
         lastX = MouseListener.x;
         lastY = MouseListener.y;
-        MouseListener.x = x;
-        MouseListener.y = y;
+        MouseListener.x = (float) x;
+        MouseListener.y = (float) y;
 
         // If mouse is moving and at least one button is pressed then mouse is dragging.
         for(boolean val: buttonPressed){
@@ -38,6 +39,7 @@ public class MouseListener {
 
     public static void mouseButtonCallback(long window, int button, int action, int mods){
         if(instance == null) getInstance();
+
         if(action == GLFW_PRESS){
             buttonPressed[button] = true;
         }else if(action == GLFW_RELEASE){
@@ -53,7 +55,8 @@ public class MouseListener {
 
     public static void scrollCallback(long window, double xOffset, double yOffset){
         if(instance == null) getInstance();
-        scroll = xOffset;
+
+        scroll = (float) yOffset;
     }
 
     public static MouseListener getInstance(){
@@ -62,15 +65,15 @@ public class MouseListener {
         return instance;
     }
 
-    public double getScreenX(){
+    public float getScreenX(){
         return getWorldX() * windowsScale.x;
     }
 
-    public double getScreenY(){
+    public float getScreenY(){
         return getWorldY() * windowsScale.y;
     }
 
-    public double getWorldX(){
+    public float getWorldX(){
         Camera cam = Window.getInstance().getCurrentScene().getCamera();
         ViewPort viewPort = ViewPort.getInstance();
 
@@ -80,26 +83,26 @@ public class MouseListener {
         Vector4f vec4 = new Vector4f(currentX, 0 , 0, 1);
         vec4 = vec4.mul(cam.getInverseUProjection()).mul(cam.getInverseUView());
 
-        return vec4.x;
+        return (vec4.x - cam.getPosition().x) / zoom;
     }
 
-    public double getWorldY(){
+    public float getWorldY(){
         Camera cam = Window.getInstance().getCurrentScene().getCamera();
         ViewPort viewPort = ViewPort.getInstance();
         float yPosViewPort = (float)(y - viewPort.getWindowStartFromY());
 
         float currentY = ((viewPort.getViewPortHeight() - yPosViewPort + viewPort.getViewPortStartFromY()) / viewPort.getViewPortHeight()) * 2f - 1f;
         Vector4f vec4 = new Vector4f(0, currentY , 0, 1);
-        vec4 = vec4.mul(cam.getInverseUProjection()).mul(cam.getInverseUView());
+        vec4 = vec4.mul((cam.getInverseUProjection())).mul(cam.getInverseUView());
 
-        return vec4.y;
+        return (vec4.y - cam.getPosition().y) / zoom;
     }
 
     public double getX() {
         return x;
     }
 
-    public void setX(double x) {
+    public void setX(float x) {
         MouseListener.x = x;
     }
 
@@ -107,27 +110,24 @@ public class MouseListener {
         return y;
     }
 
-    public void setY(double y) {
+    public void setY(float y) {
         MouseListener.y = y;
     }
 
-    public double getLastX() {
-        return lastX;
+    public void startFrame(){
+       startFrameCursorPos = getScreenPos();
     }
 
-    public void setLastX(double lastX) {
-        MouseListener.lastX = lastX;
+    public void endFrame(){
+        endFrameCursorPos = startFrameCursorPos;
+        scroll = 0;
     }
 
-    public double getLastY() {
-        return lastY;
+    public Vector2f getDelta(){
+        return new Vector2f(startFrameCursorPos.x - endFrameCursorPos.x, startFrameCursorPos.y - endFrameCursorPos.y);
     }
 
-    public void setLastY(double lastY) {
-        MouseListener.lastY = lastY;
-    }
-
-    public double getScroll() {
+    public float getScroll() {
         return scroll;
     }
 
@@ -138,4 +138,13 @@ public class MouseListener {
     public boolean isIsMouseDragged(){
         return isMouseDragged;
     }
+
+    public Vector2f getWorldPos(){
+        return  new Vector2f(getWorldX(), getWorldY());
+    }
+
+    public Vector2f getScreenPos(){
+        return new Vector2f(getScreenX(), getScreenY());
+    }
+
 }

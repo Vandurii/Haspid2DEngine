@@ -12,11 +12,9 @@ public class Prefabs {
 
     public static GameObject generateSpriteObject(Sprite sprite, float width, float height){
         GameObject holdingObject = new GameObject("Generated", new Transform(new Vector2f(), new Vector2f(width * spriteSize, height * spriteSize)), 1);
-        SpriteRenderer spriteRenderer = new SpriteRenderer(sprite);
+        SpriteRenderer spriteRenderer = new SpriteRenderer(new Sprite(sprite.getTexture(), width, height, sprite.getSpriteCords()));
         holdingObject.addComponent(spriteRenderer);
 
         return holdingObject;
     }
-
-
 }

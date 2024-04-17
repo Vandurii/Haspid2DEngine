@@ -18,10 +18,12 @@ import org.lwjgl.system.MemoryStack;
 
 import java.nio.IntBuffer;
 
+import static java.awt.Color.DARK_GRAY;
 import static java.awt.SystemColor.window;
 import static main.Configuration.*;
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.glfw.GLFWNativeWin32.glfwGetWin32Window;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryStack.stackPush;
 import static org.lwjgl.system.MemoryUtil.NULL;
@@ -68,6 +70,7 @@ public class Window {
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE); // the window will stay hidden after creation
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE); // the window will be resizable
 
+
         // Create the window
         glfwWindow = glfwCreateWindow(windowWidth, windowHeight, windowTitle, NULL, NULL);
         if(glfwWindow == NULL)  throw new RuntimeException("Failed to create te GLFW window");
@@ -98,15 +101,15 @@ public class Window {
             // Center the window
             glfwSetWindowPos(
                     glfwWindow,
-                    (vidmode.width() - pWidth.get(0)) / 2,
-                    (vidmode.height() - pHeight.get(0)) / 2
+                    (vidmode.width() - pWidth.get(0)) / 2 + 1750,
+                    (vidmode.height() - pHeight.get(0)) / 2 - 100
             );
         } // the stack frame is popped automatically
 
         // Make the OpenGL context current
         glfwMakeContextCurrent(glfwWindow);
         // Enable v-sync
-        glfwSwapInterval(1);
+        glfwSwapInterval(250);
 
         // Make the window visible
         glfwShowWindow(glfwWindow);

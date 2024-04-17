@@ -1,10 +1,12 @@
 package main.Editor;
 
 import main.components.Component;
+import main.components.SpriteRenderer;
 import main.haspid.*;
 import org.joml.Vector2f;
 
 import static main.Configuration.gridSize;
+import static main.Configuration.zoom;
 import static org.lwjgl.glfw.GLFW.GLFW_MOUSE_BUTTON_1;
 
 public class MouseControls extends Component {
@@ -31,11 +33,11 @@ public class MouseControls extends Component {
     @Override
     public void update(float dt) {
         MouseListener mouse = MouseListener.getInstance();
+        Vector2f camPos = Window.getInstance().getCurrentScene().getCamera().getPosition();
 
         if(holdingObject != null){
-            int  objectX = (int)(mouse.getWorldX() / gridSize) * gridSize;
-            int  objectY = (int)(mouse.getWorldY() / gridSize) * gridSize;
-
+            int objectX = (int)(((mouse.getWorldX() * zoom) + camPos.x) / gridSize) * gridSize;
+            int objectY = (int)(((mouse.getWorldY() * zoom) + camPos.y) / gridSize) * gridSize;
             holdingObject.getTransform().setPosition(new Vector2f(objectX, objectY));
             if(mouse.isButtonPressed(GLFW_MOUSE_BUTTON_1)){
                 place();

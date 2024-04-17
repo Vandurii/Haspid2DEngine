@@ -9,8 +9,8 @@ import java.awt.*;
 
 public class Configuration {
     public static float aspectRatio = 16f / 9f;
-    public static int windowWidth = 1728;
-    public static int windowHeight = 972;
+    public static int windowWidth = 1344;
+    public static int windowHeight = 756;
     public static String windowTitle = "Haspid";
     public static Vector3f uProjectionDimension = new Vector3f(1280, 672, 100);
 
@@ -41,7 +41,7 @@ public class Configuration {
     public static Vector4f colorGreenAlpha = new Vector4f(0, 1, 0, 1);
     public static Vector4f colorBlueAlpha = new Vector4f(0, 0, 1, 1);
 
-    public static Vector3f gridLinesColor = new Vector3f(0.5f, 0.5f, 0.5f);
+    public static Vector3f gridLinesColor = new Vector3f(0.2f, 0.2f, 0.2f);
 
     public static Color clearColor = new Color(60, 60, 60, 1);
 
@@ -50,5 +50,20 @@ public class Configuration {
     public static String levelPath = "level.txt";
 
     public static Vector2f windowsScale = new Vector2f(windowWidth / uProjectionDimension.x, windowHeight /  uProjectionDimension.y);
+
+    public static float skipCamera = 2;
+    public static int cameraSensivity = 128;
+    public static float resetCameraSpeed = 0.1f;
+    public static float debounceForCamera = 0.0000032f;
+
+    public static float zoom = 1f;
+    public static float zoomForKeys = 0.1f;
+    public static float minZoomValue = 0.05f;
+    public static float maxZoomValue = 20f;
+
+    public static float scrollSensivity = 0.1f;
+
+    public static int minimalWidthForGrid = 400;
+    public static int maximalWidthForGrid = 4500;
 
 }

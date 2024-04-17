@@ -10,6 +10,8 @@ import main.prefabs.Prefabs;
 import main.util.SpriteSheet;
 import org.joml.Vector2f;
 
+import java.util.Arrays;
+
 import static main.Configuration.imGuiColor;
 
 public class PropertiesWindow {
@@ -45,8 +47,8 @@ public class PropertiesWindow {
             Vector2f[] cords = sprite.getSpriteCords();
 
             ImGui.pushID(i);
-            if(ImGui.imageButton(texID, spriteWidth, spriteHeight, cords[0].x, cords[0].y, cords[2].x, cords[2].y)){
-                GameObject holdingObject = Prefabs.generateSpriteObject( sprite,  spriteWidth,  spriteHeight);
+            if(ImGui.imageButton(texID, spriteWidth, spriteHeight, cords[3].x, cords[3].y, cords[1].x, cords[1].y)){
+                GameObject holdingObject = Prefabs.generateSpriteObject(sprite,  spriteWidth,  spriteHeight);
                 mouseControls.pickupObject(holdingObject);
             }
             ImGui.popID();

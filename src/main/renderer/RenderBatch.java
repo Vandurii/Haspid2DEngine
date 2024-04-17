@@ -189,7 +189,7 @@ public class RenderBatch implements Comparable<RenderBatch> {
 
         loadVertexArray(index);
         spriteCount++;
-        //printPointsValues();
+      //  printPointsValues();
     }
 
     public void render(){
@@ -273,9 +273,9 @@ public class RenderBatch implements Comparable<RenderBatch> {
     }
 
     public void printPointsValues(){
-        System.out.println("**** " + spriteCount + " ****");
+        System.out.println("**** " + spriteCount + " **** [" + zIndex + "]");
         for(int i = 1; i < ((spriteCount + 1) * pointSizeFloat * pointsInSquare) + 1; i++){
-            System.out.print(vertexArray[i - 1] + " ");
+            System.out.printf("%.2f \t", vertexArray[i - 1]);
             if(i % pointSizeFloat == 0) System.out.println();
             if(i % squareSizeFloat == 0) System.out.println();
         }

@@ -1,19 +1,16 @@
 package main.scene;
 
-import imgui.ImGui;
 import imgui.app.Configuration;
 import main.Editor.*;
 import main.haspid.*;
 import main.haspid.Window;
 import main.renderer.DebugDraw;
-import main.util.SpriteSheet;
+import main.renderer.RenderBatch;
+import main.renderer.Renderer;
 import main.util.AssetPool;
 import org.joml.Vector2f;
-
-
-import java.awt.*;
-
 import static main.Configuration.*;
+import static org.lwjgl.glfw.GLFW.*;
 
 public class EditorScene extends Scene {
     private ImGuiLayer imGuiLayer;
@@ -24,15 +21,17 @@ public class EditorScene extends Scene {
 
     @Override
     public void init() {
-        MouseControls mouseControls = MouseControls.getInstance();
-        GridLines gridLines = GridLines.getInstance();
-
         load();
         camera = new Camera(new Vector2f(0, 0));
+
+        MouseControls mouseControls = MouseControls.getInstance();
+        GridLines gridLines = GridLines.getInstance();
+        CameraControl cameraControl = new CameraControl(camera);
 
         levelEditorStuff = new GameObject("LevelEditorStuff");
         levelEditorStuff.addComponent(gridLines);
         levelEditorStuff.addComponent(mouseControls);
+        levelEditorStuff.addComponent(cameraControl);
 
         imGuiLayer = new ImGuiLayer(Window.getInstance().getGlfwWindow());
         imGuiLayer.init(new Configuration());
@@ -49,6 +48,8 @@ public class EditorScene extends Scene {
         for (GameObject go : getSceneObjectList()) {
             go.update(dt);
         }
+
+        if(KeyListener.getInstance().isKeyPressed(GLFW_KEY_P)) printInfo();
     }
 
     public void render(float dt, boolean bufferIdMode){
@@ -65,6 +66,14 @@ public class EditorScene extends Scene {
         propertiesWindow.display();
 
         imGuiLayer.endFrame();
+    }
+
+    public void printInfo(){
+        for(RenderBatch rb: Renderer.getInstance().getRenderBatchList()){
+            rb.printPointsValues();
+        }
+        AssetPool.printResourcesInAssetPool();
+        printSceneObjects();
     }
 
     public void end(){

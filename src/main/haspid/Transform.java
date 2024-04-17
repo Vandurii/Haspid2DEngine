@@ -13,10 +13,11 @@ public class Transform {
 
     public Transform(Vector2f position){
         this.position = position;
+        this.scale = new Vector2f();
     }
 
     public Transform(Vector2f position, Vector2f scale){
-        this.position  = position;
+        this.position = position;
         this.scale = scale;
     }
 
@@ -37,7 +38,6 @@ public class Transform {
     }
 
     public Transform copy(){
-
         return new Transform(new Vector2f(this.position), new Vector2f(this.scale));
     }
 
