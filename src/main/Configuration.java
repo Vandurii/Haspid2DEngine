@@ -1,5 +1,8 @@
 package main;
 
+import main.components.Sprite;
+import main.components.SpriteRenderer;
+import main.haspid.GameObject;
 import main.util.SpriteConfig;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
@@ -22,6 +25,7 @@ public class Configuration {
     public static String marioImagePath = "assets/images/mario.png";
     public static SpriteConfig firstSpriteSheet = new SpriteConfig("assets/images/spritesheet.png", 16, 16, 26, 0);
     public static SpriteConfig decorationAndBlockConfig = new SpriteConfig("assets/images/decorationsAndBlocks.png", 16, 16, 81, 0);
+    public static SpriteConfig gizmosConfig = new SpriteConfig("assets/images/gizmos.png", 24, 48, 3, 0);
 
 
     public static int batchSize = 10000;
@@ -30,8 +34,41 @@ public class Configuration {
     public static int[]  texturesSlots = {0, 1, 2, 3, 4, 5, 6, 7};
 
 
+    public static float skipCamera = 2;
+    public static int cameraSensivity = 128;
+    public static float resetCameraSpeed = 0.1f;
+    public static float debounceForCamera = 0.0000032f;
+
+
+    public static float zoom = 1f;
+    public static float zoomForKeys = 0.1f;
+    public static float minZoomValue = 0.05f;
+    public static float maxZoomValue = 20f;
+
+    public static float scrollSensivity = 0.1f;
+
+
+    public static Vector4f gizmosColor = new Vector4f(0.0f, .0f, 0.0f, 1f);
+    public static Vector2f gizmoScale = new Vector2f(30, 60);
+    public static int xGizmoXAxis = 70;
+    public static int xGizmoYAxis = -8;
+    public static int xGizmoRotation = 90;
+
+    public static int yGizmoXAxis = 20;
+    public static int yGizmoYAxis = 70;
+    public static int yGizmoRotation = 180;
+
+
     public static int spriteSize = 2;
     public static int gridSize = 32;
+
+
+    public static int minimalWidthForGrid = 400;
+    public static int maximalWidthForGrid = 4500;
+    public static Vector3f gridLinesColor = new Vector3f(0.2f, 0.2f, 0.2f);
+
+
+    public static float keyDebounceC = 0.09f;
 
 
     public static Vector3f colorRed = new Vector3f(1, 0, 0);
@@ -41,8 +78,6 @@ public class Configuration {
     public static Vector4f colorGreenAlpha = new Vector4f(0, 1, 0, 1);
     public static Vector4f colorBlueAlpha = new Vector4f(0, 0, 1, 1);
 
-    public static Vector3f gridLinesColor = new Vector3f(0.2f, 0.2f, 0.2f);
-
     public static Color clearColor = new Color(60, 60, 60, 1);
 
     public static Vector4f imGuiColor = new Vector4f(0.15f, 0.15f, 0.15f, 1);
@@ -50,20 +85,26 @@ public class Configuration {
     public static String levelPath = "level.txt";
 
     public static Vector2f windowsScale = new Vector2f(windowWidth / uProjectionDimension.x, windowHeight /  uProjectionDimension.y);
-
-    public static float skipCamera = 2;
-    public static int cameraSensivity = 128;
-    public static float resetCameraSpeed = 0.1f;
-    public static float debounceForCamera = 0.0000032f;
-
-    public static float zoom = 1f;
-    public static float zoomForKeys = 0.1f;
-    public static float minZoomValue = 0.05f;
-    public static float maxZoomValue = 20f;
-
-    public static float scrollSensivity = 0.1f;
-
-    public static int minimalWidthForGrid = 400;
-    public static int maximalWidthForGrid = 4500;
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// todo reuse free slots in renderbatch, made by object removing
+
+
+
+

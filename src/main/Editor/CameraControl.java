@@ -30,7 +30,7 @@ public class CameraControl extends Component {
         if(debounce < 0) {
             mouse.startFrame();
             // update camera
-            if (mouse.isIsMouseDragged()) {
+            if (mouse.isIsMouseDragged() && mouse.isCursorInsideViewPort()) {
                 Vector2f delta = mouse.getDelta();
 
                 float valueX = (delta.x * (dt * cameraSensivity * zoom));

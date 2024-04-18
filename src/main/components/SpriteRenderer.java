@@ -5,17 +5,32 @@ import org.joml.Vector4f;
 
 public class SpriteRenderer extends Component{
     private Sprite sprite;
-    private  transient Transform lastTransform;
+    private float rotation;
+    private transient boolean remove;
+    private transient Transform lastTransform;
+    private transient boolean isDirty;
 
     public SpriteRenderer(Sprite sprite){
         this.sprite = sprite;
+        this.isDirty = true;
+    }
+
+    public SpriteRenderer(Sprite sprite, float rotation){
+        this.sprite = sprite;
+        this.rotation = rotation;
+        this.isDirty = true;
     }
 
     @Override
     public void update(float dt) {
+        if(sprite.isDirty()){
+            isDirty = true;
+            sprite.setClean();
+        }
+
         if(!lastTransform.equals(getParent().getTransform())){
             getParent().getTransform().copy(lastTransform);
-            sprite.setDirty();
+            isDirty = true;
         }
     }
     @Override
@@ -38,10 +53,46 @@ public class SpriteRenderer extends Component{
 
     public void setSprite(Sprite sprite){
         this.sprite = sprite;
-        sprite.setDirty();
+        isDirty = true;
+    }
+
+    public boolean isDirty(){
+        return isDirty;
+    }
+
+    public void setClean(){
+        isDirty = false;
+    }
+
+    public void setDirty(){
+        isDirty = true;
+    }
+
+    public void destroySprite(){
+        sprite = null;
+    }
+
+    public void markToRemove(){
+        remove = true;
+    }
+
+    public void unmarkToRemove(){
+        remove = false;
+    }
+
+    public boolean isMarkedToRemove(){
+        return remove;
     }
 
     public void setColor(Vector4f color){
         sprite.setColor(color);
+    }
+
+    public float getRotation() {
+        return rotation;
+    }
+
+    public void setIsRotated(float rotation) {
+        this.rotation = rotation;
     }
 }

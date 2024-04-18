@@ -55,11 +55,11 @@ public class Texture{
             }else{
                 glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width.get(0), height.get(0), 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
             }
+
+            stbi_image_free(image);
         }else{
             System.out.println("Unable to load texture: " + filePath);
         }
-
-        stbi_image_free(image);
     }
 
     public void bind(){

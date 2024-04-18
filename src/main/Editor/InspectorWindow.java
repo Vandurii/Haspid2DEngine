@@ -38,7 +38,7 @@ public class InspectorWindow {
             int id = (int) Window.getInstance().getIdBuffer().readIDFromPixel(x, y);
 
             GameObject active = Window.getInstance().getCurrentScene().getGameObjectFromID(id);
-            if(active != null) activeGameObject = active;
+            if(active != null && active.isTriggerable()) activeGameObject = active;
         }
     }
 

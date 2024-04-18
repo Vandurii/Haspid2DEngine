@@ -15,6 +15,7 @@ public class ViewPort {
     private static float viewPortStartFromX, viewPortStartFromY;
     private static float viewPortWidth, viewPortHeight;
     private static float windowStartFromX, windowStartFromY;
+    private static float windowWidth, windowHeight;
 
     private ViewPort(){};
 
@@ -60,6 +61,9 @@ public class ViewPort {
 
         windowStartFromX = ImGui.getWindowPosX();
         windowStartFromY = ImGui.getWindowPosY();
+
+        windowWidth = windowSize.x;
+        windowHeight = windowSize.y;
     }
 
     public float getViewPortStartFromX() {
@@ -84,5 +88,13 @@ public class ViewPort {
 
     public float getWindowStartFromY() {
         return windowStartFromY;
+    }
+
+    public float getWindowWidth() {
+        return windowWidth;
+    }
+
+    public float getWindowHeight() {
+        return windowHeight;
     }
 }

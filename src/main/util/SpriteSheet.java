@@ -9,7 +9,7 @@ import java.util.List;
 public class SpriteSheet {
 
     private Texture parentTexture;
-    private static List<Sprite> spriteList;
+    private List<Sprite> spriteList;
 
     protected SpriteSheet(SpriteConfig config){
         this.spriteList = new ArrayList<>();

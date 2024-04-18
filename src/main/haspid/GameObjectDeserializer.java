@@ -20,7 +20,7 @@ public class GameObjectDeserializer implements JsonDeserializer {
             Component component = jsonDeserializationContext.deserialize(c, Component.class);
             gameObject.addComponent(component);
             if(component instanceof SpriteRenderer){
-                ((SpriteRenderer) component).getSprite().setDirty();
+                ((SpriteRenderer) component).setDirty();
             }
         }
 

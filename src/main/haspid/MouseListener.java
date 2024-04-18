@@ -16,8 +16,10 @@ public class MouseListener {
     private Vector2f endFrameCursorPos;
     private static boolean[] buttonPressed;
     private static boolean isMouseDragged;
+    private static ViewPort viewPort;
 
     private MouseListener(){
+        viewPort = ViewPort.getInstance();
         buttonPressed = new boolean[3];
     }
 
@@ -147,4 +149,8 @@ public class MouseListener {
         return new Vector2f(getScreenX(), getScreenY());
     }
 
+    public boolean isCursorInsideViewPort(){
+        return x > viewPort.getWindowStartFromX() + viewPort.getViewPortStartFromX() && x < viewPort.getWindowStartFromX() + viewPort.getWindowWidth() - viewPort.getViewPortStartFromX()
+        &&  y > viewPort.getWindowStartFromY() + viewPort.getViewPortStartFromY() && y < viewPort.getWindowStartFromY() + viewPort.getWindowHeight() - viewPort.getViewPortStartFromY();
+    }
 }

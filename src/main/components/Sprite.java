@@ -16,11 +16,11 @@ public class Sprite {
     private Vector2f[] texCords;
     private Vector4f color;
     private int spriteID;
-    private transient boolean isDirty;
+    private boolean isDirty;
+
     private float width, height;
 
     public Sprite(Vector4f color){
-        this.isDirty = true;
         this.color = color;
         this.texCords = new Vector2f[]{
                 new Vector2f(1, 1),
@@ -31,7 +31,6 @@ public class Sprite {
     }
 
     public Sprite(Texture texture){
-        this.isDirty = true;
         this.texture = texture;
         this.color = new Vector4f(1, 1, 1, 1);
         this.texCords = new Vector2f[]{
@@ -43,7 +42,6 @@ public class Sprite {
     }
 
     public Sprite(Vector4f color, Vector2f[] texCords) {
-        this.isDirty = true;
         this.color = color;
         this.texCords = texCords;
     }
@@ -51,7 +49,6 @@ public class Sprite {
     public Sprite(Texture texture, float width, float height, Vector2f[] texCords){
         this.width = width;
         this.height = height;
-        this.isDirty = true;
         this.texture = texture;
         this.color = new Vector4f(1, 1, 1, 1);
         this.texCords = texCords;
@@ -92,18 +89,6 @@ public class Sprite {
         return color;
     }
 
-    public boolean isDirty(){
-        return isDirty;
-    }
-
-    public void setClean(){
-        isDirty = false;
-    }
-
-    public void setDirty(){
-        isDirty = true;
-    }
-
     public void dearGui(){
         float[] imColor = {color.x, color.y, color.z, color.w};
 
@@ -127,5 +112,13 @@ public class Sprite {
 
     public void setTexture(Texture texture){
         this.texture = texture;
+    }
+
+    public boolean isDirty(){
+        return isDirty;
+    }
+
+    public void setClean(){
+        isDirty = false;
     }
 }

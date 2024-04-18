@@ -33,7 +33,7 @@ public class Renderer {
         if(spriteRenderer != null) add(spriteRenderer);
     }
 
-    private void add(SpriteRenderer spriteRenderer){
+    public void add(SpriteRenderer spriteRenderer){
 
         boolean added = false;
         for(RenderBatch rBatch: rendererBatchList){

@@ -12,6 +12,8 @@ public class GameObject {
     private String name;
     private Transform transform;
     private int zIndex;
+    private boolean isSerializable;
+    private boolean isTriggerable;
     private List<Component> componentList;
     private static int ID_COUNTER;
 
@@ -21,6 +23,8 @@ public class GameObject {
         this.transform = new Transform();
         this.zIndex = 0;
         this.gameObjectID = ++ID_COUNTER;
+        this.isSerializable = true;
+        this.isTriggerable = true;
     }
 
     public GameObject(String name, Transform transform, int zIndex){
@@ -29,6 +33,8 @@ public class GameObject {
         this.zIndex = zIndex;
         this.name = name;
         this.gameObjectID = ++ID_COUNTER;
+        this.isSerializable = true;
+        this.isTriggerable = true;
     }
 
     public void addComponent(Component c){
@@ -48,16 +54,22 @@ public class GameObject {
        return componentList;
     }
 
-    public <T extends Component> boolean removeComponent(Class<T> component){
+    public <T> void removeComponent(Class<T> component){
+
         for(int i = 0; i < componentList.size(); i++){
             Component c = componentList.get(i);
             if(component.isAssignableFrom(c.getClass())){
-                componentList.remove(i);
-                return true;
+                System.out.println(componentList.size());
+                componentList.remove(c);
+                System.out.println("removed: " + component);
+                System.out.println(componentList.size());
+                return;
             }
         }
+    }
 
-        return false;
+    public void removeComponent(Component component){
+        componentList.remove(component);
     }
 
     public void start(){
@@ -76,6 +88,26 @@ public class GameObject {
         for(Component c: componentList){
             c.dearGui();
         }
+    }
+
+    public void destroyComponents(){
+        componentList.clear();
+    }
+
+    public void setNonSerializable(){
+        isSerializable = false;
+    }
+
+    public boolean isSerializable(){
+        return isSerializable;
+    }
+
+    public void setNonTriggerable(){
+        isTriggerable = false;
+    }
+
+    public boolean isTriggerable(){
+        return isTriggerable;
     }
 
     public Transform getTransform(){
@@ -97,5 +129,4 @@ public class GameObject {
     public int getIDCounter(){
         return ID_COUNTER;
     }
-
 }

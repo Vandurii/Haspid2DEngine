@@ -56,10 +56,13 @@ public abstract class Scene {
         isRunning = true;
     }
 
+
+
     public void addGameObjectToScene(GameObject gameObject){
         sceneObjectList.add(gameObject);
 
         if(isRunning){
+            System.out.println("dodalem");
             gameObject.start();
             renderer.add(gameObject);
         }
@@ -75,6 +78,10 @@ public abstract class Scene {
                 renderer.add(gameObject);
             }
         }
+    }
+
+    public void removeFromScene(GameObject gameObject){
+        sceneObjectList.remove(gameObject);
     }
 
     public GameObject getGameObjectFromID(int id){
@@ -111,7 +118,15 @@ public abstract class Scene {
 
         try {
             FileWriter fileWriter = new FileWriter(levelPath);
-            String obj = gson.toJson(sceneObjectList);
+            ArrayList<GameObject> objectsToSave = new ArrayList<>();
+
+            for(GameObject gameObject: sceneObjectList){
+                if(gameObject.isSerializable()){
+                    objectsToSave.add(gameObject);
+                }
+            }
+
+            String obj = gson.toJson(objectsToSave);
             fileWriter.write(obj);
             fileWriter.close();
         }catch (IOException e){

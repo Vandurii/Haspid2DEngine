@@ -1,16 +1,14 @@
 package main.renderer;
 
-import main.components.Component;
 import main.components.SpriteRenderer;
 import main.haspid.Camera;
-import main.haspid.GameObject;
 import main.haspid.Transform;
 import main.haspid.Window;
 
-import main.util.AssetPool;
 import main.util.Attribute;
 import main.util.Shader;
 import main.util.Texture;
+import org.joml.Matrix4f;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
 
@@ -48,6 +46,8 @@ public class RenderBatch implements Comparable<RenderBatch> {
     private List<Texture> textureList;
     private int[] uTextures;
 
+    private ArrayList<Integer> freeSlots;
+
     public RenderBatch(int maxBathSize, int zIndex){
         System.out.println("Created new render batch: zIndex:" + zIndex);
 
@@ -65,6 +65,8 @@ public class RenderBatch implements Comparable<RenderBatch> {
         this.squareSizeFloat = pointsInSquare * pointSizeFloat;
         this.vertexArray = new float[maxBathSize * squareSizeFloat];
         this.vertexArrayBytes = vertexArray.length * Float.BYTES;
+
+        this.freeSlots = new ArrayList<>();
     }
 
     public void start(){
@@ -132,36 +134,61 @@ public class RenderBatch implements Comparable<RenderBatch> {
 
     public void loadVertexArray(int index){
         SpriteRenderer spriteRenderer = spriteListToRender[index];
-        Transform transform = spriteRenderer.getParent().getTransform();
-        Vector2f[] texCords = spriteRenderer.getSprite().getSpriteCords();
-        Vector4f color = spriteRenderer.getSprite().getColor();
-        Vector2f position = transform.getPosition();
-        Vector2f scale = transform.getScale();
-        int offset = index * squareSizeFloat;
-        float xAdd = 1f;
-        float yAdd = 1f;
 
-        for(int j = 0; j < 4; j++){
-            if(j == 1) yAdd = 0f;
-            if(j == 2) xAdd = 0f;
-            if(j == 3) yAdd = 1f;
+        if(spriteRenderer.isMarkedToRemove()){
+            for(int i = 0; i < squareSizeFloat; i++){
+                int offset = index * squareSizeFloat;
+                vertexArray[offset + i] = 0;
+            }
+            spriteRenderer.unmarkToRemove();
+            spriteListToRender[index] = null;
+            spriteRenderer.getParent().removeComponent(spriteRenderer);
 
-            vertexArray[offset + 0] = position.x + (xAdd * scale.x);
-            vertexArray[offset + 1] = position.y + (yAdd * scale.y);
+            freeSlots.add(index);
+        }else {
+            Transform transform = spriteRenderer.getParent().getTransform();
+            Vector2f[] texCords = spriteRenderer.getSprite().getSpriteCords();
+            Vector4f color = spriteRenderer.getSprite().getColor();
+            Vector2f position = transform.getPosition();
+            Vector2f scale = transform.getScale();
+            boolean isRotated = spriteRenderer.getRotation() != 0;
+            int offset = index * squareSizeFloat;
+            float xAdd = 1f;
+            float yAdd = 1f;
 
-            vertexArray[offset + 2] = color.x;
-            vertexArray[offset + 3] = color.y;
-            vertexArray[offset + 4] = color.z;
-            vertexArray[offset + 5] = color.w;;
+            for (int j = 0; j < 4; j++) {
+                if (j == 1) yAdd = 0f;
+                if (j == 2) xAdd = 0f;
+                if (j == 3) yAdd = 1f;
 
-            vertexArray[offset + 6] = texCords[j].x;
-            vertexArray[offset + 7] = texCords[j].y;
+                Vector4f currentPos = new Vector4f(position.x + (xAdd * scale.x), position.y + (yAdd * scale.y), 0, 0);
+                if (isRotated) {
+                    Matrix4f transformMatrix = new Matrix4f().identity();
+                    transformMatrix.translate(position.x, position.y, 1f);
+                    transformMatrix.rotate((float) Math.toRadians(spriteRenderer.getRotation()), 0, 0, 1);
+                    transformMatrix.scale(scale.x, scale.y, 0);
+                    currentPos = new Vector4f(xAdd, yAdd, 0, 1).mul(transformMatrix);
+                }
 
-            vertexArray[offset + 8] = spriteRenderer.getSprite().getSpriteID();;
+                vertexArray[offset + 0] = currentPos.x;
+                vertexArray[offset + 1] = currentPos.y;
 
-            vertexArray[offset + 9] = spriteRenderer.getParent().getGameObjectID();
+                vertexArray[offset + 2] = color.x;
+                vertexArray[offset + 3] = color.y;
+                vertexArray[offset + 4] = color.z;
+                vertexArray[offset + 5] = color.w;
+                ;
 
-            offset += pointSizeFloat;
+                vertexArray[offset + 6] = texCords[j].x;
+                vertexArray[offset + 7] = texCords[j].y;
+
+                vertexArray[offset + 8] = spriteRenderer.getSprite().getSpriteID();
+                ;
+
+                vertexArray[offset + 9] = spriteRenderer.getParent().getGameObjectID();
+
+                offset += pointSizeFloat;
+            }
         }
     }
 
@@ -218,9 +245,9 @@ public class RenderBatch implements Comparable<RenderBatch> {
         boolean reload = false;
         for(int i = 0; i < spriteCount; i++){;
             SpriteRenderer spriteRenderer = spriteListToRender[i];
-            if(spriteRenderer.getSprite().isDirty()){
+            if(spriteRenderer != null && spriteRenderer.hasSprite() && (spriteRenderer.isDirty() || spriteRenderer.isMarkedToRemove())){
                 loadVertexArray(i);
-                spriteRenderer.getSprite().setClean();
+                spriteRenderer.setClean();
                 reload = true;
             }
         }
@@ -258,6 +285,10 @@ public class RenderBatch implements Comparable<RenderBatch> {
 
     public int getzIndex(){
         return zIndex;
+    }
+
+    public List<Integer> getFreeSlots(){
+        return freeSlots;
     }
 
     public boolean hasRoom(){
