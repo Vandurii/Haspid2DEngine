@@ -38,7 +38,8 @@ public class Window {
     private static IDBuffer idBuffer;
     private static Renderer renderer;
 
-    private Window(){}
+    private Window(){
+    }
 
     public void run(){
         System.out.println("Hello LWJGL " + Version.getVersion() + "!");
@@ -139,6 +140,8 @@ public class Window {
             // Poll for window events. The key callback above wil only be invoked during this call
             glfwPollEvents();
 
+            MouseListener.getInstance().startFrame();
+
             // delta time
             float beginTime = (float) glfwGetTime();
             float deltaTime = beginTime - lastFrameTime;
@@ -172,6 +175,8 @@ public class Window {
 
             // swap the color buffers
             glfwSwapBuffers(glfwWindow);
+
+            MouseListener.getInstance().endFrame();
         }
     }
 

@@ -3,9 +3,7 @@ package main.Editor;
 import main.components.Component;
 import main.components.Sprite;
 import main.components.SpriteRenderer;
-import main.haspid.GameObject;
-import main.haspid.Transform;
-import main.haspid.Window;
+import main.haspid.*;
 import main.renderer.Renderer;
 import main.util.AssetPool;
 import main.util.SpriteSheet;
@@ -17,22 +15,24 @@ public class Gizmo extends Component {
 
     private static Gizmo instance;
 
-    private SpriteSheet gimzosSheet;;
-
     private int gizmoIndex;
+    private MouseListener mouse;
     private GameObject lastActiveObject;
+    private SpriteSheet gimzosSheet;
 
     private SpriteRenderer xAxisSpriteRender;
     private GameObject xAxisBody;
     private Sprite xAxisSprite;
     private int xAxisXPadding;
     private int xAxisYPadding;
+    private boolean isXAxisHot;
 
     private SpriteRenderer yAxisSpriteRender;
     private GameObject yAxisBody;
     private Sprite yAxisSprite;
     private int yAxisXPadding;
     private int yAxisYPadding;
+    private boolean isYAxisHot;
 
     private Gizmo(){
         this.gizmoIndex = 1;
@@ -40,7 +40,8 @@ public class Gizmo extends Component {
         this.xAxisYPadding = xGizmoYAxis;
         this.yAxisXPadding = yGizmoXAxis;
         this.yAxisYPadding = yGizmoYAxis;
-        gimzosSheet = AssetPool.getSpriteSheet(gizmosConfig);
+        this.mouse = MouseListener.getInstance();
+        this.gimzosSheet = AssetPool.getSpriteSheet(gizmosConfig);
 
         xAxisBody = new GameObject("gizmoXAxis", new Transform(new Vector2f(), gizmoScale), 20);
         xAxisBody.setNonSerializable();
@@ -65,14 +66,14 @@ public class Gizmo extends Component {
 
         xAxisSprite = new Sprite(template.getTexture(), template.getWidth(), template.getHeight(), template.getSpriteCords());
         xAxisSpriteRender = new SpriteRenderer(xAxisSprite, xGizmoRotation);
-        xAxisSprite.setColor(gizmosColor);
+        xAxisSprite.setColor(gizmoColor);
         xAxisBody.addComponent(xAxisSpriteRender);
         xAxisSpriteRender.start();
         Renderer.getInstance().add(xAxisSpriteRender);
 
         yAxisSprite = new Sprite(template.getTexture(), template.getWidth(), template.getHeight(), template.getSpriteCords());
         yAxisSpriteRender = new SpriteRenderer(yAxisSprite, yGizmoRotation);
-        yAxisSprite.setColor(gizmosColor);
+        yAxisSprite.setColor(gizmoColor);
         yAxisBody.addComponent(yAxisSpriteRender);
         yAxisSpriteRender.start();
         Renderer.getInstance().add(yAxisSpriteRender);
@@ -88,23 +89,61 @@ public class Gizmo extends Component {
 
     @Override
     public void update(float dt) {
-        GameObject activeObject = InspectorWindow.getInstance().getActiveGameObject();
+        GameObject activeObject = MouseControls.getInstance().getActiveGameObject();
 
         if(activeObject != null && activeObject != lastActiveObject) {
             if(yAxisBody.getComponent(SpriteRenderer.class) == null) create();
-            xAxisBody.getTransform().setPosition(new Vector2f(activeObject.getTransform().getPosition().x + xAxisXPadding, activeObject.getTransform().getPosition().y + xAxisYPadding));
-            yAxisBody.getTransform().setPosition(new Vector2f(activeObject.getTransform().getPosition().x + yAxisXPadding, activeObject.getTransform().getPosition().y + yAxisYPadding));
+
         }else if(activeObject == null){
             destroy();
         }
 
+        if(activeObject != null) {
+            xAxisBody.getTransform().setPosition(new Vector2f(activeObject.getTransform().getPosition().x + xAxisXPadding, activeObject.getTransform().getPosition().y + xAxisYPadding));
+            yAxisBody.getTransform().setPosition(new Vector2f(activeObject.getTransform().getPosition().x + yAxisXPadding, activeObject.getTransform().getPosition().y + yAxisYPadding));
+        }
+
+        if(activeObject != null){
+            // gizmo - xAxis
+            Vector2f xPos = xAxisBody.getTransform().getPosition();
+            Vector2f xScale = xAxisBody.getTransform().getScale();
+
+            if(mouse.getWorldX() >= (xPos.x - xScale.y - gridSize) && mouse.getWorldX() <= xPos.x + gridSize && mouse.getWorldY() >= xPos.y - gridSize && mouse.getWorldY() <= xPos.y + xScale.x + gridSize){
+                xAxisSprite.setColor(hoverGizmoColor);
+                isXAxisHot = true;
+            }else{
+                xAxisSprite.setColor(gizmoColor);
+                isXAxisHot = false;
+            }
+
+            // gizmo - yAxis
+            Vector2f yPos = yAxisBody.getTransform().getPosition();
+            Vector2f yScale = yAxisBody.getTransform().getScale();
+
+            if(mouse.getWorldX() >= yPos.x - yScale.x - gridSize && mouse.getWorldX() <= yPos.x + gridSize && mouse.getWorldY() > yPos.y - yScale.y - gridSize&& mouse.getWorldY() <= yPos.y + gridSize){
+                yAxisSprite.setColor(hoverGizmoColor);
+                isYAxisHot = true;
+            }else{
+                yAxisSprite.setColor(gizmoColor);
+                isYAxisHot = false;
+            }
+        }
+
         lastActiveObject = activeObject;
+    }
+
+    public boolean isHot(){
+        return isXAxisHot || isYAxisHot;
     }
 
     public void setGizmoIndex(int index){
         this.gizmoIndex = index;
         destroy();
         create();
+    }
+
+    public int getGizmoIndex(){
+        return gizmoIndex;
     }
 }
 

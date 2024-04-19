@@ -17,20 +17,26 @@ public class CameraControl extends Component {
     private float debounce;
     private float resetDebounce;
     private boolean resetMode;
+    private Gizmo gizmo;
+    private InspectorWindow inspector;
+    private MouseControls mouseControls;
 
     public CameraControl(Camera camera){
         this.debounce = Configuration.debounceForCamera;
         this.resetDebounce = debounce;
         this.camera = camera;
         this.mouse = MouseListener.getInstance();
+        this.gizmo = Gizmo.getInstance();
+        this.inspector = InspectorWindow.getInstance();
+        this.mouseControls = MouseControls.getInstance();
     }
 
     @Override
     public void update(float dt) {
-        if(debounce < 0) {
-            mouse.startFrame();
+        if(debounce < 0  && !mouseControls.isActiveObjectOccupied() && !mouseControls.isHoldingObjectOccupied()){
+
             // update camera
-            if (mouse.isIsMouseDragged() && mouse.isCursorInsideViewPort()) {
+            if (mouse.isMouseDragged() && mouse.isCursorInsideViewPort()) {
                 Vector2f delta = mouse.getDelta();
 
                 float valueX = (delta.x * (dt * cameraSensivity * zoom));
@@ -72,9 +78,8 @@ public class CameraControl extends Component {
                 }
             }
 
-            // reset cooldown, reset values
+            // reset cooldown
             debounce = resetDebounce;
-            mouse.endFrame();
         }
         debounce -= dt;
     }

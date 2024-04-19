@@ -1,8 +1,5 @@
 package main;
 
-import main.components.Sprite;
-import main.components.SpriteRenderer;
-import main.haspid.GameObject;
 import main.util.SpriteConfig;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
@@ -47,8 +44,8 @@ public class Configuration {
 
     public static float scrollSensivity = 0.1f;
 
-
-    public static Vector4f gizmosColor = new Vector4f(0.0f, .0f, 0.0f, 1f);
+    public static Vector4f hoverGizmoColor = new Vector4f(0f, 0.5f, 0f, 1f);
+    public static Vector4f gizmoColor = new Vector4f(0.0f, .0f, 0.0f, 1f);
     public static Vector2f gizmoScale = new Vector2f(30, 60);
     public static int xGizmoXAxis = 70;
     public static int xGizmoYAxis = -8;

@@ -19,14 +19,11 @@ public class EditorScene extends Scene {
     private ImGuiLayer imGuiLayer;
     private GameObject levelEditorStuff;
     private PropertiesWindow propertiesWindow;
-    private SpriteSheet gizmos;
 
     public EditorScene() {}
 
     @Override
     public void init() {
-        gizmos = AssetPool.getSpriteSheet(gizmosConfig);
-
         load();
 
         camera = new Camera(new Vector2f(0, 0));
@@ -54,7 +51,6 @@ public class EditorScene extends Scene {
     public void update(float dt) {
         dearGui();
         levelEditorStuff.update(dt);
-        InspectorWindow.getInstance().update();
 
         for (GameObject go : getSceneObjectList()) {
             go.update(dt);

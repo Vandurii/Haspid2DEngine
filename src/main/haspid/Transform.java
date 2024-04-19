@@ -29,6 +29,10 @@ public class Transform {
         this.position = position;
     }
 
+    public void setPosition(float x, float y){
+        this.position = new Vector2f(x, y);
+    }
+
     public Vector2f getScale() {
         return scale;
     }

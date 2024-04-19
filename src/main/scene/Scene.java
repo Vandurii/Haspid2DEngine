@@ -62,7 +62,6 @@ public abstract class Scene {
         sceneObjectList.add(gameObject);
 
         if(isRunning){
-            System.out.println("dodalem");
             gameObject.start();
             renderer.add(gameObject);
         }
@@ -82,6 +81,7 @@ public abstract class Scene {
 
     public void removeFromScene(GameObject gameObject){
         sceneObjectList.remove(gameObject);
+        if(gameObject.getComponent(SpriteRenderer.class) != null) gameObject.getComponent(SpriteRenderer.class).markToRemove();
     }
 
     public GameObject getGameObjectFromID(int id){

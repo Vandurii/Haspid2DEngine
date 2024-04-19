@@ -7,13 +7,15 @@ import main.haspid.MouseListener;
 import main.haspid.Window;
 
 import static main.Configuration.imGuiColor;
-import static org.lwjgl.glfw.GLFW.GLFW_MOUSE_BUTTON_1;
+import static org.lwjgl.glfw.GLFW.GLFW_MOUSE_BUTTON_2;
 
 public class InspectorWindow {
     private static InspectorWindow instance;
-    private static GameObject activeGameObject;
+    private static MouseControls mouseControls;
 
-    private InspectorWindow(){}
+    private InspectorWindow(){
+        mouseControls = MouseControls.getInstance();
+    }
 
     public static InspectorWindow getInstance(){
         if(instance == null) instance = new InspectorWindow();
@@ -22,31 +24,12 @@ public class InspectorWindow {
     }
 
     public void display(){
-        if(activeGameObject != null){
+        if(mouseControls.getActiveGameObject() != null){
             ImGui.pushStyleColor(ImGuiCol.WindowBg, imGuiColor.x, imGuiColor.y, imGuiColor.z, imGuiColor.w);
             ImGui.begin("Inspector");
-            activeGameObject.dearGui();
+            mouseControls.getActiveGameObject().dearGui();
             ImGui.end();
             ImGui.popStyleColor(1);
         }
-    }
-
-    public void update(){
-        if(MouseListener.getInstance().isButtonPressed(GLFW_MOUSE_BUTTON_1)){
-            int x = (int) MouseListener.getInstance().getScreenX();
-            int y = (int) MouseListener.getInstance().getScreenY();
-            int id = (int) Window.getInstance().getIdBuffer().readIDFromPixel(x, y);
-
-            GameObject active = Window.getInstance().getCurrentScene().getGameObjectFromID(id);
-            if(active != null && active.isTriggerable()) activeGameObject = active;
-        }
-    }
-
-    public GameObject getActiveGameObject() {
-        return activeGameObject;
-    }
-
-    public void setActiveGameObject(GameObject activeGameObject) {
-        InspectorWindow.activeGameObject = activeGameObject;
     }
 }

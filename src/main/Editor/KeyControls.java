@@ -20,13 +20,14 @@ public class KeyControls extends Component {
 
     private float keyDebounce;
     private KeyListener keyboard;
-    private InspectorWindow inspectorWindow;
-    private float resetDebounce = keyDebounce;
+    private float resetDebounce;
+    private MouseControls mouseControls;
 
     private KeyControls(){
-        keyDebounce = keyDebounceC;
-        keyboard = KeyListener.getInstance();
-        inspectorWindow = InspectorWindow.getInstance();
+        this.keyDebounce = keyDebounceC;
+        this.resetDebounce = keyDebounce;
+        this.keyboard = KeyListener.getInstance();
+        this.mouseControls = MouseControls.getInstance();
     }
 
     public static KeyControls getInstance(){
@@ -37,14 +38,18 @@ public class KeyControls extends Component {
 
     @Override
     public void update(float dt) {
-        GameObject activeObject = InspectorWindow.getInstance().getActiveGameObject();
+        GameObject activeObject = mouseControls.getActiveGameObject();
         Scene scene = Window.getInstance().getCurrentScene();
 
         if(keyDebounce < 0) {
             if (keyboard.isKeyPressed(GLFW_KEY_P)) {
                 printInfo();
             } else if (keyboard.isKeyPressed(GLFW_KEY_ESCAPE)) {
-                inspectorWindow.setActiveGameObject(null);
+                if(mouseControls.getCursorObject() != null){
+                    mouseControls.clearCursor();
+                }else {
+                   mouseControls.setActiveGameObject(null);
+                }
             } else if (keyboard.isKeyPressed(GLFW_KEY_L)) {
                 List<RenderBatch> rList = Renderer.getInstance().getRenderBatchList();
                 for (RenderBatch rb : rList) {
@@ -63,7 +68,7 @@ public class KeyControls extends Component {
                 if(spriteRenderer != null){
                     spriteRenderer.markToRemove();
                     scene.removeFromScene(activeObject);
-                    InspectorWindow.getInstance().setActiveGameObject(null);
+                    mouseControls.setActiveGameObject(null);
                 }
             }
 
