@@ -16,6 +16,7 @@ public class GameObject {
     private boolean isTriggerable;
     private List<Component> componentList;
     private static int ID_COUNTER;
+    private boolean markToRelocate;
 
     public GameObject(String name){
         this.componentList = new ArrayList<>();
@@ -114,12 +115,28 @@ public class GameObject {
         return transform;
     }
 
+    public boolean isMarkToRelocate(){
+        return  markToRelocate;
+    }
+
     public String getName(){
         return name;
     }
 
-    public int getzIndex(){
+    public int getZIndex(){
         return zIndex;
+    }
+
+    public void setZIndex(int zIndex){
+        if(this.zIndex != zIndex) {
+            markToRelocate = true;
+            getComponent(SpriteRenderer.class).markToRemove();
+            this.zIndex = zIndex;
+        }
+    }
+
+    public void markToRelocate(boolean value){
+        markToRelocate = value;
     }
 
     public int getGameObjectID(){

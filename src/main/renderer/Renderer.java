@@ -16,10 +16,12 @@ public class Renderer {
     private static List<RenderBatch> rendererBatchList;
     private static Shader currentShader;
     private static Renderer instance;
+    private static List<SpriteRenderer> spriteRenderersToRelocate;
 
     private Renderer(){
         currentShader = AssetPool.getShader(defaultShaderPath);
         rendererBatchList = new ArrayList<>();
+        spriteRenderersToRelocate = new ArrayList<>();
     }
 
     public static Renderer getInstance(){
@@ -37,7 +39,7 @@ public class Renderer {
 
         boolean added = false;
         for(RenderBatch rBatch: rendererBatchList){
-            if(rBatch.hasRoom() && rBatch.getzIndex() == spriteRenderer.getParent().getzIndex()){
+            if(rBatch.hasRoom() && rBatch.getzIndex() == spriteRenderer.getParent().getZIndex()){
                 if(rBatch.hasTextureListRoom() || rBatch.hasTexture(spriteRenderer.getSprite().getTexture())) {
                     rBatch.addSprite(spriteRenderer);
                     added = true;
@@ -47,7 +49,7 @@ public class Renderer {
         }
 
         if(!added){
-            RenderBatch newRenderBatch = new RenderBatch(maxBatchSize, spriteRenderer.getParent().getzIndex());
+            RenderBatch newRenderBatch = new RenderBatch(maxBatchSize, spriteRenderer.getParent().getZIndex());
             newRenderBatch.start();
             newRenderBatch.addSprite(spriteRenderer);
             rendererBatchList.add(newRenderBatch);
@@ -59,6 +61,12 @@ public class Renderer {
         for(RenderBatch rBatch: rendererBatchList){
             rBatch.render();
         }
+
+        for(SpriteRenderer spriteRenderer: spriteRenderersToRelocate){
+            add(spriteRenderer);
+            spriteRenderer.setDirty();
+        }
+        spriteRenderersToRelocate.clear();
     }
 
     public void replaceShader(Shader shader){
@@ -71,5 +79,9 @@ public class Renderer {
 
     public List<RenderBatch> getRenderBatchList(){
         return rendererBatchList;
+    }
+
+    public void addToRelocateList(SpriteRenderer spriteRenderer){
+        spriteRenderersToRelocate.add(spriteRenderer);
     }
 }

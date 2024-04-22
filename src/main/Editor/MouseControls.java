@@ -1,6 +1,7 @@
 package main.Editor;
 
 import main.components.Component;
+import main.components.Sprite;
 import main.components.SpriteRenderer;
 import main.haspid.*;
 import main.scene.Scene;
@@ -19,6 +20,8 @@ public class MouseControls extends Component {
     private static Gizmo gizmo;
     private float xBuffer, yBuffer;
     private Window window;
+    private float debounce = 0.05f;
+    private float resetDebounce = debounce;
 
     private MouseControls() {
         scene = Window.getInstance().getCurrentScene();
@@ -37,7 +40,7 @@ public class MouseControls extends Component {
     public void update(float dt) {
 
         if(holdingObject != null){
-            trackMouse();
+            trackMouse(dt);
         }else if(gizmo.isHot() && activeGameObject != null && mouse.isMouseDragged()){
             gizmoAction();
         }else if(mouse.isButtonPressed(GLFW_MOUSE_BUTTON_2) && !mouse.isMouseDragged()){
@@ -45,28 +48,33 @@ public class MouseControls extends Component {
         }
     }
 
-    public void trackMouse(){
+    public void trackMouse(float dt){
         int objectX = (int)(mouse.getWorldX()/ gridSize) * gridSize;
         int objectY = (int)(mouse.getWorldY() / gridSize) * gridSize;
         holdingObject.getTransform().setPosition(new Vector2f(objectX, objectY));
         if(mouse.isButtonPressed(GLFW_MOUSE_BUTTON_1)){
-            place();
+            place(dt);
         }
     }
 
-    public void place(){
-       // if(holdingObject != null)System.out.println(holdingObject.getGameObjectID());
+    public void place(float dt){
         float scan  = window.getIdBuffer().readIDFromPixel((int) mouse.getViewPortX() , (int) mouse.getViewPortY());
-        if(scan == 0 ) {
+        if((scan == 0 || scan == holdingObject.getGameObjectID()) && debounce < 0 ) {
             Transform t = holdingObject.getTransform();
             SpriteRenderer spriteRenderer = holdingObject.getComponent(SpriteRenderer.class);
+            Sprite sprite = spriteRenderer.getSprite();
 
-            GameObject objectClone = new GameObject(holdingObject.getName(), new Transform(t.getPosition(), t.getScale()), holdingObject.getzIndex());
-            objectClone.addComponent(new SpriteRenderer(spriteRenderer.getSprite()));
+            GameObject objectClone = new GameObject(holdingObject.getName(), t.copy(), holdingObject.getZIndex());
+            objectClone.addComponent(new SpriteRenderer(new Sprite(sprite.getTexture(), sprite.getWidth(), sprite.getHeight(), sprite.getSpriteCords())));
+
+            holdingObject.setZIndex(holdingObject.getZIndex() + 1);
 
             holdingObject = objectClone;
-            scene.addGameObjectToScene(objectClone);
+            scene.addGameObjectToScene(holdingObject);
+            debounce = resetDebounce;
         }
+
+        debounce -= dt;
     }
 
     public void pickupObject(GameObject holdingObject){
@@ -76,6 +84,8 @@ public class MouseControls extends Component {
 
     public void gizmoAction(){
         int index = gizmo.getGizmoIndex();
+        Transform transform = activeGameObject.getTransform();
+        Vector2f scale = transform.getScale();
 
         Vector2f delta = mouse.getDelta();
         float x  = (delta.x * zoom);
@@ -83,14 +93,20 @@ public class MouseControls extends Component {
         Vector2f value = addToBuffer(x, y);
 
         if(index == 0){
-            activeGameObject.getTransform().getScale().x -= value.x;
-            activeGameObject.getTransform().getScale().y -= value.x;
+            float val = Math.abs(value.x) > Math.abs(value.y) ? value.x : value.y;
+            if(scale.x - val > 0 && scale.y - val > 0) {
+                scale.x -= val;
+                scale.y -= val;
+            }
         }else if(index == 1){
-            activeGameObject.getTransform().getPosition().x -= value.x;
-            activeGameObject.getTransform().getPosition().y -= value.y;
+            int xPos = (int) ((mouse.getWorldX() - (scale.x / 2)) / gridSize) * gridSize;
+            int yPos = (int) ((mouse.getWorldY() - (scale.y / 2)) / gridSize) * gridSize;
+
+            if (gizmo.isXAxisHot()) transform.setPosition(xPos, transform.getPosition().y);
+            if (gizmo.isYAxisHot()) transform.setPosition(transform.getPosition().x, yPos);
         }else if(index == 2){
-            activeGameObject.getTransform().getScale().x -= value.x;
-            activeGameObject.getTransform().getScale().y -= value.y;
+            if(gizmo.isXAxisHot() && (scale.x - value.x) > 0) scale.x -= value.x;
+            if(gizmo.isYAxisHot() && (scale.y - value.y) > 0) scale.y -= value.y;
         }
     }
 
@@ -98,6 +114,7 @@ public class MouseControls extends Component {
         int x = (int) mouse.getViewPortX();
         int y = (int) mouse.getViewPortY();
         int id = (int) window.getIdBuffer().readIDFromPixel(x, y);
+        System.out.println(id);
 
         GameObject active = scene.getGameObjectFromID(id);
         if(active != null && active.isTriggerable()) activeGameObject = active;

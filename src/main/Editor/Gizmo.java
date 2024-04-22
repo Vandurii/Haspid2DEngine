@@ -99,16 +99,21 @@ public class Gizmo extends Component {
         }
 
         if(activeObject != null) {
-            xAxisBody.getTransform().setPosition(new Vector2f(activeObject.getTransform().getPosition().x + xAxisXPadding, activeObject.getTransform().getPosition().y + xAxisYPadding));
-            yAxisBody.getTransform().setPosition(new Vector2f(activeObject.getTransform().getPosition().x + yAxisXPadding, activeObject.getTransform().getPosition().y + yAxisYPadding));
+            Vector2f aPos = activeObject.getTransform().getPosition();
+            Vector2f aScale = activeObject.getTransform().getScale();
+
+            xAxisBody.getTransform().setPosition(new Vector2f(aPos.x + xAxisXPadding + aScale.x, aPos.y + xAxisYPadding));
+            yAxisBody.getTransform().setPosition(new Vector2f(aPos.x + yAxisXPadding, aPos.y + yAxisYPadding + aScale.y));
         }
 
         if(activeObject != null){
+            Vector2f aScale = activeObject.getTransform().getScale();
+
             // gizmo - xAxis
             Vector2f xPos = xAxisBody.getTransform().getPosition();
             Vector2f xScale = xAxisBody.getTransform().getScale();
 
-            if(mouse.getWorldX() >= (xPos.x - xScale.y - gridSize) && mouse.getWorldX() <= xPos.x + gridSize && mouse.getWorldY() >= xPos.y - gridSize && mouse.getWorldY() <= xPos.y + xScale.x + gridSize){
+            if(mouse.getWorldX() >= (xPos.x - xScale.y - aScale.x) && mouse.getWorldX() <= xPos.x + aScale.x && mouse.getWorldY() >= xPos.y - aScale.y && mouse.getWorldY() <= xPos.y + xScale.x + aScale.y){
                 xAxisSprite.setColor(hoverGizmoColor);
                 isXAxisHot = true;
             }else{
@@ -120,7 +125,7 @@ public class Gizmo extends Component {
             Vector2f yPos = yAxisBody.getTransform().getPosition();
             Vector2f yScale = yAxisBody.getTransform().getScale();
 
-            if(mouse.getWorldX() >= yPos.x - yScale.x - gridSize && mouse.getWorldX() <= yPos.x + gridSize && mouse.getWorldY() > yPos.y - yScale.y - gridSize&& mouse.getWorldY() <= yPos.y + gridSize){
+            if(mouse.getWorldX() >= yPos.x - yScale.x - aScale.x && mouse.getWorldX() <= yPos.x + aScale.x && mouse.getWorldY() > yPos.y - yScale.y - aScale.y && mouse.getWorldY() <= yPos.y + aScale.y){
                 yAxisSprite.setColor(hoverGizmoColor);
                 isYAxisHot = true;
             }else{
@@ -136,6 +141,14 @@ public class Gizmo extends Component {
         return isXAxisHot || isYAxisHot;
     }
 
+    public boolean isXAxisHot(){
+        return isXAxisHot;
+    }
+
+    public boolean isYAxisHot(){
+        return isYAxisHot;
+    }
+
     public void setGizmoIndex(int index){
         this.gizmoIndex = index;
         destroy();
@@ -146,4 +159,3 @@ public class Gizmo extends Component {
         return gizmoIndex;
     }
 }
-

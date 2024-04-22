@@ -1,5 +1,6 @@
 package main.renderer;
 
+import main.components.Sprite;
 import main.components.SpriteRenderer;
 import main.haspid.Camera;
 import main.haspid.Transform;
@@ -12,6 +13,7 @@ import org.joml.Matrix4f;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
 
+import java.security.SecureRandomParameters;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -142,7 +144,13 @@ public class RenderBatch implements Comparable<RenderBatch> {
             }
             spriteRenderer.unmarkToRemove();
             spriteListToRender[index] = null;
-            spriteRenderer.getParent().removeComponent(spriteRenderer);
+
+           if(spriteRenderer.getParent().isMarkToRelocate()){
+               Renderer.getInstance().addToRelocateList(spriteRenderer);
+               spriteRenderer.getParent().markToRelocate(false);
+           }else{
+               spriteRenderer.getParent().removeComponent(spriteRenderer);
+           }
 
             freeSlots.add(index);
         }else {
@@ -177,13 +185,11 @@ public class RenderBatch implements Comparable<RenderBatch> {
                 vertexArray[offset + 3] = color.y;
                 vertexArray[offset + 4] = color.z;
                 vertexArray[offset + 5] = color.w;
-                ;
 
                 vertexArray[offset + 6] = texCords[j].x;
                 vertexArray[offset + 7] = texCords[j].y;
 
                 vertexArray[offset + 8] = spriteRenderer.getSprite().getSpriteID();
-                ;
 
                 vertexArray[offset + 9] = spriteRenderer.getParent().getGameObjectID();
 

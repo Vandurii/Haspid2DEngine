@@ -47,12 +47,12 @@ public class Configuration {
     public static Vector4f hoverGizmoColor = new Vector4f(0f, 0.5f, 0f, 1f);
     public static Vector4f gizmoColor = new Vector4f(0.0f, .0f, 0.0f, 1f);
     public static Vector2f gizmoScale = new Vector2f(30, 60);
-    public static int xGizmoXAxis = 70;
+    public static int xGizmoXAxis = 40;
     public static int xGizmoYAxis = -8;
     public static int xGizmoRotation = 90;
 
     public static int yGizmoXAxis = 20;
-    public static int yGizmoYAxis = 70;
+    public static int yGizmoYAxis = 40;
     public static int yGizmoRotation = 180;
 
 
@@ -101,6 +101,7 @@ public class Configuration {
 
 
 // todo reuse free slots in renderbatch, made by object removing
+// todo scanObject problem
 
 
 
