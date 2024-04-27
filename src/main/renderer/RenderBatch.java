@@ -1,6 +1,5 @@
 package main.renderer;
 
-import main.components.Sprite;
 import main.components.SpriteRenderer;
 import main.haspid.Camera;
 import main.haspid.Transform;
@@ -155,8 +154,8 @@ public class RenderBatch implements Comparable<RenderBatch> {
 
             freeSlots.add(index);
         }else {
-            Vector2f[] texCords = spriteRenderer.getSprite().getSpriteCords();
-            Vector4f color = spriteRenderer.getSprite().getColor();
+            Vector2f[] texCords = spriteRenderer.getSpriteCords();
+            Vector4f color = spriteRenderer.getColor();
             Vector2f position = transform.getPosition();
             Vector2f scale = transform.getScale();
             boolean isRotated = transform.getRotation() != 0;
@@ -189,7 +188,7 @@ public class RenderBatch implements Comparable<RenderBatch> {
                 vertexArray[offset + 6] = texCords[j].x;
                 vertexArray[offset + 7] = texCords[j].y;
 
-                vertexArray[offset + 8] = spriteRenderer.getSprite().getSpriteID();
+                vertexArray[offset + 8] = spriteRenderer.getSpriteID();
 
                 vertexArray[offset + 9] = spriteRenderer.getParent().getGameObjectID();
 
@@ -203,17 +202,17 @@ public class RenderBatch implements Comparable<RenderBatch> {
         spriteListToRender[index] = spriteRenderer;
         if(spriteCount + 1 >= maxBathSize) hasRoom = false;
 
-        if(spriteRenderer.hasSprite() && spriteRenderer.getSprite().hasTexture() ) {
-            if(!textureList.contains(spriteRenderer.getSprite().getTexture())){
+        if(spriteRenderer.hasTexture() ) {
+            if(!textureList.contains(spriteRenderer.getTexture())){
                 int id = textureList.size() + 1;
-                spriteRenderer.getSprite().setSpriteID(id);
-                textureList.add(spriteRenderer.getSprite().getTexture());
+                spriteRenderer.setSpriteID(id);
+                textureList.add(spriteRenderer.getTexture());
             }else {
-                if(spriteRenderer.getSprite().isIDDefault()) {
+                if(spriteRenderer.isIDDefault()) {
                     for (int i = 0; i < textureList.size(); i++) {
                         Texture texture = textureList.get(i);
-                        if (texture.equals(spriteRenderer.getSprite().getTexture())) {
-                            spriteRenderer.getSprite().setSpriteID(i + 1);
+                        if (texture.equals(spriteRenderer.getTexture())) {
+                            spriteRenderer.setSpriteID(i + 1);
                         }
                     }
                 }
@@ -251,7 +250,7 @@ public class RenderBatch implements Comparable<RenderBatch> {
         boolean reload = false;
         for(int i = 0; i < spriteCount; i++){;
             SpriteRenderer spriteRenderer = spriteListToRender[i];
-            if(spriteRenderer != null && spriteRenderer.hasSprite() && (spriteRenderer.isDirty() || spriteRenderer.isMarkedToRemove())){
+            if(spriteRenderer != null && (spriteRenderer.isDirty() || spriteRenderer.isMarkedToRemove())){
                 loadVertexArray(i);
                 spriteRenderer.setClean();
                 reload = true;

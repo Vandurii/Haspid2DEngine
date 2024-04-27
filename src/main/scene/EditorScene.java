@@ -2,7 +2,6 @@ package main.scene;
 
 import imgui.app.Configuration;
 import main.Editor.*;
-import main.components.Sprite;
 import main.components.SpriteRenderer;
 import main.haspid.*;
 import main.haspid.Window;

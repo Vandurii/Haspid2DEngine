@@ -1,7 +1,6 @@
 package main.Editor;
 
 import main.components.Component;
-import main.components.Sprite;
 import main.components.SpriteRenderer;
 import main.haspid.*;
 import main.renderer.Renderer;
@@ -22,14 +21,12 @@ public class Gizmo extends Component {
 
     private SpriteRenderer xAxisSpriteRender;
     private GameObject xAxisBody;
-    private Sprite xAxisSprite;
     private int xAxisXPadding;
     private int xAxisYPadding;
     private boolean isXAxisHot;
 
     private SpriteRenderer yAxisSpriteRender;
     private GameObject yAxisBody;
-    private Sprite yAxisSprite;
     private int yAxisXPadding;
     private int yAxisYPadding;
     private boolean isYAxisHot;
@@ -62,18 +59,16 @@ public class Gizmo extends Component {
     }
 
     public void create(){
-        Sprite template = gimzosSheet.getSprite(gizmoIndex);
+        SpriteRenderer template = gimzosSheet.getSprite(gizmoIndex);
 
-        xAxisSprite = new Sprite(template.getTexture(), template.getWidth(), template.getHeight(), template.getSpriteCords());
-        xAxisSpriteRender = new SpriteRenderer(xAxisSprite);
-        xAxisSprite.setColor(gizmoColor);
+        xAxisSpriteRender = new SpriteRenderer(template.getTexture(), template.getWidth(), template.getHeight(), template.getSpriteCords());
+        xAxisSpriteRender.setColor(gizmoColor);
         xAxisBody.addComponent(xAxisSpriteRender);
         xAxisSpriteRender.start();
         Renderer.getInstance().add(xAxisSpriteRender);
 
-        yAxisSprite = new Sprite(template.getTexture(), template.getWidth(), template.getHeight(), template.getSpriteCords());
-        yAxisSpriteRender = new SpriteRenderer(yAxisSprite);
-        yAxisSprite.setColor(gizmoColor);
+        yAxisSpriteRender = new SpriteRenderer(template.getTexture(), template.getWidth(), template.getHeight(), template.getSpriteCords());
+        yAxisSpriteRender.setColor(gizmoColor);
         yAxisBody.addComponent(yAxisSpriteRender);
         yAxisSpriteRender.start();
         Renderer.getInstance().add(yAxisSpriteRender);
@@ -114,10 +109,10 @@ public class Gizmo extends Component {
             Vector2f xScale = xAxisBody.getTransform().getScale();
 
             if(mouse.getWorldX() >= (xPos.x - xScale.y - aScale.x) && mouse.getWorldX() <= xPos.x + aScale.x && mouse.getWorldY() >= xPos.y - aScale.y && mouse.getWorldY() <= xPos.y + xScale.x + aScale.y){
-                xAxisSprite.setColor(hoverGizmoColor);
+                xAxisSpriteRender.setColor(hoverGizmoColor);
                 isXAxisHot = true;
             }else{
-                xAxisSprite.setColor(gizmoColor);
+                xAxisSpriteRender.setColor(gizmoColor);
                 isXAxisHot = false;
             }
 
@@ -126,10 +121,10 @@ public class Gizmo extends Component {
             Vector2f yScale = yAxisBody.getTransform().getScale();
 
             if(mouse.getWorldX() >= yPos.x - yScale.x - aScale.x && mouse.getWorldX() <= yPos.x + aScale.x && mouse.getWorldY() > yPos.y - yScale.y - aScale.y && mouse.getWorldY() <= yPos.y + aScale.y){
-                yAxisSprite.setColor(hoverGizmoColor);
+                yAxisSpriteRender.setColor(hoverGizmoColor);
                 isYAxisHot = true;
             }else{
-                yAxisSprite.setColor(gizmoColor);
+                yAxisSpriteRender.setColor(gizmoColor);
                 isYAxisHot = false;
             }
         }

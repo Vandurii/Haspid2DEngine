@@ -3,7 +3,7 @@ package main.Editor;
 import imgui.ImGui;
 import imgui.ImVec2;
 import imgui.flag.ImGuiCol;
-import main.components.Sprite;
+import main.components.SpriteRenderer;
 import main.haspid.GameObject;
 import main.haspid.MouseListener;
 import main.prefabs.Prefabs;
@@ -40,7 +40,7 @@ public class PropertiesWindow {
         float window = windowPos.x + windowSize.x;
 
         for(int i = 0; i < spriteSheet.getSize(); i++){
-            Sprite sprite = spriteSheet.getSprite(i);
+            SpriteRenderer sprite = spriteSheet.getSprite(i);
             float spriteWidth = sprite.getWidth();
             float spriteHeight = sprite.getHeight();
             int texID = sprite.getTexID();

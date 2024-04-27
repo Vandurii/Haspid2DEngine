@@ -1,7 +1,6 @@
 package main.Editor;
 
 import main.components.Component;
-import main.components.Sprite;
 import main.components.SpriteRenderer;
 import main.haspid.*;
 import main.scene.Scene;
@@ -63,10 +62,9 @@ public class MouseControls extends Component {
 
             Transform t = holdingObject.getTransform();
             SpriteRenderer spriteRenderer = holdingObject.getComponent(SpriteRenderer.class);
-            Sprite sprite = spriteRenderer.getSprite();
 
             GameObject objectClone = new GameObject(holdingObject.getName(), t.copy());
-            objectClone.addComponent(new SpriteRenderer(new Sprite(sprite.getTexture(), sprite.getWidth(), sprite.getHeight(), sprite.getSpriteCords())));
+            objectClone.addComponent(new SpriteRenderer(spriteRenderer.getTexture(), spriteRenderer.getWidth(), spriteRenderer.getHeight(), spriteRenderer.getSpriteCords()));
 
             t.setZIndex(t.getZIndex() + 1);
 

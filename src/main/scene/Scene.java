@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import main.Editor.InspectorWindow;
 import main.components.Component;
-import main.components.Sprite;
 import main.components.SpriteRenderer;
 import main.haspid.Camera;
 import main.components.ComponentSerializer;
@@ -156,7 +155,7 @@ public abstract class Scene {
     public static void printSceneObjects(){
         List<GameObject> goList = new ArrayList<>();
         List<Component> cList = new ArrayList<>();
-        List<Sprite> sList = new ArrayList<>();
+        List<SpriteRenderer> sList = new ArrayList<>();
         List<Texture> tList = new ArrayList<>();
 
         System.out.println("*********************");
@@ -169,8 +168,8 @@ public abstract class Scene {
 
                 if(component instanceof SpriteRenderer){
                     SpriteRenderer spriteRenderer = (SpriteRenderer) component;
-                    if(!sList.contains(spriteRenderer.getSprite()))sList.add(spriteRenderer.getSprite());
-                    if(!tList.contains(spriteRenderer.getSprite().getTexture()))tList.add(spriteRenderer.getSprite().getTexture());
+                    if(!sList.contains(spriteRenderer))sList.add(spriteRenderer);
+                    if(!tList.contains(spriteRenderer.getTexture()))tList.add(spriteRenderer.getTexture());
                 }
             }
         }

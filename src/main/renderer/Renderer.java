@@ -42,7 +42,7 @@ public class Renderer {
         boolean added = false;
         for(RenderBatch rBatch: rendererBatchList){
             if(rBatch.hasRoom() && rBatch.getzIndex() == transform.getZIndex()){
-                if(rBatch.hasTextureListRoom() || rBatch.hasTexture(spriteRenderer.getSprite().getTexture())) {
+                if(rBatch.hasTextureListRoom() || rBatch.hasTexture(spriteRenderer.getTexture())) {
                     rBatch.addSprite(spriteRenderer);
                     added = true;
                     break;
