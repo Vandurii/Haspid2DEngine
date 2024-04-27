@@ -11,27 +11,24 @@ public class GameObject {
     private int gameObjectID;
     private String name;
     private Transform transform;
-    private int zIndex;
+
     private boolean isSerializable;
     private boolean isTriggerable;
     private List<Component> componentList;
     private static int ID_COUNTER;
-    private boolean markToRelocate;
 
     public GameObject(String name){
         this.componentList = new ArrayList<>();
         this.name = name;
         this.transform = new Transform();
-        this.zIndex = 0;
         this.gameObjectID = ++ID_COUNTER;
         this.isSerializable = true;
         this.isTriggerable = true;
     }
 
-    public GameObject(String name, Transform transform, int zIndex){
+    public GameObject(String name, Transform transform){
         this.componentList = new ArrayList<>();
         this.transform = transform;
-        this.zIndex = zIndex;
         this.name = name;
         this.gameObjectID = ++ID_COUNTER;
         this.isSerializable = true;
@@ -115,28 +112,8 @@ public class GameObject {
         return transform;
     }
 
-    public boolean isMarkToRelocate(){
-        return  markToRelocate;
-    }
-
     public String getName(){
         return name;
-    }
-
-    public int getZIndex(){
-        return zIndex;
-    }
-
-    public void setZIndex(int zIndex){
-        if(this.zIndex != zIndex) {
-            markToRelocate = true;
-            getComponent(SpriteRenderer.class).markToRemove();
-            this.zIndex = zIndex;
-        }
-    }
-
-    public void markToRelocate(boolean value){
-        markToRelocate = value;
     }
 
     public int getGameObjectID(){

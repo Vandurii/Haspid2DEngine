@@ -2,6 +2,7 @@ package main.renderer;
 
 import main.components.SpriteRenderer;
 import main.haspid.GameObject;
+import main.haspid.Transform;
 import main.util.AssetPool;
 import main.util.Shader;
 
@@ -36,10 +37,11 @@ public class Renderer {
     }
 
     public void add(SpriteRenderer spriteRenderer){
+        Transform transform = spriteRenderer.getParent().getTransform();
 
         boolean added = false;
         for(RenderBatch rBatch: rendererBatchList){
-            if(rBatch.hasRoom() && rBatch.getzIndex() == spriteRenderer.getParent().getZIndex()){
+            if(rBatch.hasRoom() && rBatch.getzIndex() == transform.getZIndex()){
                 if(rBatch.hasTextureListRoom() || rBatch.hasTexture(spriteRenderer.getSprite().getTexture())) {
                     rBatch.addSprite(spriteRenderer);
                     added = true;
@@ -49,7 +51,7 @@ public class Renderer {
         }
 
         if(!added){
-            RenderBatch newRenderBatch = new RenderBatch(maxBatchSize, spriteRenderer.getParent().getZIndex());
+            RenderBatch newRenderBatch = new RenderBatch(maxBatchSize, transform.getZIndex());
             newRenderBatch.start();
             newRenderBatch.addSprite(spriteRenderer);
             rendererBatchList.add(newRenderBatch);

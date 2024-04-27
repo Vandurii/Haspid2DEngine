@@ -136,6 +136,7 @@ public class RenderBatch implements Comparable<RenderBatch> {
 
     public void loadVertexArray(int index){
         SpriteRenderer spriteRenderer = spriteListToRender[index];
+        Transform transform = spriteRenderer.getParent().getTransform();
 
         if(spriteRenderer.isMarkedToRemove()){
             for(int i = 0; i < squareSizeFloat; i++){
@@ -145,21 +146,20 @@ public class RenderBatch implements Comparable<RenderBatch> {
             spriteRenderer.unmarkToRemove();
             spriteListToRender[index] = null;
 
-           if(spriteRenderer.getParent().isMarkToRelocate()){
+           if(spriteRenderer.isMarkToRelocate()){
                Renderer.getInstance().addToRelocateList(spriteRenderer);
-               spriteRenderer.getParent().markToRelocate(false);
+               spriteRenderer.markToRelocate(false);
            }else{
                spriteRenderer.getParent().removeComponent(spriteRenderer);
            }
 
             freeSlots.add(index);
         }else {
-            Transform transform = spriteRenderer.getParent().getTransform();
             Vector2f[] texCords = spriteRenderer.getSprite().getSpriteCords();
             Vector4f color = spriteRenderer.getSprite().getColor();
             Vector2f position = transform.getPosition();
             Vector2f scale = transform.getScale();
-            boolean isRotated = spriteRenderer.getRotation() != 0;
+            boolean isRotated = transform.getRotation() != 0;
             int offset = index * squareSizeFloat;
             float xAdd = 1f;
             float yAdd = 1f;
@@ -173,7 +173,7 @@ public class RenderBatch implements Comparable<RenderBatch> {
                 if (isRotated) {
                     Matrix4f transformMatrix = new Matrix4f().identity();
                     transformMatrix.translate(position.x, position.y, 1f);
-                    transformMatrix.rotate((float) Math.toRadians(spriteRenderer.getRotation()), 0, 0, 1);
+                    transformMatrix.rotate((float) Math.toRadians(transform.getRotation()), 0, 0, 1);
                     transformMatrix.scale(scale.x, scale.y, 0);
                     currentPos = new Vector4f(xAdd, yAdd, 0, 1).mul(transformMatrix);
                 }

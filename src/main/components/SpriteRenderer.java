@@ -5,19 +5,13 @@ import org.joml.Vector4f;
 
 public class SpriteRenderer extends Component{
     private Sprite sprite;
-    private float rotation;
     private transient boolean remove;
     private transient Transform lastTransform;
     private transient boolean isDirty;
+    private boolean markToRelocate;
 
     public SpriteRenderer(Sprite sprite){
         this.sprite = sprite;
-        this.isDirty = true;
-    }
-
-    public SpriteRenderer(Sprite sprite, float rotation){
-        this.sprite = sprite;
-        this.rotation = rotation;
         this.isDirty = true;
     }
 
@@ -56,6 +50,10 @@ public class SpriteRenderer extends Component{
         isDirty = true;
     }
 
+    public void setColor(Vector4f color){
+        sprite.setColor(color);
+    }
+
     public boolean isDirty(){
         return isDirty;
     }
@@ -66,10 +64,6 @@ public class SpriteRenderer extends Component{
 
     public void setDirty(){
         isDirty = true;
-    }
-
-    public void destroySprite(){
-        sprite = null;
     }
 
     public void markToRemove(){
@@ -84,15 +78,11 @@ public class SpriteRenderer extends Component{
         return remove;
     }
 
-    public void setColor(Vector4f color){
-        sprite.setColor(color);
+    public boolean isMarkToRelocate(){
+        return  markToRelocate;
     }
 
-    public float getRotation() {
-        return rotation;
-    }
-
-    public void setIsRotated(float rotation) {
-        this.rotation = rotation;
+    public void markToRelocate(boolean value){
+        markToRelocate = value;
     }
 }

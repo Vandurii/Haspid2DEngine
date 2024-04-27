@@ -60,14 +60,15 @@ public class MouseControls extends Component {
     public void place(float dt){
         float scan  = window.getIdBuffer().readIDFromPixel((int) mouse.getViewPortX() , (int) mouse.getViewPortY());
         if((scan == 0 || scan == holdingObject.getGameObjectID()) && debounce < 0 ) {
+
             Transform t = holdingObject.getTransform();
             SpriteRenderer spriteRenderer = holdingObject.getComponent(SpriteRenderer.class);
             Sprite sprite = spriteRenderer.getSprite();
 
-            GameObject objectClone = new GameObject(holdingObject.getName(), t.copy(), holdingObject.getZIndex());
+            GameObject objectClone = new GameObject(holdingObject.getName(), t.copy());
             objectClone.addComponent(new SpriteRenderer(new Sprite(sprite.getTexture(), sprite.getWidth(), sprite.getHeight(), sprite.getSpriteCords())));
 
-            holdingObject.setZIndex(holdingObject.getZIndex() + 1);
+            t.setZIndex(t.getZIndex() + 1);
 
             holdingObject = objectClone;
             scene.addGameObjectToScene(holdingObject);
