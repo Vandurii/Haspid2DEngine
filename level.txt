@@ -24,7 +24,7 @@
     ]
   },
   {
-    "gameObjectID": 6,
+    "gameObjectID": 5,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -33,12 +33,12 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 64.0,
-            "y": 512.0
+            "x": 1920.0,
+            "y": 1056.0
           },
           "scale": {
-            "x": 32.0,
-            "y": 32.0
+            "x": 160.0,
+            "y": 160.0
           },
           "rotation": 0.0,
           "zIndex": 1,
@@ -50,10 +50,10 @@
         "Properties": {
           "spriteID": 1,
           "color": {
-            "x": 139.0,
-            "y": 159.0,
-            "z": 103.0,
-            "w": 135.0
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0,
+            "w": 43.0
           },
           "texture": {
             "filePath": "assets/images/decorationsAndBlocks.png",
@@ -82,6 +82,69 @@
             }
           ],
           "componentID": 122
+        }
+      }
+    ]
+  },
+  {
+    "gameObjectID": 6,
+    "name": "Generated",
+    "isSerializable": true,
+    "isTriggerable": true,
+    "componentList": [
+      {
+        "Type": "main.haspid.Transform",
+        "Properties": {
+          "position": {
+            "x": 928.0,
+            "y": 480.0
+          },
+          "scale": {
+            "x": 32.0,
+            "y": 32.0
+          },
+          "rotation": 0.0,
+          "zIndex": 1,
+          "componentID": 132
+        }
+      },
+      {
+        "Type": "main.components.SpriteRenderer",
+        "Properties": {
+          "spriteID": 1,
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0,
+            "w": 1.0
+          },
+          "texture": {
+            "filePath": "assets/images/decorationsAndBlocks.png",
+            "texID": 4,
+            "width": 112,
+            "height": 192
+          },
+          "width": 16.0,
+          "height": 16.0,
+          "texCords": [
+            {
+              "x": 0.14285715,
+              "y": 0.33333334
+            },
+            {
+              "x": 0.14285715,
+              "y": 0.25
+            },
+            {
+              "x": 0.0,
+              "y": 0.25
+            },
+            {
+              "x": 0.0,
+              "y": 0.33333334
+            }
+          ],
+          "componentID": 133
         }
       }
     ]

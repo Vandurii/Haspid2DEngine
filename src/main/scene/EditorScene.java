@@ -1,23 +1,14 @@
 package main.scene;
 
-import imgui.app.Color;
 import imgui.app.Configuration;
 import main.Editor.*;
-import main.components.RigidBody;
-import main.components.SpriteRenderer;
 import main.haspid.*;
 import main.haspid.Window;
 import main.renderer.DebugDraw;
-import main.renderer.RenderBatch;
-import main.renderer.Renderer;
 import main.util.AssetPool;
-import main.util.SpriteSheet;
 import org.joml.Vector2f;
-import org.joml.Vector3f;
-import org.joml.Vector4f;
 
 import static main.Configuration.*;
-import static org.lwjgl.glfw.GLFW.*;
 
 public class EditorScene extends Scene {
     private ImGuiLayer imGuiLayer;
