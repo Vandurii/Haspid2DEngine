@@ -11,10 +11,9 @@ public class GameObjectDeserializer implements JsonDeserializer {
     public Object deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
         JsonObject jsonObject = jsonElement.getAsJsonObject();
         String name = jsonObject.get("name").getAsString();
-        Transform transform = jsonDeserializationContext.deserialize(jsonObject.get("transform"), Transform.class);
         JsonArray components = jsonObject.getAsJsonArray("componentList");
 
-        GameObject gameObject = new GameObject(name, transform);
+        GameObject gameObject = new GameObject(name);
         for(JsonElement c: components){
             Component component = jsonDeserializationContext.deserialize(c, Component.class);
             gameObject.addComponent(component);
@@ -22,6 +21,8 @@ public class GameObjectDeserializer implements JsonDeserializer {
                 ((SpriteRenderer) component).setDirty();
             }
         }
+
+        gameObject.setTransformFromItself();
 
         return gameObject;
     }

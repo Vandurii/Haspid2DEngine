@@ -19,7 +19,7 @@ public class ComponentSerializer implements JsonSerializer<Component>, JsonDeser
             Component component = jsonDeserializationContext.deserialize(element, Class.forName(clazz));
             component.updateIDCounter();
 
-            if(component instanceof  SpriteRenderer){
+            if(component instanceof  SpriteRenderer && ((SpriteRenderer)component).hasTexture()){
                 SpriteRenderer spriteRenderer = (SpriteRenderer) component;
                 String filePath = spriteRenderer.getTexture().getFilePath();
                 spriteRenderer.setTexture(AssetPool.getTexture(filePath));

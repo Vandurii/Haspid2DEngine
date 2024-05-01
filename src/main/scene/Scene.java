@@ -106,8 +106,10 @@ public abstract class Scene {
     private void loadResources(){
         AssetPool.getShader(defaultShaderPath);
         AssetPool.getSpriteSheet(firstSpriteSheet);
+        AssetPool.getSpriteSheet(decorationAndBlockConfig);
+        AssetPool.getSpriteSheet(gizmosConfig);
     }
-
+    
     public void save(){
             Gson gson = new GsonBuilder().
                     setPrettyPrinting().

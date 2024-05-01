@@ -40,11 +40,15 @@ public class Gizmo extends Component {
         this.mouse = MouseListener.getInstance();
         this.gimzosSheet = AssetPool.getSpriteSheet(gizmosConfig);
 
-        xAxisBody = new GameObject("gizmoXAxis", new Transform(new Vector2f(), gizmoScale, xGizmoRotation, 20));
+        xAxisBody = new GameObject("gizmoXAxis");
+        xAxisBody.addComponent(new Transform(new Vector2f(), gizmoScale, xGizmoRotation, 20));
+        xAxisBody.setTransformFromItself();
         xAxisBody.setNonSerializable();
         xAxisBody.setNonTriggerable();
 
-        yAxisBody = new GameObject("gizmoYAxis", new Transform(new Vector2f(), gizmoScale, yGizmoRotation, 20));
+        yAxisBody = new GameObject("gizmoYAxis");
+        yAxisBody.addComponent(new Transform(new Vector2f(), gizmoScale, yGizmoRotation, 20));
+        yAxisBody.setTransformFromItself();
         yAxisBody.setNonSerializable();
         yAxisBody.setNonTriggerable();
 

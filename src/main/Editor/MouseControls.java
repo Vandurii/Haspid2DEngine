@@ -63,8 +63,10 @@ public class MouseControls extends Component {
             Transform t = holdingObject.getTransform();
             SpriteRenderer spriteRenderer = holdingObject.getComponent(SpriteRenderer.class);
 
-            GameObject objectClone = new GameObject(holdingObject.getName(), t.copy());
+            GameObject objectClone = new GameObject(holdingObject.getName());
             objectClone.addComponent(new SpriteRenderer(spriteRenderer.getTexture(), spriteRenderer.getWidth(), spriteRenderer.getHeight(), spriteRenderer.getSpriteCords()));
+            objectClone.addComponent(t.copy());
+            objectClone.setTransformFromItself();
 
             t.setZIndex(t.getZIndex() + 1);
 
@@ -113,7 +115,6 @@ public class MouseControls extends Component {
         int x = (int) mouse.getViewPortX();
         int y = (int) mouse.getViewPortY();
         int id = (int) window.getIdBuffer().readIDFromPixel(x, y);
-        System.out.println(id);
 
         GameObject active = scene.getGameObjectFromID(id);
         if(active != null && active.isTriggerable()) activeGameObject = active;

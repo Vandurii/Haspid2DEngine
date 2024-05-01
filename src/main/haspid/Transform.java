@@ -1,5 +1,6 @@
 package main.haspid;
 
+import main.Editor.JImGui;
 import main.components.Component;
 import main.components.SpriteRenderer;
 import org.joml.Vector2f;

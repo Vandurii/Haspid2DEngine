@@ -1,5 +1,6 @@
 package main.haspid;
 
+import imgui.ImGui;
 import main.components.Component;
 import main.components.SpriteRenderer;
 
@@ -10,7 +11,7 @@ public class GameObject {
 
     private int gameObjectID;
     private String name;
-    private Transform transform;
+    private transient Transform transform;
 
     private boolean isSerializable;
     private boolean isTriggerable;
@@ -19,16 +20,6 @@ public class GameObject {
 
     public GameObject(String name){
         this.componentList = new ArrayList<>();
-        this.name = name;
-        this.transform = new Transform();
-        this.gameObjectID = ++ID_COUNTER;
-        this.isSerializable = true;
-        this.isTriggerable = true;
-    }
-
-    public GameObject(String name, Transform transform){
-        this.componentList = new ArrayList<>();
-        this.transform = transform;
         this.name = name;
         this.gameObjectID = ++ID_COUNTER;
         this.isSerializable = true;
@@ -84,8 +75,13 @@ public class GameObject {
 
     public void dearGui(){
         for(Component c: componentList){
+            ImGui.collapsingHeader(c.getClass().getSimpleName());
             c.dearGui();
         }
+    }
+
+    public void setTransformFromItself(){
+        this.transform = getComponent(Transform.class);
     }
 
     public void destroyComponents(){

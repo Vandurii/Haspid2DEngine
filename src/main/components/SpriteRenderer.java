@@ -8,15 +8,15 @@ import org.joml.Vector4f;
 
 public class SpriteRenderer extends Component {
     private transient boolean remove;
-    private transient Transform lastTransform;
     private transient boolean isDirty;
     private transient boolean markToRelocate;
+    private transient Transform lastTransform;
 
-    private Texture texture;
-    private final Vector2f[] texCords;
-    private Vector4f color;
     private int spriteID;
+    private Vector4f color;
+    private Texture texture;
     private float width, height;
+    private final Vector2f[] texCords;
 
     public SpriteRenderer(Vector4f color) {
         this.isDirty = true;
@@ -73,7 +73,7 @@ public class SpriteRenderer extends Component {
         super.dearGui();
         float[] imColor = {color.x, color.y, color.z, color.w};
 
-        if (ImGui.colorPicker4("color Picker", imColor)) {
+        if (ImGui.colorEdit4("color Picker", imColor)) {
             color.set(imColor);
             isDirty = true;
         }

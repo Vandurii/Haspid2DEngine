@@ -1,7 +1,9 @@
 package main.scene;
 
+import imgui.app.Color;
 import imgui.app.Configuration;
 import main.Editor.*;
+import main.components.RigidBody;
 import main.components.SpriteRenderer;
 import main.haspid.*;
 import main.haspid.Window;
@@ -11,6 +13,9 @@ import main.renderer.Renderer;
 import main.util.AssetPool;
 import main.util.SpriteSheet;
 import org.joml.Vector2f;
+import org.joml.Vector3f;
+import org.joml.Vector4f;
+
 import static main.Configuration.*;
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -23,8 +28,6 @@ public class EditorScene extends Scene {
 
     @Override
     public void init() {
-        load();
-
         camera = new Camera(new Vector2f(0, 0));
 
         MouseControls mouseControls = MouseControls.getInstance();
@@ -44,6 +47,16 @@ public class EditorScene extends Scene {
         imGuiLayer.init(new Configuration());
 
         propertiesWindow = new PropertiesWindow(mouseControls, AssetPool.getSpriteSheet(decorationAndBlockConfig));
+
+        load();
+
+//        GameObject gameObject = new GameObject("temp");
+//        gameObject.addComponent(new SpriteRenderer(colorRedAlpha));
+//        gameObject.addComponent(new Transform(new Vector2f(300, 300), new Vector2f(32, 32)));
+//        gameObject.addComponent(new RigidBody(3, 5f, new Vector3f(9, 9, 9), new Vector4f(1, 1, 1, 1)));
+//        gameObject.setTransformFromItself();
+//        addGameObjectToScene(gameObject);
+
     }
 
     @Override
