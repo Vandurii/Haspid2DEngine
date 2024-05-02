@@ -3,6 +3,7 @@ package main.Editor;
 import main.components.Component;
 import main.components.SpriteRenderer;
 import main.haspid.*;
+import main.scene.EditorScene;
 import main.scene.Scene;
 import org.joml.Vector2f;
 
@@ -11,28 +12,22 @@ import static org.lwjgl.glfw.GLFW.GLFW_MOUSE_BUTTON_1;
 import static org.lwjgl.glfw.GLFW.GLFW_MOUSE_BUTTON_2;
 
 public class MouseControls extends Component {
-    private static MouseControls instance;
-    private static MouseListener mouse;
+    private Window window;
+    private MouseListener mouse;
+    private EditorScene editorScene;
     private static GameObject holdingObject;
     private static GameObject activeGameObject;
-    private static Scene scene;
-    private static Gizmo gizmo;
+
+    private Gizmo gizmo;
     private float xBuffer, yBuffer;
-    private Window window;
     private float debounce = 0.05f;
     private float resetDebounce = debounce;
 
-    private MouseControls() {
-        scene = Window.getInstance().getCurrentScene();
-        gizmo = Gizmo.getInstance();
-        mouse = MouseListener.getInstance();
-        window = Window.getInstance();
-    }
-
-    public static MouseControls getInstance(){
-        if(instance == null) instance = new MouseControls();
-
-        return instance;
+    public MouseControls(EditorScene editorScene, MouseListener mouse, Gizmo gizmo) {
+        this.gizmo = gizmo;
+        this.mouse = mouse;
+        this.editorScene = editorScene;
+        this.window = Window.getInstance();
     }
 
     @Override
@@ -71,7 +66,7 @@ public class MouseControls extends Component {
             t.setZIndex(t.getZIndex() + 1);
 
             holdingObject = objectClone;
-            scene.addGameObjectToScene(holdingObject);
+            editorScene.addGameObjectToScene(holdingObject);
             debounce = resetDebounce;
         }
 
@@ -79,7 +74,7 @@ public class MouseControls extends Component {
     }
 
     public void pickupObject(GameObject holdingObject){
-        scene.addGameObjectToScene(holdingObject);
+        editorScene.addGameObjectToScene(holdingObject);
         this.holdingObject = holdingObject;
     }
 
@@ -116,8 +111,11 @@ public class MouseControls extends Component {
         int y = (int) mouse.getViewPortY();
         int id = (int) window.getIdBuffer().readIDFromPixel(x, y);
 
-        GameObject active = scene.getGameObjectFromID(id);
-        if(active != null && active.isTriggerable()) activeGameObject = active;
+        GameObject active = editorScene.getGameObjectFromID(id);
+        if(active != null && active.isTriggerable()){
+            activeGameObject = active;
+            ((EditorScene)Window.getInstance().getCurrentScene()).setActiveGameObject(active);
+        }
     }
 
     public Vector2f addToBuffer(float x, float y){
@@ -148,7 +146,7 @@ public class MouseControls extends Component {
     }
 
     public void clearCursor(){
-        scene.removeFromScene(holdingObject);
+        editorScene.removeFromScene(holdingObject);
         holdingObject = null;
     }
 
@@ -170,9 +168,18 @@ public class MouseControls extends Component {
 
     public void setActiveGameObject(GameObject activeGameObject) {
         MouseControls.activeGameObject = activeGameObject;
+        ((EditorScene)Window.getInstance().getCurrentScene()).setActiveGameObject(null);
     }
 
     public GameObject getCursorObject(){
         return holdingObject;
+    }
+
+    public Gizmo getGizmo() {
+        return gizmo;
+    }
+
+    public void setGizmo(Gizmo gizmo) {
+        this.gizmo = gizmo;
     }
 }

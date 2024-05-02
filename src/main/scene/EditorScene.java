@@ -5,27 +5,36 @@ import main.Editor.*;
 import main.haspid.*;
 import main.haspid.Window;
 import main.renderer.DebugDraw;
+import main.renderer.Renderer;
 import main.util.AssetPool;
 import org.joml.Vector2f;
 
 import static main.Configuration.*;
 
 public class EditorScene extends Scene {
-    private ImGuiLayer imGuiLayer;
-    private GameObject levelEditorStuff;
-    private PropertiesWindow propertiesWindow;
 
-    public EditorScene() {}
+    private Gizmo gizmo;
+    private GridLines gridLines;
+    private ImGuiLayer imGuiLayer;
+    private KeyControls keyControls;
+    private GameObject activeGameObject;
+    private MouseControls mouseControls;
+    private CameraControl cameraControl;
+    private GameObject levelEditorStuff;
+    private InspectorWindow inspectorWindow;
+    private PropertiesWindow propertiesWindow;
 
     @Override
     public void init() {
-        camera = new Camera(new Vector2f(0, 0));
+        MouseListener.resetInstance();
+        Renderer.resetInstance();
+        MouseListener mouseListener = MouseListener.getInstance();
 
-        MouseControls mouseControls = MouseControls.getInstance();
-        KeyControls keyControls = KeyControls.getInstance();
-        GridLines gridLines = GridLines.getInstance();
-        CameraControl cameraControl = new CameraControl(camera);
-        Gizmo gizmo = Gizmo.getInstance();
+        gizmo = new Gizmo(this);
+        gridLines = GridLines.getInstance();
+        mouseControls = new MouseControls(this, mouseListener, gizmo);
+        cameraControl = new CameraControl(camera, mouseControls);
+        keyControls = new KeyControls(mouseControls, cameraControl, this);
 
         levelEditorStuff = new GameObject("LevelEditorStuff");
         levelEditorStuff.addComponent(gridLines);
@@ -37,6 +46,7 @@ public class EditorScene extends Scene {
         imGuiLayer = new ImGuiLayer(Window.getInstance().getGlfwWindow());
         imGuiLayer.init(new Configuration());
 
+        inspectorWindow = new InspectorWindow(mouseControls);
         propertiesWindow = new PropertiesWindow(mouseControls, AssetPool.getSpriteSheet(decorationAndBlockConfig));
 
         load();
@@ -70,7 +80,7 @@ public class EditorScene extends Scene {
     public void dearGui(){
         imGuiLayer.startFrame();
         ViewPort.getInstance().display();
-        InspectorWindow.getInstance().display();
+        inspectorWindow.display();
         propertiesWindow.display();
 
         imGuiLayer.endFrame();
@@ -78,5 +88,13 @@ public class EditorScene extends Scene {
 
     public void end(){
         imGuiLayer.dispose();
+    }
+
+    public GameObject getActiveGameObject() {
+        return activeGameObject;
+    }
+
+    public void setActiveGameObject(GameObject activeGameObject) {
+        this.activeGameObject = activeGameObject;
     }
 }

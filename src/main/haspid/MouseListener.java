@@ -67,6 +67,10 @@ public class MouseListener {
         return instance;
     }
 
+    public static void resetInstance(){
+        instance = new MouseListener();
+    }
+
     public void startFrame(){
        startFrameCursorPos = getViewPortPos();
     }

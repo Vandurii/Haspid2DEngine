@@ -13,6 +13,7 @@ import main.haspid.Window;
 import main.renderer.Renderer;
 import main.util.AssetPool;
 import main.util.Texture;
+import org.joml.Vector2f;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -32,11 +33,12 @@ public abstract class Scene {
     private Renderer renderer;
 
     public Scene(){
+        this.camera = new Camera(new Vector2f(0, 0));
+        this.sceneObjectList = new ArrayList<>();
+        this.renderer = Renderer.getInstance();
+
         Component.resetCounter();
         loadResources();
-
-        sceneObjectList = new ArrayList<>();
-        renderer = Renderer.getInstance();
     }
 
     public abstract void update(float dt);
@@ -54,8 +56,6 @@ public abstract class Scene {
         }
         isRunning = true;
     }
-
-
 
     public void addGameObjectToScene(GameObject gameObject){
         sceneObjectList.add(gameObject);
@@ -182,5 +182,4 @@ public abstract class Scene {
         System.out.println("textures : " + goList.size());
         System.out.println("\n\n\n\n\n");
     }
-
 }

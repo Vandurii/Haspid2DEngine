@@ -4,6 +4,7 @@ import main.components.Component;
 import main.components.SpriteRenderer;
 import main.haspid.*;
 import main.renderer.Renderer;
+import main.scene.EditorScene;
 import main.util.AssetPool;
 import main.util.SpriteSheet;
 import org.joml.Vector2f;
@@ -12,12 +13,11 @@ import static main.Configuration.*;
 
 public class Gizmo extends Component {
 
-    private static Gizmo instance;
-
     private int gizmoIndex;
     private MouseListener mouse;
     private GameObject lastActiveObject;
     private SpriteSheet gimzosSheet;
+    private EditorScene editorScene;
 
     private SpriteRenderer xAxisSpriteRender;
     private GameObject xAxisBody;
@@ -31,35 +31,30 @@ public class Gizmo extends Component {
     private int yAxisYPadding;
     private boolean isYAxisHot;
 
-    private Gizmo(){
+    public Gizmo(EditorScene editorScene){
+
         this.gizmoIndex = 1;
         this.xAxisXPadding = xGizmoXAxis;
         this.xAxisYPadding = xGizmoYAxis;
         this.yAxisXPadding = yGizmoXAxis;
         this.yAxisYPadding = yGizmoYAxis;
+        this.editorScene = editorScene;
         this.mouse = MouseListener.getInstance();
         this.gimzosSheet = AssetPool.getSpriteSheet(gizmosConfig);
 
-        xAxisBody = new GameObject("gizmoXAxis");
-        xAxisBody.addComponent(new Transform(new Vector2f(), gizmoScale, xGizmoRotation, 20));
-        xAxisBody.setTransformFromItself();
-        xAxisBody.setNonSerializable();
-        xAxisBody.setNonTriggerable();
+        this.xAxisBody = new GameObject("gizmoXAxis");
+        this.xAxisBody.addComponent(new Transform(new Vector2f(), gizmoScale, xGizmoRotation, 20));
+        this.xAxisBody.setTransformFromItself();
+        this.xAxisBody.setNonSerializable();
+        this.xAxisBody.setNonTriggerable();
 
-        yAxisBody = new GameObject("gizmoYAxis");
-        yAxisBody.addComponent(new Transform(new Vector2f(), gizmoScale, yGizmoRotation, 20));
-        yAxisBody.setTransformFromItself();
-        yAxisBody.setNonSerializable();
-        yAxisBody.setNonTriggerable();
+        this.yAxisBody = new GameObject("gizmoYAxis");
+        this.yAxisBody.addComponent(new Transform(new Vector2f(), gizmoScale, yGizmoRotation, 20));
+        this.yAxisBody.setTransformFromItself();
+        this.yAxisBody.setNonSerializable();
+        this.yAxisBody.setNonTriggerable();
 
-        Window.getInstance().getCurrentScene().addGameObjectToScene(xAxisBody);
-        Window.getInstance().getCurrentScene().addGameObjectToScene(yAxisBody);
-    }
-
-    public static Gizmo getInstance(){
-        if(instance == null) instance = new Gizmo();
-
-        return  instance;
+        editorScene.addGameObjectToScene(xAxisBody, yAxisBody);
     }
 
     public void create(){
@@ -88,7 +83,7 @@ public class Gizmo extends Component {
 
     @Override
     public void update(float dt) {
-        GameObject activeObject = MouseControls.getInstance().getActiveGameObject();
+        GameObject activeObject = editorScene.getActiveGameObject();
 
         if(activeObject != null && activeObject != lastActiveObject) {
             if(yAxisBody.getComponent(SpriteRenderer.class) == null) create();

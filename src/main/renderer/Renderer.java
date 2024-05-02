@@ -2,6 +2,7 @@ package main.renderer;
 
 import main.components.SpriteRenderer;
 import main.haspid.GameObject;
+import main.haspid.MouseListener;
 import main.haspid.Transform;
 import main.util.AssetPool;
 import main.util.Shader;
@@ -29,6 +30,10 @@ public class Renderer {
         if(instance == null) instance = new Renderer();
 
         return  instance;
+    }
+
+    public static void resetInstance(){
+        instance = new Renderer();
     }
 
     public void add(GameObject gameObject){

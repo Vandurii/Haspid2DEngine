@@ -7,28 +7,25 @@ import main.haspid.KeyListener;
 import main.haspid.MouseListener;
 import main.renderer.DebugDraw;
 import org.joml.Vector2f;
+import org.lwjgl.glfw.GLFW;
 
 import static main.Configuration.*;
 import static org.lwjgl.glfw.GLFW.*;
 
 public class CameraControl extends Component {
     private Camera camera;
-    private MouseListener mouse;
     private float debounce;
     private float resetDebounce;
+    private MouseListener mouse;
     private boolean resetMode;
-    private Gizmo gizmo;
-    private InspectorWindow inspector;
     private MouseControls mouseControls;
 
-    public CameraControl(Camera camera){
+    public CameraControl(Camera camera, MouseControls mouseControls){
+        this.camera = camera;
+        this.mouseControls = mouseControls;
+        this.mouse = MouseListener.getInstance();
         this.debounce = Configuration.debounceForCamera;
         this.resetDebounce = debounce;
-        this.camera = camera;
-        this.mouse = MouseListener.getInstance();
-        this.gizmo = Gizmo.getInstance();
-        this.inspector = InspectorWindow.getInstance();
-        this.mouseControls = MouseControls.getInstance();
     }
 
     @Override
@@ -36,7 +33,7 @@ public class CameraControl extends Component {
         if(debounce < 0  && !mouseControls.isActiveObjectOccupied() && !mouseControls.isHoldingObjectOccupied()){
 
             // update camera
-            if (mouse.isMouseDragged() && mouse.isCursorInsideViewPort()) {
+            if (mouse.isMouseDragged() && mouse.isCursorInsideViewPort() && mouse.isButtonPressed(GLFW_MOUSE_BUTTON_1)) {
                 Vector2f delta = mouse.getDelta();
 
                 float valueX = (delta.x * (dt * cameraSensivity * zoom));
@@ -45,21 +42,8 @@ public class CameraControl extends Component {
             }
 
             float value = mouse.getScroll();
-            // zoom with keyboard
-            if(KeyListener.getInstance().isKeyPressed(GLFW_KEY_1)){
-                value = -zoomForKeys;
-            } else if(KeyListener.getInstance().isKeyPressed(GLFW_KEY_2)) {
-                value = zoomForKeys;
-            }
-
             // zoom with scroll
             if(value != 0) camera.zoom(value);
-
-            // reset position and zoom
-            if(KeyListener.getInstance().isKeyPressed(GLFW_KEY_R)){
-                DebugDraw.sleep();
-                resetMode = true;
-            }
 
             // reset camera to start position if reset mode is true
             if(resetMode){
@@ -82,5 +66,9 @@ public class CameraControl extends Component {
             debounce = resetDebounce;
         }
         debounce -= dt;
+    }
+
+    public void reset(){
+        resetMode = true;
     }
 }

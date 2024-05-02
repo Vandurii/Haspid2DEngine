@@ -11,17 +11,10 @@ import main.physics.components.RigidBody;
 import static main.Configuration.imGuiColor;
 
 public class InspectorWindow {
-    private static InspectorWindow instance;
-    private static MouseControls mouseControls;
+    private MouseControls mouseControls;
 
-    private InspectorWindow(){
-        mouseControls = MouseControls.getInstance();
-    }
-
-    public static InspectorWindow getInstance(){
-        if(instance == null) instance = new InspectorWindow();
-
-        return instance;
+    public InspectorWindow(MouseControls mouseControls){
+        this.mouseControls = mouseControls;
     }
 
     public void display(){
