@@ -76,12 +76,7 @@ public class KeyControls extends Component {
                     DebugDraw.sleep();
                     cameraControl.reset();
             }else if(keyboard.isKeyPressed(GLFW_KEY_1)){
-                resetZoom();
-                editorScene.save();
-                editorScene.end();
-                mouseControls.setActiveGameObject(null);
-                mouseControls.clearCursor();
-
+                clear();
                 Window.getInstance().changeScene(new GameScene());
             }
 
@@ -90,8 +85,11 @@ public class KeyControls extends Component {
         keyDebounce -= dt;
     }
 
-    public void resetZoom(){
+    public void clear(){
         zoom = 1;
+        editorScene.end();
+        mouseControls.clearCursor();
+        mouseControls.setActiveGameObject(null);
     }
 
     public void printInfo(){

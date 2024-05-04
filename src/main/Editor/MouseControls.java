@@ -1,10 +1,10 @@
 package main.Editor;
 
+import main.Helper;
 import main.components.Component;
 import main.components.SpriteRenderer;
 import main.haspid.*;
 import main.scene.EditorScene;
-import main.scene.Scene;
 import org.joml.Vector2f;
 
 import static main.Configuration.*;
@@ -39,6 +39,17 @@ public class MouseControls extends Component {
             gizmoAction();
         }else if(mouse.isButtonPressed(GLFW_MOUSE_BUTTON_2) && !mouse.isMouseDragged()){
             scanForObject();
+        }
+
+
+        if ((Helper.isNotNull(activeGameObject) || Helper.isNotNull(holdingObject)) && mouse.isCursorInsideViewPort()) {
+            if (Helper.isNotNull(getCursorObject()) && !mouse.isMouseDragged() && mouse.isButtonPressed(GLFW_MOUSE_BUTTON_2)) {
+                clearCursor();
+            }
+
+            if(Helper.isNull(getCursorObject()) && mouse.isButtonPressed(GLFW_MOUSE_BUTTON_1) && !gizmo.isHot() && !mouse.isMouseDragged()){
+                setActiveGameObject(null);
+            }
         }
     }
 
@@ -88,25 +99,27 @@ public class MouseControls extends Component {
         float y  = (delta.y * zoom);
         Vector2f value = addToBuffer(x, y);
 
-        if(index == 0){
-            float val = Math.abs(value.x) > Math.abs(value.y) ? value.x : value.y;
-            if(scale.x - val > 0 && scale.y - val > 0) {
-                scale.x -= val;
-                scale.y -= val;
-            }
-        }else if(index == 1){
-            int xPos = (int) ((mouse.getWorldX() - (scale.x / 2)) / gridSize) * gridSize;
-            int yPos = (int) ((mouse.getWorldY() - (scale.y / 2)) / gridSize) * gridSize;
+        if(mouse.isCursorInsideViewPort()) {
+            if (index == 0) {
+                float val = Math.abs(value.x) > Math.abs(value.y) ? value.x : value.y;
+                if (scale.x - val > 0 && scale.y - val > 0) {
+                    scale.x -= val;
+                    scale.y -= val;
+                }
+            } else if (index == 1 && mouse.isButtonPressed(GLFW_MOUSE_BUTTON_1)) {
+                int xPos = (int) ((mouse.getWorldX() - (scale.x / 2)) / gridSize) * gridSize;
+                int yPos = (int) ((mouse.getWorldY() - (scale.y / 2)) / gridSize) * gridSize;
 
-            if (gizmo.isXAxisHot()) transform.setPosition(xPos, transform.getPosition().y);
-            if (gizmo.isYAxisHot()) transform.setPosition(transform.getPosition().x, yPos);
-        }else if(index == 2){
-            if(gizmo.isXAxisHot() && (scale.x - value.x) > 0) scale.x -= value.x;
-            if(gizmo.isYAxisHot() && (scale.y - value.y) > 0) scale.y -= value.y;
+                if (gizmo.isXAxisHot()) transform.setPosition(xPos, transform.getPosition().y);
+                if (gizmo.isYAxisHot()) transform.setPosition(transform.getPosition().x, yPos);
+            } else if (index == 2) {
+                if (gizmo.isXAxisHot() && (scale.x - value.x) > 0) scale.x -= value.x;
+                if (gizmo.isYAxisHot() && (scale.y - value.y) > 0) scale.y -= value.y;
+            }
         }
     }
 
-    public void scanForObject(){
+    public int scanForObject(){
         int x = (int) mouse.getViewPortX();
         int y = (int) mouse.getViewPortY();
         int id = (int) window.getIdBuffer().readIDFromPixel(x, y);
@@ -114,8 +127,11 @@ public class MouseControls extends Component {
         GameObject active = editorScene.getGameObjectFromID(id);
         if(active != null && active.isTriggerable()){
             activeGameObject = active;
-            ((EditorScene)Window.getInstance().getCurrentScene()).setActiveGameObject(active);
+            editorScene.setActiveGameObject(active);
+            System.out.println(active.getComponent(Transform.class).getParent());
         }
+
+        return id;
     }
 
     public Vector2f addToBuffer(float x, float y){
@@ -158,7 +174,7 @@ public class MouseControls extends Component {
         return activeGameObject != null;
     }
 
-    public boolean isMouseListenerOccupied(){
+    public boolean isMouseOccupied(){
         return isActiveObjectOccupied() || isHoldingObjectOccupied();
     }
 

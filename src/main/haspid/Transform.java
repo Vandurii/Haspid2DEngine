@@ -79,9 +79,9 @@ public class Transform extends Component {
 
     public void setZIndex(int zIndex){
         if(getParent() != null && this.zIndex != zIndex) {
+            this.zIndex = zIndex;
             getParent().getComponent(SpriteRenderer.class).markToRelocate(true);
             getParent().getComponent(SpriteRenderer.class).markToRemove();
-            this.zIndex = zIndex;
         }
     }
 
@@ -94,6 +94,7 @@ public class Transform extends Component {
         to.scale.set(new Vector2f(this.scale));
         to.setRotation(rotation);
         to.setZIndex(zIndex);
+        to.setParent(getParent());
     }
 
     @Override

@@ -50,14 +50,6 @@ public class EditorScene extends Scene {
         propertiesWindow = new PropertiesWindow(mouseControls, AssetPool.getSpriteSheet(decorationAndBlockConfig));
 
         load();
-
-//        GameObject gameObject = new GameObject("temp");
-//        gameObject.addComponent(new SpriteRenderer(colorRedAlpha));
-//        gameObject.addComponent(new Transform(new Vector2f(300, 300), new Vector2f(32, 32)));
-//        gameObject.addComponent(new RigidBody(3, 5f, new Vector3f(9, 9, 9), new Vector4f(1, 1, 1, 1)));
-//        gameObject.setTransformFromItself();
-//        addGameObjectToScene(gameObject);
-
     }
 
     @Override
@@ -87,6 +79,7 @@ public class EditorScene extends Scene {
     }
 
     public void end(){
+        save();
         imGuiLayer.dispose();
     }
 
@@ -96,5 +89,13 @@ public class EditorScene extends Scene {
 
     public void setActiveGameObject(GameObject activeGameObject) {
         this.activeGameObject = activeGameObject;
+    }
+
+    public MouseControls getMouseControls(){
+        return  mouseControls;
+    }
+
+    public KeyControls getKeyControls(){
+        return  keyControls;
     }
 }

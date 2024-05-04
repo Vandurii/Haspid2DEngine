@@ -1,6 +1,11 @@
 package main.haspid;
 
 import main.Editor.InspectorWindow;
+import main.components.Component;
+import main.observers.EventSystem;
+import main.observers.Observer;
+import main.observers.events.Event;
+import main.observers.events.EventType;
 import main.renderer.DebugDraw;
 import main.renderer.FrameBuffer;
 import main.renderer.IDBuffer;
@@ -16,6 +21,7 @@ import org.lwjgl.glfw.GLFWWindowSizeCallback;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.system.MemoryStack;
 
+import java.awt.*;
 import java.nio.IntBuffer;
 
 import static java.awt.Color.DARK_GRAY;
@@ -28,7 +34,7 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryStack.stackPush;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
-public class Window {
+public class Window implements Observer {
 
     private static Window instance;
 
@@ -39,6 +45,7 @@ public class Window {
     private static Renderer renderer;
 
     private Window(){
+        EventSystem.addObserver(this);
     }
 
     public void run(){
@@ -47,7 +54,6 @@ public class Window {
         init();
         loop();
 
-        currentScene.save();
         currentScene.end();
         // Free the window callbacks and destroy the window
         glfwFreeCallbacks(glfwWindow);
@@ -214,5 +220,15 @@ public class Window {
 
     public IDBuffer getIdBuffer(){
         return idBuffer;
+    }
+
+    @Override
+    public void onNotify(GameObject gameObject, Event event) {
+        switch (event.getEventType()){
+            case GameEngineStart -> changeScene(new GameScene());
+            case GameEngineStop -> changeScene(new EditorScene());
+            case SaveLevel -> currentScene.save();
+            case LoadLevel -> currentScene.load();
+        }
     }
 }

@@ -23,16 +23,20 @@ public class GameScene extends Scene {
 
         imGuiLayer = new ImGuiLayer(Window.getInstance().getGlfwWindow());
         imGuiLayer.init(new Configuration());
+
+        load();
     }
 
     @Override
     public void update(float dt) {
         dearGui();
         gameSceneStuff.update(dt);
+        physics.update(dt);
 
         for (GameObject go : getSceneObjectList()) {
             go.update(dt);
         }
+
     }
 
     @Override

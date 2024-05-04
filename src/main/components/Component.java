@@ -76,6 +76,7 @@ public abstract class Component {
     }
 
     public void setParent(GameObject gameObject){
+
         this.parentObject = gameObject;
     }
 }

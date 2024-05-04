@@ -3,6 +3,7 @@ package main.scene;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import main.Editor.InspectorWindow;
+import main.Helper;
 import main.components.Component;
 import main.components.SpriteRenderer;
 import main.haspid.Camera;
@@ -10,6 +11,7 @@ import main.components.ComponentSerializer;
 import main.haspid.GameObject;
 import main.haspid.GameObjectDeserializer;
 import main.haspid.Window;
+import main.physics.Physics2D;
 import main.renderer.Renderer;
 import main.util.AssetPool;
 import main.util.Texture;
@@ -31,11 +33,13 @@ public abstract class Scene {
     private boolean isRunning;
     private static List<GameObject> sceneObjectList;
     private Renderer renderer;
+    public Physics2D physics;
 
     public Scene(){
         this.camera = new Camera(new Vector2f(0, 0));
         this.sceneObjectList = new ArrayList<>();
         this.renderer = Renderer.getInstance();
+        this.physics = new Physics2D();
 
         Component.resetCounter();
         loadResources();
@@ -53,23 +57,16 @@ public abstract class Scene {
         for(GameObject gameObject: sceneObjectList){
             gameObject.start();
             renderer.add(gameObject);
+            physics.add(gameObject); // todo
         }
         isRunning = true;
-    }
-
-    public void addGameObjectToScene(GameObject gameObject){
-        sceneObjectList.add(gameObject);
-
-        if(isRunning){
-            gameObject.start();
-            renderer.add(gameObject);
-        }
     }
 
     public void addGameObjectToScene(GameObject ...gameObjects){;
         for(GameObject gameObject: gameObjects) {
 
             sceneObjectList.add(gameObject);
+            physics.add(gameObject);
 
             if (isRunning) {
                 gameObject.start();
@@ -79,8 +76,8 @@ public abstract class Scene {
     }
 
     public void removeFromScene(GameObject gameObject){
+        if(Helper.isNotNull(gameObject) && Helper.isNotNull(gameObject.getComponent(SpriteRenderer.class))) gameObject.getComponent(SpriteRenderer.class).markToRemove();
         sceneObjectList.remove(gameObject);
-        if(gameObject.getComponent(SpriteRenderer.class) != null) gameObject.getComponent(SpriteRenderer.class).markToRemove();
     }
 
     public GameObject getGameObjectFromID(int id){
@@ -109,6 +106,12 @@ public abstract class Scene {
         AssetPool.getSpriteSheet(decorationAndBlockConfig);
         AssetPool.getSpriteSheet(gizmosConfig);
     }
+
+    public void clearScene(){
+        sceneObjectList.clear();
+        Component.resetCounter();
+        Renderer.resetInstance();
+    }
     
     public void save(){
             Gson gson = new GsonBuilder().
@@ -136,6 +139,8 @@ public abstract class Scene {
     }
 
     public void load(){
+        clearScene();
+
         Gson gson = new GsonBuilder().
                 setPrettyPrinting().
                 registerTypeAdapter(Component.class, new ComponentSerializer()).
