@@ -1,6 +1,7 @@
 package main.haspid;
 
 import main.Editor.JImGui;
+import main.Helper;
 import main.components.Component;
 import main.components.SpriteRenderer;
 import org.joml.Vector2f;
@@ -42,7 +43,7 @@ public class Transform extends Component {
 
     @Override
     public void update(float dt) {
-
+        if(Helper.isNull(getParent())) throw new IllegalStateException("Parent Object is null.");
     }
 
     public Vector2f getPosition() {
@@ -86,7 +87,10 @@ public class Transform extends Component {
     }
 
     public Transform copy(){
-        return new Transform(new Vector2f(this.position), new Vector2f(this.scale), rotation, zIndex);
+        Transform t = new Transform(new Vector2f(this.position), new Vector2f(this.scale), rotation, zIndex);
+        t.setParent(getParent());
+
+        return t;
     }
 
     public void copy(Transform to){

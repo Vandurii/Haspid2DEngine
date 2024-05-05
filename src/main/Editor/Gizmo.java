@@ -98,6 +98,8 @@ public class Gizmo extends Component {
 
             xAxisBody.getTransform().setPosition(new Vector2f(aPos.x + xAxisXPadding + aScale.x, aPos.y + xAxisYPadding));
             yAxisBody.getTransform().setPosition(new Vector2f(aPos.x + yAxisXPadding, aPos.y + yAxisYPadding + aScale.y));
+          //  xAxisBody.getComponent(SpriteRenderer.class).setDirty();
+          //  yAxisBody.getComponent(SpriteRenderer.class).setDirty();
         }
 
         if(activeObject != null){

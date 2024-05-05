@@ -30,6 +30,8 @@ public class EditorScene extends Scene {
         Renderer.resetInstance();
         MouseListener mouseListener = MouseListener.getInstance();
 
+        load();
+
         gizmo = new Gizmo(this);
         gridLines = GridLines.getInstance();
         mouseControls = new MouseControls(this, mouseListener, gizmo);
@@ -48,15 +50,12 @@ public class EditorScene extends Scene {
 
         inspectorWindow = new InspectorWindow(mouseControls);
         propertiesWindow = new PropertiesWindow(mouseControls, AssetPool.getSpriteSheet(decorationAndBlockConfig));
-
-        load();
     }
 
     @Override
     public void update(float dt) {
         dearGui();
         levelEditorStuff.update(dt);
-
         for (GameObject go : getSceneObjectList()) {
             go.update(dt);
         }

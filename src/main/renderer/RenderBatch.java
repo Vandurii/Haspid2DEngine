@@ -199,6 +199,12 @@ public class RenderBatch implements Comparable<RenderBatch> {
 
     public void addSprite(SpriteRenderer spriteRenderer){
         int index = spriteCount;
+        boolean usedFreeSlots = false;
+        if(!freeSlots.isEmpty()) {
+            index = freeSlots.get(0);
+            freeSlots.remove(0);
+            usedFreeSlots = true;
+        }
         spriteListToRender[index] = spriteRenderer;
         if(spriteCount + 1 >= maxBathSize) hasRoom = false;
 
@@ -220,7 +226,7 @@ public class RenderBatch implements Comparable<RenderBatch> {
         }
 
         loadVertexArray(index);
-        spriteCount++;
+       if(!usedFreeSlots) spriteCount++;
       //  printPointsValues();
     }
 

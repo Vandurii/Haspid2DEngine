@@ -53,11 +53,10 @@ public class KeyControls extends Component {
                    mouseControls.setActiveGameObject(null);
                 }
             } else if (keyboard.isKeyPressed(GLFW_KEY_L)) {
+                System.out.println("*** start ***");
                 List<RenderBatch> rList = Renderer.getInstance().getRenderBatchList();
                 for (RenderBatch rb : rList) {
-                    if (rb.getzIndex() == -5) {
-                        System.out.println(rb.getFreeSlots().stream().toList());
-                    }
+                    System.out.println(rb.getzIndex() + ": " +rb.getFreeSlots().stream().toList());
                 }
             }else if(keyboard.isKeyPressed(GLFW_KEY_5)){
                 gizmo.setGizmoIndex(0);
@@ -78,6 +77,13 @@ public class KeyControls extends Component {
             }else if(keyboard.isKeyPressed(GLFW_KEY_1)){
                 clear();
                 Window.getInstance().changeScene(new GameScene());
+            }else if(keyboard.isKeyPressed(GLFW_KEY_C)){
+                System.out.println("*** start ***");
+                if(activeObject != null){
+                    for(Component c: activeObject.getAllComponent()){
+                        System.out.println(c);
+                    }
+                }
             }
 
             keyDebounce = resetDebounce;
@@ -94,6 +100,7 @@ public class KeyControls extends Component {
 
     public void printInfo(){
         for(RenderBatch rb: Renderer.getInstance().getRenderBatchList()){
+            System.out.println("index: " + rb.getzIndex());
             rb.printPointsValues();
         }
         AssetPool.printResourcesInAssetPool();

@@ -57,14 +57,12 @@ public abstract class Scene {
         for(GameObject gameObject: sceneObjectList){
             gameObject.start();
             renderer.add(gameObject);
-            physics.add(gameObject); // todo
         }
         isRunning = true;
     }
 
     public void addGameObjectToScene(GameObject ...gameObjects){;
         for(GameObject gameObject: gameObjects) {
-
             sceneObjectList.add(gameObject);
             physics.add(gameObject);
 
@@ -76,8 +74,11 @@ public abstract class Scene {
     }
 
     public void removeFromScene(GameObject gameObject){
-        if(Helper.isNotNull(gameObject) && Helper.isNotNull(gameObject.getComponent(SpriteRenderer.class))) gameObject.getComponent(SpriteRenderer.class).markToRemove();
-        sceneObjectList.remove(gameObject);
+        if(Helper.isNotNull(gameObject) && Helper.isNotNull(gameObject.getComponent(SpriteRenderer.class))){
+            gameObject.getComponent(SpriteRenderer.class).markToRemove();
+            physics.destroyGameObject(gameObject);
+            sceneObjectList.remove(gameObject);
+        }
     }
 
     public GameObject getGameObjectFromID(int id){

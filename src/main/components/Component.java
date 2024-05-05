@@ -10,6 +10,8 @@ import org.joml.Vector4f;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.rmi.MarshalledObject;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Component {
 
@@ -26,7 +28,7 @@ public abstract class Component {
     public abstract void update(float dt);
 
     public void updateIDCounter(){
-        if(ID_COUNTER > componentID)throw new IllegalStateException("IDCounter is higher then this component ID! Check if you did create any component before the scene was loaded.");
+        //if(ID_COUNTER > componentID)throw new IllegalStateException("IDCounter is higher then this component ID! Check if you did create any component before the scene was loaded.");
         ID_COUNTER = componentID;
     }
 
@@ -45,10 +47,8 @@ public abstract class Component {
                 Object value = f.get(this);
                 String name = f.getName();
 
-                if (clazz == int.class) {
-                    f.set(this, JImGui.drawValue(f.getName(), (int)value));
-                }else if(clazz == float.class){
-                    f.set(this, JImGui.drawValue(f.getName(), (float)value));
+                if (clazz == int.class || clazz == float.class) {
+                    f.set(this, JImGui.drawValue(f.getName(), value));
                 }else if(clazz == boolean.class){
                     boolean imBoolean = (boolean) value;
                     if(ImGui.checkbox(name,imBoolean)) f.set(this, !imBoolean);

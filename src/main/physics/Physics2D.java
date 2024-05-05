@@ -57,7 +57,8 @@ public class Physics2D {
 
             if(Helper.isNotNull(circleCollider)) shape.setRadius(circleCollider.getRadius());
             if(Helper.isNotNull(boxCollider)){
-                Vector2f halfSize = new Vector2f(boxCollider.getHalfSize()).mul(0.5f);
+               //Vector2f halfSize = new Vector2f(boxCollider.getHalfSize()).mul(0.5f); // todo
+                Vector2f halfSize = boxCollider.getHalfSize();
                 Vector2f offset = boxCollider.getOffset();
                 Vector2f origin = boxCollider.getOrigin();
                 shape.setAsBox(halfSize.x, halfSize.y, new Vec2(origin.x, origin.y), 0);
@@ -71,6 +72,14 @@ public class Physics2D {
             Body body = world.createBody(bodyDef);
             rigidBody.setRawBody(body);
             body.createFixture(shape, rigidBody.getMass());
+        }
+    }
+
+    public void destroyGameObject(GameObject gameObject){
+        RigidBody rb = gameObject.getComponent(RigidBody.class);
+        if(Helper.isNotNull(rb) && Helper.isNotNull(rb.getRawBody())){
+            world.destroyBody(rb.getRawBody());
+            rb.setRawBody(null);
         }
     }
 

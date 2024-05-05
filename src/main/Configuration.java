@@ -38,7 +38,6 @@ public class Configuration {
 
 
     public static float zoom = 1f;
-    public static float zoomForKeys = 0.1f;
     public static float minZoomValue = 0.05f;
     public static float maxZoomValue = 20f;
 
@@ -85,22 +84,6 @@ public class Configuration {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// todo reuse free slots in renderbatch, made by object removing
 // todo scanObject problem
 
 

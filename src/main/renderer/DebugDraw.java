@@ -151,8 +151,11 @@ public class DebugDraw {
     }
 
     public static void drawBoxes2D(Vector2f center, Vector2f dimension, float rotation, Vector3f color, int lifeTime){
-        Vector2f min = new Vector2f(center).add(new Vector2f(dimension.mul(0.5f)));
-        Vector2f max = new Vector2f(center).sub(new Vector2f(dimension.mul(0.5f)));
+//        Vector2f min = new Vector2f(center).add(new Vector2f(dimension.mul(0.5f)));
+//        Vector2f max = new Vector2f(center).sub(new Vector2f(dimension.mul(0.5f)));
+
+        Vector2f min = new Vector2f(center).add(new Vector2f(dimension.x * 0.5f, dimension.y * 0.5f));
+        Vector2f max = new Vector2f(center).sub(new Vector2f(new Vector2f(dimension.x * 0.5f, dimension.y * 0.5f)));
 
         Vector2f[] vertices = {
                 new Vector2f(min.x, min.y),

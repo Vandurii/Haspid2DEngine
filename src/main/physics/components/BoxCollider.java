@@ -9,12 +9,12 @@ import java.awt.*;
 public class BoxCollider extends Collider{
     private Vector2f halfSize = new Vector2f(1f);
     private Vector2f origin = new Vector2f();
-    private Vector2f center = new Vector2f();
+    private Vector2f center = new Vector2f(0, 0);
 
     @Override
     public void update(float dt){
         center = new Vector2f(getParent().getTransform().getPosition()).add(getOffset());
-        DebugDraw.drawBoxes2D(center, halfSize, getParent().getTransform().getRotation(), new Vector3f(1, 0, 0), 5);
+        DebugDraw.drawBoxes2D(center, halfSize, getParent().getTransform().getRotation(), new Vector3f(1, 0, 0), 1);
     }
 
     public Vector2f getHalfSize(){
@@ -25,4 +25,3 @@ public class BoxCollider extends Collider{
         return origin;
     }
 }
-2

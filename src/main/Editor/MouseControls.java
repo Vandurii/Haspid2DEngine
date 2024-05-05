@@ -41,7 +41,6 @@ public class MouseControls extends Component {
             scanForObject();
         }
 
-
         if ((Helper.isNotNull(activeGameObject) || Helper.isNotNull(holdingObject)) && mouse.isCursorInsideViewPort()) {
             if (Helper.isNotNull(getCursorObject()) && !mouse.isMouseDragged() && mouse.isButtonPressed(GLFW_MOUSE_BUTTON_2)) {
                 clearCursor();
@@ -128,7 +127,6 @@ public class MouseControls extends Component {
         if(active != null && active.isTriggerable()){
             activeGameObject = active;
             editorScene.setActiveGameObject(active);
-            System.out.println(active.getComponent(Transform.class).getParent());
         }
 
         return id;
