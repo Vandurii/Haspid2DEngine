@@ -1,5 +1,6 @@
 package main.scene;
 
+import imgui.ImGui;
 import imgui.app.Configuration;
 import main.Editor.*;
 import main.haspid.*;
@@ -23,6 +24,7 @@ public class EditorScene extends Scene {
     private GameObject levelEditorStuff;
     private InspectorWindow inspectorWindow;
     private PropertiesWindow propertiesWindow;
+    public MenuBar menuBar = new MenuBar();
 
     @Override
     public void init() {
@@ -30,6 +32,7 @@ public class EditorScene extends Scene {
         Renderer.resetInstance();
         MouseListener mouseListener = MouseListener.getInstance();
 
+        editorMode = true;
         load();
 
         gizmo = new Gizmo(this);
@@ -56,6 +59,7 @@ public class EditorScene extends Scene {
     public void update(float dt) {
         dearGui();
         levelEditorStuff.update(dt);
+
         for (GameObject go : getSceneObjectList()) {
             go.update(dt);
         }
@@ -70,15 +74,19 @@ public class EditorScene extends Scene {
 
     public void dearGui(){
         imGuiLayer.startFrame();
-        ViewPort.getInstance().display();
+        menuBar.display();
         inspectorWindow.display();
         propertiesWindow.display();
+        ViewPort.getInstance().display();
 
         imGuiLayer.endFrame();
     }
 
     public void end(){
-        save();
+        zoom = 1;
+        mouseControls.clearCursor();
+        mouseControls.setActiveGameObject(null);
+
         imGuiLayer.dispose();
     }
 

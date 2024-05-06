@@ -1,6 +1,7 @@
 package main.scene;
 
 import imgui.app.Configuration;
+import main.Editor.MenuBar;
 import main.Editor.ViewPort;
 import main.game.GameKeyControls;
 import main.haspid.GameObject;
@@ -13,6 +14,7 @@ public class GameScene extends Scene {
 
     private ImGuiLayer imGuiLayer;
     private GameObject gameSceneStuff;
+    public MenuBar menuBar = new MenuBar();
 
     @Override
     public void init() {
@@ -36,7 +38,6 @@ public class GameScene extends Scene {
         for (GameObject go : getSceneObjectList()) {
             go.update(dt);
         }
-
     }
 
     @Override
@@ -47,6 +48,7 @@ public class GameScene extends Scene {
     public void dearGui(){
         imGuiLayer.startFrame();
         ViewPort.getInstance().display();
+        menuBar.display();
         imGuiLayer.endFrame();
     }
 

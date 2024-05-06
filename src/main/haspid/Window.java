@@ -40,6 +40,7 @@ public class Window implements Observer {
 
     private static long glfwWindow;
     private static Scene currentScene;
+    private static Scene newScene;
     private static FrameBuffer frameBuffer;
     private static IDBuffer idBuffer;
     private static Renderer renderer;
@@ -76,7 +77,6 @@ public class Window implements Observer {
         glfwDefaultWindowHints(); // optional, the current window hints are already the default
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE); // the window will stay hidden after creation
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE); // the window will be resizable
-
 
         // Create the window
         glfwWindow = glfwCreateWindow(windowWidth, windowHeight, windowTitle, NULL, NULL);
@@ -135,7 +135,7 @@ public class Window implements Observer {
         renderer = Renderer.getInstance();
         frameBuffer = new FrameBuffer(windowWidth, windowHeight);
         idBuffer = new IDBuffer(windowWidth, windowHeight);
-        changeScene(new EditorScene());
+        initScene(new EditorScene());
     }
 
     private void loop(){
@@ -183,6 +183,12 @@ public class Window implements Observer {
             glfwSwapBuffers(glfwWindow);
 
             MouseListener.getInstance().endFrame();
+
+            if(newScene != null){
+                currentScene.end();
+                initScene(newScene);
+                newScene = null;
+            }
         }
     }
 
@@ -192,7 +198,7 @@ public class Window implements Observer {
         return instance;
     }
 
-    public void changeScene(Scene scene){
+    private void initScene(Scene scene){
         currentScene = scene;
         currentScene.init();
         currentScene.start();
@@ -214,6 +220,10 @@ public class Window implements Observer {
         windowHeight = height;
     }
 
+    public void setNewScene(Scene scene){
+        newScene = scene;
+    }
+
     public FrameBuffer getFrameBuffer(){
         return  frameBuffer;
     }
@@ -225,8 +235,14 @@ public class Window implements Observer {
     @Override
     public void onNotify(GameObject gameObject, Event event) {
         switch (event.getEventType()){
-            case GameEngineStart -> changeScene(new GameScene());
-            case GameEngineStop -> changeScene(new EditorScene());
+            case GameEngineStart -> {
+                currentScene.save();
+                newScene = new GameScene();
+            }
+            case GameEngineStop -> {
+                newScene = new EditorScene();
+            }
+
             case SaveLevel -> currentScene.save();
             case LoadLevel -> currentScene.load();
         }

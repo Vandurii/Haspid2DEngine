@@ -25,9 +25,7 @@ public class GameKeyControls extends Component {
     public void update(float dt) {
         if(keyDebounce < 0) {
             if (keyboard.isKeyPressed(GLFW_KEY_2)) {
-                Window window = Window.getInstance();
-                window.getCurrentScene().end();
-                window.changeScene(new EditorScene());
+                System.out.println("2 was pressed");
             }
             keyDebounce = resetDebounce;
         }

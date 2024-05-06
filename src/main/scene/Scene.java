@@ -31,9 +31,10 @@ public abstract class Scene {
 
     protected Camera camera;
     private boolean isRunning;
-    private static List<GameObject> sceneObjectList;
     private Renderer renderer;
-    public Physics2D physics;
+    protected Physics2D physics;
+    protected boolean editorMode;
+    private static List<GameObject> sceneObjectList;
 
     public Scene(){
         this.camera = new Camera(new Vector2f(0, 0));
@@ -79,33 +80,6 @@ public abstract class Scene {
             physics.destroyGameObject(gameObject);
             sceneObjectList.remove(gameObject);
         }
-    }
-
-    public GameObject getGameObjectFromID(int id){
-        for(GameObject go: sceneObjectList){
-            if(go.getGameObjectID() == id) return go;
-        }
-
-        return null;
-    }
-
-    public Camera getCamera(){
-        return camera;
-    }
-
-    public List<GameObject> getSceneObjectList(){
-        return sceneObjectList;
-    }
-
-    public Renderer getRenderer(){
-        return renderer;
-    }
-
-    private void loadResources(){
-        AssetPool.getShader(defaultShaderPath);
-        AssetPool.getSpriteSheet(firstSpriteSheet);
-        AssetPool.getSpriteSheet(decorationAndBlockConfig);
-        AssetPool.getSpriteSheet(gizmosConfig);
     }
 
     public void clearScene(){
@@ -187,5 +161,36 @@ public abstract class Scene {
         System.out.println("sprites : " + goList.size());
         System.out.println("textures : " + goList.size());
         System.out.println("\n\n\n\n\n");
+    }
+
+    public boolean isInEditMode(){
+        return editorMode;
+    }
+
+    public Camera getCamera(){
+        return camera;
+    }
+
+    public List<GameObject> getSceneObjectList(){
+        return sceneObjectList;
+    }
+
+    public Renderer getRenderer(){
+        return renderer;
+    }
+
+    private void loadResources(){
+        AssetPool.getShader(defaultShaderPath);
+        AssetPool.getSpriteSheet(firstSpriteSheet);
+        AssetPool.getSpriteSheet(decorationAndBlockConfig);
+        AssetPool.getSpriteSheet(gizmosConfig);
+    }
+
+    public GameObject getGameObjectFromID(int id){
+        for(GameObject go: sceneObjectList){
+            if(go.getGameObjectID() == id) return go;
+        }
+
+        return null;
     }
 }

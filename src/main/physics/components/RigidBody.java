@@ -1,6 +1,7 @@
 package main.physics.components;
 
 import main.components.Component;
+import main.haspid.Window;
 import main.physics.enums.BodyType;
 import org.jbox2d.dynamics.Body;
 import org.joml.Vector2f;
@@ -19,6 +20,8 @@ public class RigidBody extends Component {
 
     @Override
     public void update(float dt) {
+        if(Window.getInstance().getCurrentScene().isInEditMode()) return;
+
         if(rawBody != null){
             getParent().getTransform().setPosition(rawBody.getPosition().x, rawBody.getPosition().y);
             getParent().getTransform().setRotation(rawBody.getAngle());

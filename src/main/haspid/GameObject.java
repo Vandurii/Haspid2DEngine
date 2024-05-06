@@ -3,9 +3,13 @@ package main.haspid;
 import imgui.ImGui;
 import main.components.Component;
 import main.components.SpriteRenderer;
+import main.physics.components.RigidBody;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.lwjgl.glfw.GLFW.GLFW_FALSE;
+import static org.lwjgl.glfw.GLFW.GLFW_TRUE;
 
 public class GameObject {
 

@@ -76,7 +76,14 @@ public class Configuration {
 
     public static Color clearColor = new Color(60, 60, 60, 1);
 
-    public static Vector4f imGuiColor = new Vector4f(0.15f, 0.15f, 0.15f, 1);
+    public static Vector4f imGuiColor = new Vector4f(0.25f, 0.25f, 0.25f, 1);
+    public static Vector4f imGuiButtonColor = new Vector4f(0.25f, 0.25f, 0.25f, 1);
+    public static Vector4f imGuiFrameBackground = new Vector4f(0.15f, 0.15f, 0.15f, 1);
+    public static Vector4f imGuiHeader = new Vector4f(0.15f, 0.15f, 0.15f, 1);
+    public static Vector4f imGuiTitleBg = new Vector4f(1f, 0f, 0f, 1);
+    public static Vector4f imGuiTabInactive = new Vector4f(0.15f, 0.15f, 0.15f, 1);
+    public static Vector4f imGuiTabActive = new Vector4f(0.25f, 0.25f, 0.25f, 1);
+    public static Vector4f imGuiMenuBar = new Vector4f(0.25f, 0.25f, 0.25f, 1);
 
     public static String levelPath = "level.txt";
 

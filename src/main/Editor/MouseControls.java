@@ -47,7 +47,7 @@ public class MouseControls extends Component {
             }
 
             if(Helper.isNull(getCursorObject()) && mouse.isButtonPressed(GLFW_MOUSE_BUTTON_1) && !gizmo.isHot() && !mouse.isMouseDragged()){
-                setActiveGameObject(null);
+               setActiveGameObject(null);
             }
         }
     }
@@ -56,15 +56,15 @@ public class MouseControls extends Component {
         int objectX = (int)(mouse.getWorldX()/ gridSize) * gridSize;
         int objectY = (int)(mouse.getWorldY() / gridSize) * gridSize;
         holdingObject.getTransform().setPosition(new Vector2f(objectX, objectY));
-        if(mouse.isButtonPressed(GLFW_MOUSE_BUTTON_1)){
-            place(dt);
+        if(mouse.isButtonPressed(GLFW_MOUSE_BUTTON_1) && debounce < 0){
+            place();
         }
+        debounce -= dt;
     }
 
-    public void place(float dt){
+    public void place(){
         float scan  = window.getIdBuffer().readIDFromPixel((int) mouse.getViewPortX() , (int) mouse.getViewPortY());
-        if((scan == 0 || scan == holdingObject.getGameObjectID()) && debounce < 0 ) {
-
+        if((scan == 0 || scan == holdingObject.getGameObjectID())) {
             Transform t = holdingObject.getTransform();
             SpriteRenderer spriteRenderer = holdingObject.getComponent(SpriteRenderer.class);
 
@@ -79,8 +79,6 @@ public class MouseControls extends Component {
             editorScene.addGameObjectToScene(holdingObject);
             debounce = resetDebounce;
         }
-
-        debounce -= dt;
     }
 
     public void pickupObject(GameObject holdingObject){

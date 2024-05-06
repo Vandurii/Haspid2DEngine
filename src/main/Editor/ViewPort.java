@@ -19,13 +19,8 @@ public class ViewPort {
     private static float viewPortWidth, viewPortHeight;
     private static float windowStartFromX, windowStartFromY;
     private static float windowWidth, windowHeight;
-    private static boolean isPlaying;
-    private static MenuBar menuBar;
-    private static boolean used;
-
 
     private ViewPort(){
-        menuBar = new MenuBar();
     };
 
     public static ViewPort getInstance(){
@@ -39,12 +34,13 @@ public class ViewPort {
     }
 
     public void display() {
+        ImGui.pushStyleColor(ImGuiCol.MenuBarBg, imGuiMenuBar.x, imGuiMenuBar.y, imGuiMenuBar.z, imGuiTabActive.w);
         ImGui.pushStyleColor(ImGuiCol.WindowBg, imGuiColor.x, imGuiColor.y, imGuiColor.z, imGuiColor.w);
+        ImGui.pushStyleColor(ImGuiCol.TabUnfocused, imGuiTabInactive.x, imGuiTabInactive.y, imGuiTabInactive.z, imGuiTabInactive.w);
+        ImGui.pushStyleColor(ImGuiCol.TabUnfocusedActive, imGuiTabInactive.x, imGuiTabInactive.y, imGuiTabInactive.z, imGuiTabInactive.w);
+        ImGui.pushStyleColor(ImGuiCol.TabActive, imGuiTabActive.x, imGuiTabActive.y, imGuiTabActive.z, imGuiTabActive.w);
         ImGui.pushStyleVar(ImGuiStyleVar.WindowPadding, 0f, 0f);
-        ImGui.begin("View Port", ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse | ImGuiWindowFlags.MenuBar);
-        ImGui.popStyleVar(1);
-        ImGui.popStyleColor(1);
-        menuBar.display();
+        ImGui.begin("View Port", ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse);
 
         update();
 
@@ -53,25 +49,8 @@ public class ViewPort {
         int textID = Window.getInstance().getFrameBuffer().getTextureID();
         ImGui.image(textID, viewPortWidth, viewPortHeight, 0, 1, 1, 0);
 
-        ImGui.beginMenuBar();
-
-        if(ImGui.menuItem("Play", "", isPlaying, !isPlaying)){
-            isPlaying = true;
-            EventSystem.notify(null, new Event(EventType.GameEngineStart));
-            used = true;
-        }
-
-        if(!used) {
-            if (ImGui.menuItem("Stop", "", !isPlaying, isPlaying)) {
-                isPlaying = false;
-                EventSystem.notify(null, new Event(EventType.GameEngineStop));
-            }
-        }
-        used = false;
-        //todo check the font error
-
-        ImGui.endMenuBar();
-
+        ImGui.popStyleVar(1);
+        ImGui.popStyleColor(5);
         ImGui.end();
     }
 

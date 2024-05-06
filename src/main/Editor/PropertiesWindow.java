@@ -12,7 +12,8 @@ import org.joml.Vector2f;
 
 import java.util.Arrays;
 
-import static main.Configuration.imGuiColor;
+import static main.Configuration.*;
+import static main.Configuration.imGuiTabActive;
 
 public class PropertiesWindow {
 
@@ -25,9 +26,11 @@ public class PropertiesWindow {
     }
 
     public void display(){
+        ImGui.pushStyleColor(ImGuiCol.Button, imGuiButtonColor.x, imGuiButtonColor.y, imGuiButtonColor.z, imGuiButtonColor.w);
         ImGui.pushStyleColor(ImGuiCol.WindowBg, imGuiColor.x, imGuiColor.y, imGuiColor.z, imGuiColor.w);
-        ImGui.begin("Properties Winow");
-        ImGui.popStyleColor(1);
+        ImGui.pushStyleColor(ImGuiCol.TabUnfocusedActive, imGuiTabInactive.x, imGuiTabInactive.y, imGuiTabInactive.z, imGuiTabInactive.w);
+        ImGui.pushStyleColor(ImGuiCol.TabActive, imGuiTabActive.x, imGuiTabActive.y, imGuiTabActive.z, imGuiTabActive.w);
+        ImGui.begin("Properties Window");
         ImVec2 windowPos = new ImVec2();
         ImGui.getWindowPos(windowPos);
 
@@ -38,6 +41,7 @@ public class PropertiesWindow {
         ImGui.getStyle().getItemSpacing(itemSpacing);
 
         float window = windowPos.x + windowSize.x;
+
 
         for(int i = 0; i < spriteSheet.getSize(); i++){
             SpriteRenderer sprite = spriteSheet.getSprite(i);
@@ -61,6 +65,7 @@ public class PropertiesWindow {
                 ImGui.sameLine();
             }
         }
+        ImGui.popStyleColor(4);
         ImGui.end();
     }
 }

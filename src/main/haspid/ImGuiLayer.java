@@ -48,13 +48,14 @@ public class ImGuiLayer {
         ImGui.pushStyleVar(ImGuiStyleVar.WindowRounding, 0f);
         ImGui.pushStyleVar(ImGuiStyleVar.WindowPadding, 0f, 0f);
         ImGui.pushStyleVar(ImGuiStyleVar.WindowBorderSize, 0f);
+        ImGui.pushStyleColor(ImGuiCol.MenuBarBg, imGuiMenuBar.x, imGuiMenuBar.y, imGuiMenuBar.z, imGuiTabActive.w);
         ImGui.pushStyleColor(ImGuiCol.WindowBg, imGuiColor.x, imGuiColor.y, imGuiColor.z, imGuiColor.w);
         windowFlags |= ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoResize
                 | ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoBringToFrontOnFocus | ImGuiWindowFlags.NoNavFocus;
 
         ImGui.begin("DockSpace", new ImBoolean(true), windowFlags);
         ImGui.popStyleVar(3);
-        ImGui.popStyleColor(1);
+        ImGui.popStyleColor(2);
 
         ImGui.dockSpace(ImGui.getID("DockSpace"));
         ImGui.end();

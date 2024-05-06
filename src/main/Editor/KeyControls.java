@@ -75,8 +75,7 @@ public class KeyControls extends Component {
                     DebugDraw.sleep();
                     cameraControl.reset();
             }else if(keyboard.isKeyPressed(GLFW_KEY_1)){
-                clear();
-                Window.getInstance().changeScene(new GameScene());
+                System.out.println("u have pressed 1");
             }else if(keyboard.isKeyPressed(GLFW_KEY_C)){
                 System.out.println("*** start ***");
                 if(activeObject != null){
@@ -89,13 +88,6 @@ public class KeyControls extends Component {
             keyDebounce = resetDebounce;
         }
         keyDebounce -= dt;
-    }
-
-    public void clear(){
-        zoom = 1;
-        editorScene.end();
-        mouseControls.clearCursor();
-        mouseControls.setActiveGameObject(null);
     }
 
     public void printInfo(){
