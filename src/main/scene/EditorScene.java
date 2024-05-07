@@ -18,6 +18,7 @@ public class EditorScene extends Scene {
     private GridLines gridLines;
     private ImGuiLayer imGuiLayer;
     private KeyControls keyControls;
+    private MouseListener mouseListener;
     private GameObject activeGameObject;
     private MouseControls mouseControls;
     private CameraControl cameraControl;
@@ -30,13 +31,14 @@ public class EditorScene extends Scene {
     public void init() {
         MouseListener.resetInstance();
         Renderer.resetInstance();
-        MouseListener mouseListener = MouseListener.getInstance();
+        mouseListener = MouseListener.getInstance();
+        DebugDraw.resetVertexArray();
 
-        editorMode = true;
         load();
+        editorMode = true;
 
         gizmo = new Gizmo(this);
-        gridLines = GridLines.getInstance();
+        gridLines = new GridLines();
         mouseControls = new MouseControls(this, mouseListener, gizmo);
         cameraControl = new CameraControl(camera, mouseControls);
         keyControls = new KeyControls(mouseControls, cameraControl, this);

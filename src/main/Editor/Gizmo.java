@@ -96,10 +96,8 @@ public class Gizmo extends Component {
             Vector2f aPos = activeObject.getTransform().getPosition();
             Vector2f aScale = activeObject.getTransform().getScale();
 
-            xAxisBody.getTransform().setPosition(new Vector2f(aPos.x + xAxisXPadding + aScale.x, aPos.y + xAxisYPadding));
-            yAxisBody.getTransform().setPosition(new Vector2f(aPos.x + yAxisXPadding, aPos.y + yAxisYPadding + aScale.y));
-          //  xAxisBody.getComponent(SpriteRenderer.class).setDirty();
-          //  yAxisBody.getComponent(SpriteRenderer.class).setDirty();
+            xAxisBody.getTransform().setPosition(new Vector2f(aPos.x + xAxisXPadding + (aScale.x / 2), aPos.y + xAxisYPadding));
+            yAxisBody.getTransform().setPosition(new Vector2f(aPos.x + yAxisXPadding, aPos.y + yAxisYPadding + (aScale.y / 2)));
         }
 
         if(activeObject != null){
@@ -107,9 +105,9 @@ public class Gizmo extends Component {
 
             // gizmo - xAxis
             Vector2f xPos = xAxisBody.getTransform().getPosition();
-            Vector2f xScale = xAxisBody.getTransform().getScale();
+            Vector2f xScale = new Vector2f(xAxisBody.getTransform().getScale().x * 2, xAxisBody.getTransform().getScale().y * 2);
 
-            if(mouse.getWorldX() >= (xPos.x - xScale.y - aScale.x) && mouse.getWorldX() <= xPos.x + aScale.x && mouse.getWorldY() >= xPos.y - aScale.y && mouse.getWorldY() <= xPos.y + xScale.x + aScale.y){
+            if(mouse.getWorldX() >= (xPos.x - xScale.y - aScale.x) && mouse.getWorldX() <= xPos.x + aScale.x + xScale.x && mouse.getWorldY() >= xPos.y - aScale.y - xScale.y && mouse.getWorldY() <= xPos.y + xScale.x + aScale.y){
                 xAxisSpriteRender.setColor(hoverGizmoColor);
                 isXAxisHot = true;
             }else{
@@ -119,9 +117,9 @@ public class Gizmo extends Component {
 
             // gizmo - yAxis
             Vector2f yPos = yAxisBody.getTransform().getPosition();
-            Vector2f yScale = yAxisBody.getTransform().getScale();
+            Vector2f yScale = new Vector2f(yAxisBody.getTransform().getScale().x * 2, yAxisBody.getTransform().getScale().y * 2);
 
-            if(mouse.getWorldX() >= yPos.x - yScale.x - aScale.x && mouse.getWorldX() <= yPos.x + aScale.x && mouse.getWorldY() > yPos.y - yScale.y - aScale.y && mouse.getWorldY() <= yPos.y + aScale.y){
+            if(mouse.getWorldX() >= yPos.x - yScale.x - aScale.x && mouse.getWorldX() <= yPos.x + aScale.x + xScale.x && mouse.getWorldY() > yPos.y - yScale.y - aScale.y && mouse.getWorldY() <= yPos.y + aScale.y + xScale.y){
                 yAxisSpriteRender.setColor(hoverGizmoColor);
                 isYAxisHot = true;
             }else{

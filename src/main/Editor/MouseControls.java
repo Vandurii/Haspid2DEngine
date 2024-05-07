@@ -37,8 +37,10 @@ public class MouseControls extends Component {
             trackMouse(dt);
         }else if(gizmo.isHot() && activeGameObject != null && mouse.isMouseDragged()){
             gizmoAction();
-        }else if(mouse.isButtonPressed(GLFW_MOUSE_BUTTON_2) && !mouse.isMouseDragged()){
-            scanForObject();
+        }else if(mouse.isButtonPressed(GLFW_MOUSE_BUTTON_2) ){
+            if(scanForObject() == 0) System.out.println("0");;
+        }else if(mouse.isButtonPressed(GLFW_MOUSE_BUTTON_1)){
+            //System.out.println(String.format("x:%.1f  y:%.1f", MouseListener.getInstance().getWorldX(), MouseListener.getInstance().getWorldY()));
         }
 
         if ((Helper.isNotNull(activeGameObject) || Helper.isNotNull(holdingObject)) && mouse.isCursorInsideViewPort()) {
@@ -53,8 +55,8 @@ public class MouseControls extends Component {
     }
 
     public void trackMouse(float dt){
-        int objectX = (int)(mouse.getWorldX()/ gridSize) * gridSize;
-        int objectY = (int)(mouse.getWorldY() / gridSize) * gridSize;
+        float objectX = (int)(mouse.getWorldX()/ gridSize) * gridSize + holdingObject.getTransform().getScale().x / 2;
+        float objectY = (int)(mouse.getWorldY() / gridSize) * gridSize + holdingObject.getTransform().getScale().y / 2;
         holdingObject.getTransform().setPosition(new Vector2f(objectX, objectY));
         if(mouse.isButtonPressed(GLFW_MOUSE_BUTTON_1) && debounce < 0){
             place();
@@ -104,8 +106,8 @@ public class MouseControls extends Component {
                     scale.y -= val;
                 }
             } else if (index == 1 && mouse.isButtonPressed(GLFW_MOUSE_BUTTON_1)) {
-                int xPos = (int) ((mouse.getWorldX() - (scale.x / 2)) / gridSize) * gridSize;
-                int yPos = (int) ((mouse.getWorldY() - (scale.y / 2)) / gridSize) * gridSize;
+                float xPos = (int) ((mouse.getWorldX() - (scale.x / 2)) / gridSize) * gridSize + activeGameObject.getTransform().getScale().x / 2;
+                float yPos = (int) ((mouse.getWorldY() - (scale.y / 2)) / gridSize) * gridSize + activeGameObject.getTransform().getScale().y / 2;
 
                 if (gizmo.isXAxisHot()) transform.setPosition(xPos, transform.getPosition().y);
                 if (gizmo.isYAxisHot()) transform.setPosition(transform.getPosition().x, yPos);

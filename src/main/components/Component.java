@@ -1,6 +1,7 @@
 package main.components;
 
 import imgui.ImGui;
+import imgui.type.ImInt;
 import main.Editor.JImGui;
 import main.haspid.GameObject;
 import org.joml.Vector2f;
@@ -52,6 +53,15 @@ public abstract class Component {
                 }else if(clazz == boolean.class){
                     boolean imBoolean = (boolean) value;
                     if(ImGui.checkbox(name,imBoolean)) f.set(this, !imBoolean);
+                }else if(clazz.isEnum()){
+                    String[] enumValues = getEnumValues(clazz);
+                    String enumName = ((Enum<?>) value).name();
+                    ImInt index = new ImInt(indexOf(enumName, enumValues));
+
+                    if(ImGui.combo(f.getName(), index, enumValues, enumValues.length)){
+                        f.set(this, clazz.getEnumConstants()[index.get()]);
+                    }
+
                 }else{
                     JImGui.drawValue(name, value);
                 }
@@ -61,6 +71,24 @@ public abstract class Component {
                 e.printStackTrace();
             }
         }
+    }
+
+    public <T extends Enum<T>> String[] getEnumValues(Class<T> enumObject){
+        String[] enumValues = new String[enumObject.getEnumConstants().length];
+
+        for(int i = 0; i < enumValues.length; i++){
+            enumValues[i] = enumObject.getEnumConstants()[i].name();
+        }
+
+        return enumValues;
+    }
+
+    public int indexOf(String enumName, String[] enumValues){
+        for(int i = 0; i < enumValues.length; i++){
+            if(enumValues[i].equals(enumName)) return i;
+        }
+
+        return -1;
     }
 
     public GameObject getParent(){

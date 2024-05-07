@@ -8,9 +8,10 @@ import org.joml.Vector4f;
 import java.awt.*;
 
 public class Configuration {
-    public static float aspectRatio = 16f / 9f;
-    public static int windowWidth = 1344;
-    public static int windowHeight = 756;
+    static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    public static int windowWidth = (int)screenSize.getWidth();
+    public static int windowHeight = (int)screenSize.getHeight();
+    public static float aspectRatio = (float)windowWidth / (float)windowHeight;
     public static String windowTitle = "Haspid";
     public static Vector3f uProjectionDimension = new Vector3f(1280, 672, 100);
 
@@ -32,7 +33,7 @@ public class Configuration {
 
 
     public static float skipCamera = 2;
-    public static int cameraSensivity = 128;
+    public static int cameraSensivity = 80;
     public static float resetCameraSpeed = 0.1f;
     public static float debounceForCamera = 0.0000032f;
 
@@ -46,12 +47,12 @@ public class Configuration {
     public static Vector4f hoverGizmoColor = new Vector4f(0f, 0.5f, 0f, 1f);
     public static Vector4f gizmoColor = new Vector4f(0.0f, .0f, 0.0f, 1f);
     public static Vector2f gizmoScale = new Vector2f(30, 60);
-    public static int xGizmoXAxis = 40;
-    public static int xGizmoYAxis = -8;
+    public static int xGizmoXAxis = 10;
+    public static int xGizmoYAxis = -9;
     public static int xGizmoRotation = 90;
 
-    public static int yGizmoXAxis = 20;
-    public static int yGizmoYAxis = 40;
+    public static int yGizmoXAxis = -10;
+    public static int yGizmoYAxis = 9;
     public static int yGizmoRotation = 180;
 
 
@@ -66,7 +67,7 @@ public class Configuration {
 
     public static float keyDebounceC = 0.09f;
 
-
+    public static Vector3f colliderColor = new Vector3f(0.7f, 0.7f, 0.7f);
     public static Vector3f colorRed = new Vector3f(1, 0, 0);
     public static Vector3f colorGreen = new Vector3f(0, 1, 0);
     public static Vector3f colorBlue = new Vector3f(0, 0, 1);
@@ -91,7 +92,7 @@ public class Configuration {
 }
 
 
-// todo scanObject problem
+// todo scanObject problem | collider box | physics with scale
 
 
 

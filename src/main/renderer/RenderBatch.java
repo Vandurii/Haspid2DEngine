@@ -160,13 +160,13 @@ public class RenderBatch implements Comparable<RenderBatch> {
             Vector2f scale = transform.getScale();
             boolean isRotated = transform.getRotation() != 0;
             int offset = index * squareSizeFloat;
-            float xAdd = 1f;
-            float yAdd = 1f;
+            float xAdd = 0.5f;
+            float yAdd = 0.5f;
 
             for (int j = 0; j < 4; j++) {
-                if (j == 1) yAdd = 0f;
-                if (j == 2) xAdd = 0f;
-                if (j == 3) yAdd = 1f;
+                if (j == 1) yAdd = -0.5f;
+                if (j == 2) xAdd = -0.5f;
+                if (j == 3) yAdd =  0.5f;
 
                 Vector4f currentPos = new Vector4f(position.x + (xAdd * scale.x), position.y + (yAdd * scale.y), 0, 0);
                 if (isRotated) {

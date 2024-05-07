@@ -24,7 +24,7 @@ public class RigidBody extends Component {
 
         if(rawBody != null){
             getParent().getTransform().setPosition(rawBody.getPosition().x, rawBody.getPosition().y);
-            getParent().getTransform().setRotation(rawBody.getAngle());
+            getParent().getTransform().setRotation((float) Math.toDegrees(rawBody.getAngle()));
         }
     }
 

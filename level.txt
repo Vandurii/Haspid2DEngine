@@ -1,6 +1,6 @@
 [
   {
-    "gameObjectID": 66,
+    "gameObjectID": 11,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -9,8 +9,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 416.0,
-            "y": 416.0
+            "x": 400.0,
+            "y": 528.0
           },
           "scale": {
             "x": 32.0,
@@ -41,23 +41,45 @@
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.2857143,
-              "y": 0.75
+              "x": 0.85714287,
+              "y": 0.9166667
             },
             {
-              "x": 0.2857143,
-              "y": 0.6666667
+              "x": 0.85714287,
+              "y": 0.8333334
             },
             {
-              "x": 0.14285715,
-              "y": 0.6666667
+              "x": 0.71428573,
+              "y": 0.8333334
             },
             {
-              "x": 0.14285715,
-              "y": 0.75
+              "x": 0.71428573,
+              "y": 0.9166667
             }
           ],
           "componentID": 8
+        }
+      },
+      {
+        "Type": "main.physics.components.BoxCollider",
+        "Properties": {
+          "halfSize": {
+            "x": 16.0,
+            "y": 16.0
+          },
+          "origin": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "center": {
+            "x": 400.0,
+            "y": 528.0
+          },
+          "offset": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "componentID": 20
         }
       },
       {
@@ -70,16 +92,16 @@
           "angularDamping": 0.8,
           "linearDamping": 0.9,
           "mass": 0.0,
-          "bodyType": "Dynamic",
+          "bodyType": "Static",
           "fixedRotation": false,
           "continousCollision": true,
-          "componentID": 20
+          "componentID": 21
         }
       }
     ]
   },
   {
-    "gameObjectID": 67,
+    "gameObjectID": 12,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -104,20 +126,20 @@
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.2857143,
-              "y": 0.75
+              "x": 0.85714287,
+              "y": 0.9166667
             },
             {
-              "x": 0.2857143,
-              "y": 0.6666667
+              "x": 0.85714287,
+              "y": 0.8333334
             },
             {
-              "x": 0.14285715,
-              "y": 0.6666667
+              "x": 0.71428573,
+              "y": 0.8333334
             },
             {
-              "x": 0.14285715,
-              "y": 0.75
+              "x": 0.71428573,
+              "y": 0.9166667
             }
           ],
           "componentID": 10
@@ -127,38 +149,60 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 256.0,
-            "y": 416.0
+            "x": 368.0,
+            "y": 432.0
           },
           "scale": {
             "x": 32.0,
             "y": 32.0
           },
-          "rotation": 0.0,
+          "rotation": 0.2,
           "zIndex": 1,
           "componentID": 11
+        }
+      },
+      {
+        "Type": "main.physics.components.BoxCollider",
+        "Properties": {
+          "halfSize": {
+            "x": 16.0,
+            "y": 16.0
+          },
+          "origin": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "center": {
+            "x": 368.0,
+            "y": 432.0
+          },
+          "offset": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "componentID": 22
         }
       },
       {
         "Type": "main.physics.components.RigidBody",
         "Properties": {
           "velocity": {
-            "x": 0.0,
-            "y": 0.0
+            "x": 176.0,
+            "y": 96.0
           },
           "angularDamping": 0.8,
           "linearDamping": 0.9,
-          "mass": 0.0,
+          "mass": 5.3,
           "bodyType": "Dynamic",
           "fixedRotation": false,
           "continousCollision": true,
-          "componentID": 25
+          "componentID": 23
         }
       }
     ]
   },
   {
-    "gameObjectID": 68,
+    "gameObjectID": 13,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -167,16 +211,16 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 320.0,
-            "y": 416.0
+            "x": 432.0,
+            "y": 368.0
           },
           "scale": {
             "x": 32.0,
             "y": 32.0
           },
-          "rotation": 0.0,
+          "rotation": 36.0,
           "zIndex": 1,
-          "componentID": 34
+          "componentID": 39
         }
       },
       {
@@ -200,22 +244,60 @@
           "texCords": [
             {
               "x": 0.85714287,
-              "y": 0.8333333
+              "y": 0.9166667
             },
             {
               "x": 0.85714287,
-              "y": 0.75
+              "y": 0.8333334
             },
             {
               "x": 0.71428573,
-              "y": 0.75
+              "y": 0.8333334
             },
             {
               "x": 0.71428573,
-              "y": 0.8333333
+              "y": 0.9166667
             }
           ],
-          "componentID": 35
+          "componentID": 40
+        }
+      },
+      {
+        "Type": "main.physics.components.BoxCollider",
+        "Properties": {
+          "halfSize": {
+            "x": 16.0,
+            "y": 16.0
+          },
+          "origin": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "center": {
+            "x": 432.0,
+            "y": 368.0
+          },
+          "offset": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "componentID": 49
+        }
+      },
+      {
+        "Type": "main.physics.components.RigidBody",
+        "Properties": {
+          "velocity": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "angularDamping": 0.8,
+          "linearDamping": 0.9,
+          "mass": 0.0,
+          "bodyType": "Static",
+          "fixedRotation": false,
+          "continousCollision": true,
+          "componentID": 50
         }
       }
     ]

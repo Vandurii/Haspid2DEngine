@@ -84,6 +84,13 @@ public class GameObject {
         }
     }
 
+    public void printAllComponents(){
+        System.out.println("All components: ");
+        for(Component c: componentList){
+            System.out.println(c.getClass().getSimpleName());
+        }
+    }
+
     public void setTransformFromItself(){
         this.transform = getComponent(Transform.class);
     }

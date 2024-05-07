@@ -55,7 +55,9 @@ public class Window implements Observer {
         init();
         loop();
 
+        currentScene.save();
         currentScene.end();
+
         // Free the window callbacks and destroy the window
         glfwFreeCallbacks(glfwWindow);
         glfwDestroyWindow(glfwWindow);
@@ -77,6 +79,7 @@ public class Window implements Observer {
         glfwDefaultWindowHints(); // optional, the current window hints are already the default
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE); // the window will stay hidden after creation
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE); // the window will be resizable
+        glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
 
         // Create the window
         glfwWindow = glfwCreateWindow(windowWidth, windowHeight, windowTitle, NULL, NULL);
@@ -90,8 +93,6 @@ public class Window implements Observer {
         glfwSetWindowSizeCallback(glfwWindow, (w, newWidth, newHeight) -> {
             setWidth(newWidth);
             setHeight(newHeight);
-          //  glViewport(0, 0, windowWidth,windowHeight);
-         //   DebugDraw.printValues();
         });
 
         // Get the thread stack and push a new frame
@@ -108,8 +109,8 @@ public class Window implements Observer {
             // Center the window
             glfwSetWindowPos(
                     glfwWindow,
-                    (vidmode.width() - pWidth.get(0)) / 2 + 1750,
-                    (vidmode.height() - pHeight.get(0)) / 2 - 100
+                    (vidmode.width() - pWidth.get(0)) / 2 ,
+                    (vidmode.height() - pHeight.get(0)) / 2
             );
         } // the stack frame is popped automatically
 
