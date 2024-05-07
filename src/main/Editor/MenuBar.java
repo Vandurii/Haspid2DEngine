@@ -2,12 +2,14 @@ package main.Editor;
 
 import imgui.ImGui;
 import imgui.flag.ImGuiCol;
+import main.haspid.Window;
 import main.observers.EventSystem;
 import main.observers.events.Event;
 import main.observers.events.EventType;
 
 import static main.Configuration.imGuiMenuBar;
 import static main.Configuration.imGuiTabActive;
+import static org.lwjgl.glfw.GLFW.glfwSetWindowShouldClose;
 
 public class MenuBar {
     private static boolean isPlaying;
@@ -18,9 +20,9 @@ public class MenuBar {
 
         if(ImGui.beginMenu("File")){
             if(ImGui.menuItem("save", "ctrl+s")) EventSystem.notify(null, new Event(EventType.SaveLevel));
-            if(ImGui.menuItem("load", "ctrl+l")){
-                EventSystem.notify(null, new Event(EventType.LoadLevel));
-            }
+            if(ImGui.menuItem("load", "ctrl+l")) EventSystem.notify(null, new Event(EventType.LoadLevel));
+            if(ImGui.menuItem("exit", "")) glfwSetWindowShouldClose(Window.getInstance().getGlfwWindow(), true);
+
             ImGui.endMenu();
         }
 

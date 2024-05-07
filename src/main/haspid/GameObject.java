@@ -1,6 +1,10 @@
 package main.haspid;
 
 import imgui.ImGui;
+import imgui.flag.ImGuiTreeNodeFlags;
+import imgui.flag.ImGuiWindowFlags;
+import imgui.type.ImString;
+import main.Editor.JImGui;
 import main.components.Component;
 import main.components.SpriteRenderer;
 import main.physics.components.RigidBody;
@@ -78,10 +82,15 @@ public class GameObject {
     }
 
     public void dearGui(){
+        setName();
         for(Component c: componentList){
             ImGui.collapsingHeader(c.getClass().getSimpleName());
             c.dearGui();
         }
+    }
+
+    public void setName(){
+       name = (String) JImGui.drawValue("Name: ", name);
     }
 
     public void printAllComponents(){

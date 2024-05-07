@@ -41,6 +41,8 @@ public abstract class Component {
         Field[] fields = this.getClass().getDeclaredFields();
         for(Field f: fields){
             try {
+                boolean isTransient = Modifier.isTransient(f.getModifiers());
+                if(isTransient) continue;
                 boolean isPrivate = Modifier.isPrivate(f.getModifiers());
                 if(isPrivate) f.setAccessible(true);
 

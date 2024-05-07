@@ -67,7 +67,7 @@ public class Configuration {
 
     public static float keyDebounceC = 0.09f;
 
-    public static Vector3f colliderColor = new Vector3f(0.7f, 0.7f, 0.7f);
+    public static Vector3f colliderColor = new Vector3f(0.0f, 1f, 0.0f);
     public static Vector3f colorRed = new Vector3f(1, 0, 0);
     public static Vector3f colorGreen = new Vector3f(0, 1, 0);
     public static Vector3f colorBlue = new Vector3f(0, 0, 1);

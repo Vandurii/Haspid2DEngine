@@ -3,6 +3,7 @@ package main.Editor;
 import imgui.ImGui;
 import imgui.flag.ImGuiCol;
 import imgui.flag.ImGuiStyleVar;
+import imgui.type.ImString;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
@@ -38,9 +39,15 @@ public class JImGui {
             ImGui.dragFloat("##dragFloat", valArr, 0.1f);
             pop();
             return valArr[0];
+        }else if(type instanceof String){
+            String str  = (String) type;
+            ImString outString = new ImString(str, 256);
+            ImGui.inputText("##" + label, outString);
+            pop();
+            return outString.get();
         }
-
         pop();
+
         return 0;
     }
 

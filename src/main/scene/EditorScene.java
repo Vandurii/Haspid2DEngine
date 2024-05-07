@@ -15,6 +15,7 @@ import static main.Configuration.*;
 public class EditorScene extends Scene {
 
     private Gizmo gizmo;
+    private MenuBar menuBar;
     private GridLines gridLines;
     private ImGuiLayer imGuiLayer;
     private KeyControls keyControls;
@@ -23,9 +24,9 @@ public class EditorScene extends Scene {
     private MouseControls mouseControls;
     private CameraControl cameraControl;
     private GameObject levelEditorStuff;
+    private SceneHierarchy sceneHierarchy;
     private InspectorWindow inspectorWindow;
     private PropertiesWindow propertiesWindow;
-    public MenuBar menuBar = new MenuBar();
 
     @Override
     public void init() {
@@ -37,8 +38,9 @@ public class EditorScene extends Scene {
         load();
         editorMode = true;
 
-        gizmo = new Gizmo(this);
         gridLines = new GridLines();
+        gizmo = new Gizmo(this);
+        sceneHierarchy = new SceneHierarchy();
         mouseControls = new MouseControls(this, mouseListener, gizmo);
         cameraControl = new CameraControl(camera, mouseControls);
         keyControls = new KeyControls(mouseControls, cameraControl, this);
@@ -53,6 +55,7 @@ public class EditorScene extends Scene {
         imGuiLayer = new ImGuiLayer(Window.getInstance().getGlfwWindow());
         imGuiLayer.init(new Configuration());
 
+        menuBar = new MenuBar();
         inspectorWindow = new InspectorWindow(mouseControls);
         propertiesWindow = new PropertiesWindow(mouseControls, AssetPool.getSpriteSheet(decorationAndBlockConfig));
     }
@@ -76,7 +79,9 @@ public class EditorScene extends Scene {
 
     public void dearGui(){
         imGuiLayer.startFrame();
+
         menuBar.display();
+        sceneHierarchy.display();
         inspectorWindow.display();
         propertiesWindow.display();
         ViewPort.getInstance().display();
@@ -88,7 +93,6 @@ public class EditorScene extends Scene {
         zoom = 1;
         mouseControls.clearCursor();
         mouseControls.setActiveGameObject(null);
-
         imGuiLayer.dispose();
     }
 

@@ -6,6 +6,7 @@ import imgui.flag.ImGuiWindowFlags;
 import imgui.type.ImBoolean;
 import main.Helper;
 import main.haspid.GameObject;
+import main.haspid.Window;
 import main.physics.components.BoxCollider;
 import main.physics.components.CircleCollider;
 import main.physics.components.RigidBody;
@@ -29,7 +30,6 @@ public class InspectorWindow {
             ImGui.pushStyleColor(ImGuiCol.TabUnfocusedActive, imGuiTabInactive.x, imGuiTabInactive.y, imGuiTabInactive.z, imGuiTabInactive.w);
             ImGui.pushStyleColor(ImGuiCol.TabActive, imGuiTabActive.x, imGuiTabActive.y, imGuiTabActive.z, imGuiTabActive.w);
             ImGui.begin("Inspector");
-            mouseControls.getActiveGameObject().dearGui();
 
             if(ImGui.beginPopupContextWindow("ComponentAdder")){
                 if(ImGui.menuItem("add Rigid Body") && Helper.isNull(activeGameObj.getComponent(RigidBody.class))) activeGameObj.addComponent(new RigidBody());
@@ -37,6 +37,8 @@ public class InspectorWindow {
                 if(ImGui.menuItem("add Box Collider") && Helper.isNull(activeGameObj.getComponent(BoxCollider.class))) activeGameObj.addComponent(new BoxCollider());
                 ImGui.endPopup();
             }
+
+            mouseControls.getActiveGameObject().dearGui();
 
             ImGui.end();
             ImGui.popStyleColor(5);
