@@ -9,8 +9,12 @@ import java.awt.*;
 
 public class Configuration {
     static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    public static int windowWidth = (int)screenSize.getWidth();
-    public static int windowHeight = (int)screenSize.getHeight();
+//    public static int windowWidth = (int)screenSize.getWidth();
+//    public static int windowHeight = (int)screenSize.getHeight();
+
+    public static int windowWidth = 1440;
+    public static int windowHeight = 810;
+
     public static float aspectRatio = (float)windowWidth / (float)windowHeight;
     public static String windowTitle = "Haspid";
     public static Vector3f uProjectionDimension = new Vector3f(1280, 672, 100);
@@ -24,6 +28,7 @@ public class Configuration {
     public static SpriteConfig firstSpriteSheet = new SpriteConfig("assets/images/spritesheet.png", 16, 16, 26, 0);
     public static SpriteConfig decorationAndBlockConfig = new SpriteConfig("assets/images/decorationsAndBlocks.png", 16, 16, 81, 0);
     public static SpriteConfig gizmosConfig = new SpriteConfig("assets/images/gizmos.png", 24, 48, 3, 0);
+    public static SpriteConfig itemsConfig = new SpriteConfig("assets/images/items.png", 16, 16, 33, 0);
 
 
     public static int batchSize = 10000;
@@ -93,6 +98,7 @@ public class Configuration {
 
 
 // todo scanObject problem | collider box | physics with scale
+// refactor properties window
 
 
 

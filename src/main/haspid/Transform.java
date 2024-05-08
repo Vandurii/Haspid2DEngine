@@ -1,6 +1,5 @@
 package main.haspid;
 
-import main.Editor.JImGui;
 import main.Helper;
 import main.components.Component;
 import main.components.SpriteRenderer;
@@ -81,11 +80,11 @@ public class Transform extends Component {
     public void setZIndex(int zIndex){
         if(getParent() != null && this.zIndex != zIndex) {
             this.zIndex = zIndex;
-            getParent().getComponent(SpriteRenderer.class).markToRelocate(true);
-            getParent().getComponent(SpriteRenderer.class).markToRemove();
+             getParent().getComponent(SpriteRenderer.class).markToRelocate();
         }
     }
 
+    @Override
     public Transform copy(){
         Transform t = new Transform(new Vector2f(this.position), new Vector2f(this.scale), rotation, zIndex);
         t.setParent(getParent());
@@ -99,6 +98,10 @@ public class Transform extends Component {
         to.setRotation(rotation);
         to.setZIndex(zIndex);
         to.setParent(getParent());
+    }
+
+    public void increaseZIndex(){
+        setZIndex(getZIndex() + 1);
     }
 
     @Override

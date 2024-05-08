@@ -16,7 +16,18 @@ public class SpriteRenderer extends Component {
     private Vector4f color;
     private Texture texture;
     private float width, height;
-    private final Vector2f[] texCords;
+    private Vector2f[] texCords;
+
+    public SpriteRenderer() {
+        this.isDirty = true;
+        this.color = new Vector4f(1, 1, 1, 1);
+        this.texCords = new Vector2f[]{
+                new Vector2f(1, 1),
+                new Vector2f(1, 0),
+                new Vector2f(0, 0),
+                new Vector2f(0, 1)
+        };
+    }
 
     public SpriteRenderer(Vector4f color) {
         this.isDirty = true;
@@ -79,6 +90,11 @@ public class SpriteRenderer extends Component {
         }
     }
 
+    @Override
+    public SpriteRenderer copy(){
+        return new SpriteRenderer(texture, width, height, getSpriteCords());
+    }
+
     public boolean isDirty() {
         return isDirty;
     }
@@ -91,12 +107,17 @@ public class SpriteRenderer extends Component {
         return markToRelocate;
     }
 
-    public void markToRelocate(boolean value) {
+    public void unMarkToRelocate(boolean value) {
         markToRelocate = value;
     }
 
     public void markToRemove() {
         remove = true;
+    }
+
+    public void markToRelocate(){
+        remove = true;
+        markToRelocate = true;
     }
 
     public void unmarkToRemove() {
@@ -121,6 +142,7 @@ public class SpriteRenderer extends Component {
 
     public void setTexture(Texture texture) {
         this.texture = texture;
+        isDirty = true;
     }
 
     public void setColor(Vector4f color) {
@@ -132,6 +154,10 @@ public class SpriteRenderer extends Component {
 
     public Vector2f[] getSpriteCords() {
         return texCords;
+    }
+
+    public void setSpriteCords(Vector2f[] texCords) {
+        this.texCords = texCords;
     }
 
     public Texture getTexture() {

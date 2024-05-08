@@ -12,7 +12,6 @@ import org.joml.Matrix4f;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
 
-import java.security.SecureRandomParameters;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -147,7 +146,7 @@ public class RenderBatch implements Comparable<RenderBatch> {
 
            if(spriteRenderer.isMarkToRelocate()){
                Renderer.getInstance().addToRelocateList(spriteRenderer);
-               spriteRenderer.markToRelocate(false);
+               spriteRenderer.unMarkToRelocate(false);
            }else{
                spriteRenderer.getParent().removeComponent(spriteRenderer);
            }
@@ -254,7 +253,7 @@ public class RenderBatch implements Comparable<RenderBatch> {
 
     public void reloadIfDirty(){
         boolean reload = false;
-        for(int i = 0; i < spriteCount; i++){;
+        for(int i = 0; i < spriteCount; i++){
             SpriteRenderer spriteRenderer = spriteListToRender[i];
             if(spriteRenderer != null && (spriteRenderer.isDirty() || spriteRenderer.isMarkedToRemove())){
                 loadVertexArray(i);
@@ -326,5 +325,9 @@ public class RenderBatch implements Comparable<RenderBatch> {
     @Override
     public int compareTo(RenderBatch o) {
         return Integer.compare(this.zIndex, o.zIndex);
+    }
+
+    public List<Texture> getTextureList(){
+        return  textureList;
     }
 }

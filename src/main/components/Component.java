@@ -28,6 +28,11 @@ public abstract class Component {
 
     public abstract void update(float dt);
 
+    public  Component copy(){
+        System.out.println("Im not overrided");
+        return null;
+    };
+
     public void updateIDCounter(){
         //if(ID_COUNTER > componentID)throw new IllegalStateException("IDCounter is higher then this component ID! Check if you did create any component before the scene was loaded.");
         ID_COUNTER = componentID;

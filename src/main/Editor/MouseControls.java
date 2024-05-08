@@ -38,7 +38,7 @@ public class MouseControls extends Component {
         }else if(gizmo.isHot() && activeGameObject != null && mouse.isMouseDragged()){
             gizmoAction();
         }else if(mouse.isButtonPressed(GLFW_MOUSE_BUTTON_2) ){
-            if(scanForObject() == 0) System.out.println("0");;
+            scanForObject();
         }else if(mouse.isButtonPressed(GLFW_MOUSE_BUTTON_1)){
             //System.out.println(String.format("x:%.1f  y:%.1f", MouseListener.getInstance().getWorldX(), MouseListener.getInstance().getWorldY()));
         }
@@ -67,17 +67,17 @@ public class MouseControls extends Component {
     public void place(){
         float scan  = window.getIdBuffer().readIDFromPixel((int) mouse.getViewPortX() , (int) mouse.getViewPortY());
         if((scan == 0 || scan == holdingObject.getGameObjectID())) {
-            Transform t = holdingObject.getTransform();
-            SpriteRenderer spriteRenderer = holdingObject.getComponent(SpriteRenderer.class);
-
             GameObject objectClone = new GameObject(holdingObject.getName());
-            objectClone.addComponent(new SpriteRenderer(spriteRenderer.getTexture(), spriteRenderer.getWidth(), spriteRenderer.getHeight(), spriteRenderer.getSpriteCords()));
-            objectClone.addComponent(t.copy());
+
+            for(Component c: holdingObject.getAllComponent()){
+                Component compClone = c.copy();
+                if(compClone != null) objectClone.addComponent(compClone);
+            }
             objectClone.setTransformFromItself();
 
-            t.setZIndex(t.getZIndex() + 1);
-
+            holdingObject.getTransform().increaseZIndex();
             holdingObject = objectClone;
+
             editorScene.addGameObjectToScene(holdingObject);
             debounce = resetDebounce;
         }

@@ -9,8 +9,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 560.0,
-            "y": 496.0
+            "x": 208.0,
+            "y": 368.0
           },
           "scale": {
             "x": 32.0,
@@ -22,9 +22,141 @@
         }
       },
       {
+        "Type": "main.components.StateMachine",
+        "Properties": {
+          "stateTransfer": {},
+          "animationList": [
+            {
+              "title": "questionBlock",
+              "doesLoop": true,
+              "frameList": [
+                {
+                  "frameTime": 0.57,
+                  "spriteRenderer": {
+                    "spriteID": 0,
+                    "color": {
+                      "x": 1.0,
+                      "y": 1.0,
+                      "z": 1.0,
+                      "w": 1.0
+                    },
+                    "texture": {
+                      "filePath": "assets/images/items.png",
+                      "texID": 6,
+                      "width": 112,
+                      "height": 80
+                    },
+                    "width": 16.0,
+                    "height": 16.0,
+                    "texCords": [
+                      {
+                        "x": 0.14285715,
+                        "y": 1.0
+                      },
+                      {
+                        "x": 0.14285715,
+                        "y": 0.8
+                      },
+                      {
+                        "x": 0.0,
+                        "y": 0.8
+                      },
+                      {
+                        "x": 0.0,
+                        "y": 1.0
+                      }
+                    ],
+                    "componentID": 110
+                  }
+                },
+                {
+                  "frameTime": 0.23,
+                  "spriteRenderer": {
+                    "spriteID": 0,
+                    "color": {
+                      "x": 1.0,
+                      "y": 1.0,
+                      "z": 1.0,
+                      "w": 1.0
+                    },
+                    "texture": {
+                      "filePath": "assets/images/items.png",
+                      "texID": 6,
+                      "width": 112,
+                      "height": 80
+                    },
+                    "width": 16.0,
+                    "height": 16.0,
+                    "texCords": [
+                      {
+                        "x": 0.2857143,
+                        "y": 1.0
+                      },
+                      {
+                        "x": 0.2857143,
+                        "y": 0.8
+                      },
+                      {
+                        "x": 0.14285715,
+                        "y": 0.8
+                      },
+                      {
+                        "x": 0.14285715,
+                        "y": 1.0
+                      }
+                    ],
+                    "componentID": 111
+                  }
+                },
+                {
+                  "frameTime": 0.23,
+                  "spriteRenderer": {
+                    "spriteID": 0,
+                    "color": {
+                      "x": 1.0,
+                      "y": 1.0,
+                      "z": 1.0,
+                      "w": 1.0
+                    },
+                    "texture": {
+                      "filePath": "assets/images/items.png",
+                      "texID": 6,
+                      "width": 112,
+                      "height": 80
+                    },
+                    "width": 16.0,
+                    "height": 16.0,
+                    "texCords": [
+                      {
+                        "x": 0.42857146,
+                        "y": 1.0
+                      },
+                      {
+                        "x": 0.42857146,
+                        "y": 0.8
+                      },
+                      {
+                        "x": 0.2857143,
+                        "y": 0.8
+                      },
+                      {
+                        "x": 0.2857143,
+                        "y": 1.0
+                      }
+                    ],
+                    "componentID": 112
+                  }
+                }
+              ]
+            }
+          ],
+          "componentID": 8
+        }
+      },
+      {
         "Type": "main.components.SpriteRenderer",
         "Properties": {
-          "spriteID": 1,
+          "spriteID": 6,
           "color": {
             "x": 1.0,
             "y": 1.0,
@@ -32,32 +164,32 @@
             "w": 1.0
           },
           "texture": {
-            "filePath": "assets/images/decorationsAndBlocks.png",
-            "texID": 4,
+            "filePath": "assets/images/items.png",
+            "texID": 6,
             "width": 112,
-            "height": 192
+            "height": 80
           },
-          "width": 16.0,
-          "height": 16.0,
+          "width": 0.0,
+          "height": 0.0,
           "texCords": [
             {
-              "x": 0.14285715,
-              "y": 0.5
+              "x": 0.2857143,
+              "y": 1.0
+            },
+            {
+              "x": 0.2857143,
+              "y": 0.8
             },
             {
               "x": 0.14285715,
-              "y": 0.4166667
+              "y": 0.8
             },
             {
-              "x": 0.0,
-              "y": 0.4166667
-            },
-            {
-              "x": 0.0,
-              "y": 0.5
+              "x": 0.14285715,
+              "y": 1.0
             }
           ],
-          "componentID": 8
+          "componentID": 9
         }
       }
     ]
@@ -69,9 +201,196 @@
     "isTriggerable": true,
     "componentList": [
       {
+        "Type": "main.haspid.Transform",
+        "Properties": {
+          "position": {
+            "x": 432.0,
+            "y": 432.0
+          },
+          "scale": {
+            "x": 352.0,
+            "y": 352.0
+          },
+          "rotation": 0.0,
+          "zIndex": 1,
+          "componentID": 18
+        }
+      },
+      {
+        "Type": "main.components.StateMachine",
+        "Properties": {
+          "stateTransfer": {},
+          "animationList": [
+            {
+              "title": "run",
+              "doesLoop": true,
+              "frameList": [
+                {
+                  "frameTime": 0.31,
+                  "spriteRenderer": {
+                    "spriteID": 0,
+                    "color": {
+                      "x": 1.0,
+                      "y": 1.0,
+                      "z": 1.0,
+                      "w": 1.0
+                    },
+                    "texture": {
+                      "filePath": "assets/images/spritesheet.png",
+                      "texID": 3,
+                      "width": 224,
+                      "height": 32
+                    },
+                    "width": 16.0,
+                    "height": 16.0,
+                    "texCords": [
+                      {
+                        "x": 0.071428575,
+                        "y": 1.0
+                      },
+                      {
+                        "x": 0.071428575,
+                        "y": 0.5
+                      },
+                      {
+                        "x": 0.0,
+                        "y": 0.5
+                      },
+                      {
+                        "x": 0.0,
+                        "y": 1.0
+                      }
+                    ],
+                    "componentID": 0
+                  }
+                },
+                {
+                  "frameTime": 0.31,
+                  "spriteRenderer": {
+                    "spriteID": 0,
+                    "color": {
+                      "x": 1.0,
+                      "y": 1.0,
+                      "z": 1.0,
+                      "w": 1.0
+                    },
+                    "texture": {
+                      "filePath": "assets/images/spritesheet.png",
+                      "texID": 3,
+                      "width": 224,
+                      "height": 32
+                    },
+                    "width": 16.0,
+                    "height": 16.0,
+                    "texCords": [
+                      {
+                        "x": 0.21428573,
+                        "y": 1.0
+                      },
+                      {
+                        "x": 0.21428573,
+                        "y": 0.5
+                      },
+                      {
+                        "x": 0.14285715,
+                        "y": 0.5
+                      },
+                      {
+                        "x": 0.14285715,
+                        "y": 1.0
+                      }
+                    ],
+                    "componentID": 2
+                  }
+                },
+                {
+                  "frameTime": 0.31,
+                  "spriteRenderer": {
+                    "spriteID": 0,
+                    "color": {
+                      "x": 1.0,
+                      "y": 1.0,
+                      "z": 1.0,
+                      "w": 1.0
+                    },
+                    "texture": {
+                      "filePath": "assets/images/spritesheet.png",
+                      "texID": 3,
+                      "width": 224,
+                      "height": 32
+                    },
+                    "width": 16.0,
+                    "height": 16.0,
+                    "texCords": [
+                      {
+                        "x": 0.2857143,
+                        "y": 1.0
+                      },
+                      {
+                        "x": 0.2857143,
+                        "y": 0.5
+                      },
+                      {
+                        "x": 0.21428573,
+                        "y": 0.5
+                      },
+                      {
+                        "x": 0.21428573,
+                        "y": 1.0
+                      }
+                    ],
+                    "componentID": 3
+                  }
+                },
+                {
+                  "frameTime": 0.31,
+                  "spriteRenderer": {
+                    "spriteID": 0,
+                    "color": {
+                      "x": 1.0,
+                      "y": 1.0,
+                      "z": 1.0,
+                      "w": 1.0
+                    },
+                    "texture": {
+                      "filePath": "assets/images/spritesheet.png",
+                      "texID": 3,
+                      "width": 224,
+                      "height": 32
+                    },
+                    "width": 16.0,
+                    "height": 16.0,
+                    "texCords": [
+                      {
+                        "x": 0.21428573,
+                        "y": 1.0
+                      },
+                      {
+                        "x": 0.21428573,
+                        "y": 0.5
+                      },
+                      {
+                        "x": 0.14285715,
+                        "y": 0.5
+                      },
+                      {
+                        "x": 0.14285715,
+                        "y": 1.0
+                      }
+                    ],
+                    "componentID": 2
+                  }
+                }
+              ]
+            }
+          ],
+          "componentID": 19
+        }
+      },
+      {
         "Type": "main.components.SpriteRenderer",
         "Properties": {
-          "spriteID": 1,
+          "spriteID": 7,
           "color": {
             "x": 1.0,
             "y": 1.0,
@@ -79,48 +398,32 @@
             "w": 1.0
           },
           "texture": {
-            "filePath": "assets/images/decorationsAndBlocks.png",
-            "texID": 4,
-            "width": 112,
-            "height": 192
+            "filePath": "assets/images/spritesheet.png",
+            "texID": 3,
+            "width": 224,
+            "height": 32
           },
-          "width": 16.0,
-          "height": 16.0,
+          "width": 0.0,
+          "height": 0.0,
           "texCords": [
             {
-              "x": 0.14285715,
+              "x": 0.071428575,
+              "y": 1.0
+            },
+            {
+              "x": 0.071428575,
               "y": 0.5
-            },
-            {
-              "x": 0.14285715,
-              "y": 0.4166667
-            },
-            {
-              "x": 0.0,
-              "y": 0.4166667
             },
             {
               "x": 0.0,
               "y": 0.5
+            },
+            {
+              "x": 0.0,
+              "y": 1.0
             }
           ],
-          "componentID": 10
-        }
-      },
-      {
-        "Type": "main.haspid.Transform",
-        "Properties": {
-          "position": {
-            "x": 272.0,
-            "y": 528.0
-          },
-          "scale": {
-            "x": 32.0,
-            "y": 32.0
-          },
-          "rotation": 0.0,
-          "zIndex": 1,
-          "componentID": 11
+          "componentID": 20
         }
       }
     ]

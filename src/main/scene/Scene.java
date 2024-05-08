@@ -184,6 +184,7 @@ public abstract class Scene {
         AssetPool.getSpriteSheet(firstSpriteSheet);
         AssetPool.getSpriteSheet(decorationAndBlockConfig);
         AssetPool.getSpriteSheet(gizmosConfig);
+        AssetPool.getSpriteSheet(itemsConfig);
     }
 
     public GameObject getGameObjectFromID(int id){

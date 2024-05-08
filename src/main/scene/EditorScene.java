@@ -1,14 +1,23 @@
 package main.scene;
 
-import imgui.ImGui;
 import imgui.app.Configuration;
 import main.Editor.*;
+import main.components.Animation;
+import main.components.SpriteRenderer;
+import main.components.StateMachine;
 import main.haspid.*;
 import main.haspid.Window;
+import main.prefabs.Prefabs;
 import main.renderer.DebugDraw;
 import main.renderer.Renderer;
 import main.util.AssetPool;
+import main.util.SpriteSheet;
+import main.util.Texture;
 import org.joml.Vector2f;
+import org.joml.Vector4f;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static main.Configuration.*;
 
@@ -27,6 +36,8 @@ public class EditorScene extends Scene {
     private SceneHierarchy sceneHierarchy;
     private InspectorWindow inspectorWindow;
     private PropertiesWindow propertiesWindow;
+
+    private ArrayList<SpriteSheet> properties;
 
     @Override
     public void init() {
@@ -55,9 +66,14 @@ public class EditorScene extends Scene {
         imGuiLayer = new ImGuiLayer(Window.getInstance().getGlfwWindow());
         imGuiLayer.init(new Configuration());
 
+        properties = new ArrayList<>();
+        properties.add(AssetPool.getSpriteSheet(itemsConfig));
+        properties.add(AssetPool.getSpriteSheet(firstSpriteSheet));
+        properties.add(AssetPool.getSpriteSheet(decorationAndBlockConfig));
+
         menuBar = new MenuBar();
         inspectorWindow = new InspectorWindow(mouseControls);
-        propertiesWindow = new PropertiesWindow(mouseControls, AssetPool.getSpriteSheet(decorationAndBlockConfig));
+        propertiesWindow = new PropertiesWindow(mouseControls, properties);
     }
 
     @Override
