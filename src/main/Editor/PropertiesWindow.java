@@ -8,8 +8,7 @@ import main.components.SpriteRenderer;
 import main.haspid.GameObject;
 import main.haspid.MouseListener;
 import main.prefabs.Prefabs;
-import main.util.AssetPool;
-import main.util.SpriteSheet;
+import main.util.*;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
 
@@ -23,9 +22,9 @@ import static main.Configuration.imGuiTabActive;
 public class PropertiesWindow {
 
     private MouseControls mouseControls;
-    private List<SpriteSheet> tabList;
+    private List<Properties> tabList;
 
-    public PropertiesWindow(MouseControls mouseControls, List<SpriteSheet> tabList){
+    public PropertiesWindow(MouseControls mouseControls, List<Properties> tabList){
         this.mouseControls = mouseControls;
         this.tabList = tabList;
     }
@@ -38,9 +37,13 @@ public class PropertiesWindow {
         ImGui.begin("Properties Window");
         if(ImGui.beginTabBar("Properties Bar")) {
             int i = 1;
-            for(SpriteSheet tab: tabList){
+            for(Properties tab: tabList){
                 if(ImGui.beginTabItem("<" + i++ + ">")){
-                    generateButtons(tab, i);
+                    if(tab instanceof SpriteSheet spriteSheet) {
+                        generateButtons(spriteSheet, i);
+                    }else if(tab instanceof AudioSheet audioSheet){
+                        generateButtons(audioSheet, i);
+                    }
                     ImGui.endTabItem();
                 }
             }
@@ -51,17 +54,6 @@ public class PropertiesWindow {
     }
 
     public void generateButtons(SpriteSheet spriteSheet, int index){
-        ImVec2 windowPos = new ImVec2();
-        ImGui.getWindowPos(windowPos);
-
-        ImVec2 windowSize = new ImVec2();
-        ImGui.getWindowSize(windowSize);
-
-        ImVec2 itemSpacing = new ImVec2();
-        ImGui.getStyle().getItemSpacing(itemSpacing);
-
-        float window = windowPos.x + windowSize.x;
-
         for (int i = 0; i < spriteSheet.getSize(); i++) {
             SpriteRenderer sprite = spriteSheet.getSprite(i);
             float spriteWidth = sprite.getWidth();
@@ -101,13 +93,44 @@ public class PropertiesWindow {
             }
             ImGui.popID();
 
-            ImVec2 lastButton = new ImVec2();
-            ImGui.getItemRectMax(lastButton);
-            float nextButton = lastButton.x + itemSpacing.x + spriteWidth;
-
-            if (nextButton < window) {
-                ImGui.sameLine();
-            }
+            if (enoughSpaceForNextButton(spriteWidth)) ImGui.sameLine();
         }
+    }
+
+    public void generateButtons(AudioSheet audioSheet, int index){
+        for(Sound sound: audioSheet.getSoundList()) {
+            String p = sound.getFilePath();
+            String name = p.substring(p.lastIndexOf("/") + 1, p.lastIndexOf(".ogg"));
+            if (ImGui.button(name)) {
+                if (!sound.isPlaying()) {
+                    sound.play();
+                } else {
+                    sound.stop();
+                }
+            }
+
+            float buttonWidth = name.length() * (ImGui.getFontSize() / 1.75f);
+            if(enoughSpaceForNextButton(buttonWidth)) ImGui.sameLine();
+        }
+    }
+
+    public boolean enoughSpaceForNextButton(float buttonWidth){
+        ImVec2 windowPos = new ImVec2();
+        ImGui.getWindowPos(windowPos);
+
+        ImVec2 windowSize = new ImVec2();
+        ImGui.getWindowSize(windowSize);
+
+        ImVec2 itemSpacing = new ImVec2();
+        ImGui.getStyle().getItemSpacing(itemSpacing);
+
+        float window = windowPos.x + windowSize.x;
+
+
+        ImVec2 lastButton = new ImVec2();
+        ImGui.getItemRectMax(lastButton);
+        float nextButton = lastButton.x + itemSpacing.x + buttonWidth;
+
+        return nextButton < window;
     }
 }

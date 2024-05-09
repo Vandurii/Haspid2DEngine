@@ -18,6 +18,10 @@ import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.glfw.GLFWWindowSizeCallback;
+import org.lwjgl.openal.AL;
+import org.lwjgl.openal.ALC;
+import org.lwjgl.openal.ALCCapabilities;
+import org.lwjgl.openal.ALCapabilities;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.system.MemoryStack;
 
@@ -30,6 +34,7 @@ import static main.Configuration.*;
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.glfw.GLFWNativeWin32.glfwGetWin32Window;
+import static org.lwjgl.openal.ALC10.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryStack.stackPush;
 import static org.lwjgl.system.MemoryUtil.NULL;
@@ -39,6 +44,8 @@ public class Window implements Observer {
     private static Window instance;
 
     private static long glfwWindow;
+    private static long audioContext;
+    private static long audioDevice;
     private static Scene currentScene;
     private static Scene newScene;
     private static FrameBuffer frameBuffer;
@@ -57,6 +64,10 @@ public class Window implements Observer {
 
         currentScene.save();
         currentScene.end();
+
+        // Free audio context
+        alcDestroyContext(audioContext);
+        alcCloseDevice(audioDevice);
 
         // Free the window callbacks and destroy the window
         glfwFreeCallbacks(glfwWindow);
@@ -121,6 +132,18 @@ public class Window implements Observer {
 
         // Make the window visible
         glfwShowWindow(glfwWindow);
+
+        // Create audio context
+        String defaultDeviceName = alcGetString(0, ALC_DEFAULT_DEVICE_SPECIFIER);
+        audioDevice = alcOpenDevice(defaultDeviceName);
+
+        int[] attributes = {0};
+        audioContext = alcCreateContext(audioDevice, attributes);
+        alcMakeContextCurrent(audioContext);
+
+        ALCCapabilities alcCapabilities = ALC.createCapabilities(audioDevice);
+        ALCapabilities alCapabilities = AL.createCapabilities(alcCapabilities);
+        if(!alCapabilities.OpenAL10) throw new IllegalStateException("Unable to initialize audio context.");
 
         // This line is critical for LWJGL's interoperation with GLFW's
         // OpenGL context, or any context that is managed externally.

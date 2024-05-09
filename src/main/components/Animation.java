@@ -27,7 +27,7 @@ public class Animation {
     }
 
     public void increaseCurrentSpriteIfAvailable(){
-        if(currentSpriteRender + 1 < frameList.size() -1){
+        if(currentSpriteRender + 1 < frameList.size()){
             currentSpriteRender++;
         }else{
             currentSpriteRender = 0;

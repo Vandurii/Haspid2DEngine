@@ -6,7 +6,7 @@ import org.joml.Vector2f;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SpriteSheet {
+public class SpriteSheet implements Properties{
 
     private Texture parentTexture;
     private List<SpriteRenderer> spriteList;

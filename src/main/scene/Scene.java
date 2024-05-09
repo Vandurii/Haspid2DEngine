@@ -185,6 +185,22 @@ public abstract class Scene {
         AssetPool.getSpriteSheet(decorationAndBlockConfig);
         AssetPool.getSpriteSheet(gizmosConfig);
         AssetPool.getSpriteSheet(itemsConfig);
+
+        // todo
+        AssetPool.getSound(mainTheme);
+        AssetPool.getSound(breakBlock);
+        AssetPool.getSound(bump);
+        AssetPool.getSound(coin);
+        AssetPool.getSound(gameOver);
+        AssetPool.getSound(jumpSmall);
+        AssetPool.getSound(marioDie);
+        AssetPool.getSound(pipe);
+        AssetPool.getSound(powerUp);
+        AssetPool.getSound(powerUpAppears);
+        AssetPool.getSound(stageClear);
+        AssetPool.getSound(stomp);
+        AssetPool.getSound(kick);
+        AssetPool.getSound(invincible);
     }
 
     public GameObject getGameObjectFromID(int id){

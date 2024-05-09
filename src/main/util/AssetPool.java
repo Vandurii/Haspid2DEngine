@@ -1,12 +1,14 @@
 package main.util;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class AssetPool{
     private static Map<String, Shader> shaders = new HashMap<>();
     private static Map<String, Texture> textures = new HashMap<>();
     private static Map<String, SpriteSheet> spriteSheetList = new HashMap<>();
+    private static Map<String, Sound> soundList = new HashMap<>();
 
     public static Shader getShader(String resourceName){
         if(!shaders.containsKey(resourceName)){
@@ -35,6 +37,26 @@ public class AssetPool{
         }
 
             return spriteSheetList.get(resourceName);
+    }
+
+    public static Sound getSound(AudioConfig audioConfig){
+        String resourceName = audioConfig.getFilePath();
+        if(!soundList.containsKey(resourceName)){
+            Sound sound = new Sound(audioConfig);
+            soundList.put(resourceName, sound);
+        }
+
+        return soundList.get(resourceName);
+    }
+
+    // todo
+    public static AudioSheet getAllSound(){
+        AudioSheet audioSheet = new AudioSheet();
+        for(Sound sound: soundList.values()){
+            audioSheet.add(sound);
+        }
+
+        return audioSheet;
     }
 
     public static void printResourcesInAssetPool(){

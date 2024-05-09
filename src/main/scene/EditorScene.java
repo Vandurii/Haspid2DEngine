@@ -11,6 +11,7 @@ import main.prefabs.Prefabs;
 import main.renderer.DebugDraw;
 import main.renderer.Renderer;
 import main.util.AssetPool;
+import main.util.Properties;
 import main.util.SpriteSheet;
 import main.util.Texture;
 import org.joml.Vector2f;
@@ -37,7 +38,7 @@ public class EditorScene extends Scene {
     private InspectorWindow inspectorWindow;
     private PropertiesWindow propertiesWindow;
 
-    private ArrayList<SpriteSheet> properties;
+    private ArrayList<Properties> properties;
 
     @Override
     public void init() {
@@ -70,6 +71,7 @@ public class EditorScene extends Scene {
         properties.add(AssetPool.getSpriteSheet(itemsConfig));
         properties.add(AssetPool.getSpriteSheet(firstSpriteSheet));
         properties.add(AssetPool.getSpriteSheet(decorationAndBlockConfig));
+        properties.add(AssetPool.getAllSound());
 
         menuBar = new MenuBar();
         inspectorWindow = new InspectorWindow(mouseControls);

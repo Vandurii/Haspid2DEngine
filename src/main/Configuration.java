@@ -1,5 +1,6 @@
 package main;
 
+import main.util.AudioConfig;
 import main.util.SpriteConfig;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
@@ -29,6 +30,22 @@ public class Configuration {
     public static SpriteConfig decorationAndBlockConfig = new SpriteConfig("assets/images/decorationsAndBlocks.png", 16, 16, 81, 0);
     public static SpriteConfig gizmosConfig = new SpriteConfig("assets/images/gizmos.png", 24, 48, 3, 0);
     public static SpriteConfig itemsConfig = new SpriteConfig("assets/images/items.png", 16, 16, 33, 0);
+
+
+    public static AudioConfig mainTheme = new AudioConfig("assets/sounds/main-theme-overworld.ogg", true);
+    public static AudioConfig breakBlock = new AudioConfig("assets/sounds/flagpole.ogg", false);
+    public static AudioConfig bump = new AudioConfig("assets/sounds/bump.ogg", false);
+    public static AudioConfig coin = new AudioConfig("assets/sounds/coin.ogg", false);
+    public static AudioConfig gameOver = new AudioConfig("assets/sounds/gameover.ogg", false);
+    public static AudioConfig jumpSmall = new AudioConfig("assets/sounds/jump-small.ogg", false);
+    public static AudioConfig marioDie = new AudioConfig("assets/sounds/mario_die.ogg", false);
+    public static AudioConfig pipe = new AudioConfig("assets/sounds/pipe.ogg", false);
+    public static AudioConfig powerUp = new AudioConfig("assets/sounds/powerup.ogg", false);
+    public static AudioConfig powerUpAppears = new AudioConfig("assets/sounds/powerup_appears.ogg", false);
+    public static AudioConfig stageClear = new AudioConfig("assets/sounds/stage_clear.ogg", false);
+    public static AudioConfig stomp = new AudioConfig("assets/sounds/stomp.ogg", false);
+    public static AudioConfig kick = new AudioConfig("assets/sounds/kick.ogg", false);
+    public static AudioConfig invincible = new AudioConfig("assets/sounds/invincible.ogg", false);
 
 
     public static int batchSize = 10000;
