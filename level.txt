@@ -9,14 +9,14 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 752.0,
-            "y": 176.0
+            "x": 13984.0,
+            "y": 4544.0
           },
           "scale": {
-            "x": 32.0,
-            "y": 32.0
+            "x": 1088.0,
+            "y": 1088.0
           },
-          "rotation": 0.0,
+          "rotation": -46.2,
           "zIndex": 1,
           "componentID": 7
         }
@@ -173,19 +173,19 @@
           "height": 0.0,
           "texCords": [
             {
-              "x": 0.14285715,
+              "x": 0.42857146,
               "y": 1.0
             },
             {
-              "x": 0.14285715,
+              "x": 0.42857146,
               "y": 0.8
             },
             {
-              "x": 0.0,
+              "x": 0.2857143,
               "y": 0.8
             },
             {
-              "x": 0.0,
+              "x": 0.2857143,
               "y": 1.0
             }
           ],
@@ -204,12 +204,12 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 944.0,
-            "y": 240.0
+            "x": 4816.0,
+            "y": 2800.0
           },
           "scale": {
-            "x": 32.0,
-            "y": 32.0
+            "x": 6112.0,
+            "y": 6112.0
           },
           "rotation": 0.0,
           "zIndex": 1,
@@ -407,23 +407,86 @@
           "height": 0.0,
           "texCords": [
             {
-              "x": 0.21428573,
+              "x": 0.071428575,
               "y": 1.0
             },
             {
-              "x": 0.21428573,
+              "x": 0.071428575,
               "y": 0.5
             },
             {
-              "x": 0.14285715,
+              "x": 0.0,
               "y": 0.5
             },
             {
-              "x": 0.14285715,
+              "x": 0.0,
               "y": 1.0
             }
           ],
           "componentID": 20
+        }
+      }
+    ]
+  },
+  {
+    "gameObjectID": 3,
+    "name": "Generated",
+    "isSerializable": true,
+    "isTriggerable": true,
+    "componentList": [
+      {
+        "Type": "main.haspid.Transform",
+        "Properties": {
+          "position": {
+            "x": 368.0,
+            "y": 336.0
+          },
+          "scale": {
+            "x": 32.0,
+            "y": 32.0
+          },
+          "rotation": 0.0,
+          "zIndex": 1,
+          "componentID": 30
+        }
+      },
+      {
+        "Type": "main.components.SpriteRenderer",
+        "Properties": {
+          "spriteID": 1,
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0,
+            "w": 1.0
+          },
+          "texture": {
+            "filePath": "assets/images/items.png",
+            "texID": 6,
+            "width": 112,
+            "height": 80
+          },
+          "width": 16.0,
+          "height": 16.0,
+          "texCords": [
+            {
+              "x": 0.71428573,
+              "y": 0.8
+            },
+            {
+              "x": 0.71428573,
+              "y": 0.6
+            },
+            {
+              "x": 0.5714286,
+              "y": 0.6
+            },
+            {
+              "x": 0.5714286,
+              "y": 0.8
+            }
+          ],
+          "componentID": 31
         }
       }
     ]

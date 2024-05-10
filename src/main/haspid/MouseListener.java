@@ -1,12 +1,14 @@
 package main.haspid;
 
 import main.Editor.ViewPort;
+import main.components.SpriteRenderer;
+import main.renderer.DebugDraw;
 import org.joml.Vector2f;
+import org.joml.Vector3f;
 import org.joml.Vector4f;
 
 import static main.Configuration.*;
-import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
-import static org.lwjgl.glfw.GLFW.GLFW_RELEASE;
+import static org.lwjgl.glfw.GLFW.*;
 
 public class MouseListener {
 
@@ -18,6 +20,14 @@ public class MouseListener {
     private static boolean isMouseDragged;
     private static ViewPort viewPort;
     private static Camera cam;
+
+    private GameObject selected;
+    private Vector2f distance;
+    private Vector2f center;
+    private Vector2f startDragging;
+    private Vector2f endDragging;
+    private static boolean wasDraggedLastFrame;
+
 
     private MouseListener(){
         viewPort = ViewPort.getInstance();
@@ -73,6 +83,7 @@ public class MouseListener {
 
     public void startFrame(){
        startFrameCursorPos = getViewPortPos();
+       getInstance().getDraggedLength();
     }
 
     public void endFrame(){
@@ -95,6 +106,36 @@ public class MouseListener {
 
     public Vector2f getDelta(){
         return new Vector2f(startFrameCursorPos.x - endFrameCursorPos.x, startFrameCursorPos.y - endFrameCursorPos.y);
+    }
+
+    public void getDraggedLength(){
+        if(isMouseDragged && !wasDraggedLastFrame){
+            startDragging = getWorld();
+        }else if(!isMouseDragged() && wasDraggedLastFrame){
+            System.out.println(String.format(
+                    "[%.1f : %.1f] \t\t\t\t [%.1f : %.1f] \n\n\n\n" +
+                            "[%.1f : %.1f] \t\t\t\t [%.1f : %.1f] \n\n\n\n"
+            , startDragging.x, endDragging.y, endDragging.x, endDragging.y, startDragging.x, startDragging.y, endDragging.x, startDragging.y));
+            if(selected != null) Window.getInstance().getCurrentScene().removeFromScene(selected);
+            startDragging = null;
+        }else{
+            endDragging = getWorld();
+            if(startDragging != null && isMouseDragged() && isButtonPressed(GLFW_MOUSE_BUTTON_2)){
+                Vector2f distance = new Vector2f(endDragging.x - startDragging.x, endDragging.y - startDragging.y);
+                Vector2f center = new Vector2f(startDragging.x + (distance.x/ 2f), startDragging.y + (distance.y / 2f));
+                DebugDraw.drawBoxes2D(center, distance, 0, new Vector3f(0, 0, 0));
+
+                if(selected != null) Window.getInstance().getCurrentScene().removeFromScene(selected);
+                selected = new GameObject("selected");
+                selected.setNonSerializable();
+                selected.addComponent(new Transform(center, distance, 0, 100));
+                selected.setTransformFromItself();
+                selected.addComponent(new SpriteRenderer(new Vector4f(0.1f, 0.1f, 0.1f, 0.1f)));
+                Window.getInstance().getCurrentScene().addGameObjectToScene(selected);
+            }
+        }
+
+        wasDraggedLastFrame = isMouseDragged() && isButtonPressed(GLFW_MOUSE_BUTTON_2);
     }
 
     public float getScroll() {
@@ -143,6 +184,10 @@ public class MouseListener {
         vec4 = vec4.mul((cam.getInverseUProjection())).mul(cam.getInverseUView());
 
         return vec4.y;
+    }
+
+    public Vector2f getWorld(){
+        return  new Vector2f(getWorldX(), getWorldY());
     }
 
     public double getX() {

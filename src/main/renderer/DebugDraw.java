@@ -28,9 +28,9 @@ public class DebugDraw {
     private static int pointsInLine;
     private static int pointSizeFloat;
     private static int lineSizeFloat;
-    private static ArrayList<Line2D> linesList;
     private static Shader line2DShader;
     private static float[] cVertexArray;
+    private static ArrayList<Line2D> linesList;
 
     private static void start(){
         maxLines = 500;
