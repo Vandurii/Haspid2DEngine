@@ -39,7 +39,7 @@ public class KeyControls extends Component {
 
     @Override
     public void update(float dt) {
-        GameObject activeObject = mouseControls.getActiveGameObject();
+        List<GameObject> activeObjectList = mouseControls.getActiveGameObject();
         Scene scene = Window.getInstance().getCurrentScene();
         Gizmo gizmo = mouseControls.getGizmo();
 
@@ -50,7 +50,7 @@ public class KeyControls extends Component {
                 if(mouseControls.getCursorObject() != null){
                     mouseControls.clearCursor();
                 }else {
-                   mouseControls.setActiveGameObject(null);
+                   mouseControls.clearActiveObjectList();
                 }
             } else if (keyboard.isKeyPressed(GLFW_KEY_L)) {
                 System.out.println("*** start ***");
@@ -64,13 +64,8 @@ public class KeyControls extends Component {
                 gizmo.setGizmoIndex(1);
             }else if(keyboard.isKeyPressed(GLFW_KEY_7)){
                 gizmo.setGizmoIndex(2);
-            }else if(keyboard.isKeyPressed(GLFW_KEY_DELETE) && activeObject != null){
-                SpriteRenderer spriteRenderer = activeObject.getComponent(SpriteRenderer.class);
-                if(spriteRenderer != null){
-                    spriteRenderer.markToRemove();
-                    scene.removeFromScene(activeObject);
-                    mouseControls.setActiveGameObject(null);
-                }
+            }else if(keyboard.isKeyPressed(GLFW_KEY_DELETE) && activeObjectList != null){
+                removeObject(activeObjectList, scene);
             } else if(keyboard.isKeyPressed(GLFW_KEY_R)){
                     DebugDraw.sleep();
                     cameraControl.reset();
@@ -78,16 +73,29 @@ public class KeyControls extends Component {
                 System.out.println("u have pressed 1");
             }else if(keyboard.isKeyPressed(GLFW_KEY_C)){
                 System.out.println("*** start ***");
-                if(activeObject != null){
-                    for(Component c: activeObject.getAllComponent()){
+                if(activeObjectList.size() == 1){
+                    for(Component c: activeObjectList.get(0).getAllComponent()){
                         System.out.println(c);
                     }
+                }
+            }else if(mouseControls.getMouseListener().isButtonPressed(GLFW_MOUSE_BUTTON_2) && !mouseControls.isHoldingObjectOccupied()){
+                if(keyboard.isKeyPressed(GLFW_KEY_LEFT_CONTROL)) {
+                    mouseControls.scanForObject(true);
+                }else{
+                    mouseControls.scanForObject(false);
                 }
             }
 
             keyDebounce = resetDebounce;
         }
         keyDebounce -= dt;
+    }
+
+    public void removeObject(List<GameObject> activeObject, Scene scene){
+        for(GameObject active: activeObject) {
+            scene.removeFromScene(active);
+        }
+        mouseControls.clearActiveObjectList();
     }
 
     public void printInfo(){

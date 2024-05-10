@@ -48,4 +48,14 @@ public class IDBuffer {
 
         return pix[0];
     }
+
+    public float[] readIDFromPixel(int startX,  int startY, int width, int height){;
+        glBindFramebuffer(GL_READ_FRAMEBUFFER, FBO);
+        glReadBuffer(GL_COLOR_ATTACHMENT0);
+
+        float[] pix = new float[Math.abs(width * height)];
+        glReadPixels(startX, startY, width, height, GL_RGB, GL_FLOAT, pix);
+
+        return pix;
+    }
 }

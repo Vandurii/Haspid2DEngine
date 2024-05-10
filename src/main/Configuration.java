@@ -108,6 +108,10 @@ public class Configuration {
     public static Vector4f imGuiTabActive = new Vector4f(0.25f, 0.25f, 0.25f, 1);
     public static Vector4f imGuiMenuBar = new Vector4f(0.25f, 0.25f, 0.25f, 1);
 
+    public static Vector4f mouseHoveColor = new Vector4f(0.2f,0.8f,1f,1);
+    public static Vector4f mouseRectColor = new Vector4f(0.5f, 0.5f, 0.5f, 0.1f);
+
+
     public static String levelPath = "level.txt";
 
     public static Vector2f windowsScale = new Vector2f(windowWidth / uProjectionDimension.x, windowHeight /  uProjectionDimension.y);

@@ -2,20 +2,12 @@ package main.scene;
 
 import imgui.app.Configuration;
 import main.Editor.*;
-import main.components.Animation;
-import main.components.SpriteRenderer;
-import main.components.StateMachine;
 import main.haspid.*;
 import main.haspid.Window;
-import main.prefabs.Prefabs;
 import main.renderer.DebugDraw;
 import main.renderer.Renderer;
 import main.util.AssetPool;
 import main.util.Properties;
-import main.util.SpriteSheet;
-import main.util.Texture;
-import org.joml.Vector2f;
-import org.joml.Vector4f;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,15 +22,14 @@ public class EditorScene extends Scene {
     private ImGuiLayer imGuiLayer;
     private KeyControls keyControls;
     private MouseListener mouseListener;
-    private GameObject activeGameObject;
     private MouseControls mouseControls;
     private CameraControl cameraControl;
     private GameObject levelEditorStuff;
     private SceneHierarchy sceneHierarchy;
     private InspectorWindow inspectorWindow;
-    private PropertiesWindow propertiesWindow;
-
     private ArrayList<Properties> properties;
+    private PropertiesWindow propertiesWindow;
+    private List<GameObject> activeGameObjectList;
 
     @Override
     public void init() {
@@ -49,6 +40,7 @@ public class EditorScene extends Scene {
 
         load();
         editorMode = true;
+        activeGameObjectList = new ArrayList<>();
 
         gridLines = new GridLines();
         gizmo = new Gizmo(this);
@@ -110,16 +102,20 @@ public class EditorScene extends Scene {
     public void end(){
         zoom = 1;
         mouseControls.clearCursor();
-        mouseControls.setActiveGameObject(null);
+        mouseControls.clearActiveObjectList();
         imGuiLayer.dispose();
     }
 
-    public GameObject getActiveGameObject() {
-        return activeGameObject;
+    public List<GameObject> getActiveGameObjectList() {
+        return activeGameObjectList;
     }
 
-    public void setActiveGameObject(GameObject activeGameObject) {
-        this.activeGameObject = activeGameObject;
+    public void addObjectToActiveList(GameObject activeGameObject) {
+        activeGameObjectList.add(activeGameObject);
+    }
+
+    public void clearActiveObjectList(){
+        activeGameObjectList.clear();
     }
 
     public MouseControls getMouseControls(){

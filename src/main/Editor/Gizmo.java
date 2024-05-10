@@ -8,6 +8,9 @@ import main.scene.EditorScene;
 import main.util.AssetPool;
 import main.util.SpriteSheet;
 import org.joml.Vector2f;
+import org.joml.Vector4f;
+
+import java.util.List;
 
 import static main.Configuration.*;
 
@@ -83,12 +86,19 @@ public class Gizmo extends Component {
 
     @Override
     public void update(float dt) {
-        GameObject activeObject = editorScene.getActiveGameObject();
 
-        if(activeObject != null && activeObject != lastActiveObject) {
+        List<GameObject> gameObjectList = editorScene.getActiveGameObjectList();
+        GameObject activeObject = null;
+
+         if(gameObjectList.size() == 1){
+            activeObject = gameObjectList.get(0);
+        }
+
+        if(gameObjectList.size() == 1) activeObject.getComponent(SpriteRenderer.class).resetColor();
+
+        if(gameObjectList.size() == 1 && activeObject != lastActiveObject) {
             if(yAxisBody.getComponent(SpriteRenderer.class) == null) create();
-
-        }else if(activeObject == null){
+        }else if(gameObjectList.size() != 1){
             destroy();
         }
 

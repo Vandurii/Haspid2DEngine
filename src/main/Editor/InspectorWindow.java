@@ -11,6 +11,8 @@ import main.physics.components.BoxCollider;
 import main.physics.components.CircleCollider;
 import main.physics.components.RigidBody;
 
+import java.util.List;
+
 import static main.Configuration.*;
 
 public class InspectorWindow {
@@ -21,7 +23,9 @@ public class InspectorWindow {
     }
 
     public void display(){
-        GameObject activeGameObj = mouseControls.getActiveGameObject();
+        List<GameObject> activeGameObjectList = mouseControls.getActiveGameObject();
+        if(activeGameObjectList.size() != 1) return;
+        GameObject activeGameObj = activeGameObjectList.get(0);
 
         if(activeGameObj != null){
             ImGui.pushStyleColor(ImGuiCol.WindowBg, imGuiColor.x, imGuiColor.y, imGuiColor.z, imGuiColor.w);
@@ -38,7 +42,7 @@ public class InspectorWindow {
                 ImGui.endPopup();
             }
 
-            mouseControls.getActiveGameObject().dearGui();
+            activeGameObj.dearGui();
 
             ImGui.end();
             ImGui.popStyleColor(5);

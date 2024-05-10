@@ -95,6 +95,10 @@ public class SpriteRenderer extends Component {
         return new SpriteRenderer(texture, width, height, getSpriteCords());
     }
 
+    public void resetColor(){
+        setColor(new Vector4f(1, 1, 1, 1));
+    }
+
     public boolean isDirty() {
         return isDirty;
     }

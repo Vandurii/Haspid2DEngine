@@ -6,6 +6,10 @@ import main.components.SpriteRenderer;
 import main.haspid.*;
 import main.scene.EditorScene;
 import org.joml.Vector2f;
+import org.joml.Vector4f;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static main.Configuration.*;
 import static org.lwjgl.glfw.GLFW.GLFW_MOUSE_BUTTON_1;
@@ -16,7 +20,7 @@ public class MouseControls extends Component {
     private MouseListener mouse;
     private EditorScene editorScene;
     private static GameObject holdingObject;
-    private static GameObject activeGameObject;
+    private List<GameObject> activeGameObjectList;
 
     private Gizmo gizmo;
     private float xBuffer, yBuffer;
@@ -28,6 +32,7 @@ public class MouseControls extends Component {
         this.mouse = mouse;
         this.editorScene = editorScene;
         this.window = Window.getInstance();
+        activeGameObjectList = new ArrayList<>();
     }
 
     @Override
@@ -35,23 +40,26 @@ public class MouseControls extends Component {
 
         if(holdingObject != null){
             trackMouse(dt);
-        }else if(gizmo.isHot() && activeGameObject != null && mouse.isMouseDragged()){
+        }else if(gizmo.isHot() && activeGameObjectList.size() == 1 && mouse.isMouseDragged()){
             gizmoAction();
-        }else if(mouse.isButtonPressed(GLFW_MOUSE_BUTTON_2) ){
-            scanForObject();
         }else if(mouse.isButtonPressed(GLFW_MOUSE_BUTTON_1)){
             //System.out.println(String.format("x:%.1f  y:%.1f", MouseListener.getInstance().getWorldX(), MouseListener.getInstance().getWorldY()));
         }
 
-        if ((Helper.isNotNull(activeGameObject) || Helper.isNotNull(holdingObject)) && mouse.isCursorInsideViewPort()) {
+        if ((!activeGameObjectList.isEmpty() || Helper.isNotNull(holdingObject)) && mouse.isCursorInsideViewPort()) {
             if (Helper.isNotNull(getCursorObject()) && !mouse.isMouseDragged() && mouse.isButtonPressed(GLFW_MOUSE_BUTTON_2)) {
                 clearCursor();
             }
 
             if(Helper.isNull(getCursorObject()) && mouse.isButtonPressed(GLFW_MOUSE_BUTTON_1) && !gizmo.isHot() && !mouse.isMouseDragged()){
-               setActiveGameObject(null);
+               clearActiveObjectList();
             }
         }
+    }
+
+    public void highLightObject(GameObject gameObject){
+        SpriteRenderer spriteRenderer = gameObject.getComponent(SpriteRenderer.class);
+        spriteRenderer.setColor(mouseHoveColor);
     }
 
     public void trackMouse(float dt){
@@ -89,6 +97,7 @@ public class MouseControls extends Component {
     }
 
     public void gizmoAction(){
+        GameObject activeGameObject = activeGameObjectList.get(0);
         int index = gizmo.getGizmoIndex();
         Transform transform = activeGameObject.getTransform();
         Vector2f scale = transform.getScale();
@@ -118,15 +127,22 @@ public class MouseControls extends Component {
         }
     }
 
-    public int scanForObject(){
+    public int scanForObject(boolean multipleMode){
         int x = (int) mouse.getViewPortX();
         int y = (int) mouse.getViewPortY();
         int id = (int) window.getIdBuffer().readIDFromPixel(x, y);
 
         GameObject active = editorScene.getGameObjectFromID(id);
         if(active != null && active.isTriggerable()){
-            activeGameObject = active;
-            editorScene.setActiveGameObject(active);
+
+            if(!multipleMode){
+                clearActiveObjectList();
+                editorScene.clearActiveObjectList();
+            }
+
+            highLightObject(active);
+            if(!activeGameObjectList.contains(active)) addObjectToActiveList(active);
+            if(!editorScene.getActiveGameObjectList().contains(active)) editorScene.addObjectToActiveList(active); // todo
         }
 
         return id;
@@ -159,6 +175,16 @@ public class MouseControls extends Component {
         yBuffer = 0;
     }
 
+    public void clearActiveObjectList(){
+        for(GameObject active: activeGameObjectList){
+            SpriteRenderer spriteRenderer = active.getComponent(SpriteRenderer.class);
+            if(spriteRenderer != null) spriteRenderer.resetColor();
+        }
+
+        activeGameObjectList.clear();
+        editorScene.clearActiveObjectList();
+    }
+
     public void clearCursor(){
         editorScene.removeFromScene(holdingObject);
         holdingObject = null;
@@ -169,20 +195,20 @@ public class MouseControls extends Component {
     }
 
     public boolean isActiveObjectOccupied(){
-        return activeGameObject != null;
+        return !activeGameObjectList.isEmpty();
     }
 
     public boolean isMouseOccupied(){
         return isActiveObjectOccupied() || isHoldingObjectOccupied();
     }
 
-    public GameObject getActiveGameObject() {
-        return activeGameObject;
+    public List<GameObject> getActiveGameObject() {
+        return activeGameObjectList;
     }
 
-    public void setActiveGameObject(GameObject activeGameObject) {
-        MouseControls.activeGameObject = activeGameObject;
-        ((EditorScene)Window.getInstance().getCurrentScene()).setActiveGameObject(null);
+    public void addObjectToActiveList(GameObject active){
+        activeGameObjectList.add(active);
+      //  ((EditorScene)Window.getInstance().getCurrentScene()).clearActiveObjectList(); // todo
     }
 
     public GameObject getCursorObject(){
@@ -195,5 +221,9 @@ public class MouseControls extends Component {
 
     public void setGizmo(Gizmo gizmo) {
         this.gizmo = gizmo;
+    }
+
+    public MouseListener getMouseListener(){
+        return mouse;
     }
 }
