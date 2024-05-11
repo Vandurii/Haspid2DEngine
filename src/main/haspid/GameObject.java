@@ -34,39 +34,20 @@ public class GameObject {
         this.isTriggerable = true;
     }
 
-    public void addComponent(Component c){
-        c.setParent(this);
-        componentList.add(c);
-    }
+    public GameObject copy(){
+        GameObject clone = new GameObject(name);
+        if(!isSerializable) clone.setNonSerializable();
+        if(!isTriggerable) clone.setNonTriggerable();
 
-    public <T extends Component> T getComponent(Class<T> component){
-        for(Component c: componentList){
-            if(component.isAssignableFrom(c.getClass())) return component.cast(c);
-        }
-
-        return null;
-    }
-
-    public List<Component> getAllComponent(){
-       return componentList;
-    }
-
-    public <T> void removeComponent(Class<T> component){
-
-        for(int i = 0; i < componentList.size(); i++){
-            Component c = componentList.get(i);
-            if(component.isAssignableFrom(c.getClass())){
-                System.out.println(componentList.size());
-                componentList.remove(c);
-                System.out.println("removed: " + component);
-                System.out.println(componentList.size());
-                return;
+        for(Component component: componentList){
+            Component componentClone = component.copy();
+            if(componentClone != null){
+                clone.addComponent(componentClone);
             }
         }
-    }
+        clone.setTransformFromItself();
 
-    public void removeComponent(Component component){
-        componentList.remove(component);
+        return clone;
     }
 
     public void start(){
@@ -89,10 +70,6 @@ public class GameObject {
         }
     }
 
-    public void setName(){
-       name = (String) JImGui.drawValue("Name: ", name);
-    }
-
     public void printAllComponents(){
         System.out.println("All components: ");
         for(Component c: componentList){
@@ -100,28 +77,67 @@ public class GameObject {
         }
     }
 
-    public void setTransformFromItself(){
-        this.transform = getComponent(Transform.class);
+    public void addComponent(Component c){
+        c.setParent(this);
+        componentList.add(c);
     }
 
     public void destroyComponents(){
         componentList.clear();
     }
 
-    public void setNonSerializable(){
-        isSerializable = false;
+    public <T> void removeComponent(Class<T> component){
+
+        for(int i = 0; i < componentList.size(); i++){
+            Component c = componentList.get(i);
+            if(component.isAssignableFrom(c.getClass())){
+                System.out.println(componentList.size());
+                componentList.remove(c);
+                System.out.println("removed: " + component);
+                System.out.println(componentList.size());
+                return;
+            }
+        }
+    }
+
+    public void removeComponent(Component component){
+        componentList.remove(component);
     }
 
     public boolean isSerializable(){
         return isSerializable;
     }
 
-    public void setNonTriggerable(){
-        isTriggerable = false;
-    }
-
     public boolean isTriggerable(){
         return isTriggerable;
+    }
+
+    public <T extends Component> T getComponent(Class<T> component){
+        for(Component c: componentList){
+            if(component.isAssignableFrom(c.getClass())) return component.cast(c);
+        }
+
+        return null;
+    }
+
+    public List<Component> getAllComponent(){
+        return componentList;
+    }
+
+    public void setName(){
+        name = (String) JImGui.drawValue("Name: ", name);
+    }
+
+    public void setTransformFromItself(){
+        this.transform = getComponent(Transform.class);
+    }
+
+    public void setNonSerializable(){
+        isSerializable = false;
+    }
+
+    public void setNonTriggerable(){
+        isTriggerable = false;
     }
 
     public Transform getTransform(){

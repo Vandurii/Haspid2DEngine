@@ -8,10 +8,14 @@ import main.renderer.Renderer;
 import main.scene.EditorScene;
 import main.scene.Scene;
 import main.util.AssetPool;
+import org.lwjgl.glfw.GLFWWindowCloseCallback;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import static main.Configuration.gridSize;
 import static main.Configuration.keyDebounceC;
+import static main.haspid.Direction.*;
 import static org.lwjgl.glfw.GLFW.*;
 
 public class KeyControls extends Component {
@@ -57,13 +61,52 @@ public class KeyControls extends Component {
             }else if(keyboard.isKeyPressed(GLFW_KEY_R)){
                     DebugDraw.sleep();
                     cameraControl.reset();
-            }else if(keyboard.isKeyPressed(GLFW_KEY_Q)){
-                gizmo.destroy();
+            }else if(keyboard.isKeyPressed(GLFW_KEY_UP)){
+                move(Up);
+            }else if(keyboard.isKeyPressed(GLFW_KEY_DOWN)){
+                move(Down);
+            }else if(keyboard.isKeyPressed(GLFW_KEY_RIGHT)){
+                move(Right);
+            }else if(keyboard.isKeyPressed(GLFW_KEY_LEFT)){
+                move(Left);
+            }else if(keyboard.isKeyPressed(GLFW_KEY_C)){
+                copyObject();
+            }else if(keyboard.isKeyPressed(GLFW_KEY_Y)){
+               // mouseControls.trackMouseMultiple();
             }
 
             keyDebounce = resetDebounce;
         }
         keyDebounce -= dt;
+    }
+
+    public void move(Direction direction){
+        int xAxis = 0;
+        int yAxis = 0;
+        int unit = gridSize;
+        switch (direction){
+            case Up -> yAxis = -unit;
+            case Down -> yAxis = unit;
+            case Right -> xAxis = -unit;
+            case Left -> xAxis = unit;
+        }
+
+        for(GameObject g: mouseControls.getAllActiveObjects()){
+            g.getTransform().setPosition(g.getTransform().getPosition().sub(xAxis, yAxis));
+        }
+    }
+
+    public void copyObject(){
+        List<GameObject> cloneList = new ArrayList<>();
+        List<GameObject> activeObjects = mouseControls.getAllActiveObjects();
+
+        for(GameObject gameObject: activeObjects){
+            GameObject copy = gameObject.copy();
+            editorScene.addGameObjectToScene(copy);
+            cloneList.add(copy);
+        }
+
+        mouseControls.setObjectActive(cloneList);
     }
 
     public void removeObject(List<GameObject> activeObject){

@@ -113,7 +113,7 @@ public class Configuration {
 
     public static int gridLinesIndex = 1;
     public static int boxColliderIndex = 2;
-    public static int selectorIndex = 0;
+    public static int selectorIndex = 2;
 
 
     public static String levelPath = "level.txt";
