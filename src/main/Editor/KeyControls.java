@@ -3,12 +3,7 @@ package main.Editor;
 import main.components.Component;
 import main.haspid.*;
 import main.renderer.DebugDraw;
-import main.renderer.RenderBatch;
-import main.renderer.Renderer;
 import main.scene.EditorScene;
-import main.scene.Scene;
-import main.util.AssetPool;
-import org.lwjgl.glfw.GLFWWindowCloseCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,7 +67,12 @@ public class KeyControls extends Component {
             }else if(keyboard.isKeyPressed(GLFW_KEY_C)){
                 copyObject();
             }else if(keyboard.isKeyPressed(GLFW_KEY_Y)){
-               // mouseControls.trackMouseMultiple();
+                if(!mouseControls.isDistanceMapLoaded()){
+                    mouseControls.initObjDistanceFromCursor();
+                }
+                mouseControls.trackMouseMultiple();
+            }else if(!keyboard.isKeyPressed(GLFW_KEY_Y)){
+                mouseControls.resetObjDistanceFromCursor();
             }
 
             keyDebounce = resetDebounce;

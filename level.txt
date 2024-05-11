@@ -63,7 +63,7 @@
     ]
   },
   {
-    "gameObjectID": 5,
+    "gameObjectID": 2,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -126,7 +126,7 @@
     ]
   },
   {
-    "gameObjectID": 6,
+    "gameObjectID": 3,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -189,7 +189,7 @@
     ]
   },
   {
-    "gameObjectID": 7,
+    "gameObjectID": 4,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -252,7 +252,7 @@
     ]
   },
   {
-    "gameObjectID": 8,
+    "gameObjectID": 5,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -315,7 +315,7 @@
     ]
   },
   {
-    "gameObjectID": 9,
+    "gameObjectID": 6,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -378,7 +378,7 @@
     ]
   },
   {
-    "gameObjectID": 10,
+    "gameObjectID": 7,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -441,7 +441,7 @@
     ]
   },
   {
-    "gameObjectID": 11,
+    "gameObjectID": 8,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -504,7 +504,7 @@
     ]
   },
   {
-    "gameObjectID": 12,
+    "gameObjectID": 9,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -567,7 +567,7 @@
     ]
   },
   {
-    "gameObjectID": 13,
+    "gameObjectID": 10,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -630,7 +630,7 @@
     ]
   },
   {
-    "gameObjectID": 14,
+    "gameObjectID": 11,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -693,7 +693,7 @@
     ]
   },
   {
-    "gameObjectID": 15,
+    "gameObjectID": 12,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -756,7 +756,7 @@
     ]
   },
   {
-    "gameObjectID": 16,
+    "gameObjectID": 13,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -819,7 +819,7 @@
     ]
   },
   {
-    "gameObjectID": 17,
+    "gameObjectID": 14,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -882,7 +882,7 @@
     ]
   },
   {
-    "gameObjectID": 18,
+    "gameObjectID": 15,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -892,7 +892,7 @@
         "Properties": {
           "position": {
             "x": 496.0,
-            "y": 112.0
+            "y": 144.0
           },
           "scale": {
             "x": 32.0,
@@ -945,7 +945,7 @@
     ]
   },
   {
-    "gameObjectID": 19,
+    "gameObjectID": 16,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -955,7 +955,7 @@
         "Properties": {
           "position": {
             "x": 496.0,
-            "y": 144.0
+            "y": 112.0
           },
           "scale": {
             "x": 32.0,
@@ -1008,7 +1008,7 @@
     ]
   },
   {
-    "gameObjectID": 20,
+    "gameObjectID": 17,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -1071,7 +1071,7 @@
     ]
   },
   {
-    "gameObjectID": 21,
+    "gameObjectID": 18,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -1134,7 +1134,7 @@
     ]
   },
   {
-    "gameObjectID": 22,
+    "gameObjectID": 19,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -1197,7 +1197,7 @@
     ]
   },
   {
-    "gameObjectID": 23,
+    "gameObjectID": 20,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -1260,7 +1260,7 @@
     ]
   },
   {
-    "gameObjectID": 24,
+    "gameObjectID": 21,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,

@@ -8,9 +8,7 @@ import main.scene.EditorScene;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 import static main.Configuration.*;
 import static org.lwjgl.glfw.GLFW.*;
@@ -27,7 +25,6 @@ public class MouseControls extends Component {
     private float debounce = 0.05f;
     private float resetDebounce = debounce;
 
-
     private Vector2f distance;
     private Vector2f center;
     private GameObject selector;
@@ -37,6 +34,7 @@ public class MouseControls extends Component {
     private Vector2f startDraggingVMode;
     private Vector2f startDraggingMMode;
     private static boolean wasDraggedLastFrame;
+    private static HashMap<Vector2f, GameObject> objDistanceFromCursorMap;
 
     public MouseControls(EditorScene editorScene, MouseListener mouse, Gizmo gizmo) {
         this.gizmo = gizmo;
@@ -99,6 +97,40 @@ public class MouseControls extends Component {
             place();
         }
         debounce -= dt;
+    }
+
+    public void trackMouseMultiple(){
+        for(Map.Entry<Vector2f, GameObject> entry: objDistanceFromCursorMap.entrySet()){
+            Vector2f pos = entry.getValue().getTransform().getPosition();
+            Vector2f scale = entry.getValue().getTransform().getScale();
+
+            float objectX = (int)((mouse.getWorldX() - entry.getKey().x)/ gridSize) * gridSize + scale.x / 2;
+            float objectY = (int)((mouse.getWorldY() - entry.getKey().y) / gridSize) * gridSize + scale.y / 2;
+            pos.set(objectX, objectY);
+        }
+    }
+
+    public void initObjDistanceFromCursor(){
+        objDistanceFromCursorMap = new HashMap<>();
+
+        float minX = Integer.MAX_VALUE;
+        float minY = Integer.MAX_VALUE;
+        for(GameObject gameObject: getAllActiveObjects()){
+            Vector2f pos = gameObject.getTransform().getPosition();
+            if(pos.x < minX) minX = pos.x;
+            if(pos.y < minY) minY = pos.y;
+        }
+
+        System.out.println();
+        for(GameObject gameObject: getAllActiveObjects()){
+            Vector2f pos = gameObject.getTransform().getPosition();
+            Vector2f distance = new Vector2f(pos.x - minX, pos.y - minY);
+            objDistanceFromCursorMap.put(distance, gameObject);
+        }
+    }
+
+    public void resetObjDistanceFromCursor(){
+        objDistanceFromCursorMap = null;
     }
 
     public void place(){
@@ -279,6 +311,10 @@ public class MouseControls extends Component {
         activeObjectList = cloneList;
         highLightObject(activeObjectList);
         // todo what about editor?
+    }
+
+    public boolean isDistanceMapLoaded(){
+        return objDistanceFromCursorMap != null;
     }
 
     public void unselectActiveObjects(){
