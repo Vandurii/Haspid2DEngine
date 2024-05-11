@@ -101,8 +101,8 @@ public class EditorScene extends Scene {
 
     public void end(){
         zoom = 1;
-        mouseControls.clearCursor();
-        mouseControls.clearActiveObjectList();
+        mouseControls.removeDraggingObject();
+        mouseControls.unselectActiveObjects();
         imGuiLayer.dispose();
     }
 

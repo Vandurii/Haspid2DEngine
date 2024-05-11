@@ -2,11 +2,8 @@ package main.Editor;
 
 import imgui.ImGui;
 import imgui.flag.ImGuiCol;
-import imgui.flag.ImGuiWindowFlags;
-import imgui.type.ImBoolean;
 import main.Helper;
 import main.haspid.GameObject;
-import main.haspid.Window;
 import main.physics.components.BoxCollider;
 import main.physics.components.CircleCollider;
 import main.physics.components.RigidBody;
@@ -23,7 +20,7 @@ public class InspectorWindow {
     }
 
     public void display(){
-        List<GameObject> activeGameObjectList = mouseControls.getActiveGameObject();
+        List<GameObject> activeGameObjectList = mouseControls.getAllActiveObjects();
         if(activeGameObjectList.size() != 1) return;
         GameObject activeGameObj = activeGameObjectList.get(0);
 

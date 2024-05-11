@@ -3,11 +3,9 @@ package main.Editor;
 import main.Configuration;
 import main.components.Component;
 import main.haspid.Camera;
-import main.haspid.KeyListener;
 import main.haspid.MouseListener;
 import main.renderer.DebugDraw;
 import org.joml.Vector2f;
-import org.lwjgl.glfw.GLFW;
 
 import static main.Configuration.*;
 import static org.lwjgl.glfw.GLFW.*;
@@ -30,9 +28,9 @@ public class CameraControl extends Component {
 
     @Override
     public void update(float dt) {
-        if(debounce < 0  && !mouseControls.isMouseOccupied()){
+        if(debounce < 0  && !mouseControls.hasDraggingOrActiveObject()){
             // update camera
-            if (mouse.isMouseDragged() && mouse.isCursorInsideViewPort() && mouse.isButtonPressed(GLFW_MOUSE_BUTTON_1)) {
+            if (mouse.isMouseDragging() && mouse.isCursorInsideViewPort() && mouse.isButtonPressed(GLFW_MOUSE_BUTTON_1)) {
                 Vector2f delta = mouse.getDelta();
 
                 float valueX = (delta.x * (dt * cameraSensivity * zoom));

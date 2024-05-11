@@ -1,5 +1,7 @@
 package main.renderer;
 
+import java.util.HashSet;
+
 import static org.lwjgl.opengl.GL30.*;
 
 public class IDBuffer {
@@ -49,13 +51,19 @@ public class IDBuffer {
         return pix[0];
     }
 
-    public float[] readIDFromPixel(int startX,  int startY, int width, int height){;
+    public HashSet<Integer> readIDFromPixel(int startX, int startY, int width, int height){
+        HashSet<Integer> idSet = new HashSet<>();
+
         glBindFramebuffer(GL_READ_FRAMEBUFFER, FBO);
         glReadBuffer(GL_COLOR_ATTACHMENT0);
 
-        float[] pix = new float[Math.abs(width * height)];
+        float[] pix = new float[Math.abs(width * height * 3)];
         glReadPixels(startX, startY, width, height, GL_RGB, GL_FLOAT, pix);
 
-        return pix;
+        for(float f: pix){
+            idSet.add((int)f);
+        }
+
+        return idSet;
     }
 }

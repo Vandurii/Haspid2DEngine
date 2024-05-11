@@ -1,58 +1,81 @@
 package main.Editor;
 
-import main.Helper;
 import main.components.Component;
 import main.components.SpriteRenderer;
 import main.haspid.*;
+import main.renderer.DebugDraw;
 import main.scene.EditorScene;
 import org.joml.Vector2f;
-import org.joml.Vector4f;
+import org.joml.Vector3f;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import static main.Configuration.*;
-import static org.lwjgl.glfw.GLFW.GLFW_MOUSE_BUTTON_1;
-import static org.lwjgl.glfw.GLFW.GLFW_MOUSE_BUTTON_2;
+import static org.lwjgl.glfw.GLFW.*;
 
 public class MouseControls extends Component {
     private Window window;
     private MouseListener mouse;
     private EditorScene editorScene;
-    private static GameObject holdingObject;
-    private List<GameObject> activeGameObjectList;
+    private static GameObject draggingObject;
+    private List<GameObject> activeObjectList;
 
     private Gizmo gizmo;
     private float xBuffer, yBuffer;
     private float debounce = 0.05f;
     private float resetDebounce = debounce;
 
+    private GameObject selected;
+    private Vector2f distance;
+    private Vector2f center;
+    private Vector2f startDragging;
+    private Vector2f endDragging;
+    private static boolean wasDraggedLastFrame;
+    private Vector2f startDraggingView;
+    private Vector2f startPix;
+
     public MouseControls(EditorScene editorScene, MouseListener mouse, Gizmo gizmo) {
         this.gizmo = gizmo;
         this.mouse = mouse;
         this.editorScene = editorScene;
         this.window = Window.getInstance();
-        activeGameObjectList = new ArrayList<>();
+        activeObjectList = new ArrayList<>();
     }
 
     @Override
     public void update(float dt) {
+        //Mouse Event
+        if(mouse.isCursorInsideViewPort()) {
 
-        if(holdingObject != null){
-            trackMouse(dt);
-        }else if(gizmo.isHot() && activeGameObjectList.size() == 1 && mouse.isMouseDragged()){
-            gizmoAction();
-        }else if(mouse.isButtonPressed(GLFW_MOUSE_BUTTON_1)){
-            //System.out.println(String.format("x:%.1f  y:%.1f", MouseListener.getInstance().getWorldX(), MouseListener.getInstance().getWorldY()));
-        }
+            if(!hasActiveObject())selector();
 
-        if ((!activeGameObjectList.isEmpty() || Helper.isNotNull(holdingObject)) && mouse.isCursorInsideViewPort()) {
-            if (Helper.isNotNull(getCursorObject()) && !mouse.isMouseDragged() && mouse.isButtonPressed(GLFW_MOUSE_BUTTON_2)) {
-                clearCursor();
+            if (draggingObject != null) {
+                trackMouse(dt);
             }
 
-            if(Helper.isNull(getCursorObject()) && mouse.isButtonPressed(GLFW_MOUSE_BUTTON_1) && !gizmo.isHot() && !mouse.isMouseDragged()){
-               clearActiveObjectList();
+            if (gizmo.isHot() && activeObjectList.size() == 1 && mouse.isMouseDragging()) {
+                gizmoAction();
+            }
+
+            if (draggingObject != null && !mouse.isMouseDragging() && mouse.isButtonPressed(GLFW_MOUSE_BUTTON_2)) {
+                removeDraggingObject();
+            }
+
+            if(draggingObject == null && mouse.isButtonPressed(GLFW_MOUSE_BUTTON_1) && !gizmo.isHot() && !mouse.isMouseDragging()){
+                unselectActiveObjects();
+            }
+
+            //Mouse + Key Event
+            KeyListener keyboard = KeyListener.getInstance();
+
+            if(mouse.isButtonPressed(GLFW_MOUSE_BUTTON_2) && !hasDraggingObject() && !mouse.isMouseDragging()){
+                if(keyboard.isKeyPressed(GLFW_KEY_LEFT_CONTROL)){
+                    scanForObject(true);
+                }else{
+                    scanForObject(false);
+                }
             }
         }
     }
@@ -63,9 +86,9 @@ public class MouseControls extends Component {
     }
 
     public void trackMouse(float dt){
-        float objectX = (int)(mouse.getWorldX()/ gridSize) * gridSize + holdingObject.getTransform().getScale().x / 2;
-        float objectY = (int)(mouse.getWorldY() / gridSize) * gridSize + holdingObject.getTransform().getScale().y / 2;
-        holdingObject.getTransform().setPosition(new Vector2f(objectX, objectY));
+        float objectX = (int)(mouse.getWorldX()/ gridSize) * gridSize + draggingObject.getTransform().getScale().x / 2;
+        float objectY = (int)(mouse.getWorldY() / gridSize) * gridSize + draggingObject.getTransform().getScale().y / 2;
+        draggingObject.getTransform().setPosition(new Vector2f(objectX, objectY));
         if(mouse.isButtonPressed(GLFW_MOUSE_BUTTON_1) && debounce < 0){
             place();
         }
@@ -74,31 +97,31 @@ public class MouseControls extends Component {
 
     public void place(){
         float scan  = window.getIdBuffer().readIDFromPixel((int) mouse.getViewPortX() , (int) mouse.getViewPortY());
-        if((scan == 0 || scan == holdingObject.getGameObjectID())) {
-            GameObject objectClone = new GameObject(holdingObject.getName());
+        if((scan == 0 || scan == draggingObject.getGameObjectID())) {
+            GameObject objectClone = new GameObject(draggingObject.getName());
 
-            for(Component c: holdingObject.getAllComponent()){
+            for(Component c: draggingObject.getAllComponent()){
                 Component compClone = c.copy();
                 if(compClone != null) objectClone.addComponent(compClone);
             }
             objectClone.setTransformFromItself();
 
-            holdingObject.getTransform().increaseZIndex();
-            holdingObject = objectClone;
+            draggingObject.getTransform().increaseZIndex();
+            draggingObject = objectClone;
 
-            editorScene.addGameObjectToScene(holdingObject);
+            editorScene.addGameObjectToScene(draggingObject);
             debounce = resetDebounce;
         }
     }
 
     public void pickupObject(GameObject holdingObject){
         editorScene.addGameObjectToScene(holdingObject);
-        this.holdingObject = holdingObject;
+        draggingObject = holdingObject;
     }
 
     public void gizmoAction(){
-        GameObject activeGameObject = activeGameObjectList.get(0);
         int index = gizmo.getGizmoIndex();
+        GameObject activeGameObject = activeObjectList.get(0);
         Transform transform = activeGameObject.getTransform();
         Vector2f scale = transform.getScale();
 
@@ -115,8 +138,8 @@ public class MouseControls extends Component {
                     scale.y -= val;
                 }
             } else if (index == 1 && mouse.isButtonPressed(GLFW_MOUSE_BUTTON_1)) {
-                float xPos = (int) ((mouse.getWorldX() - (scale.x / 2)) / gridSize) * gridSize + activeGameObject.getTransform().getScale().x / 2;
-                float yPos = (int) ((mouse.getWorldY() - (scale.y / 2)) / gridSize) * gridSize + activeGameObject.getTransform().getScale().y / 2;
+                float xPos = (int) ((mouse.getWorldX() - (scale.x / 2)) / gridSize) * gridSize + scale.x / 2;
+                float yPos = (int) ((mouse.getWorldY() - (scale.y / 2)) / gridSize) * gridSize + scale.y / 2;
 
                 if (gizmo.isXAxisHot()) transform.setPosition(xPos, transform.getPosition().y);
                 if (gizmo.isYAxisHot()) transform.setPosition(transform.getPosition().x, yPos);
@@ -136,16 +159,75 @@ public class MouseControls extends Component {
         if(active != null && active.isTriggerable()){
 
             if(!multipleMode){
-                clearActiveObjectList();
+                unselectActiveObjects();
                 editorScene.clearActiveObjectList();
             }
 
             highLightObject(active);
-            if(!activeGameObjectList.contains(active)) addObjectToActiveList(active);
+            if(!activeObjectList.contains(active)) setObjectActive(active);
             if(!editorScene.getActiveGameObjectList().contains(active)) editorScene.addObjectToActiveList(active); // todo
         }
 
         return id;
+    }
+
+    public void selector(){
+        if(selected != null) Window.getInstance().getCurrentScene().removeFromScene(selected);
+        if(mouse.isMouseDragging() && !wasDraggedLastFrame){
+            startDragging = mouse.getWorld();
+            startDraggingView = mouse.getViewPortPos();
+            startPix = mouse.getMouseListenerPos();
+
+        }else if(!mouse.isMouseDragging() && wasDraggedLastFrame){
+            if(distance != null) {
+                int startFromX = (int) startDraggingView.x;
+                int startFromY = (int) startDraggingView.y;
+
+                int width = (int)(mouse.getMouseListenerPos().x - startPix.x);
+                int height = ((int)(mouse.getMouseListenerPos().y - startPix.y)) * -1;
+
+                int endX = (int) mouse.getViewPortX();
+                int endY = (int) mouse.getViewPortY();
+
+                if(width < 0){
+                    startFromX = endX;
+                    width *= -1;
+                }
+
+                if(height < 0) {
+                    startFromY = endY;
+                    height *= -1;
+                }
+
+               HashSet<Integer> idSet = window.getIdBuffer().readIDFromPixel(startFromX, startFromY, width  + 2, height + 2);
+                for(int id: idSet){
+                   GameObject gameObject = editorScene.getGameObjectFromID(id);
+                   if(gameObject != null) {
+                       highLightObject(gameObject);
+                       setObjectActive(gameObject);
+                   }
+                }
+            }
+            startDragging = null;
+            startDraggingView = null;
+        }else if(wasDraggedLastFrame){
+            endDragging = mouse.getWorld();
+            if(startDragging != null && mouse.isMouseDragging() && mouse.isButtonPressed(GLFW_MOUSE_BUTTON_2)){
+                distance = new Vector2f(endDragging.x - startDragging.x, endDragging.y - startDragging.y);
+                center = new Vector2f(startDragging.x + (distance.x/ 2f), startDragging.y + (distance.y / 2f));
+                DebugDraw.drawBoxes2D(center, distance, 0, new Vector3f(0, 0, 0), 1);
+
+                if(selected != null) Window.getInstance().getCurrentScene().removeFromScene(selected);
+                selected = new GameObject("Selector");
+                selected.setNonSerializable();
+                selected.addComponent(new Transform(center, distance, 0, 100));
+                selected.setTransformFromItself();
+                selected.addComponent(new SpriteRenderer(mouseRectColor));
+                Window.getInstance().getCurrentScene().addGameObjectToScene(selected);
+            }
+        }
+
+        wasDraggedLastFrame = mouse.isMouseDragging() && mouse.isButtonPressed(GLFW_MOUSE_BUTTON_2);
     }
 
     public Vector2f addToBuffer(float x, float y){
@@ -175,44 +257,43 @@ public class MouseControls extends Component {
         yBuffer = 0;
     }
 
-    public void clearActiveObjectList(){
-        for(GameObject active: activeGameObjectList){
+    public void setObjectActive(GameObject active){
+        activeObjectList.add(active);
+    }
+
+    public void unselectActiveObjects(){
+        for(GameObject active: activeObjectList){
             SpriteRenderer spriteRenderer = active.getComponent(SpriteRenderer.class);
             if(spriteRenderer != null) spriteRenderer.resetColor();
         }
 
-        activeGameObjectList.clear();
+        activeObjectList.clear();
         editorScene.clearActiveObjectList();
     }
 
-    public void clearCursor(){
-        editorScene.removeFromScene(holdingObject);
-        holdingObject = null;
+    public void removeDraggingObject(){
+        editorScene.removeFromScene(draggingObject);
+        draggingObject = null;
     }
 
-    public boolean isHoldingObjectOccupied(){
-        return holdingObject != null;
+    public boolean hasDraggingObject(){
+        return draggingObject != null;
     }
 
-    public boolean isActiveObjectOccupied(){
-        return !activeGameObjectList.isEmpty();
+    public boolean hasActiveObject(){
+        return !activeObjectList.isEmpty();
     }
 
-    public boolean isMouseOccupied(){
-        return isActiveObjectOccupied() || isHoldingObjectOccupied();
+    public boolean hasDraggingOrActiveObject(){
+        return hasActiveObject() || hasDraggingObject();
     }
 
-    public List<GameObject> getActiveGameObject() {
-        return activeGameObjectList;
+    public List<GameObject> getAllActiveObjects() {
+        return activeObjectList;
     }
 
-    public void addObjectToActiveList(GameObject active){
-        activeGameObjectList.add(active);
-      //  ((EditorScene)Window.getInstance().getCurrentScene()).clearActiveObjectList(); // todo
-    }
-
-    public GameObject getCursorObject(){
-        return holdingObject;
+    public GameObject getDraggingObject(){
+        return draggingObject;
     }
 
     public Gizmo getGizmo() {
