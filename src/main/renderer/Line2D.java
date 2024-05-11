@@ -4,16 +4,18 @@ import org.joml.Vector2f;
 import org.joml.Vector3f;
 
 public class Line2D {
-    private Vector2f from;
+    private int zIndex;
     private Vector2f to;
-    private Vector3f color;
     private int lifeTime;
     private float stroke;
+    private Vector2f from;
+    private Vector3f color;
 
-    public Line2D(Vector2f from, Vector2f to, Vector3f color, int lifeTime) {
+    public Line2D(int zIndex, Vector2f from, Vector2f to, Vector3f color, int lifeTime) {
         this.from = from;
         this.to = to;
         this.color = color;
+        this.zIndex = zIndex;
         this.lifeTime = lifeTime;
     }
 
@@ -44,5 +46,9 @@ public class Line2D {
 
     public void setStroke(float stroke) {
         this.stroke = stroke;
+    }
+
+    public int getzIndex() {
+        return zIndex;
     }
 }

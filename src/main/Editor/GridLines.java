@@ -19,11 +19,11 @@ public class GridLines extends Component {
         int verticalLines = (int)((uProjectionDimension.x * zoom) /  gridSize) + 1;
 
         for(int i = 0; i < verticalLines; i++){
-            DebugDraw.addLine2D(new Vector2f(cam.getPosition().x + (i * (gridSize)), cam.getPosition().y), new Vector2f(cam.getPosition().x + (i * gridSize), cam.getPosition().y + (uProjectionDimension.y * zoom)), gridLinesColor, 1);
+            DebugDraw.addLine2D(gridLinesIndex, new Vector2f(cam.getPosition().x + (i * (gridSize)), cam.getPosition().y), new Vector2f(cam.getPosition().x + (i * gridSize), cam.getPosition().y + (uProjectionDimension.y * zoom)), gridLinesColor, 1);
         }
 
         for(int i = 0; i < horizontalLines; i++){
-            DebugDraw.addLine2D(new Vector2f(cam.getPosition().x, cam.getPosition().y + (i * gridSize)), new Vector2f(cam.getPosition().x + (uProjectionDimension.x * zoom), cam.getPosition().y + (i * gridSize)), gridLinesColor, 1);
+            DebugDraw.addLine2D(gridLinesIndex, new Vector2f(cam.getPosition().x, cam.getPosition().y + (i * gridSize)), new Vector2f(cam.getPosition().x + (uProjectionDimension.x * zoom), cam.getPosition().y + (i * gridSize)), gridLinesColor, 1);
         }
     }
 }

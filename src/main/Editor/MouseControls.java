@@ -35,6 +35,7 @@ public class MouseControls extends Component {
     private static boolean wasDraggedLastFrame;
     private Vector2f startDraggingView;
     private Vector2f startPix;
+    private boolean selectorActive;
 
     public MouseControls(EditorScene editorScene, MouseListener mouse, Gizmo gizmo) {
         this.gizmo = gizmo;
@@ -47,37 +48,35 @@ public class MouseControls extends Component {
     @Override
     public void update(float dt) {
         //Mouse Event
-        if(mouse.isCursorInsideViewPort()) {
 
-            if(!hasActiveObject())selector();
+        if (draggingObject != null) {
+            trackMouse(dt);
+        }
 
-            if (draggingObject != null) {
-                trackMouse(dt);
-            }
+        if (gizmo.isHot() && activeObjectList.size() == 1 && mouse.isMouseDragging() && mouse.isCursorInsideViewPort()) {
+            gizmoAction();
+        }
 
-            if (gizmo.isHot() && activeObjectList.size() == 1 && mouse.isMouseDragging()) {
-                gizmoAction();
-            }
+        if (draggingObject != null && !mouse.isMouseDragging() && mouse.isButtonPressed(GLFW_MOUSE_BUTTON_2)) {
+            removeDraggingObject();
+        }
 
-            if (draggingObject != null && !mouse.isMouseDragging() && mouse.isButtonPressed(GLFW_MOUSE_BUTTON_2)) {
-                removeDraggingObject();
-            }
+        if(draggingObject == null && mouse.isButtonPressed(GLFW_MOUSE_BUTTON_1) && !gizmo.isHot()){
+            unselectActiveObjects();
+        }
 
-            if(draggingObject == null && mouse.isButtonPressed(GLFW_MOUSE_BUTTON_1) && !gizmo.isHot() && !mouse.isMouseDragging()){
-                unselectActiveObjects();
-            }
+        //Mouse + Key Event
+        KeyListener keyboard = KeyListener.getInstance();
 
-            //Mouse + Key Event
-            KeyListener keyboard = KeyListener.getInstance();
-
-            if(mouse.isButtonPressed(GLFW_MOUSE_BUTTON_2) && !hasDraggingObject() && !mouse.isMouseDragging()){
-                if(keyboard.isKeyPressed(GLFW_KEY_LEFT_CONTROL)){
-                    scanForObject(true);
-                }else{
-                    scanForObject(false);
-                }
+        if(mouse.isButtonPressed(GLFW_MOUSE_BUTTON_2) && !hasDraggingObject() && !selectorActive){
+            if(keyboard.isKeyPressed(GLFW_KEY_LEFT_CONTROL)){
+                scanForObject(true);
+            }else{
+                scanForObject(false);
             }
         }
+
+        if(!gizmo.isGizmoActive() && !keyboard.isKeyPressed(GLFW_KEY_LEFT_CONTROL)) selectorUpdate();
     }
 
     public void highLightObject(GameObject gameObject){
@@ -171,14 +170,16 @@ public class MouseControls extends Component {
         return id;
     }
 
-    public void selector(){
-        if(selected != null) Window.getInstance().getCurrentScene().removeFromScene(selected);
-        if(mouse.isMouseDragging() && !wasDraggedLastFrame){
+    public void selectorUpdate(){
+        if(selected != null) editorScene.removeFromScene(selected);
+        if(mouse.isMouseDragging() && !wasDraggedLastFrame && mouse.isButtonPressed(GLFW_MOUSE_BUTTON_2)){
+            selectorActive = true;
             startDragging = mouse.getWorld();
             startDraggingView = mouse.getViewPortPos();
             startPix = mouse.getMouseListenerPos();
-
+            unselectActiveObjects();
         }else if(!mouse.isMouseDragging() && wasDraggedLastFrame){
+            selectorActive = false;
             if(distance != null) {
                 int startFromX = (int) startDraggingView.x;
                 int startFromY = (int) startDraggingView.y;
@@ -205,6 +206,7 @@ public class MouseControls extends Component {
                    if(gameObject != null) {
                        highLightObject(gameObject);
                        setObjectActive(gameObject);
+                       editorScene.addObjectToActiveList(gameObject);
                    }
                 }
             }
@@ -215,7 +217,7 @@ public class MouseControls extends Component {
             if(startDragging != null && mouse.isMouseDragging() && mouse.isButtonPressed(GLFW_MOUSE_BUTTON_2)){
                 distance = new Vector2f(endDragging.x - startDragging.x, endDragging.y - startDragging.y);
                 center = new Vector2f(startDragging.x + (distance.x/ 2f), startDragging.y + (distance.y / 2f));
-                DebugDraw.drawBoxes2D(center, distance, 0, new Vector3f(0, 0, 0), 1);
+                DebugDraw.drawBoxes2D(selectorIndex, center, distance, 0, new Vector3f(0, 0, 0), 1);
 
                 if(selected != null) Window.getInstance().getCurrentScene().removeFromScene(selected);
                 selected = new GameObject("Selector");
@@ -223,7 +225,8 @@ public class MouseControls extends Component {
                 selected.addComponent(new Transform(center, distance, 0, 100));
                 selected.setTransformFromItself();
                 selected.addComponent(new SpriteRenderer(mouseRectColor));
-                Window.getInstance().getCurrentScene().addGameObjectToScene(selected);
+                editorScene.addGameObjectToScene(selected);
+
             }
         }
 

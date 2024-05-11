@@ -3,10 +3,8 @@ package main.physics.components;
 import main.haspid.Transform;
 import main.renderer.DebugDraw;
 import org.joml.Vector2f;
-import org.joml.Vector3f;
 
-import java.awt.*;
-
+import static main.Configuration.boxColliderIndex;
 import static main.Configuration.colliderColor;
 
 public class BoxCollider extends Collider{
@@ -21,7 +19,7 @@ public class BoxCollider extends Collider{
         Vector2f scale = t.getScale();
 
         center = new Vector2f(pos).add(getOffset());
-        DebugDraw.drawBoxes2D(center, new Vector2f( scale.x + 1, scale.y + 1), t.getRotation(), colliderColor, 1 );
+        DebugDraw.drawBoxes2D(boxColliderIndex, center, new Vector2f( scale.x + 1, scale.y + 1), t.getRotation(), colliderColor, 1 );
     }
 
     public Vector2f getHalfSize(){

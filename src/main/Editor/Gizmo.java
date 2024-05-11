@@ -13,6 +13,8 @@ import org.joml.Vector4f;
 import java.util.List;
 
 import static main.Configuration.*;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_1;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_LEFT_CONTROL;
 
 public class Gizmo extends Component {
 
@@ -21,6 +23,8 @@ public class Gizmo extends Component {
     private GameObject lastActiveObject;
     private SpriteSheet gimzosSheet;
     private EditorScene editorScene;
+    private KeyListener keyboard;
+    private boolean active;
 
     private SpriteRenderer xAxisSpriteRender;
     private GameObject xAxisBody;
@@ -43,6 +47,7 @@ public class Gizmo extends Component {
         this.yAxisYPadding = yGizmoYAxis;
         this.editorScene = editorScene;
         this.mouse = MouseListener.getInstance();
+        this.keyboard = KeyListener.getInstance();
         this.gimzosSheet = AssetPool.getSpriteSheet(gizmosConfig);
 
         this.xAxisBody = new GameObject("gizmoXAxis");
@@ -61,6 +66,7 @@ public class Gizmo extends Component {
     }
 
     public void create(){
+        active = true;
         SpriteRenderer template = gimzosSheet.getSprite(gizmoIndex);
 
         xAxisSpriteRender = new SpriteRenderer(template.getTexture(), template.getWidth(), template.getHeight(), template.getSpriteCords());
@@ -77,6 +83,7 @@ public class Gizmo extends Component {
     }
 
     public void destroy(){
+        active = false;
         SpriteRenderer xAxisRender = xAxisBody.getComponent(SpriteRenderer.class);
         if(xAxisRender != null) xAxisRender.markToRemove();
 
@@ -151,6 +158,10 @@ public class Gizmo extends Component {
 
     public boolean isYAxisHot(){
         return isYAxisHot;
+    }
+
+    public boolean isGizmoActive(){
+        return active;
     }
 
     public void setGizmoIndex(int index){

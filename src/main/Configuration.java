@@ -111,6 +111,10 @@ public class Configuration {
     public static Vector4f mouseHoveColor = new Vector4f(0.2f,0.8f,1f,1);
     public static Vector4f mouseRectColor = new Vector4f(0.5f, 0.5f, 0.5f, 0.1f);
 
+    public static int gridLinesIndex = 1;
+    public static int boxColliderIndex = 2;
+    public static int selectorIndex = 0;
+
 
     public static String levelPath = "level.txt";
 
