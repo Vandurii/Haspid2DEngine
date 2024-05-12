@@ -62,10 +62,11 @@ public class DebugDraw {
         if(!started) start();
 
         for(List<Line2D> lineList: lineMap.values()) {
-            for (int i = 0; i < lineList.size(); i++) {
+            for (int i = 0; i < lineList.size(); ) {
                 if (lineList.get(i).beginFrame() < 0) {
                     lineList.remove(i);
-                    i--;
+                }else{
+                    i++;
                 }
             }
         }

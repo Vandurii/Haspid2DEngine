@@ -101,7 +101,10 @@ public class Gizmo extends Component {
             activeObject = gameObjectList.get(0);
         }
 
-        if(gameObjectList.size() == 1) activeObject.getComponent(SpriteRenderer.class).resetColor();
+        SpriteRenderer spriteRenderer = null;
+        if(activeObject != null) spriteRenderer = activeObject.getComponent(SpriteRenderer.class);
+
+        if(gameObjectList.size() == 1 && spriteRenderer != null && spriteRenderer.isHighLighted()) spriteRenderer.resetColor();
 
         if(gameObjectList.size() == 1 && activeObject != lastActiveObject) {
             if(yAxisBody.getComponent(SpriteRenderer.class) == null) create();

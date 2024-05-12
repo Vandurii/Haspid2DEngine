@@ -9,8 +9,10 @@ import org.joml.Vector4f;
 public class SpriteRenderer extends Component {
     private transient boolean remove;
     private transient boolean isDirty;
+    private transient boolean isHighLighted;
     private transient boolean markToRelocate;
     private transient Transform lastTransform;
+
 
     private int spriteID;
     private Vector4f color;
@@ -96,7 +98,9 @@ public class SpriteRenderer extends Component {
     }
 
     public void resetColor(){
+        isHighLighted = false;
         setColor(new Vector4f(1, 1, 1, 1));
+        System.out.println("reset");
     }
 
     public boolean isDirty() {
@@ -134,6 +138,10 @@ public class SpriteRenderer extends Component {
 
     public boolean isIDDefault() {
         return spriteID == 0;
+    }
+
+    public boolean isHighLighted(){
+        return isHighLighted;
     }
 
     public void setClean() {
@@ -190,5 +198,9 @@ public class SpriteRenderer extends Component {
 
     public float getHeight() {
         return height;
+    }
+
+    public void setHighLight(boolean value){
+        isHighLighted = value;
     }
 }

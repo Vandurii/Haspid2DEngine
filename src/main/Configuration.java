@@ -109,12 +109,13 @@ public class Configuration {
     public static Vector4f imGuiMenuBar = new Vector4f(0.25f, 0.25f, 0.25f, 1);
 
     public static Vector4f mouseHoveColor = new Vector4f(0.2f,0.8f,1f,1);
-    public static Vector4f mouseRectColor = new Vector4f(0.5f, 0.5f, 0.5f, 0.1f);
+    public static Vector4f mouseRectColor = new Vector4f(0.04f, 0.04f, 0.04f, 0.4f);
 
     public static int gridLinesIndex = 1;
     public static int boxColliderIndex = 2;
-    public static int selectorIndex = 2;
+    public static int selectorIndex = 0;
 
+    public static float selectorScale = 1.20f;
 
     public static String levelPath = "level.txt";
 
@@ -124,6 +125,8 @@ public class Configuration {
 
 // todo scanObject problem | collider box | physics with scale
 // refactor properties window
+// selector scale
+// debug draw
 
 
 

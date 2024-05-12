@@ -60,8 +60,12 @@ public class MouseControls extends Component {
             removeDraggingObject();
         }
 
-        if(draggingObject == null && mouse.isButtonPressed(GLFW_MOUSE_BUTTON_1) && !gizmo.isHot()){
+        if(draggingObject == null && mouse.isButtonPressed(GLFW_MOUSE_BUTTON_1) && !gizmo.isHot() &&  mouse.isCursorInsideViewPort()){
             unselectActiveObjects();
+        }
+
+        if(mouse.isButtonPressed(GLFW_MOUSE_BUTTON_1)){
+          //  System.out.println(String.format("x: %.1f y:%.1f", mouse.getViewPortX(), mouse.getViewPortY()));
         }
 
         //Mouse + Key Event
@@ -75,11 +79,12 @@ public class MouseControls extends Component {
             }
         }
 
-        if(!gizmo.isGizmoActive() && !keyboard.isKeyPressed(GLFW_KEY_LEFT_CONTROL)) selectorUpdate();
+        if(!gizmo.isGizmoActive() && !keyboard.isKeyPressed(GLFW_KEY_LEFT_CONTROL) && draggingObject == null) selectorUpdate();
     }
 
     public void highLightObject(GameObject gameObject){
         SpriteRenderer spriteRenderer = gameObject.getComponent(SpriteRenderer.class);
+        spriteRenderer.setHighLight(true);
         spriteRenderer.setColor(mouseHoveColor);
     }
 
@@ -90,9 +95,10 @@ public class MouseControls extends Component {
     }
 
     public void trackMouse(float dt){
-        float objectX = (int)(mouse.getWorldX()/ gridSize) * gridSize + draggingObject.getTransform().getScale().x / 2;
-        float objectY = (int)(mouse.getWorldY() / gridSize) * gridSize + draggingObject.getTransform().getScale().y / 2;
-        draggingObject.getTransform().setPosition(new Vector2f(objectX, objectY));
+        Vector2f scale = draggingObject.getTransform().getScale();
+        float xPos = (int)(mouse.getWorldX()/ gridSize) * gridSize + scale.x / 2;
+        float yPos = (int)(mouse.getWorldY() / gridSize) * gridSize + scale.y / 2;
+        draggingObject.getTransform().setPosition(new Vector2f(xPos, yPos));
         if(mouse.isButtonPressed(GLFW_MOUSE_BUTTON_1) && debounce < 0){
             place();
         }
@@ -224,8 +230,8 @@ public class MouseControls extends Component {
                 int startFromX = (int) startDraggingVMode.x;
                 int startFromY = (int) startDraggingVMode.y;
 
-                int width = (int)(mouse.getMouseListenerPos().x - startDraggingMMode.x);
-                int height = ((int)(mouse.getMouseListenerPos().y - startDraggingMMode.y)) * -1;
+                int width = (int)((mouse.getMouseListenerPos().x - startDraggingMMode.x) * selectorScale);
+                int height = (int)((mouse.getMouseListenerPos().y - startDraggingMMode.y) * -1 * selectorScale);
 
                 if(width < 0){
                     startFromX = (int) mouse.getViewPortX();
@@ -237,11 +243,7 @@ public class MouseControls extends Component {
                     height *= -1;
                 }
 
-                System.out.println("*******************");
-                System.out.println(String.format("x:%s y:%s", startFromX, startFromY));
-                System.out.println(String.format("w:%s h:%s", width, height));
                 HashSet<Integer> idSet = window.getIdBuffer().readIDFromPixel(startFromX, startFromY, width  + 2, height + 2);
-                System.out.println(idSet.stream().toList());
                 for(int id: idSet){
                    GameObject gameObject = editorScene.getGameObjectFromID(id);
                    if(gameObject != null) {
@@ -261,12 +263,12 @@ public class MouseControls extends Component {
                 DebugDraw.drawBoxes2D(selectorIndex, center, distance, 0, new Vector3f(0, 0, 0), 1);
 
                 if(selector != null) Window.getInstance().getCurrentScene().removeFromScene(selector);
-//                selector = new GameObject("Selector");
-//                selector.setNonSerializable();
-//                selector.addComponent(new Transform(center, distance, 0, 100));
-//                selector.setTransformFromItself();
-//                selector.addComponent(new SpriteRenderer(mouseRectColor));
-//                editorScene.addGameObjectToScene(selector);
+                selector = new GameObject("Selector");
+                selector.setNonSerializable();
+                selector.addComponent(new Transform(center, distance, 0, -100));
+                selector.setTransformFromItself();
+                selector.addComponent(new SpriteRenderer(mouseRectColor));
+                editorScene.addGameObjectToScene(selector);
             }
         }
 
@@ -302,15 +304,12 @@ public class MouseControls extends Component {
 
     public void setObjectActive(GameObject active){
         activeObjectList.add(active);
-
-        // todo what about editor?
     }
 
     public void setObjectActive(List<GameObject> cloneList){
         unselectActiveObjects();
         activeObjectList = cloneList;
         highLightObject(activeObjectList);
-        // todo what about editor?
     }
 
     public boolean isDistanceMapLoaded(){
