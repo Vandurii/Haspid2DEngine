@@ -93,6 +93,7 @@ public abstract class Scene {
                     setPrettyPrinting().
                     registerTypeAdapter(Component.class, new ComponentSerializer()).
                     registerTypeAdapter(GameObject.class, new GameObjectDeserializer()).
+                    enableComplexMapKeySerialization().
                     create();
 
         try {

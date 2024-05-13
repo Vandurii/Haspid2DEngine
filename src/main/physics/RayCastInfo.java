@@ -1,4 +1,4 @@
-package main.physics.enums;
+package main.physics;
 
 import main.haspid.GameObject;
 import org.jbox2d.callbacks.RayCastCallback;

@@ -80,6 +80,7 @@ public class Configuration {
 
     public static int spriteSize = 2;
     public static int gridSize = 32;
+    public static int objectSize = 16;
 
 
     public static int minimalWidthForGrid = 400;
@@ -112,7 +113,7 @@ public class Configuration {
     public static Vector4f mouseRectColor = new Vector4f(0.04f, 0.04f, 0.04f, 0.4f);
 
     public static int gridLinesIndex = 1;
-    public static int boxColliderIndex = 2;
+    public static int colliderIndex = 2;
     public static int selectorIndex = 0;
 
     public static float selectorScale = 1.20f;

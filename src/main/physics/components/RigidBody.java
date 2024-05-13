@@ -2,6 +2,7 @@ package main.physics.components;
 
 import main.components.Component;
 import main.haspid.Window;
+import main.physics.Physics2D;
 import main.physics.enums.BodyType;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
@@ -9,28 +10,37 @@ import org.joml.Vector2f;
 
 public class RigidBody extends Component {
 
-    private float mass = 0;
-    private boolean isSensor;
-    private float friction = 1.f;
-    private float angularVelocity;
-    private float gravityScale = 1f;
-    private float angularDamping = 0.8f;
-    private float linearDamping = 0.9f;
-    private transient Body rawBody = null;
-    private boolean fixedRotation = false;
-    private boolean continousCollision = true;
-    private Vector2f velocity = new Vector2f();
-    private BodyType bodyType = BodyType.Dynamic;
+    private transient Window window;
+    private transient Physics2D physics;
 
-    private Window window;
+    private float mass;
+    private float friction;
+    private boolean isSensor;
+    private Vector2f velocity;
+    private BodyType bodyType;
+    private float gravityScale;
+    private float linearDamping;
+    private float angularDamping;
+    private float angularVelocity;
+    private boolean fixedRotation;
+    private transient Body rawBody;
+    private boolean continuousCollision;
 
     public RigidBody(){
+        this.friction = 0.1f;
+        this.gravityScale = 1f;
+        this.linearDamping = 0.9f;
+        this.angularDamping = 0.8f;
+        this.velocity = new Vector2f();
+        this.continuousCollision = true;
+        this.bodyType = BodyType.Dynamic;
         this.window = Window.getInstance();
+        this.physics = window.getCurrentScene().getPhysics();
     }
 
     @Override
     public void update(float dt) {
-        if(Window.getInstance().getCurrentScene().isInEditMode()) return;
+        if(window.getCurrentScene().isInEditMode()) return;
 
         if(rawBody != null){
             getParent().getTransform().setPosition(rawBody.getPosition().x, rawBody.getPosition().y);
@@ -65,9 +75,9 @@ public class RigidBody extends Component {
         if(rawBody != null) rawBody.setGravityScale(gravityScale);
     }
 
-    public void setSensor(boolean value){
-        isSensor = value;
-     //todo   if(rawBody != null) window.getCurrentScene().getPhysics().setSensor(this);
+    public void setSensor(boolean isSensor){
+        this.isSensor = isSensor;
+        if(rawBody != null) physics.setSensor(this, isSensor);
     }
 
     public float getFriction(){
@@ -118,12 +128,12 @@ public class RigidBody extends Component {
         this.fixedRotation = fixedRotation;
     }
 
-    public boolean isContinousCollision() {
-        return continousCollision;
+    public boolean isContinuousCollision() {
+        return continuousCollision;
     }
 
-    public void setContinousCollision(boolean continousCollision) {
-        this.continousCollision = continousCollision;
+    public void setContinuousCollision(boolean continuousCollision) {
+        this.continuousCollision = continuousCollision;
     }
 
     public Body getRawBody() {

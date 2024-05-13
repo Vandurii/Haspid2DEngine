@@ -1,11 +1,9 @@
 package main.prefabs;
 
-import main.components.Animation;
-import main.components.Frame;
-import main.components.SpriteRenderer;
-import main.components.StateMachine;
+import main.components.*;
 import main.haspid.GameObject;
 import main.haspid.Transform;
+import main.physics.components.PillboxCollider;
 import main.util.AssetPool;
 import main.util.SpriteSheet;
 import org.joml.Vector2f;
@@ -47,6 +45,8 @@ public class Prefabs {
         stateMachine.addState(animation);
         animatedHoldingObject.addComponent(stateMachine);
         animatedHoldingObject.addComponent(new SpriteRenderer());
+        animatedHoldingObject.addComponent(new PlayerController());
+        animatedHoldingObject.addComponent(new PillboxCollider());
 
         return  animatedHoldingObject;
     }

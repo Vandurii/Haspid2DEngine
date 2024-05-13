@@ -1,13 +1,8 @@
 package main.physics;
 
-import main.Helper;
 import main.haspid.GameObject;
 import main.haspid.Transform;
-import main.physics.components.BoxCollider;
-import main.physics.components.CircleCollider;
-import main.physics.components.Collider;
-import main.physics.components.RigidBody;
-import main.physics.enums.RayCastInfo;
+import main.physics.components.*;
 import org.jbox2d.collision.shapes.CircleShape;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.collision.shapes.Shape;
@@ -15,16 +10,25 @@ import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.*;
 import org.joml.Vector2f;
 
-import java.awt.event.HierarchyListener;
-
 public class Physics2D {
-    private Vec2 gravity = new Vec2(0, -10);
-    private World world = new World(gravity);
+    private Vec2 gravity;
+    private World world;
 
-    private float physicsTime = 0f;
-    private float physicsTimeStep = 1f / 60f;
-    private int velocityIterations = 8;
-    private int positionIterations = 3;
+    private float physicsTime;
+    private float physicsTimeStep;
+    private int velocityIterations;
+    private int positionIterations;
+
+    public Physics2D(){
+        this.positionIterations = 3;
+        this.velocityIterations = 8;
+        this.physicsTimeStep = 1f / 60f;
+
+        this.gravity = new Vec2(0, -10);
+        this.world = new World(gravity);
+        this.world.setContactListener(new HContactListener());
+    }
+
 
     public void update(float dt){
         physicsTime += dt;
@@ -41,11 +45,11 @@ public class Physics2D {
 
             BodyDef bodyDef = new BodyDef();
             bodyDef.angle = (float)Math.toRadians(transform.getRotation());
-            bodyDef.position = new Vec2(transform.getPosition().x, transform.getPosition().y);
+            bodyDef.position.set(transform.getPosition().x, transform.getPosition().y);
             bodyDef.angularDamping = rigidBody.getAngularDamping();
             bodyDef.linearDamping = rigidBody.getLinearDamping();
             bodyDef.fixedRotation = rigidBody.isFixedRotation();
-            bodyDef.bullet = rigidBody.isContinousCollision();
+            bodyDef.bullet = rigidBody.isContinuousCollision();
             bodyDef.gravityScale = rigidBody.getGravityScale();
             bodyDef.angularVelocity = rigidBody.getAngularVelocity();
             bodyDef.userData = rigidBody.getParent();
@@ -62,9 +66,21 @@ public class Physics2D {
 
             CircleCollider circleCollider = gameObject.getComponent(CircleCollider.class);
             BoxCollider boxCollider = gameObject.getComponent(BoxCollider.class);
+            PillboxCollider pillboxCollider = gameObject.getComponent(PillboxCollider.class);
 
             if(boxCollider != null) addBoxCollider(rigidBody, boxCollider);
             if(circleCollider != null) addCircleCollider(rigidBody, circleCollider);
+            if(pillboxCollider != null) addPillboxCollider(rigidBody, pillboxCollider);
+        }
+    }
+
+    public void addPillboxCollider(RigidBody rigidBody, PillboxCollider pillboxCollider){
+        Body rawBody = rigidBody.getRawBody();
+
+        if(rawBody != null) {
+            addBoxCollider(rigidBody, pillboxCollider.getBoxCollider());
+            addCircleCollider(rigidBody, pillboxCollider.getTopCircle());
+            addCircleCollider(rigidBody, pillboxCollider.getBottomCircle());
         }
     }
 
@@ -120,7 +136,7 @@ public class Physics2D {
         return callback;
     }
 
-    public void resetBoxCollider(RigidBody rigidBody, Collider collider){
+    public void resetCollider(RigidBody rigidBody, Collider collider){
         Body body = rigidBody.getRawBody();
 
         if(body != null){
@@ -133,6 +149,8 @@ public class Physics2D {
                 addBoxCollider(rigidBody, boxCollider);
             }else if(collider instanceof CircleCollider circleCollider){
                 addCircleCollider(rigidBody, circleCollider);
+            }else if(collider instanceof PillboxCollider pillboxCollider){
+                addPillboxCollider(rigidBody, pillboxCollider);
             }
 
             body.resetMassData();
@@ -162,8 +180,13 @@ public class Physics2D {
         return size;
     }
 
-    public Vec2 getGravity() {
-        return gravity;
+    public boolean isLocked(){
+        return world.isLocked();
+    }
+
+
+    public Vector2f getGravity() {
+        return new Vector2f(world.getGravity().x, world.getGravity().y);
     }
 
     public void setGravity(Vec2 gravity) {

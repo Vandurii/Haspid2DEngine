@@ -21,11 +21,11 @@ public class HContactListener implements ContactListener {
         Vector2f bNormal = new Vector2f(aNormal).negate();
 
         for(Component c: objectA.getAllComponent()){
-            // todo c.beginCollision(objectB, contact, aNormal);
+             c.beginCollision(objectB, contact, aNormal);
         }
 
         for(Component c: objectB.getAllComponent()){
-          //todo  c.beginCollision(objectA, contact, bNormal);
+             c.beginCollision(objectA, contact, bNormal);
         }
     }
 
@@ -39,11 +39,11 @@ public class HContactListener implements ContactListener {
         Vector2f bNormal = new Vector2f(aNormal).negate();
 
         for(Component c: objectA.getAllComponent()){
-         //todo   c.endCollision(objectB, contact, aNormal);
+            c.endCollision(objectB, contact, aNormal);
         }
 
         for(Component c: objectB.getAllComponent()){
-        //todo    c.endCollision(objectA, contact, bNormal);
+            c.endCollision(objectA, contact, bNormal);
         }
     }
 
@@ -57,11 +57,11 @@ public class HContactListener implements ContactListener {
         Vector2f bNormal = new Vector2f(aNormal).negate();
 
         for(Component c: objectA.getAllComponent()){
-         //todo   c.preSolve(objectB, contact, aNormal);
+            c.preSolve(objectB, contact, aNormal);
         }
 
         for(Component c: objectB.getAllComponent()){
-          //todo  c.preSolve(objectA, contact, bNormal);
+            c.preSolve(objectA, contact, bNormal);
         }
     }
 
@@ -75,11 +75,11 @@ public class HContactListener implements ContactListener {
         Vector2f bNormal = new Vector2f(aNormal).negate();
 
         for(Component c: objectA.getAllComponent()){
-        //todo    c.postSolve(objectB, contact, aNormal);
+            c.postSolve(objectB, contact, aNormal);
         }
 
         for(Component c: objectB.getAllComponent()){
-        //todo    c.postSolve(objectA, contact, bNormal);
+            c.postSolve(objectA, contact, bNormal);
         }
     }
 }

@@ -4,15 +4,11 @@ import imgui.ImGui;
 import imgui.type.ImInt;
 import main.Editor.JImGui;
 import main.haspid.GameObject;
+import org.jbox2d.dynamics.contacts.Contact;
 import org.joml.Vector2f;
-import org.joml.Vector3f;
-import org.joml.Vector4f;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.rmi.MarshalledObject;
-import java.util.ArrayList;
-import java.util.List;
 
 public abstract class Component {
 
@@ -34,12 +30,23 @@ public abstract class Component {
     };
 
     public void updateIDCounter(){
-        //if(ID_COUNTER > componentID)throw new IllegalStateException("IDCounter is higher then this component ID! Check if you did create any component before the scene was loaded.");
         ID_COUNTER = componentID;
     }
 
-    public static void resetCounter(){
-        ID_COUNTER = -1;
+    public void beginCollision(GameObject collidingObject, Contact contact, Vector2f hitNormal){
+
+    }
+
+    public void endCollision(GameObject collidingObject, Contact contact, Vector2f hitNormal){
+
+    }
+
+    public void preSolve(GameObject collidingObject, Contact contact, Vector2f hitNormal){
+
+    }
+
+    public void postSolve(GameObject collidingObject, Contact contact, Vector2f hitNormal){
+
     }
 
     public void dearGui() {
@@ -63,7 +70,7 @@ public abstract class Component {
                 }else if(clazz.isEnum()){
                     String[] enumValues = getEnumValues(clazz);
                     String enumName = ((Enum<?>) value).name();
-                    ImInt index = new ImInt(indexOf(enumName, enumValues));
+                    ImInt index = new ImInt(getIndexOf(enumName, enumValues));
 
                     if(ImGui.combo(f.getName(), index, enumValues, enumValues.length)){
                         f.set(this, clazz.getEnumConstants()[index.get()]);
@@ -80,6 +87,10 @@ public abstract class Component {
         }
     }
 
+    public static void resetCounter(){
+        ID_COUNTER = -1;
+    }
+
     public <T extends Enum<T>> String[] getEnumValues(Class<T> enumObject){
         String[] enumValues = new String[enumObject.getEnumConstants().length];
 
@@ -90,7 +101,7 @@ public abstract class Component {
         return enumValues;
     }
 
-    public int indexOf(String enumName, String[] enumValues){
+    public int getIndexOf(String enumName, String[] enumValues){
         for(int i = 0; i < enumValues.length; i++){
             if(enumValues[i].equals(enumName)) return i;
         }
@@ -111,7 +122,6 @@ public abstract class Component {
     }
 
     public void setParent(GameObject gameObject){
-
         this.parentObject = gameObject;
     }
 }
