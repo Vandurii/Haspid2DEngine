@@ -100,7 +100,6 @@ public class SpriteRenderer extends Component {
     public void resetColor(){
         isHighLighted = false;
         setColor(new Vector4f(1, 1, 1, 1));
-        System.out.println("reset");
     }
 
     public boolean isDirty() {

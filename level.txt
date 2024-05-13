@@ -1,6 +1,6 @@
 [
   {
-    "gameObjectID": 4,
+    "gameObjectID": 1,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -9,8 +9,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1712.0,
-            "y": 400.0
+            "x": -112.0,
+            "y": 464.0
           },
           "scale": {
             "x": 32.0,
@@ -63,7 +63,7 @@
     ]
   },
   {
-    "gameObjectID": 5,
+    "gameObjectID": 2,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -72,8 +72,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 592.0,
-            "y": 368.0
+            "x": -1200.0,
+            "y": 432.0
           },
           "scale": {
             "x": 32.0,
@@ -126,7 +126,7 @@
     ]
   },
   {
-    "gameObjectID": 7,
+    "gameObjectID": 3,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -135,8 +135,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1424.0,
-            "y": 400.0
+            "x": -400.0,
+            "y": 464.0
           },
           "scale": {
             "x": 32.0,
@@ -189,7 +189,7 @@
     ]
   },
   {
-    "gameObjectID": 11,
+    "gameObjectID": 4,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -198,8 +198,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1488.0,
-            "y": 496.0
+            "x": -336.0,
+            "y": 560.0
           },
           "scale": {
             "x": 32.0,
@@ -252,7 +252,7 @@
     ]
   },
   {
-    "gameObjectID": 12,
+    "gameObjectID": 5,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -261,8 +261,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1552.0,
-            "y": 464.0
+            "x": -272.0,
+            "y": 528.0
           },
           "scale": {
             "x": 32.0,
@@ -315,7 +315,7 @@
     ]
   },
   {
-    "gameObjectID": 13,
+    "gameObjectID": 6,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -324,8 +324,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1616.0,
-            "y": 432.0
+            "x": -208.0,
+            "y": 496.0
           },
           "scale": {
             "x": 32.0,
@@ -378,7 +378,7 @@
     ]
   },
   {
-    "gameObjectID": 14,
+    "gameObjectID": 7,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -387,8 +387,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1616.0,
-            "y": 368.0
+            "x": -208.0,
+            "y": 432.0
           },
           "scale": {
             "x": 32.0,
@@ -441,7 +441,7 @@
     ]
   },
   {
-    "gameObjectID": 15,
+    "gameObjectID": 8,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -450,8 +450,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1616.0,
-            "y": 304.0
+            "x": -208.0,
+            "y": 368.0
           },
           "scale": {
             "x": 32.0,
@@ -504,7 +504,7 @@
     ]
   },
   {
-    "gameObjectID": 16,
+    "gameObjectID": 9,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -513,8 +513,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1616.0,
-            "y": 272.0
+            "x": -208.0,
+            "y": 336.0
           },
           "scale": {
             "x": 32.0,
@@ -567,7 +567,7 @@
     ]
   },
   {
-    "gameObjectID": 17,
+    "gameObjectID": 10,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -576,8 +576,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1616.0,
-            "y": 208.0
+            "x": -208.0,
+            "y": 272.0
           },
           "scale": {
             "x": 32.0,
@@ -630,7 +630,7 @@
     ]
   },
   {
-    "gameObjectID": 18,
+    "gameObjectID": 11,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -639,8 +639,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1616.0,
-            "y": 112.0
+            "x": -208.0,
+            "y": 176.0
           },
           "scale": {
             "x": 32.0,
@@ -693,7 +693,7 @@
     ]
   },
   {
-    "gameObjectID": 19,
+    "gameObjectID": 12,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -702,8 +702,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1616.0,
-            "y": 80.0
+            "x": -208.0,
+            "y": 144.0
           },
           "scale": {
             "x": 32.0,
@@ -756,7 +756,7 @@
     ]
   },
   {
-    "gameObjectID": 20,
+    "gameObjectID": 13,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -765,8 +765,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1616.0,
-            "y": 48.0
+            "x": 720.0,
+            "y": 16.0
           },
           "scale": {
             "x": 32.0,
@@ -819,7 +819,7 @@
     ]
   },
   {
-    "gameObjectID": 21,
+    "gameObjectID": 14,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -828,8 +828,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1584.0,
-            "y": 16.0
+            "x": 688.0,
+            "y": -16.0
           },
           "scale": {
             "x": 32.0,
@@ -882,7 +882,7 @@
     ]
   },
   {
-    "gameObjectID": 22,
+    "gameObjectID": 15,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -891,8 +891,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1456.0,
-            "y": 48.0
+            "x": 592.0,
+            "y": 16.0
           },
           "scale": {
             "x": 32.0,
@@ -945,7 +945,7 @@
     ]
   },
   {
-    "gameObjectID": 23,
+    "gameObjectID": 16,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -954,8 +954,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1360.0,
-            "y": 16.0
+            "x": 496.0,
+            "y": -16.0
           },
           "scale": {
             "x": 32.0,
@@ -1008,7 +1008,7 @@
     ]
   },
   {
-    "gameObjectID": 24,
+    "gameObjectID": 17,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -1017,8 +1017,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1232.0,
-            "y": 48.0
+            "x": 368.0,
+            "y": 16.0
           },
           "scale": {
             "x": 32.0,
@@ -1071,7 +1071,7 @@
     ]
   },
   {
-    "gameObjectID": 25,
+    "gameObjectID": 18,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -1080,8 +1080,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1200.0,
-            "y": 112.0
+            "x": -624.0,
+            "y": 176.0
           },
           "scale": {
             "x": 32.0,
@@ -1134,7 +1134,7 @@
     ]
   },
   {
-    "gameObjectID": 26,
+    "gameObjectID": 19,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -1143,8 +1143,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1200.0,
-            "y": 176.0
+            "x": -624.0,
+            "y": 240.0
           },
           "scale": {
             "x": 32.0,
@@ -1197,7 +1197,7 @@
     ]
   },
   {
-    "gameObjectID": 27,
+    "gameObjectID": 20,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -1206,8 +1206,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1168.0,
-            "y": 240.0
+            "x": -656.0,
+            "y": 304.0
           },
           "scale": {
             "x": 32.0,
@@ -1260,7 +1260,7 @@
     ]
   },
   {
-    "gameObjectID": 28,
+    "gameObjectID": 21,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -1269,8 +1269,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1136.0,
-            "y": 336.0
+            "x": -688.0,
+            "y": 400.0
           },
           "scale": {
             "x": 32.0,
@@ -1323,7 +1323,7 @@
     ]
   },
   {
-    "gameObjectID": 29,
+    "gameObjectID": 22,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -1332,8 +1332,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1072.0,
-            "y": 432.0
+            "x": -720.0,
+            "y": 496.0
           },
           "scale": {
             "x": 32.0,
@@ -1386,7 +1386,7 @@
     ]
   },
   {
-    "gameObjectID": 30,
+    "gameObjectID": 23,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -1395,8 +1395,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1040.0,
-            "y": 432.0
+            "x": -752.0,
+            "y": 496.0
           },
           "scale": {
             "x": 32.0,
@@ -1449,7 +1449,7 @@
     ]
   },
   {
-    "gameObjectID": 31,
+    "gameObjectID": 24,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -1458,8 +1458,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1008.0,
-            "y": 432.0
+            "x": -784.0,
+            "y": 496.0
           },
           "scale": {
             "x": 32.0,
@@ -1512,7 +1512,7 @@
     ]
   },
   {
-    "gameObjectID": 32,
+    "gameObjectID": 25,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -1521,8 +1521,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 912.0,
-            "y": 400.0
+            "x": -880.0,
+            "y": 464.0
           },
           "scale": {
             "x": 32.0,
@@ -1575,7 +1575,7 @@
     ]
   },
   {
-    "gameObjectID": 33,
+    "gameObjectID": 26,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -1584,8 +1584,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 816.0,
-            "y": 368.0
+            "x": -976.0,
+            "y": 432.0
           },
           "scale": {
             "x": 32.0,
@@ -1638,7 +1638,7 @@
     ]
   },
   {
-    "gameObjectID": 34,
+    "gameObjectID": 27,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -1647,8 +1647,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 752.0,
-            "y": 272.0
+            "x": -1040.0,
+            "y": 336.0
           },
           "scale": {
             "x": 32.0,
@@ -1701,7 +1701,7 @@
     ]
   },
   {
-    "gameObjectID": 35,
+    "gameObjectID": 28,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -1710,8 +1710,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 784.0,
-            "y": 208.0
+            "x": -1008.0,
+            "y": 272.0
           },
           "scale": {
             "x": 32.0,
@@ -1764,7 +1764,7 @@
     ]
   },
   {
-    "gameObjectID": 36,
+    "gameObjectID": 29,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -1773,8 +1773,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 752.0,
-            "y": 144.0
+            "x": -1040.0,
+            "y": 208.0
           },
           "scale": {
             "x": 32.0,
@@ -1827,7 +1827,7 @@
     ]
   },
   {
-    "gameObjectID": 37,
+    "gameObjectID": 30,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -1836,8 +1836,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 752.0,
-            "y": 112.0
+            "x": -1040.0,
+            "y": 176.0
           },
           "scale": {
             "x": 32.0,
@@ -1890,7 +1890,7 @@
     ]
   },
   {
-    "gameObjectID": 38,
+    "gameObjectID": 31,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -1899,8 +1899,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 784.0,
-            "y": 80.0
+            "x": -1008.0,
+            "y": 144.0
           },
           "scale": {
             "x": 32.0,
@@ -1953,7 +1953,7 @@
     ]
   },
   {
-    "gameObjectID": 39,
+    "gameObjectID": 32,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -1962,8 +1962,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 912.0,
-            "y": 80.0
+            "x": -880.0,
+            "y": 144.0
           },
           "scale": {
             "x": 32.0,
@@ -2016,7 +2016,7 @@
     ]
   },
   {
-    "gameObjectID": 40,
+    "gameObjectID": 33,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -2025,8 +2025,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1008.0,
-            "y": 176.0
+            "x": -784.0,
+            "y": 240.0
           },
           "scale": {
             "x": 32.0,
@@ -2079,7 +2079,7 @@
     ]
   },
   {
-    "gameObjectID": 41,
+    "gameObjectID": 34,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -2088,8 +2088,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1040.0,
-            "y": 272.0
+            "x": -752.0,
+            "y": 336.0
           },
           "scale": {
             "x": 32.0,
@@ -2142,7 +2142,7 @@
     ]
   },
   {
-    "gameObjectID": 42,
+    "gameObjectID": 35,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -2151,8 +2151,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 496.0,
-            "y": 528.0
+            "x": -1296.0,
+            "y": 592.0
           },
           "scale": {
             "x": 32.0,
@@ -2205,7 +2205,7 @@
     ]
   },
   {
-    "gameObjectID": 43,
+    "gameObjectID": 36,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -2214,8 +2214,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1040.0,
-            "y": 400.0
+            "x": -752.0,
+            "y": 464.0
           },
           "scale": {
             "x": 32.0,
@@ -2268,7 +2268,7 @@
     ]
   },
   {
-    "gameObjectID": 44,
+    "gameObjectID": 37,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -2277,8 +2277,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1040.0,
-            "y": 464.0
+            "x": -752.0,
+            "y": 528.0
           },
           "scale": {
             "x": 32.0,
@@ -2331,7 +2331,7 @@
     ]
   },
   {
-    "gameObjectID": 45,
+    "gameObjectID": 38,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -2340,8 +2340,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1072.0,
-            "y": 496.0
+            "x": -720.0,
+            "y": 560.0
           },
           "scale": {
             "x": 32.0,
@@ -2394,7 +2394,7 @@
     ]
   },
   {
-    "gameObjectID": 46,
+    "gameObjectID": 39,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -2403,8 +2403,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1168.0,
-            "y": 528.0
+            "x": -656.0,
+            "y": 592.0
           },
           "scale": {
             "x": 32.0,
@@ -2457,7 +2457,7 @@
     ]
   },
   {
-    "gameObjectID": 47,
+    "gameObjectID": 40,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -2466,8 +2466,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1264.0,
-            "y": 560.0
+            "x": -560.0,
+            "y": 624.0
           },
           "scale": {
             "x": 32.0,
@@ -2520,7 +2520,7 @@
     ]
   },
   {
-    "gameObjectID": 48,
+    "gameObjectID": 41,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -2529,8 +2529,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1360.0,
-            "y": 560.0
+            "x": -464.0,
+            "y": 624.0
           },
           "scale": {
             "x": 32.0,
@@ -2583,7 +2583,7 @@
     ]
   },
   {
-    "gameObjectID": 49,
+    "gameObjectID": 42,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -2592,8 +2592,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1456.0,
-            "y": 432.0
+            "x": -368.0,
+            "y": 496.0
           },
           "scale": {
             "x": 32.0,
@@ -2646,7 +2646,7 @@
     ]
   },
   {
-    "gameObjectID": 50,
+    "gameObjectID": 43,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -2655,8 +2655,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1456.0,
-            "y": 368.0
+            "x": -368.0,
+            "y": 432.0
           },
           "scale": {
             "x": 32.0,
@@ -2709,7 +2709,7 @@
     ]
   },
   {
-    "gameObjectID": 51,
+    "gameObjectID": 44,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -2718,8 +2718,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1424.0,
-            "y": 304.0
+            "x": -400.0,
+            "y": 368.0
           },
           "scale": {
             "x": 32.0,
@@ -2772,7 +2772,7 @@
     ]
   },
   {
-    "gameObjectID": 52,
+    "gameObjectID": 45,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -2781,8 +2781,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1424.0,
-            "y": 272.0
+            "x": -400.0,
+            "y": 336.0
           },
           "scale": {
             "x": 32.0,
@@ -2835,7 +2835,7 @@
     ]
   },
   {
-    "gameObjectID": 53,
+    "gameObjectID": 46,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -2844,8 +2844,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1424.0,
-            "y": 240.0
+            "x": -400.0,
+            "y": 304.0
           },
           "scale": {
             "x": 32.0,
@@ -2898,7 +2898,7 @@
     ]
   },
   {
-    "gameObjectID": 54,
+    "gameObjectID": 47,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -2907,8 +2907,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1392.0,
-            "y": 240.0
+            "x": -432.0,
+            "y": 304.0
           },
           "scale": {
             "x": 32.0,
@@ -2961,7 +2961,7 @@
     ]
   },
   {
-    "gameObjectID": 55,
+    "gameObjectID": 48,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -2970,8 +2970,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1328.0,
-            "y": 240.0
+            "x": -496.0,
+            "y": 304.0
           },
           "scale": {
             "x": 32.0,
@@ -3024,7 +3024,7 @@
     ]
   },
   {
-    "gameObjectID": 56,
+    "gameObjectID": 49,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -3033,8 +3033,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1296.0,
-            "y": 272.0
+            "x": -528.0,
+            "y": 336.0
           },
           "scale": {
             "x": 32.0,
@@ -3087,7 +3087,7 @@
     ]
   },
   {
-    "gameObjectID": 57,
+    "gameObjectID": 50,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -3096,8 +3096,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1264.0,
-            "y": 336.0
+            "x": -560.0,
+            "y": 400.0
           },
           "scale": {
             "x": 32.0,
@@ -3150,7 +3150,7 @@
     ]
   },
   {
-    "gameObjectID": 58,
+    "gameObjectID": 51,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -3159,8 +3159,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1232.0,
-            "y": 336.0
+            "x": -592.0,
+            "y": 400.0
           },
           "scale": {
             "x": 32.0,
@@ -3213,7 +3213,7 @@
     ]
   },
   {
-    "gameObjectID": 59,
+    "gameObjectID": 52,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -3222,8 +3222,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1264.0,
-            "y": 368.0
+            "x": -560.0,
+            "y": 432.0
           },
           "scale": {
             "x": 32.0,
@@ -3276,7 +3276,7 @@
     ]
   },
   {
-    "gameObjectID": 60,
+    "gameObjectID": 53,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -3285,8 +3285,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1296.0,
-            "y": 432.0
+            "x": -528.0,
+            "y": 496.0
           },
           "scale": {
             "x": 32.0,
@@ -3339,7 +3339,7 @@
     ]
   },
   {
-    "gameObjectID": 61,
+    "gameObjectID": 54,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -3348,8 +3348,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1296.0,
-            "y": 464.0
+            "x": -528.0,
+            "y": 528.0
           },
           "scale": {
             "x": 32.0,
@@ -3402,7 +3402,7 @@
     ]
   },
   {
-    "gameObjectID": 62,
+    "gameObjectID": 55,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -3411,8 +3411,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1264.0,
-            "y": 400.0
+            "x": -560.0,
+            "y": 464.0
           },
           "scale": {
             "x": 32.0,
@@ -3465,7 +3465,7 @@
     ]
   },
   {
-    "gameObjectID": 63,
+    "gameObjectID": 56,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -3474,8 +3474,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1232.0,
-            "y": 304.0
+            "x": -592.0,
+            "y": 368.0
           },
           "scale": {
             "x": 32.0,
@@ -3528,7 +3528,7 @@
     ]
   },
   {
-    "gameObjectID": 64,
+    "gameObjectID": 57,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -3537,8 +3537,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1264.0,
-            "y": 144.0
+            "x": -560.0,
+            "y": 208.0
           },
           "scale": {
             "x": 32.0,
@@ -3591,7 +3591,7 @@
     ]
   },
   {
-    "gameObjectID": 65,
+    "gameObjectID": 58,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -3600,8 +3600,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1040.0,
-            "y": 336.0
+            "x": -752.0,
+            "y": 400.0
           },
           "scale": {
             "x": 32.0,
@@ -3654,7 +3654,7 @@
     ]
   },
   {
-    "gameObjectID": 66,
+    "gameObjectID": 59,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -3663,8 +3663,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1328.0,
-            "y": 80.0
+            "x": -496.0,
+            "y": 144.0
           },
           "scale": {
             "x": 32.0,
@@ -3717,7 +3717,7 @@
     ]
   },
   {
-    "gameObjectID": 67,
+    "gameObjectID": 60,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -3726,8 +3726,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1392.0,
-            "y": 144.0
+            "x": -432.0,
+            "y": 208.0
           },
           "scale": {
             "x": 32.0,
@@ -3780,7 +3780,7 @@
     ]
   },
   {
-    "gameObjectID": 68,
+    "gameObjectID": 61,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -3789,8 +3789,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1456.0,
-            "y": 176.0
+            "x": -368.0,
+            "y": 240.0
           },
           "scale": {
             "x": 32.0,
@@ -3843,7 +3843,7 @@
     ]
   },
   {
-    "gameObjectID": 69,
+    "gameObjectID": 62,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -3852,8 +3852,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1456.0,
-            "y": 208.0
+            "x": -368.0,
+            "y": 272.0
           },
           "scale": {
             "x": 32.0,
@@ -3906,7 +3906,7 @@
     ]
   },
   {
-    "gameObjectID": 70,
+    "gameObjectID": 63,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -3915,8 +3915,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1488.0,
-            "y": 240.0
+            "x": -336.0,
+            "y": 304.0
           },
           "scale": {
             "x": 32.0,
@@ -3969,7 +3969,7 @@
     ]
   },
   {
-    "gameObjectID": 71,
+    "gameObjectID": 64,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -3978,8 +3978,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1488.0,
-            "y": 272.0
+            "x": -336.0,
+            "y": 336.0
           },
           "scale": {
             "x": 32.0,
@@ -4032,7 +4032,7 @@
     ]
   },
   {
-    "gameObjectID": 72,
+    "gameObjectID": 65,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -4041,8 +4041,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1520.0,
-            "y": 272.0
+            "x": -304.0,
+            "y": 336.0
           },
           "scale": {
             "x": 32.0,
@@ -4095,7 +4095,7 @@
     ]
   },
   {
-    "gameObjectID": 73,
+    "gameObjectID": 66,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -4104,8 +4104,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1552.0,
-            "y": 272.0
+            "x": -272.0,
+            "y": 336.0
           },
           "scale": {
             "x": 32.0,
@@ -4158,7 +4158,7 @@
     ]
   },
   {
-    "gameObjectID": 74,
+    "gameObjectID": 67,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -4167,8 +4167,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1648.0,
-            "y": 272.0
+            "x": -176.0,
+            "y": 336.0
           },
           "scale": {
             "x": 32.0,
@@ -4221,7 +4221,7 @@
     ]
   },
   {
-    "gameObjectID": 75,
+    "gameObjectID": 68,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -4230,8 +4230,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1680.0,
-            "y": 240.0
+            "x": -144.0,
+            "y": 304.0
           },
           "scale": {
             "x": 32.0,
@@ -4284,7 +4284,7 @@
     ]
   },
   {
-    "gameObjectID": 76,
+    "gameObjectID": 69,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -4293,8 +4293,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1680.0,
-            "y": 208.0
+            "x": -144.0,
+            "y": 272.0
           },
           "scale": {
             "x": 32.0,
@@ -4347,7 +4347,7 @@
     ]
   },
   {
-    "gameObjectID": 77,
+    "gameObjectID": 70,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -4356,8 +4356,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1712.0,
-            "y": 176.0
+            "x": -112.0,
+            "y": 240.0
           },
           "scale": {
             "x": 32.0,
@@ -4410,7 +4410,7 @@
     ]
   },
   {
-    "gameObjectID": 79,
+    "gameObjectID": 71,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -4419,8 +4419,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 848.0,
-            "y": 496.0
+            "x": -944.0,
+            "y": 560.0
           },
           "scale": {
             "x": 32.0,
@@ -4473,7 +4473,7 @@
     ]
   },
   {
-    "gameObjectID": 81,
+    "gameObjectID": 72,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -4482,8 +4482,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 912.0,
-            "y": 592.0
+            "x": -880.0,
+            "y": 656.0
           },
           "scale": {
             "x": 32.0,
@@ -4536,7 +4536,7 @@
     ]
   },
   {
-    "gameObjectID": 83,
+    "gameObjectID": 73,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -4545,8 +4545,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1648.0,
-            "y": 496.0
+            "x": -176.0,
+            "y": 560.0
           },
           "scale": {
             "x": 32.0,
@@ -4594,6 +4594,258 @@
             }
           ],
           "componentID": 305
+        }
+      }
+    ]
+  },
+  {
+    "gameObjectID": 74,
+    "name": "Generated",
+    "isSerializable": true,
+    "isTriggerable": true,
+    "componentList": [
+      {
+        "Type": "main.haspid.Transform",
+        "Properties": {
+          "position": {
+            "x": -272.0,
+            "y": 912.0
+          },
+          "scale": {
+            "x": 32.0,
+            "y": 32.0
+          },
+          "rotation": 0.0,
+          "zIndex": 1,
+          "componentID": 1301
+        }
+      },
+      {
+        "Type": "main.components.SpriteRenderer",
+        "Properties": {
+          "spriteID": 2,
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0,
+            "w": 1.0
+          },
+          "texture": {
+            "filePath": "assets/images/items.png",
+            "texID": 6,
+            "width": 112,
+            "height": 80
+          },
+          "width": 16.0,
+          "height": 16.0,
+          "texCords": [
+            {
+              "x": 0.14285715,
+              "y": 0.6
+            },
+            {
+              "x": 0.14285715,
+              "y": 0.4
+            },
+            {
+              "x": 0.0,
+              "y": 0.4
+            },
+            {
+              "x": 0.0,
+              "y": 0.6
+            }
+          ],
+          "componentID": 1302
+        }
+      }
+    ]
+  },
+  {
+    "gameObjectID": 75,
+    "name": "Generated",
+    "isSerializable": true,
+    "isTriggerable": true,
+    "componentList": [
+      {
+        "Type": "main.haspid.Transform",
+        "Properties": {
+          "position": {
+            "x": -272.0,
+            "y": 912.0
+          },
+          "scale": {
+            "x": 32.0,
+            "y": 32.0
+          },
+          "rotation": 0.0,
+          "zIndex": 1,
+          "componentID": 1304
+        }
+      },
+      {
+        "Type": "main.components.SpriteRenderer",
+        "Properties": {
+          "spriteID": 1,
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0,
+            "w": 1.0
+          },
+          "texture": {
+            "filePath": "assets/images/items.png",
+            "texID": 6,
+            "width": 112,
+            "height": 80
+          },
+          "width": 16.0,
+          "height": 16.0,
+          "texCords": [
+            {
+              "x": 0.14285715,
+              "y": 0.6
+            },
+            {
+              "x": 0.14285715,
+              "y": 0.4
+            },
+            {
+              "x": 0.0,
+              "y": 0.4
+            },
+            {
+              "x": 0.0,
+              "y": 0.6
+            }
+          ],
+          "componentID": 1305
+        }
+      }
+    ]
+  },
+  {
+    "gameObjectID": 76,
+    "name": "Generated",
+    "isSerializable": true,
+    "isTriggerable": true,
+    "componentList": [
+      {
+        "Type": "main.haspid.Transform",
+        "Properties": {
+          "position": {
+            "x": -624.0,
+            "y": 912.0
+          },
+          "scale": {
+            "x": 32.0,
+            "y": 32.0
+          },
+          "rotation": 0.0,
+          "zIndex": 1,
+          "componentID": 1307
+        }
+      },
+      {
+        "Type": "main.components.SpriteRenderer",
+        "Properties": {
+          "spriteID": 1,
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0,
+            "w": 1.0
+          },
+          "texture": {
+            "filePath": "assets/images/items.png",
+            "texID": 6,
+            "width": 112,
+            "height": 80
+          },
+          "width": 16.0,
+          "height": 16.0,
+          "texCords": [
+            {
+              "x": 0.14285715,
+              "y": 0.6
+            },
+            {
+              "x": 0.14285715,
+              "y": 0.4
+            },
+            {
+              "x": 0.0,
+              "y": 0.4
+            },
+            {
+              "x": 0.0,
+              "y": 0.6
+            }
+          ],
+          "componentID": 1308
+        }
+      }
+    ]
+  },
+  {
+    "gameObjectID": 77,
+    "name": "Generated",
+    "isSerializable": true,
+    "isTriggerable": true,
+    "componentList": [
+      {
+        "Type": "main.haspid.Transform",
+        "Properties": {
+          "position": {
+            "x": -656.0,
+            "y": 912.0
+          },
+          "scale": {
+            "x": 32.0,
+            "y": 32.0
+          },
+          "rotation": 0.0,
+          "zIndex": 1,
+          "componentID": 1310
+        }
+      },
+      {
+        "Type": "main.components.SpriteRenderer",
+        "Properties": {
+          "spriteID": 1,
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0,
+            "w": 1.0
+          },
+          "texture": {
+            "filePath": "assets/images/items.png",
+            "texID": 6,
+            "width": 112,
+            "height": 80
+          },
+          "width": 16.0,
+          "height": 16.0,
+          "texCords": [
+            {
+              "x": 0.14285715,
+              "y": 0.6
+            },
+            {
+              "x": 0.14285715,
+              "y": 0.4
+            },
+            {
+              "x": 0.0,
+              "y": 0.4
+            },
+            {
+              "x": 0.0,
+              "y": 0.6
+            }
+          ],
+          "componentID": 1311
         }
       }
     ]

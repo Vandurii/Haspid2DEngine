@@ -210,4 +210,8 @@ public abstract class Scene {
 
         return null;
     }
+
+    public Physics2D getPhysics(){
+        return physics;
+    }
 }
