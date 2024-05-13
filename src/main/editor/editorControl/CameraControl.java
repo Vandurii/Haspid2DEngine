@@ -1,4 +1,4 @@
-package main.Editor;
+package main.editor.editorControl;
 
 import main.Configuration;
 import main.components.Component;

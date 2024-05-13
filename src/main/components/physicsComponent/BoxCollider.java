@@ -1,4 +1,4 @@
-package main.physics.components;
+package main.components.physicsComponent;
 
 import main.haspid.Transform;
 import main.renderer.DebugDraw;
@@ -7,7 +7,7 @@ import org.joml.Vector2f;
 import static main.Configuration.colliderIndex;
 import static main.Configuration.colliderColor;
 
-public class BoxCollider extends Collider{
+public class BoxCollider extends Collider {
     private Vector2f halfSize;
     private Vector2f origin; // todo why i need it?
     private Vector2f center;

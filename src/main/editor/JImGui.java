@@ -1,4 +1,4 @@
-package main.Editor;
+package main.editor;
 
 import imgui.ImGui;
 import imgui.flag.ImGuiCol;
@@ -13,11 +13,11 @@ import java.awt.*;
 public class JImGui {
     private static int defaultWidth = 80;
 
-    public static <T> Object drawValue(String label, T type){
-        return drawValue(label, type, 0, defaultWidth);
+    public static <T> Object drawValue(String label, T type, String hashName){
+        return drawValue(label, type ,hashName, 0, defaultWidth);
     }
 
-    public static <T> Object drawValue(String label, T type, float resetValue, float columnWidth){
+    public static <T> Object drawValue(String label, T type, String hashName, float resetValue, float columnWidth){
         ImGui.pushID(label);
 
         ImGui.columns(2);
@@ -31,18 +31,19 @@ public class JImGui {
             ImGui.popStyleVar();
         }else if(type instanceof Integer){
             int[] valArr = {(int)type};
-            ImGui.dragInt("##dragInt", valArr, 0.1f);
+            ImGui.dragInt("##" + hashName, valArr, 0.1f);
             pop();
             return valArr[0];
         }else if(type instanceof Float){
+            double a = Math.random();
             float[] valArr = {(float)type};
-            ImGui.dragFloat("##dragFloat", valArr, 0.1f);
+            ImGui.dragFloat("##" + hashName, valArr, 0.1f);
             pop();
             return valArr[0];
         }else if(type instanceof String){
             String str  = (String) type;
             ImString outString = new ImString(str, 256);
-            ImGui.inputText("##" + label, outString);
+            ImGui.inputText("##" + hashName + label, outString);
             pop();
             return outString.get();
         }

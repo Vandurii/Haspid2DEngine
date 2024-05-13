@@ -1,7 +1,7 @@
-package main.observers;
+package main.physics.events;
 
 import main.haspid.GameObject;
-import main.observers.events.Event;
+import main.physics.events.Event;
 
 public interface Observer {
     void onNotify(GameObject gameObject, Event event);

@@ -1,11 +1,11 @@
-package main.physics.components;
+package main.components.physicsComponent;
 
 import main.renderer.DebugDraw;
 import org.joml.Vector2f;
 
 import static main.Configuration.colliderIndex;
 
-public class CircleCollider extends Collider{
+public class CircleCollider extends Collider {
     private float radius;
 
     public CircleCollider(float radius){

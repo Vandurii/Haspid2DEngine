@@ -1,7 +1,6 @@
-package main.observers;
+package main.physics.events;
 
 import main.haspid.GameObject;
-import main.observers.events.Event;
 
 import java.util.ArrayList;
 import java.util.List;

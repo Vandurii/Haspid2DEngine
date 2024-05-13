@@ -1,14 +1,15 @@
 package main.physics;
 
+import main.components.physicsComponent.*;
 import main.haspid.GameObject;
 import main.haspid.Transform;
-import main.physics.components.*;
 import org.jbox2d.collision.shapes.CircleShape;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.collision.shapes.Shape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.*;
 import org.joml.Vector2f;
+import org.jbox2d.dynamics.BodyType;
 
 public class Physics2D {
     private Vec2 gravity;

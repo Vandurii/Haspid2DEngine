@@ -1,19 +1,16 @@
-package main.Editor;
+package main.editor;
 
 import imgui.ImGui;
 import imgui.ImVec2;
 import imgui.flag.ImGuiCol;
-import main.components.Animation;
+import main.components.stateMachine.Animation;
 import main.components.SpriteRenderer;
+import main.editor.editorControl.MouseControls;
 import main.haspid.GameObject;
-import main.haspid.MouseListener;
-import main.prefabs.Prefabs;
 import main.util.*;
 import org.joml.Vector2f;
-import org.joml.Vector4f;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static main.Configuration.*;
@@ -66,7 +63,6 @@ public class PropertiesWindow {
                 GameObject holdingObject;
                 // todo
                 if(i == 0 && index == 3){
-                    System.out.println("true");
                     List<SpriteRenderer> animationList = new ArrayList<>();
                     SpriteSheet sheet = AssetPool.getSpriteSheet(firstSpriteSheet);
 

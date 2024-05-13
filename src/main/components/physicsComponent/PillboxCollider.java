@@ -1,11 +1,15 @@
-package main.physics.components;
+package main.components.physicsComponent;
 
+import main.components.physicsComponent.BoxCollider;
+import main.components.physicsComponent.CircleCollider;
+import main.components.physicsComponent.Collider;
+import main.components.physicsComponent.RigidBody;
 import main.haspid.GameObject;
 import main.haspid.Window;
 import main.physics.Physics2D;
 import org.joml.Vector2f;
 
-public class PillboxCollider extends Collider{
+public class PillboxCollider extends Collider {
     private float width;
     private float height;
 
@@ -26,15 +30,12 @@ public class PillboxCollider extends Collider{
 
     @Override
     public void update(float dt){
-
         if(boxCollider.getParent() == null || topCircle.getParent() == null || bottomCircle.getParent() == null ){
             GameObject parent = getParent();
             boxCollider.setParent(parent);
             topCircle.setParent(parent);
             bottomCircle.setParent(parent);
             recalculateColliders();
-
-            System.out.println(parent);
         }
 
         topCircle.update(dt);

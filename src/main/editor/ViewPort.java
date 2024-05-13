@@ -1,4 +1,4 @@
-package main.Editor;
+package main.editor;
 
 import imgui.ImGui;
 import imgui.ImVec2;
@@ -6,9 +6,6 @@ import imgui.flag.ImGuiCol;
 import imgui.flag.ImGuiStyleVar;
 import imgui.flag.ImGuiWindowFlags;
 import main.haspid.Window;
-import main.observers.EventSystem;
-import main.observers.events.Event;
-import main.observers.events.EventType;
 
 import static main.Configuration.*;
 

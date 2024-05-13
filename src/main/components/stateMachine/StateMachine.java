@@ -1,6 +1,8 @@
-package main.components;
+package main.components.stateMachine;
 
-import main.Editor.JImGui;
+import main.components.Component;
+import main.components.SpriteRenderer;
+import main.editor.JImGui;
 import main.util.Texture;
 import org.joml.Vector2f;
 
@@ -9,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
-public class StateMachine extends Component{
+public class StateMachine extends Component {
     private HashMap<StateTrigger, String> stateTransfer;
     private List<Animation> animationList;
     private transient Animation currentAnimation;
@@ -40,11 +42,11 @@ public class StateMachine extends Component{
     @Override
     public void dearGui(){
         for(Animation animation: animationList){
-            animation.setTitle((String)JImGui.drawValue("State:", animation.getTitle()));
+            animation.setTitle((String)JImGui.drawValue("State:", animation.getTitle(), this.hashCode() + ""));
 
             int index = 0;
             for(Frame frame: animation.getFrameList()){
-                frame.setFrameTime((float)JImGui.drawValue("Frame " + index++ + ": ", frame.getFrameTime()));
+                frame.setFrameTime((float)JImGui.drawValue("Frame " + index++ + ": ", frame.getFrameTime(), this.hashCode() + ""));
             }
         }
     }

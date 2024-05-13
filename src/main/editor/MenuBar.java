@@ -1,11 +1,11 @@
-package main.Editor;
+package main.editor;
 
 import imgui.ImGui;
 import imgui.flag.ImGuiCol;
 import main.haspid.Window;
-import main.observers.EventSystem;
-import main.observers.events.Event;
-import main.observers.events.EventType;
+import main.physics.events.EventSystem;
+import main.physics.events.Event;
+import main.physics.events.EventType;
 
 import static main.Configuration.imGuiMenuBar;
 import static main.Configuration.imGuiTabActive;

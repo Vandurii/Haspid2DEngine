@@ -1,4 +1,4 @@
-package main.Editor;
+package main.editor;
 
 import imgui.ImGui;
 import imgui.flag.ImGuiCol;

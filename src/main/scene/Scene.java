@@ -2,7 +2,6 @@ package main.scene;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import main.Editor.InspectorWindow;
 import main.Helper;
 import main.components.Component;
 import main.components.SpriteRenderer;
@@ -10,7 +9,6 @@ import main.haspid.Camera;
 import main.components.ComponentSerializer;
 import main.haspid.GameObject;
 import main.haspid.GameObjectDeserializer;
-import main.haspid.Window;
 import main.physics.Physics2D;
 import main.renderer.Renderer;
 import main.util.AssetPool;

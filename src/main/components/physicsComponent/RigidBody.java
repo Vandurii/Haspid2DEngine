@@ -1,9 +1,9 @@
-package main.physics.components;
+package main.components.physicsComponent;
 
 import main.components.Component;
 import main.haspid.Window;
 import main.physics.Physics2D;
-import main.physics.enums.BodyType;
+import main.physics.BodyType;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.joml.Vector2f;

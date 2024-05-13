@@ -1,19 +1,11 @@
 package main.haspid;
 
 import imgui.ImGui;
-import imgui.flag.ImGuiTreeNodeFlags;
-import imgui.flag.ImGuiWindowFlags;
-import imgui.type.ImString;
-import main.Editor.JImGui;
+import main.editor.JImGui;
 import main.components.Component;
-import main.components.SpriteRenderer;
-import main.physics.components.RigidBody;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.lwjgl.glfw.GLFW.GLFW_FALSE;
-import static org.lwjgl.glfw.GLFW.GLFW_TRUE;
 
 public class GameObject {
 
@@ -63,10 +55,9 @@ public class GameObject {
     }
 
     public void dearGui(){
-        setName();
+        if(ImGui.collapsingHeader("Name")) setName();
         for(Component c: componentList){
-            ImGui.collapsingHeader(c.getClass().getSimpleName());
-            c.dearGui();
+            if(ImGui.collapsingHeader(c.getClass().getSimpleName())) c.dearGui();
         }
     }
 
@@ -125,7 +116,7 @@ public class GameObject {
     }
 
     public void setName(){
-        name = (String) JImGui.drawValue("Name: ", name);
+        name = (String) JImGui.drawValue("Name: ", name, this.hashCode() + "");
     }
 
     public void setTransformFromItself(){

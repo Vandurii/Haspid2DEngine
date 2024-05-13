@@ -1,12 +1,12 @@
 package main.components;
 
+import main.components.stateMachine.StateMachine;
 import main.haspid.Direction;
 import main.haspid.KeyListener;
 import main.haspid.Window;
 import main.physics.Physics2D;
-import main.physics.components.RigidBody;
+import main.components.physicsComponent.RigidBody;
 import org.joml.Vector2f;
-import org.lwjgl.glfw.GLFW;
 
 import static org.lwjgl.glfw.GLFW.*;
 

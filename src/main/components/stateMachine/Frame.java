@@ -1,4 +1,6 @@
-package main.components;
+package main.components.stateMachine;
+
+import main.components.SpriteRenderer;
 
 public class Frame {
     private float frameTime;

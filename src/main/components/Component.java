@@ -2,7 +2,7 @@ package main.components;
 
 import imgui.ImGui;
 import imgui.type.ImInt;
-import main.Editor.JImGui;
+import main.editor.JImGui;
 import main.haspid.GameObject;
 import org.jbox2d.dynamics.contacts.Contact;
 import org.joml.Vector2f;
@@ -24,8 +24,7 @@ public abstract class Component {
 
     public abstract void update(float dt);
 
-    public  Component copy(){
-        System.out.println("Im not overrided");
+    public Component copy(){
         return null;
     };
 
@@ -63,7 +62,7 @@ public abstract class Component {
                 String name = f.getName();
 
                 if (clazz == int.class || clazz == float.class) {
-                    f.set(this, JImGui.drawValue(f.getName(), value));
+                    f.set(this, JImGui.drawValue(f.getName(), value, this.hashCode() + ""));
                 }else if(clazz == boolean.class){
                     boolean imBoolean = (boolean) value;
                     if(ImGui.checkbox(name,imBoolean)) f.set(this, !imBoolean);
@@ -77,7 +76,7 @@ public abstract class Component {
                     }
 
                 }else{
-                    JImGui.drawValue(name, value);
+                    JImGui.drawValue(name, value, this.hashCode() + "");
                 }
 
                 if(isPrivate) f.setAccessible(false);

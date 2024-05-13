@@ -1,4 +1,4 @@
-package main.Editor;
+package main.editor.editorControl;
 
 import main.components.Component;
 import main.components.SpriteRenderer;
@@ -8,13 +8,10 @@ import main.scene.EditorScene;
 import main.util.AssetPool;
 import main.util.SpriteSheet;
 import org.joml.Vector2f;
-import org.joml.Vector4f;
 
 import java.util.List;
 
 import static main.Configuration.*;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_1;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_LEFT_CONTROL;
 
 public class Gizmo extends Component {
 

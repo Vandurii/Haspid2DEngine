@@ -1,6 +1,6 @@
-package main.components;
+package main.components.stateMachine;
 
-import main.util.AssetPool;
+import main.components.SpriteRenderer;
 
 import java.util.ArrayList;
 import java.util.List;

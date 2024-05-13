@@ -1,13 +1,12 @@
-package main.prefabs;
+package main.editor;
 
 import main.components.*;
+import main.components.stateMachine.Animation;
+import main.components.stateMachine.StateMachine;
 import main.haspid.GameObject;
 import main.haspid.Transform;
-import main.physics.components.PillboxCollider;
-import main.util.AssetPool;
-import main.util.SpriteSheet;
+import main.components.physicsComponent.PillboxCollider;
 import org.joml.Vector2f;
-import org.joml.Vector4f;
 
 import java.util.List;
 

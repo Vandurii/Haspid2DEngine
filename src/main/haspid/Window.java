@@ -1,12 +1,8 @@
 package main.haspid;
 
-import main.Editor.InspectorWindow;
-import main.components.Component;
-import main.observers.EventSystem;
-import main.observers.Observer;
-import main.observers.events.Event;
-import main.observers.events.EventType;
-import main.renderer.DebugDraw;
+import main.physics.events.EventSystem;
+import main.physics.events.Observer;
+import main.physics.events.Event;
 import main.renderer.FrameBuffer;
 import main.renderer.IDBuffer;
 import main.renderer.Renderer;
@@ -17,7 +13,6 @@ import main.util.AssetPool;
 import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
-import org.lwjgl.glfw.GLFWWindowSizeCallback;
 import org.lwjgl.openal.AL;
 import org.lwjgl.openal.ALC;
 import org.lwjgl.openal.ALCCapabilities;
@@ -25,15 +20,11 @@ import org.lwjgl.openal.ALCapabilities;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.system.MemoryStack;
 
-import java.awt.*;
 import java.nio.IntBuffer;
 
-import static java.awt.Color.DARK_GRAY;
-import static java.awt.SystemColor.window;
 import static main.Configuration.*;
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.glfw.GLFWNativeWin32.glfwGetWin32Window;
 import static org.lwjgl.openal.ALC10.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryStack.stackPush;

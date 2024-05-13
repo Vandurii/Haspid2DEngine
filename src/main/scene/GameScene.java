@@ -1,14 +1,13 @@
 package main.scene;
 
 import imgui.app.Configuration;
-import main.Editor.MenuBar;
-import main.Editor.ViewPort;
+import main.editor.MenuBar;
+import main.editor.ViewPort;
 import main.game.GameKeyControls;
 import main.haspid.GameObject;
 import main.haspid.ImGuiLayer;
 import main.haspid.Window;
 import main.renderer.Renderer;
-import main.scene.Scene;
 
 public class GameScene extends Scene {
 

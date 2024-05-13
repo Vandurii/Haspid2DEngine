@@ -1,4 +1,4 @@
-package main.Editor;
+package main.editor.editorControl;
 
 import main.components.Component;
 import main.components.SpriteRenderer;
@@ -201,7 +201,6 @@ public class MouseControls extends Component {
 
         GameObject active = editorScene.getGameObjectFromID(id);
         if(active != null && active.isTriggerable()){
-            System.out.println(active.getGameObjectID());
 
             if(!multipleMode){
                 unselectActiveObjects();

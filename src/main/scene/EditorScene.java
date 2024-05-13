@@ -1,7 +1,11 @@
 package main.scene;
 
 import imgui.app.Configuration;
-import main.Editor.*;
+import main.editor.*;
+import main.editor.editorControl.CameraControl;
+import main.editor.editorControl.Gizmo;
+import main.editor.editorControl.KeyControls;
+import main.editor.editorControl.MouseControls;
 import main.haspid.*;
 import main.haspid.Window;
 import main.renderer.DebugDraw;

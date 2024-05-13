@@ -1,8 +1,7 @@
-package main.physics.components;
+package main.components.physicsComponent;
 
-import main.Editor.JImGui;
+import main.editor.JImGui;
 import main.components.Component;
-import main.haspid.Transform;
 import org.joml.Vector2f;
 
 public class Collider extends Component {
@@ -11,7 +10,7 @@ public class Collider extends Component {
     @Override
     public void dearGui(){
         super.dearGui();
-        JImGui.drawValue("offset", offset);
+        JImGui.drawValue("offset", offset, this.hashCode() + "");
     }
 
     @Override

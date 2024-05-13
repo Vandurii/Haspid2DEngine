@@ -1,4 +1,4 @@
-package main.Editor;
+package main.editor;
 
 import main.components.Component;
 import main.haspid.Camera;

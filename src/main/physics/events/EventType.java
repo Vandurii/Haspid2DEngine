@@ -1,4 +1,4 @@
-package main.observers.events;
+package main.physics.events;
 
 public enum EventType {
     GameEngineStart,

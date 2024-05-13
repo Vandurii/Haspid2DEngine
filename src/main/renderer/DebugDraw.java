@@ -1,6 +1,6 @@
 package main.renderer;
 
-import main.Editor.ViewPort;
+import main.editor.ViewPort;
 import main.haspid.Camera;
 import main.haspid.Window;
 import main.util.AssetPool;

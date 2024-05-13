@@ -1,12 +1,13 @@
-package main.Editor;
+package main.editor;
 
 import imgui.ImGui;
 import imgui.flag.ImGuiCol;
 import main.Helper;
+import main.editor.editorControl.MouseControls;
 import main.haspid.GameObject;
-import main.physics.components.BoxCollider;
-import main.physics.components.CircleCollider;
-import main.physics.components.RigidBody;
+import main.components.physicsComponent.BoxCollider;
+import main.components.physicsComponent.CircleCollider;
+import main.components.physicsComponent.RigidBody;
 import org.joml.Vector2f;
 
 import java.util.List;
