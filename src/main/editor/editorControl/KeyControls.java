@@ -71,9 +71,12 @@ public class KeyControls extends Component {
                     mouseControls.initObjDistanceFromCursor();
                 }
                 mouseControls.trackMouseMultiple();
-            }else if(!keyboard.isKeyPressed(GLFW_KEY_Y)){
-                mouseControls.resetObjDistanceFromCursor();
             }
+
+            ///todo
+             if(!keyboard.isKeyPressed(GLFW_KEY_Y)) {
+                 mouseControls.resetObjDistanceFromCursor();
+             }
 
             keyDebounce = resetDebounce;
         }

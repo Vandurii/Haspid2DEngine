@@ -8,10 +8,7 @@ import main.util.Shader;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 import static main.Configuration.*;
 import static org.lwjgl.opengl.GL15.*;
@@ -30,7 +27,6 @@ public class DebugDraw {
     private static int pointSizeFloat;
     private static int lineSizeFloat;
     private static Shader line2DShader;
-    private static float[] cVertexArray;
     private static HashMap<Integer, List<Line2D>> lineMap;
 
     private static void start(){
@@ -80,7 +76,13 @@ public class DebugDraw {
         beginFrame();
 
         int offset = 0;
-        for(List<Line2D> list: lineMap.values()){
+        vertexArray = new float[maxLines* lineSizeFloat];
+
+        List<Integer> zIndexList = new ArrayList<>(lineMap.keySet());
+        Collections.sort(zIndexList);
+
+        for(int j = 0; j < zIndexList.size(); j++){
+            List<Line2D> list = lineMap.get(zIndexList.get(j));
             for(Line2D line: list) {
                 for (int i = 0; i < 2; i++) {
                     Vector2f position = i == 0 ? line.getFrom() : line.getTo();
@@ -100,8 +102,8 @@ public class DebugDraw {
         }
 
         glBindBuffer(GL_ARRAY_BUFFER, VBO);
-        cVertexArray = Arrays.copyOfRange(vertexArray, 0,  getMapSize() * lineSizeFloat);
-        glBufferSubData(GL_ARRAY_BUFFER, 0, cVertexArray);
+        glBufferData(GL_ARRAY_BUFFER, vertexArray, GL_DYNAMIC_DRAW);
+        //print(vertexArray);
 
         Camera camera = Window.getInstance().getCurrentScene().getCamera();
         line2DShader.use();
@@ -119,6 +121,14 @@ public class DebugDraw {
         glDisableVertexAttribArray(1);
         glBindVertexArray(0);
         line2DShader.detach();
+    }
+
+    public static void print(float[] array){
+        System.out.println("******************** start ***************************");
+        for(int i = 0; i < array.length; i++){
+            System.out.print(array[i] + " \t");
+            if((i + 1) % 6  == 0) System.out.println();
+        }
     }
 
     public static void drawCircle2D(Vector2f centre, float radius, int zIndex){
@@ -220,11 +230,6 @@ public class DebugDraw {
 
     public static HashMap<Integer, List<Line2D>> getLineMap(){
         return lineMap;
-    }
-
-    public static void printValues() {
-        System.out.println("******************");
-        System.out.println(Arrays.toString(cVertexArray));
     }
 
     public static void sleep(){

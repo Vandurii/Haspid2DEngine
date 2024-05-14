@@ -10,6 +10,7 @@ public class Line2D {
     private float stroke;
     private Vector2f from;
     private Vector3f color;
+    private boolean isMarkToRemove;
 
     public Line2D(int zIndex, Vector2f from, Vector2f to, Vector3f color, int lifeTime) {
         this.from = from;
@@ -22,6 +23,14 @@ public class Line2D {
     public int beginFrame(){
         lifeTime--;
         return lifeTime;
+    }
+
+    public void markToRemove(){
+        isMarkToRemove = true;
+    }
+
+    public boolean isMarkToRemove(){
+        return isMarkToRemove;
     }
 
     public Vector2f getFrom() {

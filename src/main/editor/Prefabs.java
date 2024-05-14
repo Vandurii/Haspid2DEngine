@@ -44,8 +44,8 @@ public class Prefabs {
         stateMachine.addState(animation);
         animatedHoldingObject.addComponent(stateMachine);
         animatedHoldingObject.addComponent(new SpriteRenderer());
-        animatedHoldingObject.addComponent(new PlayerController());
-        animatedHoldingObject.addComponent(new PillboxCollider());
+//        animatedHoldingObject.addComponent(new PlayerController());
+//        animatedHoldingObject.addComponent(new PillboxCollider());
 
         return  animatedHoldingObject;
     }

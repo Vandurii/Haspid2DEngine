@@ -114,7 +114,7 @@ public class Configuration {
 
     public static int gridLinesIndex = 1;
     public static int colliderIndex = 2;
-    public static int selectorIndex = 0;
+    public static int selectorIndex = 4;
 
     public static float selectorScale = 1.20f;
 
@@ -127,7 +127,7 @@ public class Configuration {
 // todo scanObject problem | collider box | physics with scale
 // refactor properties window
 // selector scale
-// debug draw
+
 
 
 
