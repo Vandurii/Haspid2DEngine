@@ -4,10 +4,14 @@ import main.components.physicsComponent.BoxCollider;
 import main.components.physicsComponent.CircleCollider;
 import main.components.physicsComponent.Collider;
 import main.components.physicsComponent.RigidBody;
+import main.editor.JImGui;
 import main.haspid.GameObject;
 import main.haspid.Window;
 import main.physics.Physics2D;
 import org.joml.Vector2f;
+
+import static main.Configuration.pillboxHeight;
+import static main.Configuration.pillboxWidth;
 
 public class PillboxCollider extends Collider {
     private float width;
@@ -21,11 +25,14 @@ public class PillboxCollider extends Collider {
     private transient Physics2D physics;
 
     public PillboxCollider(){
+        this.width = pillboxWidth;
+        this.height = pillboxHeight;
         this.boxCollider = new BoxCollider(new Vector2f(0));
         this.topCircle = new CircleCollider(0);
         this.bottomCircle = new CircleCollider(0);
 
         this.physics = Window.getInstance().getCurrentScene().getPhysics();
+        recalculateColliders();
     }
 
     @Override
@@ -43,6 +50,13 @@ public class PillboxCollider extends Collider {
         boxCollider.update(dt);
 
         if(resetFixtureNextFrame) resetFixture();
+    }
+
+    @Override
+    public void dearGui(){
+        super.dearGui();
+        setWidth((float)JImGui.drawValue("width", width, this.hashCode() + ""));
+        setHeight((float)JImGui.drawValue("height", height, this.hashCode() + ""));
     }
 
     public void resetFixture(){

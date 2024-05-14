@@ -83,7 +83,8 @@ public class PropertiesWindow {
 
                     holdingObject = Prefabs.generateAnimateObject(spriteWidth, spriteHeight, animation);
                 }else{
-                    holdingObject = Prefabs.generateSpriteObject(sprite, spriteWidth, spriteHeight);
+                   // holdingObject = Prefabs.generateSpriteObject(sprite, spriteWidth, spriteHeight);
+                    holdingObject = Prefabs.generateSolidObject(sprite, spriteWidth, spriteHeight);
                 }
                 mouseControls.pickupObject(holdingObject);
             }

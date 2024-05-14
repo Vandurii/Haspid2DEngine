@@ -1,5 +1,6 @@
 package main.components.physicsComponent;
 
+import main.editor.JImGui;
 import main.haspid.Transform;
 import main.renderer.DebugDraw;
 import org.joml.Vector2f;
@@ -25,6 +26,21 @@ public class BoxCollider extends Collider {
         DebugDraw.drawBoxes2D(colliderIndex, center, new Vector2f(halfSize.x * 2, halfSize.y * 2), t.getRotation(), colliderColor, 1 );
     }
 
+    public BoxCollider copy(){
+        BoxCollider boxCollider = new BoxCollider(halfSize);
+        boxCollider.setOffset(getOffset());
+        boxCollider.setOrigin(origin);
+        boxCollider.setCenter(center);
+
+        return boxCollider;
+    }
+
+    @Override
+    public void dearGui(){
+        super.dearGui();
+        dearGui(this);
+    }
+
     public Vector2f getHalfSize(){
         return halfSize;
     }
@@ -35,5 +51,13 @@ public class BoxCollider extends Collider {
 
     public Vector2f getOrigin(){
         return origin;
+    }
+
+    public void setOrigin(Vector2f origin) {
+        this.origin = new Vector2f(origin);
+    }
+
+    public void setCenter(Vector2f center) {
+        this.center = new Vector2f(center);
     }
 }

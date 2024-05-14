@@ -25,6 +25,7 @@ public abstract class Component {
     public abstract void update(float dt);
 
     public Component copy(){
+        System.out.println("im not made < copy from: " + this.getClass().getSimpleName());
         return null;
     };
 
@@ -48,8 +49,11 @@ public abstract class Component {
 
     }
 
-    public void dearGui() {
-        Field[] fields = this.getClass().getDeclaredFields();
+    public void dearGui(Object object){
+        Object obj = object;
+        if(object == null) obj = this;
+
+        Field[] fields = obj.getClass().getDeclaredFields();
         for(Field f: fields){
             try {
                 boolean isTransient = Modifier.isTransient(f.getModifiers());
@@ -58,25 +62,25 @@ public abstract class Component {
                 if(isPrivate) f.setAccessible(true);
 
                 Class clazz = f.getType();
-                Object value = f.get(this);
+                Object value = f.get(obj);
                 String name = f.getName();
 
                 if (clazz == int.class || clazz == float.class) {
-                    f.set(this, JImGui.drawValue(f.getName(), value, this.hashCode() + ""));
+                    f.set(obj, JImGui.drawValue(f.getName(), value, obj.hashCode() + ""));
                 }else if(clazz == boolean.class){
                     boolean imBoolean = (boolean) value;
-                    if(ImGui.checkbox(name,imBoolean)) f.set(this, !imBoolean);
+                    if(ImGui.checkbox(name,imBoolean)) f.set(obj, !imBoolean);
                 }else if(clazz.isEnum()){
                     String[] enumValues = getEnumValues(clazz);
                     String enumName = ((Enum<?>) value).name();
                     ImInt index = new ImInt(getIndexOf(enumName, enumValues));
 
                     if(ImGui.combo(f.getName(), index, enumValues, enumValues.length)){
-                        f.set(this, clazz.getEnumConstants()[index.get()]);
+                        f.set(obj, clazz.getEnumConstants()[index.get()]);
                     }
 
                 }else{
-                    JImGui.drawValue(name, value, this.hashCode() + "");
+                    JImGui.drawValue(name, value, obj.hashCode() + "");
                 }
 
                 if(isPrivate) f.setAccessible(false);
@@ -84,6 +88,10 @@ public abstract class Component {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void dearGui() {
+        dearGui(null);
     }
 
     public static void resetCounter(){

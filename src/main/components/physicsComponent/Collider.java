@@ -9,7 +9,6 @@ public class Collider extends Component {
 
     @Override
     public void dearGui(){
-        super.dearGui();
         JImGui.drawValue("offset", offset, this.hashCode() + "");
     }
 

@@ -1,11 +1,14 @@
 package main.editor;
 
 import main.components.*;
+import main.components.physicsComponent.BoxCollider;
+import main.components.physicsComponent.RigidBody;
 import main.components.stateMachine.Animation;
 import main.components.stateMachine.StateMachine;
 import main.haspid.GameObject;
 import main.haspid.Transform;
 import main.components.physicsComponent.PillboxCollider;
+import main.physics.BodyType;
 import org.joml.Vector2f;
 
 import java.util.List;
@@ -29,6 +32,17 @@ public class Prefabs {
         return holdingObject;
     }
 
+    public static GameObject generateSolidObject(SpriteRenderer spriteR, float width, float height){
+        GameObject solidObject = generateSpriteObject(spriteR, width, height);
+        RigidBody rigidBody = new RigidBody();
+        rigidBody.setBodyType(BodyType.Static);
+        BoxCollider boxCollider = new BoxCollider(new Vector2f(width, height));
+        solidObject.addComponent(rigidBody);
+        solidObject.addComponent(boxCollider);
+
+        return solidObject;
+    }
+
     public static GameObject generateAnimateObject(float width, float height, float defaultFrameTime, String title, List<SpriteRenderer> spriteRenderList){
         Animation animation = new Animation(title);
         for(SpriteRenderer spriteRenderer: spriteRenderList){
@@ -44,8 +58,8 @@ public class Prefabs {
         stateMachine.addState(animation);
         animatedHoldingObject.addComponent(stateMachine);
         animatedHoldingObject.addComponent(new SpriteRenderer());
-//        animatedHoldingObject.addComponent(new PlayerController());
-//        animatedHoldingObject.addComponent(new PillboxCollider());
+       animatedHoldingObject.addComponent(new PlayerController());
+        animatedHoldingObject.addComponent(new PillboxCollider());
 
         return  animatedHoldingObject;
     }

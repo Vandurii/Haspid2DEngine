@@ -20,6 +20,12 @@ public class CircleCollider extends Collider {
         DebugDraw.drawCircle2D(center, radius, colliderIndex);
     }
 
+    @Override
+    public void dearGui(){
+        super.dearGui();
+        dearGui(this);
+    }
+
     public float getRadius() {
         return radius;
     }

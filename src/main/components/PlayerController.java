@@ -73,8 +73,8 @@ public class PlayerController extends Component {
         }
 
         acceleration.y = physics.getGravity().y * 0.7f;
-        velocity.x += acceleration.x * dt;
-        velocity.y += acceleration.y * dt;
+        velocity.x += acceleration.x ;
+        velocity.y += acceleration.y ;
         velocity.x = Math.max(Math.min(velocity.x, terminalVelocity.x), -terminalVelocity.x);
         velocity.y = Math.max(Math.min(velocity.y, terminalVelocity.y), -terminalVelocity.y);
         rigidBody.setVelocity(velocity);

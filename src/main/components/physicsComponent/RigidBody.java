@@ -43,9 +43,27 @@ public class RigidBody extends Component {
         if(window.getCurrentScene().isInEditMode()) return;
 
         if(rawBody != null){
+           // System.out.println(velocity.x + " : "+ velocity.y);
             getParent().getTransform().setPosition(rawBody.getPosition().x, rawBody.getPosition().y);
             getParent().getTransform().setRotation((float) Math.toDegrees(rawBody.getAngle()));
         }
+    }
+
+    public RigidBody copy(){
+        RigidBody rigidBody = new RigidBody();
+        rigidBody.setMass(mass);
+        rigidBody.setSensor(isSensor);
+        rigidBody.setFriction(friction);
+        rigidBody.setVelocity(velocity);
+        rigidBody.setBodyType(bodyType);
+        rigidBody.setGravityScale(gravityScale);
+        rigidBody.setLinearDamping(linearDamping);
+        rigidBody.setFixedRotation(fixedRotation);
+        rigidBody.setAngularDamping(angularDamping);
+        rigidBody.setAngularVelocity(angularVelocity);
+        rigidBody.setContinuousCollision(continuousCollision);
+
+        return rigidBody;
     }
 
     public void addVelocity(Vector2f velocity){
@@ -150,5 +168,9 @@ public class RigidBody extends Component {
 
     public float getGravityScale(){
         return gravityScale;
+    }
+
+    public void setFriction(float friction) {
+        this.friction = friction;
     }
 }

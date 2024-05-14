@@ -41,7 +41,7 @@ public class Physics2D {
 
     public void add(GameObject gameObject){
         RigidBody rigidBody = gameObject.getComponent(RigidBody.class);
-        if(rigidBody != null && rigidBody.getRawBody() != null){
+        if(rigidBody != null){
             Transform transform = gameObject.getTransform();
 
             BodyDef bodyDef = new BodyDef();

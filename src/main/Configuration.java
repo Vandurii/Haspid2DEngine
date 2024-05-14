@@ -118,6 +118,9 @@ public class Configuration {
 
     public static float selectorScale = 1.20f;
 
+    public static float pillboxWidth = (objectSize * 2) * 0.85f;
+    public static float pillboxHeight = (objectSize * 2) * 1.43f;
+
     public static String levelPath = "level.txt";
 
     public static Vector2f windowsScale = new Vector2f(windowWidth / uProjectionDimension.x, windowHeight /  uProjectionDimension.y);
@@ -127,6 +130,7 @@ public class Configuration {
 // todo scanObject problem | collider box | physics with scale
 // refactor properties window
 // selector scale
+// pillbox collider with scale
 
 
 
