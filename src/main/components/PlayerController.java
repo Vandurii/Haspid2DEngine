@@ -6,6 +6,7 @@ import main.haspid.KeyListener;
 import main.haspid.Window;
 import main.physics.Physics2D;
 import main.components.physicsComponent.RigidBody;
+import org.joml.Vector2d;
 import org.joml.Vector2f;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -82,7 +83,7 @@ public class PlayerController extends Component {
     }
 
     public void move(Direction direction){
-        Vector2f scale = getParent().getTransform().getScale();
+        Vector2d scale = getParent().getTransform().getScale();
 
         switch (direction){
             case Up -> {

@@ -10,7 +10,7 @@ public class Camera {
     private Matrix4f uProjection, uView;
     private Vector2f position;
     private Matrix4f inverseUProjection, inverseUView;
-    private float xBuffer, yBuffer;
+    private double xBuffer, yBuffer;
 
     public Camera(Vector2f position){
         this.position = position;
@@ -28,7 +28,7 @@ public class Camera {
         uProjection.invert(inverseUProjection);
     }
 
-    public void addToBuffer(float x, float y){
+    public void addToBuffer(double x, double y){
         xBuffer += x;
         yBuffer += y;
 
@@ -51,8 +51,8 @@ public class Camera {
         yBuffer = 0;
     }
 
-    public void zoom(float value){
-        float val = value * scrollSensivity * zoom;
+    public void zoom(double value){
+        double val = value * scrollSensivity * zoom;
         if(zoom - val < minZoomValue || zoom - val > maxZoomValue) return;
         zoom -= val;
         adjustProjection();

@@ -9,6 +9,7 @@ import main.haspid.GameObject;
 import main.haspid.Transform;
 import main.components.physicsComponent.PillboxCollider;
 import main.physics.BodyType;
+import org.joml.Vector2d;
 import org.joml.Vector2f;
 
 import java.util.List;
@@ -18,7 +19,7 @@ import static main.Configuration.*;
 public class Prefabs {
     private static GameObject generateObject(float width, float height){
         GameObject holdingObject = new GameObject("Generated");
-        holdingObject.addComponent(new Transform(new Vector2f(), new Vector2f(width * spriteSize, height * spriteSize)));
+        holdingObject.addComponent(new Transform(new Vector2d(), new Vector2d(width * spriteSize, height * spriteSize)));
         holdingObject.setTransformFromItself();
 
         return holdingObject;
@@ -36,7 +37,7 @@ public class Prefabs {
         GameObject solidObject = generateSpriteObject(spriteR, width, height);
         RigidBody rigidBody = new RigidBody();
         rigidBody.setBodyType(BodyType.Static);
-        BoxCollider boxCollider = new BoxCollider(new Vector2f(width, height));
+        BoxCollider boxCollider = new BoxCollider(new Vector2d(width, height));
         solidObject.addComponent(rigidBody);
         solidObject.addComponent(boxCollider);
 

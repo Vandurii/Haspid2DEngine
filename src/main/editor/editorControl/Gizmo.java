@@ -7,6 +7,7 @@ import main.renderer.Renderer;
 import main.scene.EditorScene;
 import main.util.AssetPool;
 import main.util.SpriteSheet;
+import org.joml.Vector2d;
 import org.joml.Vector2f;
 
 import java.util.List;
@@ -48,13 +49,13 @@ public class Gizmo extends Component {
         this.gimzosSheet = AssetPool.getSpriteSheet(gizmosConfig);
 
         this.xAxisBody = new GameObject("gizmoXAxis");
-        this.xAxisBody.addComponent(new Transform(new Vector2f(), gizmoScale, xGizmoRotation, 20));
+        this.xAxisBody.addComponent(new Transform(new Vector2d(), gizmoScale, xGizmoRotation, 20));
         this.xAxisBody.setTransformFromItself();
         this.xAxisBody.setNonSerializable();
         this.xAxisBody.setNonTriggerable();
 
         this.yAxisBody = new GameObject("gizmoYAxis");
-        this.yAxisBody.addComponent(new Transform(new Vector2f(), gizmoScale, yGizmoRotation, 20));
+        this.yAxisBody.addComponent(new Transform(new Vector2d(), gizmoScale, yGizmoRotation, 20));
         this.yAxisBody.setTransformFromItself();
         this.yAxisBody.setNonSerializable();
         this.yAxisBody.setNonTriggerable();
@@ -110,19 +111,19 @@ public class Gizmo extends Component {
         }
 
         if(activeObject != null) {
-            Vector2f aPos = activeObject.getTransform().getPosition();
-            Vector2f aScale = activeObject.getTransform().getScale();
+            Vector2d aPos = activeObject.getTransform().getPosition();
+            Vector2d aScale = activeObject.getTransform().getScale();
 
-            xAxisBody.getTransform().setPosition(new Vector2f(aPos.x + xAxisXPadding + (aScale.x / 2), aPos.y + xAxisYPadding));
-            yAxisBody.getTransform().setPosition(new Vector2f(aPos.x + yAxisXPadding, aPos.y + yAxisYPadding + (aScale.y / 2)));
+            xAxisBody.getTransform().setPosition(new Vector2d(aPos.x + xAxisXPadding + (aScale.x / 2), aPos.y + xAxisYPadding));
+            yAxisBody.getTransform().setPosition(new Vector2d(aPos.x + yAxisXPadding, aPos.y + yAxisYPadding + (aScale.y / 2)));
         }
 
         if(activeObject != null){
-            Vector2f aScale = activeObject.getTransform().getScale();
+            Vector2d aScale = activeObject.getTransform().getScale();
 
             // gizmo - xAxis
-            Vector2f xPos = xAxisBody.getTransform().getPosition();
-            Vector2f xScale = new Vector2f(xAxisBody.getTransform().getScale().x * 2, xAxisBody.getTransform().getScale().y * 2);
+            Vector2d xPos = xAxisBody.getTransform().getPosition();
+            Vector2d xScale = new Vector2d(xAxisBody.getTransform().getScale().x * 2, xAxisBody.getTransform().getScale().y * 2);
 
             if(mouse.getWorldX() >= (xPos.x - xScale.y - aScale.x) && mouse.getWorldX() <= xPos.x + aScale.x + xScale.x && mouse.getWorldY() >= xPos.y - aScale.y - xScale.y && mouse.getWorldY() <= xPos.y + xScale.x + aScale.y){
                 xAxisSpriteRender.setColor(hoverGizmoColor);
@@ -133,8 +134,8 @@ public class Gizmo extends Component {
             }
 
             // gizmo - yAxis
-            Vector2f yPos = yAxisBody.getTransform().getPosition();
-            Vector2f yScale = new Vector2f(yAxisBody.getTransform().getScale().x * 2, yAxisBody.getTransform().getScale().y * 2);
+            Vector2d yPos = yAxisBody.getTransform().getPosition();
+            Vector2d yScale = new Vector2d(yAxisBody.getTransform().getScale().x * 2, yAxisBody.getTransform().getScale().y * 2);
 
             if(mouse.getWorldX() >= yPos.x - yScale.x - aScale.x && mouse.getWorldX() <= yPos.x + aScale.x + xScale.x && mouse.getWorldY() > yPos.y - yScale.y - aScale.y && mouse.getWorldY() <= yPos.y + aScale.y + xScale.y){
                 yAxisSpriteRender.setColor(hoverGizmoColor);

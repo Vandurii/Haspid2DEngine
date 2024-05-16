@@ -8,6 +8,7 @@ import main.editor.JImGui;
 import main.haspid.GameObject;
 import main.haspid.Window;
 import main.physics.Physics2D;
+import org.joml.Vector2d;
 import org.joml.Vector2f;
 
 import static main.Configuration.pillboxHeight;
@@ -27,7 +28,7 @@ public class PillboxCollider extends Collider {
     public PillboxCollider(){
         this.width = pillboxWidth;
         this.height = pillboxHeight;
-        this.boxCollider = new BoxCollider(new Vector2f(0));
+        this.boxCollider = new BoxCollider(new Vector2d(0));
         this.topCircle = new CircleCollider(0);
         this.bottomCircle = new CircleCollider(0);
 
@@ -70,17 +71,17 @@ public class PillboxCollider extends Collider {
     }
 
     public void recalculateColliders(){
-        Vector2f offset = getOffset();
+        Vector2d offset = getOffset();
         float circleRadius = width / 4f;
         float boxHeight = height - 2 * circleRadius;
 
         topCircle.setRadius(circleRadius);
-        topCircle.setOffset(new Vector2f(offset.x, offset.y + (boxHeight / 4f)));
+        topCircle.setOffset(new Vector2d(offset.x, offset.y + (boxHeight / 4f)));
 
         bottomCircle.setRadius(circleRadius);
-        bottomCircle.setOffset(new Vector2f(offset.x, offset.y - (boxHeight / 4f)));
+        bottomCircle.setOffset(new Vector2d(offset.x, offset.y - (boxHeight / 4f)));
 
-        boxCollider.setHalfSize(new Vector2f(width / 2.f, boxHeight / 2f));
+        boxCollider.setHalfSize(new Vector2d(width / 2.f, boxHeight / 2f));
         boxCollider.setOffset(offset);
     }
 

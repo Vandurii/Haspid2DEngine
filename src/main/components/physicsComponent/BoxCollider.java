@@ -3,27 +3,28 @@ package main.components.physicsComponent;
 import main.editor.JImGui;
 import main.haspid.Transform;
 import main.renderer.DebugDraw;
+import org.joml.Vector2d;
 import org.joml.Vector2f;
 
 import static main.Configuration.colliderIndex;
 import static main.Configuration.colliderColor;
 
 public class BoxCollider extends Collider {
-    private Vector2f halfSize;
-    private Vector2f origin; // todo why i need it?
-    private Vector2f center;
+    private Vector2d halfSize;
+    private Vector2d origin; // todo why i need it?
+    private Vector2d center;
 
-    public BoxCollider(Vector2f halfSize){
+    public BoxCollider(Vector2d halfSize){
         this.halfSize = halfSize;
-        this.origin = new Vector2f();
-        this.center = new Vector2f();
+        this.origin = new Vector2d();
+        this.center = new Vector2d();
     }
 
     @Override
     public void update(float dt){
         Transform t = getParent().getTransform();
-        center = new Vector2f(t.getPosition()).add(getOffset());
-        DebugDraw.drawBoxes2D(colliderIndex, center, new Vector2f(halfSize.x * 2, halfSize.y * 2), t.getRotation(), colliderColor, 1 );
+        center = new Vector2d(t.getPosition()).add(getOffset());
+     //todo   DebugDraw.drawBoxes2D(colliderIndex, center, new Vector2d(halfSize.x * 2, halfSize.y * 2), t.getRotation(), colliderColor, 1 );
     }
 
     public BoxCollider copy(){
@@ -41,23 +42,23 @@ public class BoxCollider extends Collider {
         dearGui(this);
     }
 
-    public Vector2f getHalfSize(){
+    public Vector2d getHalfSize(){
         return halfSize;
     }
 
-    public void setHalfSize(Vector2f halfSize){
-        this.halfSize = new Vector2f(halfSize);
+    public void setHalfSize(Vector2d halfSize){
+        this.halfSize = new Vector2d(halfSize);
     }
 
-    public Vector2f getOrigin(){
+    public Vector2d getOrigin(){
         return origin;
     }
 
-    public void setOrigin(Vector2f origin) {
-        this.origin = new Vector2f(origin);
+    public void setOrigin(Vector2d origin) {
+        this.origin = new Vector2d(origin);
     }
 
-    public void setCenter(Vector2f center) {
-        this.center = new Vector2f(center);
+    public void setCenter(Vector2d center) {
+        this.center = new Vector2d(center);
     }
 }

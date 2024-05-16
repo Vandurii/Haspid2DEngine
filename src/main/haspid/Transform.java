@@ -3,37 +3,38 @@ package main.haspid;
 import main.Helper;
 import main.components.Component;
 import main.components.SpriteRenderer;
+import org.joml.Vector2d;
 import org.joml.Vector2f;
 
 public class Transform extends Component {
-    private Vector2f position;
-    private Vector2f scale;
-    private float rotation;
+    private Vector2d position;
+    private Vector2d scale;
+    private double rotation;
     private int zIndex;
 
 
     public Transform(){
-        this.position = new Vector2f();
-        this.scale = new Vector2f();
+        this.position = new Vector2d();
+        this.scale = new Vector2d();
         this.rotation = 0;
         this.zIndex = 0;
     }
 
-    public Transform(Vector2f position){
+    public Transform(Vector2d position){
         this.position = position;
-        this.scale = new Vector2f();
+        this.scale = new Vector2d();
         this.rotation = 0;
         this.zIndex = 0;
     }
 
-    public Transform(Vector2f position, Vector2f scale){
+    public Transform(Vector2d position, Vector2d scale){
         this.position = position;
         this.scale = scale;
         this.rotation = 0;
         this.zIndex = 0;
     }
 
-    public Transform(Vector2f position, Vector2f scale, float rotation, int zIndex){
+    public Transform(Vector2d position, Vector2d scale, double rotation, int zIndex){
         this.rotation = rotation;
         this.position = position;
         this.scale = scale;
@@ -45,31 +46,31 @@ public class Transform extends Component {
         if(Helper.isNull(getParent())) throw new IllegalStateException("Parent Object is null.");
     }
 
-    public Vector2f getPosition() {
+    public Vector2d getPosition() {
         return position;
     }
 
-    public void setPosition(Vector2f position) {
+    public void setPosition(Vector2d position) {
         this.position = position;
     }
 
-    public void setPosition(float x, float y){
-        this.position = new Vector2f(x, y);
+    public void setPosition(double x, double y){
+        this.position = new Vector2d(x, y);
     }
 
-    public Vector2f getScale() {
+    public Vector2d getScale() {
         return scale;
     }
 
-    public void setScale(Vector2f scale) {
+    public void setScale(Vector2d scale) {
         this.scale = scale;
     }
 
-    public float getRotation() {
+    public double getRotation() {
         return rotation;
     }
 
-    public void setRotation(float rotation) {
+    public void setRotation(double rotation) {
         this.rotation = rotation;
     }
 
@@ -86,15 +87,15 @@ public class Transform extends Component {
 
     @Override
     public Transform copy(){
-        Transform t = new Transform(new Vector2f(this.position), new Vector2f(this.scale), rotation, zIndex);
+        Transform t = new Transform(new Vector2d(this.position), new Vector2d(this.scale), rotation, zIndex);
         t.setParent(getParent());
 
         return t;
     }
 
     public void copy(Transform to){
-        to.position.set(new Vector2f(this.position));
-        to.scale.set(new Vector2f(this.scale));
+        to.position.set(new Vector2d(this.position));
+        to.scale.set(new Vector2d(this.scale));
         to.setRotation(rotation);
         to.setZIndex(zIndex);
         to.setParent(getParent());

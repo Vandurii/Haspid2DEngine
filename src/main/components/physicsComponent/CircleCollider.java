@@ -1,23 +1,24 @@
 package main.components.physicsComponent;
 
 import main.renderer.DebugDraw;
+import org.joml.Vector2d;
 import org.joml.Vector2f;
 
 import static main.Configuration.colliderIndex;
 
 public class CircleCollider extends Collider {
-    private float radius;
+    private double radius;
 
-    public CircleCollider(float radius){
+    public CircleCollider(double radius){
         this.radius = radius;
     }
 
     @Override
     public void update(float dt){
-        Vector2f pos = getParent().getTransform().getPosition();
-        Vector2f offset = getOffset();
-        Vector2f center = new Vector2f(pos.x + offset.x, pos.y + offset.y);
-        DebugDraw.drawCircle2D(center, radius, colliderIndex);
+        Vector2d pos = getParent().getTransform().getPosition();
+        Vector2d offset = getOffset();
+        Vector2d center = new Vector2d(pos.x + offset.x, pos.y + offset.y);
+       // todo DebugDraw.drawCircle2D(center, radius, colliderIndex);
     }
 
     @Override
@@ -26,11 +27,11 @@ public class CircleCollider extends Collider {
         dearGui(this);
     }
 
-    public float getRadius() {
+    public double getRadius() {
         return radius;
     }
 
-    public void setRadius(float radius) {
+    public void setRadius(double radius) {
         this.radius = radius;
     }
 }

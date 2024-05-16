@@ -1,7 +1,9 @@
 package main.haspid;
 
 import main.editor.ViewPort;
+import org.joml.Vector2d;
 import org.joml.Vector2f;
+import org.joml.Vector4d;
 import org.joml.Vector4f;
 
 import static main.Configuration.*;
@@ -10,9 +12,9 @@ import static org.lwjgl.glfw.GLFW.*;
 public class MouseListener {
 
     private static MouseListener instance;
-    private static float x, y, scroll;
-    private Vector2f startFrameCursorPos;
-    private Vector2f endFrameCursorPos;
+    private static double x, y, scroll;
+    private Vector2d startFrameCursorPos;
+    private Vector2d endFrameCursorPos;
     private static boolean[] buttonPressed;
     private static boolean isMouseDragged;
     private static ViewPort viewPort;
@@ -26,8 +28,8 @@ public class MouseListener {
 
     public static void cursorPositionCallback(long window, double x, double y){
         if(instance == null) getInstance();
-        MouseListener.x = (float) x;
-        MouseListener.y = (float) y;
+        MouseListener.x = x;
+        MouseListener.y = y;
 
         // If mouse is moving and at least one button is pressed then mouse is dragging.
         for(boolean val: buttonPressed){
@@ -92,60 +94,60 @@ public class MouseListener {
         return isMouseDragged;
     }
 
-    public Vector2f getDelta(){
-        return new Vector2f(startFrameCursorPos.x - endFrameCursorPos.x, startFrameCursorPos.y - endFrameCursorPos.y);
+    public Vector2d getDelta(){
+        return new Vector2d(startFrameCursorPos.x - endFrameCursorPos.x, startFrameCursorPos.y - endFrameCursorPos.y);
     }
 
-    public float getScroll() {
+    public double getScroll() {
         return scroll;
     }
 
-    public float getViewPortXProjection(){
+    public double getViewPortXProjection(){
         return (getWorldX() - cam.getPosition().x) / zoom;
     }
 
-    public float getViewPortYProjection(){
+    public double getViewPortYProjection(){
         return (getWorldY() - cam.getPosition().y) / zoom;
     }
 
-    public Vector2f getViewPortProjectionPos(){
-        return  new Vector2f(getViewPortXProjection(), getViewPortYProjection());
+    public Vector2d getViewPortProjectionPos(){
+        return  new Vector2d(getViewPortXProjection(), getViewPortYProjection());
     }
 
-    public float getViewPortX(){
+    public double getViewPortX(){
         return getViewPortXProjection() * windowsScale.x;
     }
 
-    public float getViewPortY(){
+    public double getViewPortY(){
         return getViewPortYProjection() * windowsScale.y;
     }
 
-    public Vector2f getViewPortPos(){
-        return new Vector2f(getViewPortX(), getViewPortY());
+    public Vector2d getViewPortPos(){
+        return new Vector2d(getViewPortX(), getViewPortY());
     }
 
-    public float getWorldX(){
-        float xPosViewPort = x - viewPort.getWindowStartFromX();
+    public double getWorldX(){
+        double xPosViewPort = x - viewPort.getWindowStartFromX();
 
-        float currentX = ((xPosViewPort - viewPort.getViewPortStartFromX()) / viewPort.getViewPortWidth()) * 2f - 1f;
-        Vector4f vec4 = new Vector4f(currentX, 0 , 0, 1);
+        double currentX = ((xPosViewPort - viewPort.getViewPortStartFromX()) / viewPort.getViewPortWidth()) * 2f - 1f;
+        Vector4d vec4 = new Vector4d(currentX, 0 , 0, 1);
         vec4 = vec4.mul(cam.getInverseUProjection()).mul(cam.getInverseUView());
 
         return vec4.x;
     }
 
-    public float getWorldY(){
-        float yPosViewPort = y - viewPort.getWindowStartFromY();
+    public double getWorldY(){
+        double yPosViewPort = y - viewPort.getWindowStartFromY();
 
-        float currentY = ((viewPort.getViewPortHeight() - yPosViewPort + viewPort.getViewPortStartFromY()) / viewPort.getViewPortHeight()) * 2f - 1f;
-        Vector4f vec4 = new Vector4f(0, currentY , 0, 1);
+        double currentY = ((viewPort.getViewPortHeight() - yPosViewPort + viewPort.getViewPortStartFromY()) / viewPort.getViewPortHeight()) * 2f - 1f;
+        Vector4d vec4 = new Vector4d(0, currentY , 0, 1);
         vec4 = vec4.mul((cam.getInverseUProjection())).mul(cam.getInverseUView());
 
         return vec4.y;
     }
 
-    public Vector2f getWorld(){
-        return  new Vector2f(getWorldX(), getWorldY());
+    public Vector2d getWorld(){
+        return  new Vector2d(getWorldX(), getWorldY());
     }
 
     public double getX() {
@@ -164,7 +166,7 @@ public class MouseListener {
         MouseListener.y = y;
     }
 
-    public Vector2f getMouseListenerPos(){
-        return new Vector2f((float) getX(), (float) getY());
+    public Vector2d getMouseListenerPos(){
+        return new Vector2d(getX(), getY());
     }
 }

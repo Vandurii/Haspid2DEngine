@@ -8,10 +8,9 @@ import main.haspid.Window;
 import main.util.Attribute;
 import main.util.Shader;
 import main.util.Texture;
-import org.joml.Matrix4f;
-import org.joml.Vector2f;
-import org.joml.Vector4f;
+import org.joml.*;
 
+import java.lang.Math;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -155,8 +154,8 @@ public class RenderBatch implements Comparable<RenderBatch> {
         }else {
             Vector2f[] texCords = spriteRenderer.getSpriteCords();
             Vector4f color = spriteRenderer.getColor();
-            Vector2f position = transform.getPosition();
-            Vector2f scale = transform.getScale();
+            Vector2d position = transform.getPosition();
+            Vector2d scale = transform.getScale();
             boolean isRotated = transform.getRotation() != 0;
             int offset = index * squareSizeFloat;
             float xAdd = 0.5f;
@@ -167,17 +166,17 @@ public class RenderBatch implements Comparable<RenderBatch> {
                 if (j == 2) xAdd = -0.5f;
                 if (j == 3) yAdd =  0.5f;
 
-                Vector4f currentPos = new Vector4f(position.x + (xAdd * scale.x), position.y + (yAdd * scale.y), 0, 0);
+                Vector4d currentPos = new Vector4d(position.x + (xAdd * scale.x), position.y + (yAdd * scale.y), 0, 0);
                 if (isRotated) {
                     Matrix4f transformMatrix = new Matrix4f().identity();
-                    transformMatrix.translate(position.x, position.y, 1f);
+                    transformMatrix.translate((float) position.x, (float) position.y, 1f);
                     transformMatrix.rotate((float) Math.toRadians(transform.getRotation()), 0, 0, 1);
-                    transformMatrix.scale(scale.x, scale.y, 0);
-                    currentPos = new Vector4f(xAdd, yAdd, 0, 1).mul(transformMatrix);
+                    transformMatrix.scale((float) scale.x, (float) scale.y, 0);
+                    currentPos = new Vector4d(xAdd, yAdd, 0, 1).mul(transformMatrix);
                 }
 
-                vertexArray[offset + 0] = currentPos.x;
-                vertexArray[offset + 1] = currentPos.y;
+                vertexArray[offset + 0] = (float)currentPos.x;
+                vertexArray[offset + 1] = (float) currentPos.y;
 
                 vertexArray[offset + 2] = color.x;
                 vertexArray[offset + 3] = color.y;

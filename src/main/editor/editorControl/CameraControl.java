@@ -5,6 +5,7 @@ import main.components.Component;
 import main.haspid.Camera;
 import main.haspid.MouseListener;
 import main.renderer.DebugDraw;
+import org.joml.Vector2d;
 import org.joml.Vector2f;
 
 import static main.Configuration.*;
@@ -31,14 +32,14 @@ public class CameraControl extends Component {
         if(debounce < 0  && !mouseControls.hasDraggingOrActiveObject()){
             // update camera
             if (mouse.isMouseDragging() && mouse.isCursorInsideViewPort() && mouse.isButtonPressed(GLFW_MOUSE_BUTTON_1)) {
-                Vector2f delta = mouse.getDelta();
+                Vector2d delta = mouse.getDelta();
 
-                float valueX = (delta.x * (dt * cameraSensivity * zoom));
-                float valueY = (delta.y * (dt * cameraSensivity * zoom ));
+                double valueX = (delta.x * (dt * cameraSensivity * zoom));
+                double valueY = (delta.y * (dt * cameraSensivity * zoom ));
                 camera.addToBuffer( valueX, valueY);
             }
 
-            float value = mouse.getScroll();
+            double value = mouse.getScroll();
             // zoom with scroll
             if(value != 0) camera.zoom(value);
 

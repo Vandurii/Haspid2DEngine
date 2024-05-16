@@ -8,6 +8,7 @@ import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.collision.shapes.Shape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.*;
+import org.joml.Vector2d;
 import org.joml.Vector2f;
 import org.jbox2d.dynamics.BodyType;
 
@@ -46,7 +47,7 @@ public class Physics2D {
 
             BodyDef bodyDef = new BodyDef();
             bodyDef.angle = (float)Math.toRadians(transform.getRotation());
-            bodyDef.position.set(transform.getPosition().x, transform.getPosition().y);
+            bodyDef.position.set((float) transform.getPosition().x, (float) transform.getPosition().y);
             bodyDef.angularDamping = rigidBody.getAngularDamping();
             bodyDef.linearDamping = rigidBody.getLinearDamping();
             bodyDef.fixedRotation = rigidBody.isFixedRotation();
@@ -90,8 +91,8 @@ public class Physics2D {
 
         if(rawBody != null) {
             CircleShape shape = new CircleShape();
-            shape.setRadius(circleCollider.getRadius());
-            shape.m_p.set(circleCollider.getOffset().x, circleCollider.getOffset().y);
+            shape.setRadius((float)circleCollider.getRadius());
+            shape.m_p.set((float) circleCollider.getOffset().x, (float) circleCollider.getOffset().y);
 
             rawBody.createFixture(createFixtureDef(shape, rigidBody));
         }
@@ -102,10 +103,10 @@ public class Physics2D {
 
         if(rawBody != null) {
             PolygonShape shape = new PolygonShape();
-            Vector2f halfSize = new Vector2f(boxCollider.getHalfSize());
-            Vector2f offset = new Vector2f(boxCollider.getOffset());
-            Vector2f origin = new Vector2f(boxCollider.getOrigin());
-            shape.setAsBox(halfSize.x, halfSize.y, new Vec2(offset.x, offset.y), 0);
+            Vector2d halfSize = new Vector2d(boxCollider.getHalfSize());
+            Vector2d offset = new Vector2d(boxCollider.getOffset());
+            Vector2d origin = new Vector2d(boxCollider.getOrigin());
+            shape.setAsBox((float) halfSize.x, (float) halfSize.y, new Vec2((float) offset.x, (float) offset.y), 0);
 
             rawBody.createFixture(createFixtureDef(shape, rigidBody));
         }

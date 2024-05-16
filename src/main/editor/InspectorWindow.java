@@ -8,6 +8,7 @@ import main.haspid.GameObject;
 import main.components.physicsComponent.BoxCollider;
 import main.components.physicsComponent.CircleCollider;
 import main.components.physicsComponent.RigidBody;
+import org.joml.Vector2d;
 import org.joml.Vector2f;
 
 import java.util.List;
@@ -37,7 +38,7 @@ public class InspectorWindow {
             if(ImGui.beginPopupContextWindow("ComponentAdder")){
                 if(ImGui.menuItem("add Rigid Body") && Helper.isNull(activeGameObj.getComponent(RigidBody.class))) activeGameObj.addComponent(new RigidBody());
                 if(ImGui.menuItem("add Circle Collider") && Helper.isNull(activeGameObj.getComponent(CircleCollider.class))) activeGameObj.addComponent(new CircleCollider(0));
-                if(ImGui.menuItem("add Box Collider") && Helper.isNull(activeGameObj.getComponent(BoxCollider.class))) activeGameObj.addComponent(new BoxCollider(new Vector2f(objectSize)));
+                if(ImGui.menuItem("add Box Collider") && Helper.isNull(activeGameObj.getComponent(BoxCollider.class))) activeGameObj.addComponent(new BoxCollider(new Vector2d(objectSize)));
                 ImGui.endPopup();
             }
 
