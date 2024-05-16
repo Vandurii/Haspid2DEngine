@@ -37,7 +37,7 @@ public class Prefabs {
         GameObject solidObject = generateSpriteObject(spriteR, width, height);
         RigidBody rigidBody = new RigidBody();
         rigidBody.setBodyType(BodyType.Static);
-        BoxCollider boxCollider = new BoxCollider(new Vector2d(width, height));
+        BoxCollider boxCollider = new BoxCollider(new Vector2d(objectHalfSize, objectHalfSize));
         solidObject.addComponent(rigidBody);
         solidObject.addComponent(boxCollider);
 
@@ -60,7 +60,7 @@ public class Prefabs {
         animatedHoldingObject.addComponent(stateMachine);
         animatedHoldingObject.addComponent(new SpriteRenderer());
        animatedHoldingObject.addComponent(new PlayerController());
-        animatedHoldingObject.addComponent(new PillboxCollider());
+        animatedHoldingObject.addComponent(new BoxCollider(new Vector2d(objectHalfSize, objectHalfSize)));
 
         return  animatedHoldingObject;
     }

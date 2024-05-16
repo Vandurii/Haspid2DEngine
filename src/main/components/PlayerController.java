@@ -1,41 +1,62 @@
 package main.components;
 
-import main.components.stateMachine.StateMachine;
 import main.haspid.Direction;
 import main.haspid.KeyListener;
+import main.haspid.Transform;
 import main.haspid.Window;
 import main.physics.Physics2D;
 import main.components.physicsComponent.RigidBody;
+import main.physics.RayCastInfo;
+import main.renderer.DebugDraw;
+import main.util.AssetPool;
 import org.joml.Vector2d;
-import org.joml.Vector2f;
+import org.joml.Vector3f;
 
+import static main.Configuration.jumpSmall;
+import static main.Configuration.objectHalfSize;
 import static org.lwjgl.glfw.GLFW.*;
 
 public class PlayerController extends Component {
-    private double walkSpeed = 1.9f;
-    private double jumpBoost = 1f;
-    private double jumpImpulse = 3f;
-    private double slowDownForce = 0.05f;
-    private Vector2d terminalVelocity = new Vector2d(2.1f, 3.1f);
 
-    private boolean onGround = false;
-    private transient double groundDebounce = 0f;
-    private transient double groundDebounceTime = 0.1f;
+    private boolean onGround;
+    private double startVelYM;
+    private double startVelXM;
+    private double thresholdLS;
+    private double frictionLS;
+    private double startVelYLS;
+    private double speedScalarLS;
+    private double speedScalarM;
+    private int resetGainIterations;
+    private int gainHeightIterations;
 
+    private Vector2d terminalVelocity;
+    private transient Vector2d velocity;
+    private transient double playerWidth;
     private transient RigidBody rigidBody;
-    private transient StateMachine stateMachine;
-    private transient double bigJumpBoostFactor = 1.05f;
-    private transient double playerWidth = 32f;//0.25f;
-    private transient int jumpTime = 0;
-    private transient Vector2d acceleration = new Vector2d();
-    private transient Vector2d velocity = new Vector2d();
-    private transient boolean isDead = false;
-    private transient int enemyBounce = 0;
 
     private transient Physics2D physics;
     private transient KeyListener keyboard;
 
     public PlayerController(){
+
+        // movind left < > right
+        this.startVelYM = 120;
+        this.startVelXM = 2;
+        this.speedScalarM = 1.5;
+        this.playerWidth = objectHalfSize * 2;
+
+        // in air
+        this.resetGainIterations = 15;
+
+        // friction
+        this.thresholdLS = 0.2;
+        this.frictionLS = 0.5;
+        this.startVelYLS = -1;
+        this.speedScalarLS = 1.1;
+
+        this.velocity = new Vector2d();
+        this.terminalVelocity = new Vector2d(50, 50);
+
         this.keyboard = KeyListener.getInstance();
         this.physics = Window.getInstance().getCurrentScene().getPhysics();
     }
@@ -45,13 +66,15 @@ public class PlayerController extends Component {
         rigidBody = getParent().getComponent(RigidBody.class);
         if(rigidBody != null) {
             rigidBody.setGravityScale(0f);
-            stateMachine = getParent().getComponent(StateMachine.class);
         }
     }
 
     @Override
     public void update(float dt) {
+        System.out.println(onGround + " --> "+velocity.y);
         if(rigidBody == null) return;
+        checkIfOnGround();
+
         if(keyboard.isKeyPressed(GLFW_KEY_UP)){
             move(Direction.Up);
         }else if(keyboard.isKeyPressed(GLFW_KEY_DOWN)){
@@ -60,22 +83,10 @@ public class PlayerController extends Component {
             move(Direction.Right);
         }else if(keyboard.isKeyPressed(GLFW_KEY_LEFT)){
             move(Direction.Left);
-        }else{
-            acceleration.x = 0;
-            if(velocity.x > 0){
-                velocity.x = Math.max(0, velocity.x - slowDownForce);
-            }else{
-                velocity.x = Math.min(0, velocity.x + slowDownForce);
-            }
-
-            if(velocity.x == 0f){
-                //stateMachine.trigger("stopRunning");
-            }
         }
 
-        acceleration.y = physics.getGravity().y * 0.7f;
-        velocity.x += acceleration.x ;
-        velocity.y += acceleration.y ;
+        loseSpeed();
+
         velocity.x = Math.max(Math.min(velocity.x, terminalVelocity.x), -terminalVelocity.x);
         velocity.y = Math.max(Math.min(velocity.y, terminalVelocity.y), -terminalVelocity.y);
         rigidBody.setVelocity(velocity);
@@ -87,33 +98,80 @@ public class PlayerController extends Component {
 
         switch (direction){
             case Up -> {
-
+                if(onGround){
+                    gainHeightIterations = resetGainIterations;
+                    velocity.y = startVelYM;
+                    AssetPool.getSound(jumpSmall).play();
+                }
             }
             case Down -> {
 
             }
             case Right -> {
                 scale.x = playerWidth;
-                acceleration.x = walkSpeed;
-
-                if(velocity.x < 0){
-                    //stateMachine.trigger("switchDirection");
-                    velocity.x += slowDownForce;
+                if(velocity.x <= 0){
+                    velocity.x = startVelXM;
                 }else{
-                    //stateMachine.trigger("startRunning");
+                    velocity.x *= speedScalarM;
                 }
             }
             case Left -> {
                 scale.x = -playerWidth;
-                acceleration.x = -walkSpeed;
-
-                if(velocity.x < 0){
-                    //stateMachine.trigger("switchDirection");
-                    velocity.x -= slowDownForce;
+                if(velocity.x >= 0){
+                    velocity.x = -startVelXM;
                 }else{
-                    //stateMachine.trigger("startRunning");
+                    velocity.x *= speedScalarM;
                 }
             }
         }
+    }
+
+    public void loseSpeed(){
+
+        // Linear X
+        if(velocity.x >= thresholdLS){
+            velocity.x -= frictionLS;
+        }else if(velocity.x <= -thresholdLS){
+            velocity.x += frictionLS;
+        }else{
+            velocity.x = 0;
+        }
+
+        // Linear Y
+        if(onGround && !gainingHeight()){
+            velocity.y = 0;
+        }else if(!gainingHeight()){
+            if(velocity.y >= 0){
+                velocity.y = startVelYLS;
+            }else{
+                velocity.y *= speedScalarLS;
+            }
+        }
+
+        gainHeightIterations--;
+    }
+
+    public boolean checkIfOnGround(){
+        Transform t = getParent().getTransform();
+        Vector2d pos = t.getPosition();
+        Vector2d scale = t.getScale();
+        double minusX = (scale.x / 2)  - (scale.x / 10);
+        double minusY = (scale.y / 2) + (scale.y / 10);
+
+        Vector2d beginLeft = new Vector2d(pos.x - minusX, pos.y);
+        Vector2d endLeft = new Vector2d(pos.x - minusX, pos.y - minusY);
+        DebugDraw.addLine2D(10, beginLeft, endLeft, new Vector3f(0, 0, 1));
+        RayCastInfo leftSideInfo = physics.rayCastInfo(getParent(), beginLeft, endLeft);
+
+        Vector2d beginRight = new Vector2d(pos.x + minusX, pos.y);
+        Vector2d endRight = new Vector2d(pos.x + minusX, pos.y - minusY);
+        DebugDraw.addLine2D(10, beginRight, endRight, new Vector3f(0, 0, 1));
+        RayCastInfo rightSideInfo = physics.rayCastInfo(getParent(), beginRight, endRight);
+
+        return onGround = leftSideInfo.isHit() && leftSideInfo.getHitObject() != null || rightSideInfo.isHit() && rightSideInfo.getHitObject() != null;
+    }
+    
+    public boolean gainingHeight(){
+        return gainHeightIterations >= 0;
     }
 }

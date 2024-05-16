@@ -2,10 +2,7 @@ package main;
 
 import main.util.AudioConfig;
 import main.util.SpriteConfig;
-import org.joml.Vector2d;
-import org.joml.Vector2f;
-import org.joml.Vector3f;
-import org.joml.Vector4f;
+import org.joml.*;
 
 import java.awt.*;
 
@@ -19,7 +16,7 @@ public class Configuration {
 
     public static float aspectRatio = (float)windowWidth / (float)windowHeight;
     public static String windowTitle = "Haspid";
-    public static Vector3f uProjectionDimension = new Vector3f(1280, 672, 100);
+    public static Vector3d uProjectionDimension = new Vector3d(128, 67.2, 100);
 
 
     public static String defaultShaderPath = "assets/shaders/default.glsl";
@@ -79,13 +76,13 @@ public class Configuration {
     public static double yGizmoRotation = 180;
 
 
-    public static double spriteSize = 2;
-    public static double gridSize = 32;
-    public static double objectSize = 16;
+    public static double gridSize = uProjectionDimension.x / 40;;
+    public static double spriteSize = gridSize / 16;
+    public static double objectHalfSize = gridSize / 2;
 
 
-    public static double minimalWidthForGrid = 400;
-    public static double maximalWidthForGrid = 4500;
+    public static double minimalWidthForGrid = gridSize * 12.5;
+    public static double maximalWidthForGrid = gridSize * 140;
     public static Vector3f gridLinesColor = new Vector3f(0.2f, 0.2f, 0.2f);
 
 
@@ -119,12 +116,12 @@ public class Configuration {
 
     public static double selectorScale = 1.20f;
 
-    public static double pillboxWidth = (objectSize * 2) * 0.85f;
-    public static double pillboxHeight = (objectSize * 2) * 1.43f;
+    public static double pillboxWidth = (objectHalfSize * 2) * 0.85f;
+    public static double pillboxHeight = (objectHalfSize * 2) * 1.43f;
 
     public static String levelPath = "level.txt";
 
-    public static Vector2f windowsScale = new Vector2f(windowWidth / uProjectionDimension.x, windowHeight /  uProjectionDimension.y);
+    public static Vector2d windowsScale = new Vector2d(windowWidth / uProjectionDimension.x, windowHeight /  uProjectionDimension.y);
 }
 
 

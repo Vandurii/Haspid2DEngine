@@ -9,16 +9,16 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 112.0,
-            "y": 16.0
+            "x": 17.6,
+            "y": 8.0
           },
           "scale": {
-            "x": 32.0,
-            "y": 32.0
+            "x": 3.2,
+            "y": 3.2
           },
           "rotation": 0.0,
           "zIndex": 1,
-          "componentID": 7
+          "componentID": 453
         }
       },
       {
@@ -32,32 +32,32 @@
             "w": 1.0
           },
           "texture": {
-            "filePath": "assets/images/decorationsAndBlocks.png",
-            "texID": 4,
+            "filePath": "assets/images/items.png",
+            "texID": 6,
             "width": 112,
-            "height": 192
+            "height": 80
           },
           "width": 16.0,
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.85714287,
+              "x": 0.8571428656578064,
               "y": 1.0
             },
             {
-              "x": 0.85714287,
-              "y": 0.9166667
+              "x": 0.8571428656578064,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
-              "y": 0.9166667
+              "x": 0.7142857313156128,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
+              "x": 0.7142857313156128,
               "y": 1.0
             }
           ],
-          "componentID": 8
+          "componentID": 454
         }
       },
       {
@@ -77,29 +77,29 @@
           "angularVelocity": 0.0,
           "fixedRotation": false,
           "continuousCollision": true,
-          "componentID": 9
+          "componentID": 455
         }
       },
       {
         "Type": "main.components.physicsComponent.BoxCollider",
         "Properties": {
           "halfSize": {
-            "x": 16.0,
-            "y": 16.0
+            "x": 1.6,
+            "y": 1.6
           },
           "origin": {
             "x": 0.0,
             "y": 0.0
           },
           "center": {
-            "x": 112.0,
-            "y": 16.0
+            "x": 17.6,
+            "y": 8.0
           },
           "offset": {
             "x": 0.0,
             "y": 0.0
           },
-          "componentID": 10
+          "componentID": 456
         }
       }
     ]
@@ -114,16 +114,16 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 144.0,
-            "y": 16.0
+            "x": 20.800000000000004,
+            "y": 8.0
           },
           "scale": {
-            "x": 32.0,
-            "y": 32.0
+            "x": 3.2,
+            "y": 3.2
           },
           "rotation": 0.0,
           "zIndex": 1,
-          "componentID": 12
+          "componentID": 458
         }
       },
       {
@@ -137,32 +137,32 @@
             "w": 1.0
           },
           "texture": {
-            "filePath": "assets/images/decorationsAndBlocks.png",
-            "texID": 4,
+            "filePath": "assets/images/items.png",
+            "texID": 6,
             "width": 112,
-            "height": 192
+            "height": 80
           },
           "width": 16.0,
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.85714287,
+              "x": 0.8571428656578064,
               "y": 1.0
             },
             {
-              "x": 0.85714287,
-              "y": 0.9166667
+              "x": 0.8571428656578064,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
-              "y": 0.9166667
+              "x": 0.7142857313156128,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
+              "x": 0.7142857313156128,
               "y": 1.0
             }
           ],
-          "componentID": 13
+          "componentID": 459
         }
       },
       {
@@ -182,29 +182,29 @@
           "angularVelocity": 0.0,
           "fixedRotation": false,
           "continuousCollision": true,
-          "componentID": 14
+          "componentID": 460
         }
       },
       {
         "Type": "main.components.physicsComponent.BoxCollider",
         "Properties": {
           "halfSize": {
-            "x": 16.0,
-            "y": 16.0
+            "x": 1.6,
+            "y": 1.6
           },
           "origin": {
             "x": 0.0,
             "y": 0.0
           },
           "center": {
-            "x": 144.0,
-            "y": 16.0
+            "x": 20.800000000000004,
+            "y": 8.0
           },
           "offset": {
             "x": 0.0,
             "y": 0.0
           },
-          "componentID": 15
+          "componentID": 461
         }
       }
     ]
@@ -219,16 +219,16 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 176.0,
-            "y": 16.0
+            "x": 24.000000000000004,
+            "y": 8.0
           },
           "scale": {
-            "x": 32.0,
-            "y": 32.0
+            "x": 3.2,
+            "y": 3.2
           },
           "rotation": 0.0,
           "zIndex": 1,
-          "componentID": 17
+          "componentID": 463
         }
       },
       {
@@ -242,32 +242,32 @@
             "w": 1.0
           },
           "texture": {
-            "filePath": "assets/images/decorationsAndBlocks.png",
-            "texID": 4,
+            "filePath": "assets/images/items.png",
+            "texID": 6,
             "width": 112,
-            "height": 192
+            "height": 80
           },
           "width": 16.0,
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.85714287,
+              "x": 0.8571428656578064,
               "y": 1.0
             },
             {
-              "x": 0.85714287,
-              "y": 0.9166667
+              "x": 0.8571428656578064,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
-              "y": 0.9166667
+              "x": 0.7142857313156128,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
+              "x": 0.7142857313156128,
               "y": 1.0
             }
           ],
-          "componentID": 18
+          "componentID": 464
         }
       },
       {
@@ -287,29 +287,29 @@
           "angularVelocity": 0.0,
           "fixedRotation": false,
           "continuousCollision": true,
-          "componentID": 19
+          "componentID": 465
         }
       },
       {
         "Type": "main.components.physicsComponent.BoxCollider",
         "Properties": {
           "halfSize": {
-            "x": 16.0,
-            "y": 16.0
+            "x": 1.6,
+            "y": 1.6
           },
           "origin": {
             "x": 0.0,
             "y": 0.0
           },
           "center": {
-            "x": 176.0,
-            "y": 16.0
+            "x": 24.000000000000004,
+            "y": 8.0
           },
           "offset": {
             "x": 0.0,
             "y": 0.0
           },
-          "componentID": 20
+          "componentID": 466
         }
       }
     ]
@@ -324,16 +324,16 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 208.0,
-            "y": 16.0
+            "x": 27.200000000000003,
+            "y": 8.0
           },
           "scale": {
-            "x": 32.0,
-            "y": 32.0
+            "x": 3.2,
+            "y": 3.2
           },
           "rotation": 0.0,
           "zIndex": 1,
-          "componentID": 22
+          "componentID": 468
         }
       },
       {
@@ -347,32 +347,32 @@
             "w": 1.0
           },
           "texture": {
-            "filePath": "assets/images/decorationsAndBlocks.png",
-            "texID": 4,
+            "filePath": "assets/images/items.png",
+            "texID": 6,
             "width": 112,
-            "height": 192
+            "height": 80
           },
           "width": 16.0,
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.85714287,
+              "x": 0.8571428656578064,
               "y": 1.0
             },
             {
-              "x": 0.85714287,
-              "y": 0.9166667
+              "x": 0.8571428656578064,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
-              "y": 0.9166667
+              "x": 0.7142857313156128,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
+              "x": 0.7142857313156128,
               "y": 1.0
             }
           ],
-          "componentID": 23
+          "componentID": 469
         }
       },
       {
@@ -392,29 +392,29 @@
           "angularVelocity": 0.0,
           "fixedRotation": false,
           "continuousCollision": true,
-          "componentID": 24
+          "componentID": 470
         }
       },
       {
         "Type": "main.components.physicsComponent.BoxCollider",
         "Properties": {
           "halfSize": {
-            "x": 16.0,
-            "y": 16.0
+            "x": 1.6,
+            "y": 1.6
           },
           "origin": {
             "x": 0.0,
             "y": 0.0
           },
           "center": {
-            "x": 208.0,
-            "y": 16.0
+            "x": 27.200000000000003,
+            "y": 8.0
           },
           "offset": {
             "x": 0.0,
             "y": 0.0
           },
-          "componentID": 25
+          "componentID": 471
         }
       }
     ]
@@ -429,16 +429,16 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 464.0,
-            "y": 144.0
+            "x": 30.400000000000002,
+            "y": 8.0
           },
           "scale": {
-            "x": 32.0,
-            "y": 32.0
+            "x": 3.2,
+            "y": 3.2
           },
           "rotation": 0.0,
           "zIndex": 1,
-          "componentID": 27
+          "componentID": 473
         }
       },
       {
@@ -452,32 +452,32 @@
             "w": 1.0
           },
           "texture": {
-            "filePath": "assets/images/decorationsAndBlocks.png",
-            "texID": 4,
+            "filePath": "assets/images/items.png",
+            "texID": 6,
             "width": 112,
-            "height": 192
+            "height": 80
           },
           "width": 16.0,
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.85714287,
+              "x": 0.8571428656578064,
               "y": 1.0
             },
             {
-              "x": 0.85714287,
-              "y": 0.9166667
+              "x": 0.8571428656578064,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
-              "y": 0.9166667
+              "x": 0.7142857313156128,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
+              "x": 0.7142857313156128,
               "y": 1.0
             }
           ],
-          "componentID": 28
+          "componentID": 474
         }
       },
       {
@@ -497,29 +497,29 @@
           "angularVelocity": 0.0,
           "fixedRotation": false,
           "continuousCollision": true,
-          "componentID": 29
+          "componentID": 475
         }
       },
       {
         "Type": "main.components.physicsComponent.BoxCollider",
         "Properties": {
           "halfSize": {
-            "x": 16.0,
-            "y": 16.0
+            "x": 1.6,
+            "y": 1.6
           },
           "origin": {
             "x": 0.0,
             "y": 0.0
           },
           "center": {
-            "x": 464.0,
-            "y": 144.0
+            "x": 30.400000000000002,
+            "y": 8.0
           },
           "offset": {
             "x": 0.0,
             "y": 0.0
           },
-          "componentID": 30
+          "componentID": 476
         }
       }
     ]
@@ -534,16 +534,16 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 272.0,
-            "y": 16.0
+            "x": 33.6,
+            "y": 8.0
           },
           "scale": {
-            "x": 32.0,
-            "y": 32.0
+            "x": 3.2,
+            "y": 3.2
           },
           "rotation": 0.0,
           "zIndex": 1,
-          "componentID": 32
+          "componentID": 478
         }
       },
       {
@@ -557,32 +557,32 @@
             "w": 1.0
           },
           "texture": {
-            "filePath": "assets/images/decorationsAndBlocks.png",
-            "texID": 4,
+            "filePath": "assets/images/items.png",
+            "texID": 6,
             "width": 112,
-            "height": 192
+            "height": 80
           },
           "width": 16.0,
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.85714287,
+              "x": 0.8571428656578064,
               "y": 1.0
             },
             {
-              "x": 0.85714287,
-              "y": 0.9166667
+              "x": 0.8571428656578064,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
-              "y": 0.9166667
+              "x": 0.7142857313156128,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
+              "x": 0.7142857313156128,
               "y": 1.0
             }
           ],
-          "componentID": 33
+          "componentID": 479
         }
       },
       {
@@ -602,29 +602,29 @@
           "angularVelocity": 0.0,
           "fixedRotation": false,
           "continuousCollision": true,
-          "componentID": 34
+          "componentID": 480
         }
       },
       {
         "Type": "main.components.physicsComponent.BoxCollider",
         "Properties": {
           "halfSize": {
-            "x": 16.0,
-            "y": 16.0
+            "x": 1.6,
+            "y": 1.6
           },
           "origin": {
             "x": 0.0,
             "y": 0.0
           },
           "center": {
-            "x": 272.0,
-            "y": 16.0
+            "x": 33.6,
+            "y": 8.0
           },
           "offset": {
             "x": 0.0,
             "y": 0.0
           },
-          "componentID": 35
+          "componentID": 481
         }
       }
     ]
@@ -639,16 +639,16 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 304.0,
-            "y": 16.0
+            "x": 36.800000000000004,
+            "y": 8.0
           },
           "scale": {
-            "x": 32.0,
-            "y": 32.0
+            "x": 3.2,
+            "y": 3.2
           },
           "rotation": 0.0,
           "zIndex": 1,
-          "componentID": 37
+          "componentID": 483
         }
       },
       {
@@ -662,32 +662,32 @@
             "w": 1.0
           },
           "texture": {
-            "filePath": "assets/images/decorationsAndBlocks.png",
-            "texID": 4,
+            "filePath": "assets/images/items.png",
+            "texID": 6,
             "width": 112,
-            "height": 192
+            "height": 80
           },
           "width": 16.0,
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.85714287,
+              "x": 0.8571428656578064,
               "y": 1.0
             },
             {
-              "x": 0.85714287,
-              "y": 0.9166667
+              "x": 0.8571428656578064,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
-              "y": 0.9166667
+              "x": 0.7142857313156128,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
+              "x": 0.7142857313156128,
               "y": 1.0
             }
           ],
-          "componentID": 38
+          "componentID": 484
         }
       },
       {
@@ -707,29 +707,29 @@
           "angularVelocity": 0.0,
           "fixedRotation": false,
           "continuousCollision": true,
-          "componentID": 39
+          "componentID": 485
         }
       },
       {
         "Type": "main.components.physicsComponent.BoxCollider",
         "Properties": {
           "halfSize": {
-            "x": 16.0,
-            "y": 16.0
+            "x": 1.6,
+            "y": 1.6
           },
           "origin": {
             "x": 0.0,
             "y": 0.0
           },
           "center": {
-            "x": 304.0,
-            "y": 16.0
+            "x": 36.800000000000004,
+            "y": 8.0
           },
           "offset": {
             "x": 0.0,
             "y": 0.0
           },
-          "componentID": 40
+          "componentID": 486
         }
       }
     ]
@@ -744,16 +744,16 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 336.0,
-            "y": 16.0
+            "x": 40.00000000000001,
+            "y": 8.0
           },
           "scale": {
-            "x": 32.0,
-            "y": 32.0
+            "x": 3.2,
+            "y": 3.2
           },
           "rotation": 0.0,
           "zIndex": 1,
-          "componentID": 42
+          "componentID": 488
         }
       },
       {
@@ -767,32 +767,32 @@
             "w": 1.0
           },
           "texture": {
-            "filePath": "assets/images/decorationsAndBlocks.png",
-            "texID": 4,
+            "filePath": "assets/images/items.png",
+            "texID": 6,
             "width": 112,
-            "height": 192
+            "height": 80
           },
           "width": 16.0,
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.85714287,
+              "x": 0.8571428656578064,
               "y": 1.0
             },
             {
-              "x": 0.85714287,
-              "y": 0.9166667
+              "x": 0.8571428656578064,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
-              "y": 0.9166667
+              "x": 0.7142857313156128,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
+              "x": 0.7142857313156128,
               "y": 1.0
             }
           ],
-          "componentID": 43
+          "componentID": 489
         }
       },
       {
@@ -812,29 +812,29 @@
           "angularVelocity": 0.0,
           "fixedRotation": false,
           "continuousCollision": true,
-          "componentID": 44
+          "componentID": 490
         }
       },
       {
         "Type": "main.components.physicsComponent.BoxCollider",
         "Properties": {
           "halfSize": {
-            "x": 16.0,
-            "y": 16.0
+            "x": 1.6,
+            "y": 1.6
           },
           "origin": {
             "x": 0.0,
             "y": 0.0
           },
           "center": {
-            "x": 336.0,
-            "y": 16.0
+            "x": 40.00000000000001,
+            "y": 8.0
           },
           "offset": {
             "x": 0.0,
             "y": 0.0
           },
-          "componentID": 45
+          "componentID": 491
         }
       }
     ]
@@ -849,16 +849,16 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 368.0,
-            "y": 16.0
+            "x": 43.2,
+            "y": 8.0
           },
           "scale": {
-            "x": 32.0,
-            "y": 32.0
+            "x": 3.2,
+            "y": 3.2
           },
           "rotation": 0.0,
           "zIndex": 1,
-          "componentID": 47
+          "componentID": 493
         }
       },
       {
@@ -872,32 +872,32 @@
             "w": 1.0
           },
           "texture": {
-            "filePath": "assets/images/decorationsAndBlocks.png",
-            "texID": 4,
+            "filePath": "assets/images/items.png",
+            "texID": 6,
             "width": 112,
-            "height": 192
+            "height": 80
           },
           "width": 16.0,
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.85714287,
+              "x": 0.8571428656578064,
               "y": 1.0
             },
             {
-              "x": 0.85714287,
-              "y": 0.9166667
+              "x": 0.8571428656578064,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
-              "y": 0.9166667
+              "x": 0.7142857313156128,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
+              "x": 0.7142857313156128,
               "y": 1.0
             }
           ],
-          "componentID": 48
+          "componentID": 494
         }
       },
       {
@@ -917,29 +917,29 @@
           "angularVelocity": 0.0,
           "fixedRotation": false,
           "continuousCollision": true,
-          "componentID": 49
+          "componentID": 495
         }
       },
       {
         "Type": "main.components.physicsComponent.BoxCollider",
         "Properties": {
           "halfSize": {
-            "x": 16.0,
-            "y": 16.0
+            "x": 1.6,
+            "y": 1.6
           },
           "origin": {
             "x": 0.0,
             "y": 0.0
           },
           "center": {
-            "x": 368.0,
-            "y": 16.0
+            "x": 43.2,
+            "y": 8.0
           },
           "offset": {
             "x": 0.0,
             "y": 0.0
           },
-          "componentID": 50
+          "componentID": 496
         }
       }
     ]
@@ -954,16 +954,16 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 176.0,
-            "y": 272.0
+            "x": 46.400000000000006,
+            "y": 8.0
           },
           "scale": {
-            "x": 32.0,
-            "y": 32.0
+            "x": 3.2,
+            "y": 3.2
           },
           "rotation": 0.0,
           "zIndex": 1,
-          "componentID": 52
+          "componentID": 498
         }
       },
       {
@@ -977,32 +977,32 @@
             "w": 1.0
           },
           "texture": {
-            "filePath": "assets/images/decorationsAndBlocks.png",
-            "texID": 4,
+            "filePath": "assets/images/items.png",
+            "texID": 6,
             "width": 112,
-            "height": 192
+            "height": 80
           },
           "width": 16.0,
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.85714287,
+              "x": 0.8571428656578064,
               "y": 1.0
             },
             {
-              "x": 0.85714287,
-              "y": 0.9166667
+              "x": 0.8571428656578064,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
-              "y": 0.9166667
+              "x": 0.7142857313156128,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
+              "x": 0.7142857313156128,
               "y": 1.0
             }
           ],
-          "componentID": 53
+          "componentID": 499
         }
       },
       {
@@ -1022,29 +1022,29 @@
           "angularVelocity": 0.0,
           "fixedRotation": false,
           "continuousCollision": true,
-          "componentID": 54
+          "componentID": 500
         }
       },
       {
         "Type": "main.components.physicsComponent.BoxCollider",
         "Properties": {
           "halfSize": {
-            "x": 16.0,
-            "y": 16.0
+            "x": 1.6,
+            "y": 1.6
           },
           "origin": {
             "x": 0.0,
             "y": 0.0
           },
           "center": {
-            "x": 176.0,
-            "y": 272.0
+            "x": 46.400000000000006,
+            "y": 8.0
           },
           "offset": {
             "x": 0.0,
             "y": 0.0
           },
-          "componentID": 55
+          "componentID": 501
         }
       }
     ]
@@ -1059,16 +1059,16 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 432.0,
-            "y": 16.0
+            "x": 49.6,
+            "y": 8.0
           },
           "scale": {
-            "x": 32.0,
-            "y": 32.0
+            "x": 3.2,
+            "y": 3.2
           },
           "rotation": 0.0,
           "zIndex": 1,
-          "componentID": 57
+          "componentID": 503
         }
       },
       {
@@ -1082,32 +1082,32 @@
             "w": 1.0
           },
           "texture": {
-            "filePath": "assets/images/decorationsAndBlocks.png",
-            "texID": 4,
+            "filePath": "assets/images/items.png",
+            "texID": 6,
             "width": 112,
-            "height": 192
+            "height": 80
           },
           "width": 16.0,
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.85714287,
+              "x": 0.8571428656578064,
               "y": 1.0
             },
             {
-              "x": 0.85714287,
-              "y": 0.9166667
+              "x": 0.8571428656578064,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
-              "y": 0.9166667
+              "x": 0.7142857313156128,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
+              "x": 0.7142857313156128,
               "y": 1.0
             }
           ],
-          "componentID": 58
+          "componentID": 504
         }
       },
       {
@@ -1127,29 +1127,29 @@
           "angularVelocity": 0.0,
           "fixedRotation": false,
           "continuousCollision": true,
-          "componentID": 59
+          "componentID": 505
         }
       },
       {
         "Type": "main.components.physicsComponent.BoxCollider",
         "Properties": {
           "halfSize": {
-            "x": 16.0,
-            "y": 16.0
+            "x": 1.6,
+            "y": 1.6
           },
           "origin": {
             "x": 0.0,
             "y": 0.0
           },
           "center": {
-            "x": 432.0,
-            "y": 16.0
+            "x": 49.6,
+            "y": 8.0
           },
           "offset": {
             "x": 0.0,
             "y": 0.0
           },
-          "componentID": 60
+          "componentID": 506
         }
       }
     ]
@@ -1164,16 +1164,16 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 624.0,
-            "y": 208.0
+            "x": 52.800000000000004,
+            "y": 8.0
           },
           "scale": {
-            "x": 32.0,
-            "y": 32.0
+            "x": 3.2,
+            "y": 3.2
           },
           "rotation": 0.0,
           "zIndex": 1,
-          "componentID": 62
+          "componentID": 508
         }
       },
       {
@@ -1187,32 +1187,32 @@
             "w": 1.0
           },
           "texture": {
-            "filePath": "assets/images/decorationsAndBlocks.png",
-            "texID": 4,
+            "filePath": "assets/images/items.png",
+            "texID": 6,
             "width": 112,
-            "height": 192
+            "height": 80
           },
           "width": 16.0,
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.85714287,
+              "x": 0.8571428656578064,
               "y": 1.0
             },
             {
-              "x": 0.85714287,
-              "y": 0.9166667
+              "x": 0.8571428656578064,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
-              "y": 0.9166667
+              "x": 0.7142857313156128,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
+              "x": 0.7142857313156128,
               "y": 1.0
             }
           ],
-          "componentID": 63
+          "componentID": 509
         }
       },
       {
@@ -1232,29 +1232,29 @@
           "angularVelocity": 0.0,
           "fixedRotation": false,
           "continuousCollision": true,
-          "componentID": 64
+          "componentID": 510
         }
       },
       {
         "Type": "main.components.physicsComponent.BoxCollider",
         "Properties": {
           "halfSize": {
-            "x": 16.0,
-            "y": 16.0
+            "x": 1.6,
+            "y": 1.6
           },
           "origin": {
             "x": 0.0,
             "y": 0.0
           },
           "center": {
-            "x": 624.0,
-            "y": 208.0
+            "x": 52.800000000000004,
+            "y": 8.0
           },
           "offset": {
             "x": 0.0,
             "y": 0.0
           },
-          "componentID": 65
+          "componentID": 511
         }
       }
     ]
@@ -1269,16 +1269,16 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 496.0,
-            "y": 16.0
+            "x": 56.00000000000001,
+            "y": 8.0
           },
           "scale": {
-            "x": 32.0,
-            "y": 32.0
+            "x": 3.2,
+            "y": 3.2
           },
           "rotation": 0.0,
           "zIndex": 1,
-          "componentID": 67
+          "componentID": 513
         }
       },
       {
@@ -1292,32 +1292,32 @@
             "w": 1.0
           },
           "texture": {
-            "filePath": "assets/images/decorationsAndBlocks.png",
-            "texID": 4,
+            "filePath": "assets/images/items.png",
+            "texID": 6,
             "width": 112,
-            "height": 192
+            "height": 80
           },
           "width": 16.0,
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.85714287,
+              "x": 0.8571428656578064,
               "y": 1.0
             },
             {
-              "x": 0.85714287,
-              "y": 0.9166667
+              "x": 0.8571428656578064,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
-              "y": 0.9166667
+              "x": 0.7142857313156128,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
+              "x": 0.7142857313156128,
               "y": 1.0
             }
           ],
-          "componentID": 68
+          "componentID": 514
         }
       },
       {
@@ -1337,29 +1337,29 @@
           "angularVelocity": 0.0,
           "fixedRotation": false,
           "continuousCollision": true,
-          "componentID": 69
+          "componentID": 515
         }
       },
       {
         "Type": "main.components.physicsComponent.BoxCollider",
         "Properties": {
           "halfSize": {
-            "x": 16.0,
-            "y": 16.0
+            "x": 1.6,
+            "y": 1.6
           },
           "origin": {
             "x": 0.0,
             "y": 0.0
           },
           "center": {
-            "x": 496.0,
-            "y": 16.0
+            "x": 56.00000000000001,
+            "y": 8.0
           },
           "offset": {
             "x": 0.0,
             "y": 0.0
           },
-          "componentID": 70
+          "componentID": 516
         }
       }
     ]
@@ -1374,16 +1374,16 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 336.0,
-            "y": 240.0
+            "x": 59.2,
+            "y": 8.0
           },
           "scale": {
-            "x": 32.0,
-            "y": 32.0
+            "x": 3.2,
+            "y": 3.2
           },
           "rotation": 0.0,
           "zIndex": 1,
-          "componentID": 72
+          "componentID": 518
         }
       },
       {
@@ -1397,32 +1397,32 @@
             "w": 1.0
           },
           "texture": {
-            "filePath": "assets/images/decorationsAndBlocks.png",
-            "texID": 4,
+            "filePath": "assets/images/items.png",
+            "texID": 6,
             "width": 112,
-            "height": 192
+            "height": 80
           },
           "width": 16.0,
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.85714287,
+              "x": 0.8571428656578064,
               "y": 1.0
             },
             {
-              "x": 0.85714287,
-              "y": 0.9166667
+              "x": 0.8571428656578064,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
-              "y": 0.9166667
+              "x": 0.7142857313156128,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
+              "x": 0.7142857313156128,
               "y": 1.0
             }
           ],
-          "componentID": 73
+          "componentID": 519
         }
       },
       {
@@ -1442,29 +1442,29 @@
           "angularVelocity": 0.0,
           "fixedRotation": false,
           "continuousCollision": true,
-          "componentID": 74
+          "componentID": 520
         }
       },
       {
         "Type": "main.components.physicsComponent.BoxCollider",
         "Properties": {
           "halfSize": {
-            "x": 16.0,
-            "y": 16.0
+            "x": 1.6,
+            "y": 1.6
           },
           "origin": {
             "x": 0.0,
             "y": 0.0
           },
           "center": {
-            "x": 336.0,
-            "y": 240.0
+            "x": 59.2,
+            "y": 8.0
           },
           "offset": {
             "x": 0.0,
             "y": 0.0
           },
-          "componentID": 75
+          "componentID": 521
         }
       }
     ]
@@ -1479,16 +1479,16 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 560.0,
-            "y": 16.0
+            "x": 62.400000000000006,
+            "y": 8.0
           },
           "scale": {
-            "x": 32.0,
-            "y": 32.0
+            "x": 3.2,
+            "y": 3.2
           },
           "rotation": 0.0,
           "zIndex": 1,
-          "componentID": 77
+          "componentID": 523
         }
       },
       {
@@ -1502,32 +1502,32 @@
             "w": 1.0
           },
           "texture": {
-            "filePath": "assets/images/decorationsAndBlocks.png",
-            "texID": 4,
+            "filePath": "assets/images/items.png",
+            "texID": 6,
             "width": 112,
-            "height": 192
+            "height": 80
           },
           "width": 16.0,
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.85714287,
+              "x": 0.8571428656578064,
               "y": 1.0
             },
             {
-              "x": 0.85714287,
-              "y": 0.9166667
+              "x": 0.8571428656578064,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
-              "y": 0.9166667
+              "x": 0.7142857313156128,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
+              "x": 0.7142857313156128,
               "y": 1.0
             }
           ],
-          "componentID": 78
+          "componentID": 524
         }
       },
       {
@@ -1547,29 +1547,29 @@
           "angularVelocity": 0.0,
           "fixedRotation": false,
           "continuousCollision": true,
-          "componentID": 79
+          "componentID": 525
         }
       },
       {
         "Type": "main.components.physicsComponent.BoxCollider",
         "Properties": {
           "halfSize": {
-            "x": 16.0,
-            "y": 16.0
+            "x": 1.6,
+            "y": 1.6
           },
           "origin": {
             "x": 0.0,
             "y": 0.0
           },
           "center": {
-            "x": 560.0,
-            "y": 16.0
+            "x": 62.400000000000006,
+            "y": 8.0
           },
           "offset": {
             "x": 0.0,
             "y": 0.0
           },
-          "componentID": 80
+          "componentID": 526
         }
       }
     ]
@@ -1584,16 +1584,16 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 592.0,
-            "y": 16.0
+            "x": 62.400000000000006,
+            "y": 4.800000000000001
           },
           "scale": {
-            "x": 32.0,
-            "y": 32.0
+            "x": 3.2,
+            "y": 3.2
           },
           "rotation": 0.0,
           "zIndex": 1,
-          "componentID": 82
+          "componentID": 528
         }
       },
       {
@@ -1607,32 +1607,32 @@
             "w": 1.0
           },
           "texture": {
-            "filePath": "assets/images/decorationsAndBlocks.png",
-            "texID": 4,
+            "filePath": "assets/images/items.png",
+            "texID": 6,
             "width": 112,
-            "height": 192
+            "height": 80
           },
           "width": 16.0,
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.85714287,
+              "x": 0.8571428656578064,
               "y": 1.0
             },
             {
-              "x": 0.85714287,
-              "y": 0.9166667
+              "x": 0.8571428656578064,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
-              "y": 0.9166667
+              "x": 0.7142857313156128,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
+              "x": 0.7142857313156128,
               "y": 1.0
             }
           ],
-          "componentID": 83
+          "componentID": 529
         }
       },
       {
@@ -1652,29 +1652,29 @@
           "angularVelocity": 0.0,
           "fixedRotation": false,
           "continuousCollision": true,
-          "componentID": 84
+          "componentID": 530
         }
       },
       {
         "Type": "main.components.physicsComponent.BoxCollider",
         "Properties": {
           "halfSize": {
-            "x": 16.0,
-            "y": 16.0
+            "x": 1.6,
+            "y": 1.6
           },
           "origin": {
             "x": 0.0,
             "y": 0.0
           },
           "center": {
-            "x": 592.0,
-            "y": 16.0
+            "x": 62.400000000000006,
+            "y": 4.800000000000001
           },
           "offset": {
             "x": 0.0,
             "y": 0.0
           },
-          "componentID": 85
+          "componentID": 531
         }
       }
     ]
@@ -1689,16 +1689,16 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 624.0,
-            "y": 16.0
+            "x": 65.6,
+            "y": 4.800000000000001
           },
           "scale": {
-            "x": 32.0,
-            "y": 32.0
+            "x": 3.2,
+            "y": 3.2
           },
           "rotation": 0.0,
           "zIndex": 1,
-          "componentID": 87
+          "componentID": 533
         }
       },
       {
@@ -1712,32 +1712,32 @@
             "w": 1.0
           },
           "texture": {
-            "filePath": "assets/images/decorationsAndBlocks.png",
-            "texID": 4,
+            "filePath": "assets/images/items.png",
+            "texID": 6,
             "width": 112,
-            "height": 192
+            "height": 80
           },
           "width": 16.0,
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.85714287,
+              "x": 0.8571428656578064,
               "y": 1.0
             },
             {
-              "x": 0.85714287,
-              "y": 0.9166667
+              "x": 0.8571428656578064,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
-              "y": 0.9166667
+              "x": 0.7142857313156128,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
+              "x": 0.7142857313156128,
               "y": 1.0
             }
           ],
-          "componentID": 88
+          "componentID": 534
         }
       },
       {
@@ -1757,29 +1757,29 @@
           "angularVelocity": 0.0,
           "fixedRotation": false,
           "continuousCollision": true,
-          "componentID": 89
+          "componentID": 535
         }
       },
       {
         "Type": "main.components.physicsComponent.BoxCollider",
         "Properties": {
           "halfSize": {
-            "x": 16.0,
-            "y": 16.0
+            "x": 1.6,
+            "y": 1.6
           },
           "origin": {
             "x": 0.0,
             "y": 0.0
           },
           "center": {
-            "x": 624.0,
-            "y": 16.0
+            "x": 65.6,
+            "y": 4.800000000000001
           },
           "offset": {
             "x": 0.0,
             "y": 0.0
           },
-          "componentID": 90
+          "componentID": 536
         }
       }
     ]
@@ -1794,16 +1794,16 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 656.0,
-            "y": 16.0
+            "x": 68.8,
+            "y": 4.800000000000001
           },
           "scale": {
-            "x": 32.0,
-            "y": 32.0
+            "x": 3.2,
+            "y": 3.2
           },
           "rotation": 0.0,
           "zIndex": 1,
-          "componentID": 92
+          "componentID": 538
         }
       },
       {
@@ -1817,32 +1817,32 @@
             "w": 1.0
           },
           "texture": {
-            "filePath": "assets/images/decorationsAndBlocks.png",
-            "texID": 4,
+            "filePath": "assets/images/items.png",
+            "texID": 6,
             "width": 112,
-            "height": 192
+            "height": 80
           },
           "width": 16.0,
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.85714287,
+              "x": 0.8571428656578064,
               "y": 1.0
             },
             {
-              "x": 0.85714287,
-              "y": 0.9166667
+              "x": 0.8571428656578064,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
-              "y": 0.9166667
+              "x": 0.7142857313156128,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
+              "x": 0.7142857313156128,
               "y": 1.0
             }
           ],
-          "componentID": 93
+          "componentID": 539
         }
       },
       {
@@ -1862,29 +1862,29 @@
           "angularVelocity": 0.0,
           "fixedRotation": false,
           "continuousCollision": true,
-          "componentID": 94
+          "componentID": 540
         }
       },
       {
         "Type": "main.components.physicsComponent.BoxCollider",
         "Properties": {
           "halfSize": {
-            "x": 16.0,
-            "y": 16.0
+            "x": 1.6,
+            "y": 1.6
           },
           "origin": {
             "x": 0.0,
             "y": 0.0
           },
           "center": {
-            "x": 656.0,
-            "y": 16.0
+            "x": 68.8,
+            "y": 4.800000000000001
           },
           "offset": {
             "x": 0.0,
             "y": 0.0
           },
-          "componentID": 95
+          "componentID": 541
         }
       }
     ]
@@ -1899,16 +1899,16 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 688.0,
-            "y": 16.0
+            "x": 72.0,
+            "y": 4.800000000000001
           },
           "scale": {
-            "x": 32.0,
-            "y": 32.0
+            "x": 3.2,
+            "y": 3.2
           },
           "rotation": 0.0,
           "zIndex": 1,
-          "componentID": 97
+          "componentID": 543
         }
       },
       {
@@ -1922,32 +1922,32 @@
             "w": 1.0
           },
           "texture": {
-            "filePath": "assets/images/decorationsAndBlocks.png",
-            "texID": 4,
+            "filePath": "assets/images/items.png",
+            "texID": 6,
             "width": 112,
-            "height": 192
+            "height": 80
           },
           "width": 16.0,
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.85714287,
+              "x": 0.8571428656578064,
               "y": 1.0
             },
             {
-              "x": 0.85714287,
-              "y": 0.9166667
+              "x": 0.8571428656578064,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
-              "y": 0.9166667
+              "x": 0.7142857313156128,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
+              "x": 0.7142857313156128,
               "y": 1.0
             }
           ],
-          "componentID": 98
+          "componentID": 544
         }
       },
       {
@@ -1967,29 +1967,29 @@
           "angularVelocity": 0.0,
           "fixedRotation": false,
           "continuousCollision": true,
-          "componentID": 99
+          "componentID": 545
         }
       },
       {
         "Type": "main.components.physicsComponent.BoxCollider",
         "Properties": {
           "halfSize": {
-            "x": 16.0,
-            "y": 16.0
+            "x": 1.6,
+            "y": 1.6
           },
           "origin": {
             "x": 0.0,
             "y": 0.0
           },
           "center": {
-            "x": 688.0,
-            "y": 16.0
+            "x": 72.0,
+            "y": 4.800000000000001
           },
           "offset": {
             "x": 0.0,
             "y": 0.0
           },
-          "componentID": 100
+          "componentID": 546
         }
       }
     ]
@@ -2004,16 +2004,16 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 720.0,
-            "y": 16.0
+            "x": 75.2,
+            "y": 4.800000000000001
           },
           "scale": {
-            "x": 32.0,
-            "y": 32.0
+            "x": 3.2,
+            "y": 3.2
           },
           "rotation": 0.0,
           "zIndex": 1,
-          "componentID": 102
+          "componentID": 548
         }
       },
       {
@@ -2027,32 +2027,32 @@
             "w": 1.0
           },
           "texture": {
-            "filePath": "assets/images/decorationsAndBlocks.png",
-            "texID": 4,
+            "filePath": "assets/images/items.png",
+            "texID": 6,
             "width": 112,
-            "height": 192
+            "height": 80
           },
           "width": 16.0,
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.85714287,
+              "x": 0.8571428656578064,
               "y": 1.0
             },
             {
-              "x": 0.85714287,
-              "y": 0.9166667
+              "x": 0.8571428656578064,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
-              "y": 0.9166667
+              "x": 0.7142857313156128,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
+              "x": 0.7142857313156128,
               "y": 1.0
             }
           ],
-          "componentID": 103
+          "componentID": 549
         }
       },
       {
@@ -2072,29 +2072,29 @@
           "angularVelocity": 0.0,
           "fixedRotation": false,
           "continuousCollision": true,
-          "componentID": 104
+          "componentID": 550
         }
       },
       {
         "Type": "main.components.physicsComponent.BoxCollider",
         "Properties": {
           "halfSize": {
-            "x": 16.0,
-            "y": 16.0
+            "x": 1.6,
+            "y": 1.6
           },
           "origin": {
             "x": 0.0,
             "y": 0.0
           },
           "center": {
-            "x": 720.0,
-            "y": 16.0
+            "x": 75.2,
+            "y": 4.800000000000001
           },
           "offset": {
             "x": 0.0,
             "y": 0.0
           },
-          "componentID": 105
+          "componentID": 551
         }
       }
     ]
@@ -2109,16 +2109,16 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 752.0,
-            "y": 16.0
+            "x": 75.2,
+            "y": 8.0
           },
           "scale": {
-            "x": 32.0,
-            "y": 32.0
+            "x": 3.2,
+            "y": 3.2
           },
           "rotation": 0.0,
           "zIndex": 1,
-          "componentID": 107
+          "componentID": 553
         }
       },
       {
@@ -2132,32 +2132,32 @@
             "w": 1.0
           },
           "texture": {
-            "filePath": "assets/images/decorationsAndBlocks.png",
-            "texID": 4,
+            "filePath": "assets/images/items.png",
+            "texID": 6,
             "width": 112,
-            "height": 192
+            "height": 80
           },
           "width": 16.0,
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.85714287,
+              "x": 0.8571428656578064,
               "y": 1.0
             },
             {
-              "x": 0.85714287,
-              "y": 0.9166667
+              "x": 0.8571428656578064,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
-              "y": 0.9166667
+              "x": 0.7142857313156128,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
+              "x": 0.7142857313156128,
               "y": 1.0
             }
           ],
-          "componentID": 108
+          "componentID": 554
         }
       },
       {
@@ -2177,29 +2177,29 @@
           "angularVelocity": 0.0,
           "fixedRotation": false,
           "continuousCollision": true,
-          "componentID": 109
+          "componentID": 555
         }
       },
       {
         "Type": "main.components.physicsComponent.BoxCollider",
         "Properties": {
           "halfSize": {
-            "x": 16.0,
-            "y": 16.0
+            "x": 1.6,
+            "y": 1.6
           },
           "origin": {
             "x": 0.0,
             "y": 0.0
           },
           "center": {
-            "x": 752.0,
-            "y": 16.0
+            "x": 75.2,
+            "y": 8.0
           },
           "offset": {
             "x": 0.0,
             "y": 0.0
           },
-          "componentID": 110
+          "componentID": 556
         }
       }
     ]
@@ -2214,16 +2214,16 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 784.0,
-            "y": 16.0
+            "x": 78.4,
+            "y": 8.0
           },
           "scale": {
-            "x": 32.0,
-            "y": 32.0
+            "x": 3.2,
+            "y": 3.2
           },
           "rotation": 0.0,
           "zIndex": 1,
-          "componentID": 112
+          "componentID": 558
         }
       },
       {
@@ -2237,32 +2237,32 @@
             "w": 1.0
           },
           "texture": {
-            "filePath": "assets/images/decorationsAndBlocks.png",
-            "texID": 4,
+            "filePath": "assets/images/items.png",
+            "texID": 6,
             "width": 112,
-            "height": 192
+            "height": 80
           },
           "width": 16.0,
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.85714287,
+              "x": 0.8571428656578064,
               "y": 1.0
             },
             {
-              "x": 0.85714287,
-              "y": 0.9166667
+              "x": 0.8571428656578064,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
-              "y": 0.9166667
+              "x": 0.7142857313156128,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
+              "x": 0.7142857313156128,
               "y": 1.0
             }
           ],
-          "componentID": 113
+          "componentID": 559
         }
       },
       {
@@ -2282,29 +2282,29 @@
           "angularVelocity": 0.0,
           "fixedRotation": false,
           "continuousCollision": true,
-          "componentID": 114
+          "componentID": 560
         }
       },
       {
         "Type": "main.components.physicsComponent.BoxCollider",
         "Properties": {
           "halfSize": {
-            "x": 16.0,
-            "y": 16.0
+            "x": 1.6,
+            "y": 1.6
           },
           "origin": {
             "x": 0.0,
             "y": 0.0
           },
           "center": {
-            "x": 784.0,
-            "y": 16.0
+            "x": 78.4,
+            "y": 8.0
           },
           "offset": {
             "x": 0.0,
             "y": 0.0
           },
-          "componentID": 115
+          "componentID": 561
         }
       }
     ]
@@ -2319,16 +2319,16 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 880.0,
-            "y": 272.0
+            "x": 81.6,
+            "y": 8.0
           },
           "scale": {
-            "x": 32.0,
-            "y": 32.0
+            "x": 3.2,
+            "y": 3.2
           },
           "rotation": 0.0,
           "zIndex": 1,
-          "componentID": 117
+          "componentID": 563
         }
       },
       {
@@ -2342,32 +2342,32 @@
             "w": 1.0
           },
           "texture": {
-            "filePath": "assets/images/decorationsAndBlocks.png",
-            "texID": 4,
+            "filePath": "assets/images/items.png",
+            "texID": 6,
             "width": 112,
-            "height": 192
+            "height": 80
           },
           "width": 16.0,
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.85714287,
+              "x": 0.8571428656578064,
               "y": 1.0
             },
             {
-              "x": 0.85714287,
-              "y": 0.9166667
+              "x": 0.8571428656578064,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
-              "y": 0.9166667
+              "x": 0.7142857313156128,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
+              "x": 0.7142857313156128,
               "y": 1.0
             }
           ],
-          "componentID": 118
+          "componentID": 564
         }
       },
       {
@@ -2387,29 +2387,29 @@
           "angularVelocity": 0.0,
           "fixedRotation": false,
           "continuousCollision": true,
-          "componentID": 119
+          "componentID": 565
         }
       },
       {
         "Type": "main.components.physicsComponent.BoxCollider",
         "Properties": {
           "halfSize": {
-            "x": 16.0,
-            "y": 16.0
+            "x": 1.6,
+            "y": 1.6
           },
           "origin": {
             "x": 0.0,
             "y": 0.0
           },
           "center": {
-            "x": 880.0,
-            "y": 272.0
+            "x": 81.6,
+            "y": 8.0
           },
           "offset": {
             "x": 0.0,
             "y": 0.0
           },
-          "componentID": 120
+          "componentID": 566
         }
       }
     ]
@@ -2424,16 +2424,16 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 912.0,
-            "y": 112.0
+            "x": 84.8,
+            "y": 8.0
           },
           "scale": {
-            "x": 32.0,
-            "y": 32.0
+            "x": 3.2,
+            "y": 3.2
           },
           "rotation": 0.0,
           "zIndex": 1,
-          "componentID": 122
+          "componentID": 568
         }
       },
       {
@@ -2447,32 +2447,32 @@
             "w": 1.0
           },
           "texture": {
-            "filePath": "assets/images/decorationsAndBlocks.png",
-            "texID": 4,
+            "filePath": "assets/images/items.png",
+            "texID": 6,
             "width": 112,
-            "height": 192
+            "height": 80
           },
           "width": 16.0,
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.85714287,
+              "x": 0.8571428656578064,
               "y": 1.0
             },
             {
-              "x": 0.85714287,
-              "y": 0.9166667
+              "x": 0.8571428656578064,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
-              "y": 0.9166667
+              "x": 0.7142857313156128,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
+              "x": 0.7142857313156128,
               "y": 1.0
             }
           ],
-          "componentID": 123
+          "componentID": 569
         }
       },
       {
@@ -2492,29 +2492,29 @@
           "angularVelocity": 0.0,
           "fixedRotation": false,
           "continuousCollision": true,
-          "componentID": 124
+          "componentID": 570
         }
       },
       {
         "Type": "main.components.physicsComponent.BoxCollider",
         "Properties": {
           "halfSize": {
-            "x": 16.0,
-            "y": 16.0
+            "x": 1.6,
+            "y": 1.6
           },
           "origin": {
             "x": 0.0,
             "y": 0.0
           },
           "center": {
-            "x": 912.0,
-            "y": 112.0
+            "x": 84.8,
+            "y": 8.0
           },
           "offset": {
             "x": 0.0,
             "y": 0.0
           },
-          "componentID": 125
+          "componentID": 571
         }
       }
     ]
@@ -2529,16 +2529,16 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 880.0,
-            "y": 16.0
+            "x": 88.0,
+            "y": 8.0
           },
           "scale": {
-            "x": 32.0,
-            "y": 32.0
+            "x": 3.2,
+            "y": 3.2
           },
           "rotation": 0.0,
           "zIndex": 1,
-          "componentID": 127
+          "componentID": 573
         }
       },
       {
@@ -2552,32 +2552,32 @@
             "w": 1.0
           },
           "texture": {
-            "filePath": "assets/images/decorationsAndBlocks.png",
-            "texID": 4,
+            "filePath": "assets/images/items.png",
+            "texID": 6,
             "width": 112,
-            "height": 192
+            "height": 80
           },
           "width": 16.0,
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.85714287,
+              "x": 0.8571428656578064,
               "y": 1.0
             },
             {
-              "x": 0.85714287,
-              "y": 0.9166667
+              "x": 0.8571428656578064,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
-              "y": 0.9166667
+              "x": 0.7142857313156128,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
+              "x": 0.7142857313156128,
               "y": 1.0
             }
           ],
-          "componentID": 128
+          "componentID": 574
         }
       },
       {
@@ -2597,29 +2597,29 @@
           "angularVelocity": 0.0,
           "fixedRotation": false,
           "continuousCollision": true,
-          "componentID": 129
+          "componentID": 575
         }
       },
       {
         "Type": "main.components.physicsComponent.BoxCollider",
         "Properties": {
           "halfSize": {
-            "x": 16.0,
-            "y": 16.0
+            "x": 1.6,
+            "y": 1.6
           },
           "origin": {
             "x": 0.0,
             "y": 0.0
           },
           "center": {
-            "x": 880.0,
-            "y": 16.0
+            "x": 88.0,
+            "y": 8.0
           },
           "offset": {
             "x": 0.0,
             "y": 0.0
           },
-          "componentID": 130
+          "componentID": 576
         }
       }
     ]
@@ -2634,16 +2634,16 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1008.0,
-            "y": 144.0
+            "x": 91.2,
+            "y": 8.0
           },
           "scale": {
-            "x": 32.0,
-            "y": 32.0
+            "x": 3.2,
+            "y": 3.2
           },
           "rotation": 0.0,
           "zIndex": 1,
-          "componentID": 132
+          "componentID": 578
         }
       },
       {
@@ -2657,32 +2657,32 @@
             "w": 1.0
           },
           "texture": {
-            "filePath": "assets/images/decorationsAndBlocks.png",
-            "texID": 4,
+            "filePath": "assets/images/items.png",
+            "texID": 6,
             "width": 112,
-            "height": 192
+            "height": 80
           },
           "width": 16.0,
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.85714287,
+              "x": 0.8571428656578064,
               "y": 1.0
             },
             {
-              "x": 0.85714287,
-              "y": 0.9166667
+              "x": 0.8571428656578064,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
-              "y": 0.9166667
+              "x": 0.7142857313156128,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
+              "x": 0.7142857313156128,
               "y": 1.0
             }
           ],
-          "componentID": 133
+          "componentID": 579
         }
       },
       {
@@ -2702,29 +2702,29 @@
           "angularVelocity": 0.0,
           "fixedRotation": false,
           "continuousCollision": true,
-          "componentID": 134
+          "componentID": 580
         }
       },
       {
         "Type": "main.components.physicsComponent.BoxCollider",
         "Properties": {
           "halfSize": {
-            "x": 16.0,
-            "y": 16.0
+            "x": 1.6,
+            "y": 1.6
           },
           "origin": {
             "x": 0.0,
             "y": 0.0
           },
           "center": {
-            "x": 1008.0,
-            "y": 144.0
+            "x": 91.2,
+            "y": 8.0
           },
           "offset": {
             "x": 0.0,
             "y": 0.0
           },
-          "componentID": 135
+          "componentID": 581
         }
       }
     ]
@@ -2739,16 +2739,16 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 944.0,
-            "y": 16.0
+            "x": 94.4,
+            "y": 8.0
           },
           "scale": {
-            "x": 32.0,
-            "y": 32.0
+            "x": 3.2,
+            "y": 3.2
           },
           "rotation": 0.0,
           "zIndex": 1,
-          "componentID": 137
+          "componentID": 583
         }
       },
       {
@@ -2762,32 +2762,32 @@
             "w": 1.0
           },
           "texture": {
-            "filePath": "assets/images/decorationsAndBlocks.png",
-            "texID": 4,
+            "filePath": "assets/images/items.png",
+            "texID": 6,
             "width": 112,
-            "height": 192
+            "height": 80
           },
           "width": 16.0,
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.85714287,
+              "x": 0.8571428656578064,
               "y": 1.0
             },
             {
-              "x": 0.85714287,
-              "y": 0.9166667
+              "x": 0.8571428656578064,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
-              "y": 0.9166667
+              "x": 0.7142857313156128,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
+              "x": 0.7142857313156128,
               "y": 1.0
             }
           ],
-          "componentID": 138
+          "componentID": 584
         }
       },
       {
@@ -2807,29 +2807,29 @@
           "angularVelocity": 0.0,
           "fixedRotation": false,
           "continuousCollision": true,
-          "componentID": 139
+          "componentID": 585
         }
       },
       {
         "Type": "main.components.physicsComponent.BoxCollider",
         "Properties": {
           "halfSize": {
-            "x": 16.0,
-            "y": 16.0
+            "x": 1.6,
+            "y": 1.6
           },
           "origin": {
             "x": 0.0,
             "y": 0.0
           },
           "center": {
-            "x": 944.0,
-            "y": 16.0
+            "x": 94.4,
+            "y": 8.0
           },
           "offset": {
             "x": 0.0,
             "y": 0.0
           },
-          "componentID": 140
+          "componentID": 586
         }
       }
     ]
@@ -2844,16 +2844,16 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 976.0,
-            "y": 16.0
+            "x": 97.6,
+            "y": 8.0
           },
           "scale": {
-            "x": 32.0,
-            "y": 32.0
+            "x": 3.2,
+            "y": 3.2
           },
           "rotation": 0.0,
           "zIndex": 1,
-          "componentID": 142
+          "componentID": 588
         }
       },
       {
@@ -2867,32 +2867,32 @@
             "w": 1.0
           },
           "texture": {
-            "filePath": "assets/images/decorationsAndBlocks.png",
-            "texID": 4,
+            "filePath": "assets/images/items.png",
+            "texID": 6,
             "width": 112,
-            "height": 192
+            "height": 80
           },
           "width": 16.0,
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.85714287,
+              "x": 0.8571428656578064,
               "y": 1.0
             },
             {
-              "x": 0.85714287,
-              "y": 0.9166667
+              "x": 0.8571428656578064,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
-              "y": 0.9166667
+              "x": 0.7142857313156128,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
+              "x": 0.7142857313156128,
               "y": 1.0
             }
           ],
-          "componentID": 143
+          "componentID": 589
         }
       },
       {
@@ -2912,29 +2912,29 @@
           "angularVelocity": 0.0,
           "fixedRotation": false,
           "continuousCollision": true,
-          "componentID": 144
+          "componentID": 590
         }
       },
       {
         "Type": "main.components.physicsComponent.BoxCollider",
         "Properties": {
           "halfSize": {
-            "x": 16.0,
-            "y": 16.0
+            "x": 1.6,
+            "y": 1.6
           },
           "origin": {
             "x": 0.0,
             "y": 0.0
           },
           "center": {
-            "x": 976.0,
-            "y": 16.0
+            "x": 97.6,
+            "y": 8.0
           },
           "offset": {
             "x": 0.0,
             "y": 0.0
           },
-          "componentID": 145
+          "componentID": 591
         }
       }
     ]
@@ -2949,16 +2949,16 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 784.0,
-            "y": 176.0
+            "x": 100.8,
+            "y": 8.0
           },
           "scale": {
-            "x": 32.0,
-            "y": 32.0
+            "x": 3.2,
+            "y": 3.2
           },
           "rotation": 0.0,
           "zIndex": 1,
-          "componentID": 147
+          "componentID": 593
         }
       },
       {
@@ -2972,32 +2972,32 @@
             "w": 1.0
           },
           "texture": {
-            "filePath": "assets/images/decorationsAndBlocks.png",
-            "texID": 4,
+            "filePath": "assets/images/items.png",
+            "texID": 6,
             "width": 112,
-            "height": 192
+            "height": 80
           },
           "width": 16.0,
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.85714287,
+              "x": 0.8571428656578064,
               "y": 1.0
             },
             {
-              "x": 0.85714287,
-              "y": 0.9166667
+              "x": 0.8571428656578064,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
-              "y": 0.9166667
+              "x": 0.7142857313156128,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
+              "x": 0.7142857313156128,
               "y": 1.0
             }
           ],
-          "componentID": 148
+          "componentID": 594
         }
       },
       {
@@ -3017,29 +3017,29 @@
           "angularVelocity": 0.0,
           "fixedRotation": false,
           "continuousCollision": true,
-          "componentID": 149
+          "componentID": 595
         }
       },
       {
         "Type": "main.components.physicsComponent.BoxCollider",
         "Properties": {
           "halfSize": {
-            "x": 16.0,
-            "y": 16.0
+            "x": 1.6,
+            "y": 1.6
           },
           "origin": {
             "x": 0.0,
             "y": 0.0
           },
           "center": {
-            "x": 784.0,
-            "y": 176.0
+            "x": 100.8,
+            "y": 8.0
           },
           "offset": {
             "x": 0.0,
             "y": 0.0
           },
-          "componentID": 150
+          "componentID": 596
         }
       }
     ]
@@ -3054,16 +3054,16 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1008.0,
-            "y": 240.0
+            "x": 104.0,
+            "y": 8.0
           },
           "scale": {
-            "x": 32.0,
-            "y": 32.0
+            "x": 3.2,
+            "y": 3.2
           },
           "rotation": 0.0,
           "zIndex": 1,
-          "componentID": 152
+          "componentID": 598
         }
       },
       {
@@ -3077,32 +3077,32 @@
             "w": 1.0
           },
           "texture": {
-            "filePath": "assets/images/decorationsAndBlocks.png",
-            "texID": 4,
+            "filePath": "assets/images/items.png",
+            "texID": 6,
             "width": 112,
-            "height": 192
+            "height": 80
           },
           "width": 16.0,
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.85714287,
+              "x": 0.8571428656578064,
               "y": 1.0
             },
             {
-              "x": 0.85714287,
-              "y": 0.9166667
+              "x": 0.8571428656578064,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
-              "y": 0.9166667
+              "x": 0.7142857313156128,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
+              "x": 0.7142857313156128,
               "y": 1.0
             }
           ],
-          "componentID": 153
+          "componentID": 599
         }
       },
       {
@@ -3122,29 +3122,29 @@
           "angularVelocity": 0.0,
           "fixedRotation": false,
           "continuousCollision": true,
-          "componentID": 154
+          "componentID": 600
         }
       },
       {
         "Type": "main.components.physicsComponent.BoxCollider",
         "Properties": {
           "halfSize": {
-            "x": 16.0,
-            "y": 16.0
+            "x": 1.6,
+            "y": 1.6
           },
           "origin": {
             "x": 0.0,
             "y": 0.0
           },
           "center": {
-            "x": 1008.0,
-            "y": 240.0
+            "x": 104.0,
+            "y": 8.0
           },
           "offset": {
             "x": 0.0,
             "y": 0.0
           },
-          "componentID": 155
+          "componentID": 601
         }
       }
     ]
@@ -3159,16 +3159,16 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 944.0,
-            "y": 336.0
+            "x": 104.0,
+            "y": 11.200000000000001
           },
           "scale": {
-            "x": 32.0,
-            "y": 32.0
+            "x": 3.2,
+            "y": 3.2
           },
           "rotation": 0.0,
           "zIndex": 1,
-          "componentID": 157
+          "componentID": 603
         }
       },
       {
@@ -3182,32 +3182,32 @@
             "w": 1.0
           },
           "texture": {
-            "filePath": "assets/images/decorationsAndBlocks.png",
-            "texID": 4,
+            "filePath": "assets/images/items.png",
+            "texID": 6,
             "width": 112,
-            "height": 192
+            "height": 80
           },
           "width": 16.0,
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.85714287,
+              "x": 0.8571428656578064,
               "y": 1.0
             },
             {
-              "x": 0.85714287,
-              "y": 0.9166667
+              "x": 0.8571428656578064,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
-              "y": 0.9166667
+              "x": 0.7142857313156128,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
+              "x": 0.7142857313156128,
               "y": 1.0
             }
           ],
-          "componentID": 158
+          "componentID": 604
         }
       },
       {
@@ -3227,29 +3227,29 @@
           "angularVelocity": 0.0,
           "fixedRotation": false,
           "continuousCollision": true,
-          "componentID": 159
+          "componentID": 605
         }
       },
       {
         "Type": "main.components.physicsComponent.BoxCollider",
         "Properties": {
           "halfSize": {
-            "x": 16.0,
-            "y": 16.0
+            "x": 1.6,
+            "y": 1.6
           },
           "origin": {
             "x": 0.0,
             "y": 0.0
           },
           "center": {
-            "x": 944.0,
-            "y": 336.0
+            "x": 104.0,
+            "y": 11.200000000000001
           },
           "offset": {
             "x": 0.0,
             "y": 0.0
           },
-          "componentID": 160
+          "componentID": 606
         }
       }
     ]
@@ -3264,16 +3264,16 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1104.0,
-            "y": 16.0
+            "x": 107.2,
+            "y": 11.200000000000001
           },
           "scale": {
-            "x": 32.0,
-            "y": 32.0
+            "x": 3.2,
+            "y": 3.2
           },
           "rotation": 0.0,
           "zIndex": 1,
-          "componentID": 162
+          "componentID": 608
         }
       },
       {
@@ -3287,32 +3287,32 @@
             "w": 1.0
           },
           "texture": {
-            "filePath": "assets/images/decorationsAndBlocks.png",
-            "texID": 4,
+            "filePath": "assets/images/items.png",
+            "texID": 6,
             "width": 112,
-            "height": 192
+            "height": 80
           },
           "width": 16.0,
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.85714287,
+              "x": 0.8571428656578064,
               "y": 1.0
             },
             {
-              "x": 0.85714287,
-              "y": 0.9166667
+              "x": 0.8571428656578064,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
-              "y": 0.9166667
+              "x": 0.7142857313156128,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
+              "x": 0.7142857313156128,
               "y": 1.0
             }
           ],
-          "componentID": 163
+          "componentID": 609
         }
       },
       {
@@ -3332,29 +3332,29 @@
           "angularVelocity": 0.0,
           "fixedRotation": false,
           "continuousCollision": true,
-          "componentID": 164
+          "componentID": 610
         }
       },
       {
         "Type": "main.components.physicsComponent.BoxCollider",
         "Properties": {
           "halfSize": {
-            "x": 16.0,
-            "y": 16.0
+            "x": 1.6,
+            "y": 1.6
           },
           "origin": {
             "x": 0.0,
             "y": 0.0
           },
           "center": {
-            "x": 1104.0,
-            "y": 16.0
+            "x": 107.2,
+            "y": 11.200000000000001
           },
           "offset": {
             "x": 0.0,
             "y": 0.0
           },
-          "componentID": 165
+          "componentID": 611
         }
       }
     ]
@@ -3369,16 +3369,16 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1040.0,
-            "y": 336.0
+            "x": 17.6,
+            "y": 11.200000000000001
           },
           "scale": {
-            "x": 32.0,
-            "y": 32.0
+            "x": 3.2,
+            "y": 3.2
           },
           "rotation": 0.0,
           "zIndex": 1,
-          "componentID": 167
+          "componentID": 613
         }
       },
       {
@@ -3392,32 +3392,32 @@
             "w": 1.0
           },
           "texture": {
-            "filePath": "assets/images/decorationsAndBlocks.png",
-            "texID": 4,
+            "filePath": "assets/images/items.png",
+            "texID": 6,
             "width": 112,
-            "height": 192
+            "height": 80
           },
           "width": 16.0,
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.85714287,
+              "x": 0.8571428656578064,
               "y": 1.0
             },
             {
-              "x": 0.85714287,
-              "y": 0.9166667
+              "x": 0.8571428656578064,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
-              "y": 0.9166667
+              "x": 0.7142857313156128,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
+              "x": 0.7142857313156128,
               "y": 1.0
             }
           ],
-          "componentID": 168
+          "componentID": 614
         }
       },
       {
@@ -3437,29 +3437,29 @@
           "angularVelocity": 0.0,
           "fixedRotation": false,
           "continuousCollision": true,
-          "componentID": 169
+          "componentID": 615
         }
       },
       {
         "Type": "main.components.physicsComponent.BoxCollider",
         "Properties": {
           "halfSize": {
-            "x": 16.0,
-            "y": 16.0
+            "x": 1.6,
+            "y": 1.6
           },
           "origin": {
             "x": 0.0,
             "y": 0.0
           },
           "center": {
-            "x": 1040.0,
-            "y": 336.0
+            "x": 17.6,
+            "y": 11.200000000000001
           },
           "offset": {
             "x": 0.0,
             "y": 0.0
           },
-          "componentID": 170
+          "componentID": 616
         }
       }
     ]
@@ -3474,22 +3474,22 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 1168.0,
-            "y": 16.0
+            "x": 107.2,
+            "y": 33.6
           },
           "scale": {
-            "x": 32.0,
-            "y": 32.0
+            "x": 3.2,
+            "y": 3.2
           },
           "rotation": 0.0,
           "zIndex": 1,
-          "componentID": 172
+          "componentID": 1013
         }
       },
       {
         "Type": "main.components.SpriteRenderer",
         "Properties": {
-          "spriteID": 1,
+          "spriteID": 2,
           "color": {
             "x": 1.0,
             "y": 1.0,
@@ -3497,32 +3497,32 @@
             "w": 1.0
           },
           "texture": {
-            "filePath": "assets/images/decorationsAndBlocks.png",
-            "texID": 4,
+            "filePath": "assets/images/items.png",
+            "texID": 6,
             "width": 112,
-            "height": 192
+            "height": 80
           },
           "width": 16.0,
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.85714287,
+              "x": 0.8571428656578064,
               "y": 1.0
             },
             {
-              "x": 0.85714287,
-              "y": 0.9166667
+              "x": 0.8571428656578064,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
-              "y": 0.9166667
+              "x": 0.7142857313156128,
+              "y": 0.800000011920929
             },
             {
-              "x": 0.71428573,
+              "x": 0.7142857313156128,
               "y": 1.0
             }
           ],
-          "componentID": 173
+          "componentID": 1014
         }
       },
       {
@@ -3542,29 +3542,29 @@
           "angularVelocity": 0.0,
           "fixedRotation": false,
           "continuousCollision": true,
-          "componentID": 174
+          "componentID": 1015
         }
       },
       {
         "Type": "main.components.physicsComponent.BoxCollider",
         "Properties": {
           "halfSize": {
-            "x": 16.0,
-            "y": 16.0
+            "x": 1.6,
+            "y": 1.6
           },
           "origin": {
             "x": 0.0,
             "y": 0.0
           },
           "center": {
-            "x": 1168.0,
-            "y": 16.0
+            "x": 107.2,
+            "y": 33.6
           },
           "offset": {
             "x": 0.0,
             "y": 0.0
           },
-          "componentID": 175
+          "componentID": 1016
         }
       }
     ]
@@ -3579,16 +3579,856 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 656.0,
-            "y": 368.0
+            "x": 107.2,
+            "y": 33.6
           },
           "scale": {
-            "x": 32.0,
-            "y": 32.0
+            "x": 3.2,
+            "y": 3.2
           },
-          "rotation": 0.002425286,
+          "rotation": 0.0,
           "zIndex": 1,
-          "componentID": 217
+          "componentID": 1018
+        }
+      },
+      {
+        "Type": "main.components.SpriteRenderer",
+        "Properties": {
+          "spriteID": 2,
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0,
+            "w": 1.0
+          },
+          "texture": {
+            "filePath": "assets/images/items.png",
+            "texID": 6,
+            "width": 112,
+            "height": 80
+          },
+          "width": 16.0,
+          "height": 16.0,
+          "texCords": [
+            {
+              "x": 0.8571428656578064,
+              "y": 1.0
+            },
+            {
+              "x": 0.8571428656578064,
+              "y": 0.800000011920929
+            },
+            {
+              "x": 0.7142857313156128,
+              "y": 0.800000011920929
+            },
+            {
+              "x": 0.7142857313156128,
+              "y": 1.0
+            }
+          ],
+          "componentID": 1019
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.RigidBody",
+        "Properties": {
+          "mass": 0.0,
+          "friction": 0.1,
+          "isSensor": false,
+          "velocity": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "bodyType": "Static",
+          "gravityScale": 1.0,
+          "linearDamping": 0.9,
+          "angularDamping": 0.8,
+          "angularVelocity": 0.0,
+          "fixedRotation": false,
+          "continuousCollision": true,
+          "componentID": 1020
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.BoxCollider",
+        "Properties": {
+          "halfSize": {
+            "x": 1.6,
+            "y": 1.6
+          },
+          "origin": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "center": {
+            "x": 107.2,
+            "y": 33.6
+          },
+          "offset": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "componentID": 1021
+        }
+      }
+    ]
+  },
+  {
+    "gameObjectID": 36,
+    "name": "Generated",
+    "isSerializable": true,
+    "isTriggerable": true,
+    "componentList": [
+      {
+        "Type": "main.haspid.Transform",
+        "Properties": {
+          "position": {
+            "x": 107.2,
+            "y": 30.400000000000002
+          },
+          "scale": {
+            "x": 3.2,
+            "y": 3.2
+          },
+          "rotation": 0.0,
+          "zIndex": 1,
+          "componentID": 1023
+        }
+      },
+      {
+        "Type": "main.components.SpriteRenderer",
+        "Properties": {
+          "spriteID": 2,
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0,
+            "w": 1.0
+          },
+          "texture": {
+            "filePath": "assets/images/items.png",
+            "texID": 6,
+            "width": 112,
+            "height": 80
+          },
+          "width": 16.0,
+          "height": 16.0,
+          "texCords": [
+            {
+              "x": 0.8571428656578064,
+              "y": 1.0
+            },
+            {
+              "x": 0.8571428656578064,
+              "y": 0.800000011920929
+            },
+            {
+              "x": 0.7142857313156128,
+              "y": 0.800000011920929
+            },
+            {
+              "x": 0.7142857313156128,
+              "y": 1.0
+            }
+          ],
+          "componentID": 1024
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.RigidBody",
+        "Properties": {
+          "mass": 0.0,
+          "friction": 0.1,
+          "isSensor": false,
+          "velocity": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "bodyType": "Static",
+          "gravityScale": 1.0,
+          "linearDamping": 0.9,
+          "angularDamping": 0.8,
+          "angularVelocity": 0.0,
+          "fixedRotation": false,
+          "continuousCollision": true,
+          "componentID": 1025
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.BoxCollider",
+        "Properties": {
+          "halfSize": {
+            "x": 1.6,
+            "y": 1.6
+          },
+          "origin": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "center": {
+            "x": 107.2,
+            "y": 30.400000000000002
+          },
+          "offset": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "componentID": 1026
+        }
+      }
+    ]
+  },
+  {
+    "gameObjectID": 37,
+    "name": "Generated",
+    "isSerializable": true,
+    "isTriggerable": true,
+    "componentList": [
+      {
+        "Type": "main.haspid.Transform",
+        "Properties": {
+          "position": {
+            "x": 110.4,
+            "y": 27.200000000000003
+          },
+          "scale": {
+            "x": 3.2,
+            "y": 3.2
+          },
+          "rotation": 0.0,
+          "zIndex": 1,
+          "componentID": 1028
+        }
+      },
+      {
+        "Type": "main.components.SpriteRenderer",
+        "Properties": {
+          "spriteID": 2,
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0,
+            "w": 1.0
+          },
+          "texture": {
+            "filePath": "assets/images/items.png",
+            "texID": 6,
+            "width": 112,
+            "height": 80
+          },
+          "width": 16.0,
+          "height": 16.0,
+          "texCords": [
+            {
+              "x": 0.8571428656578064,
+              "y": 1.0
+            },
+            {
+              "x": 0.8571428656578064,
+              "y": 0.800000011920929
+            },
+            {
+              "x": 0.7142857313156128,
+              "y": 0.800000011920929
+            },
+            {
+              "x": 0.7142857313156128,
+              "y": 1.0
+            }
+          ],
+          "componentID": 1029
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.RigidBody",
+        "Properties": {
+          "mass": 0.0,
+          "friction": 0.1,
+          "isSensor": false,
+          "velocity": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "bodyType": "Static",
+          "gravityScale": 1.0,
+          "linearDamping": 0.9,
+          "angularDamping": 0.8,
+          "angularVelocity": 0.0,
+          "fixedRotation": false,
+          "continuousCollision": true,
+          "componentID": 1030
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.BoxCollider",
+        "Properties": {
+          "halfSize": {
+            "x": 1.6,
+            "y": 1.6
+          },
+          "origin": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "center": {
+            "x": 110.4,
+            "y": 27.200000000000003
+          },
+          "offset": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "componentID": 1031
+        }
+      }
+    ]
+  },
+  {
+    "gameObjectID": 38,
+    "name": "Generated",
+    "isSerializable": true,
+    "isTriggerable": true,
+    "componentList": [
+      {
+        "Type": "main.haspid.Transform",
+        "Properties": {
+          "position": {
+            "x": 107.2,
+            "y": 24.000000000000004
+          },
+          "scale": {
+            "x": 3.2,
+            "y": 3.2
+          },
+          "rotation": 0.0,
+          "zIndex": 1,
+          "componentID": 1033
+        }
+      },
+      {
+        "Type": "main.components.SpriteRenderer",
+        "Properties": {
+          "spriteID": 2,
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0,
+            "w": 1.0
+          },
+          "texture": {
+            "filePath": "assets/images/items.png",
+            "texID": 6,
+            "width": 112,
+            "height": 80
+          },
+          "width": 16.0,
+          "height": 16.0,
+          "texCords": [
+            {
+              "x": 0.8571428656578064,
+              "y": 1.0
+            },
+            {
+              "x": 0.8571428656578064,
+              "y": 0.800000011920929
+            },
+            {
+              "x": 0.7142857313156128,
+              "y": 0.800000011920929
+            },
+            {
+              "x": 0.7142857313156128,
+              "y": 1.0
+            }
+          ],
+          "componentID": 1034
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.RigidBody",
+        "Properties": {
+          "mass": 0.0,
+          "friction": 0.1,
+          "isSensor": false,
+          "velocity": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "bodyType": "Static",
+          "gravityScale": 1.0,
+          "linearDamping": 0.9,
+          "angularDamping": 0.8,
+          "angularVelocity": 0.0,
+          "fixedRotation": false,
+          "continuousCollision": true,
+          "componentID": 1035
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.BoxCollider",
+        "Properties": {
+          "halfSize": {
+            "x": 1.6,
+            "y": 1.6
+          },
+          "origin": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "center": {
+            "x": 107.2,
+            "y": 24.000000000000004
+          },
+          "offset": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "componentID": 1036
+        }
+      }
+    ]
+  },
+  {
+    "gameObjectID": 39,
+    "name": "Generated",
+    "isSerializable": true,
+    "isTriggerable": true,
+    "componentList": [
+      {
+        "Type": "main.haspid.Transform",
+        "Properties": {
+          "position": {
+            "x": 107.2,
+            "y": 20.800000000000004
+          },
+          "scale": {
+            "x": 3.2,
+            "y": 3.2
+          },
+          "rotation": 0.0,
+          "zIndex": 1,
+          "componentID": 1038
+        }
+      },
+      {
+        "Type": "main.components.SpriteRenderer",
+        "Properties": {
+          "spriteID": 2,
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0,
+            "w": 1.0
+          },
+          "texture": {
+            "filePath": "assets/images/items.png",
+            "texID": 6,
+            "width": 112,
+            "height": 80
+          },
+          "width": 16.0,
+          "height": 16.0,
+          "texCords": [
+            {
+              "x": 0.8571428656578064,
+              "y": 1.0
+            },
+            {
+              "x": 0.8571428656578064,
+              "y": 0.800000011920929
+            },
+            {
+              "x": 0.7142857313156128,
+              "y": 0.800000011920929
+            },
+            {
+              "x": 0.7142857313156128,
+              "y": 1.0
+            }
+          ],
+          "componentID": 1039
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.RigidBody",
+        "Properties": {
+          "mass": 0.0,
+          "friction": 0.1,
+          "isSensor": false,
+          "velocity": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "bodyType": "Static",
+          "gravityScale": 1.0,
+          "linearDamping": 0.9,
+          "angularDamping": 0.8,
+          "angularVelocity": 0.0,
+          "fixedRotation": false,
+          "continuousCollision": true,
+          "componentID": 1040
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.BoxCollider",
+        "Properties": {
+          "halfSize": {
+            "x": 1.6,
+            "y": 1.6
+          },
+          "origin": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "center": {
+            "x": 107.2,
+            "y": 20.800000000000004
+          },
+          "offset": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "componentID": 1041
+        }
+      }
+    ]
+  },
+  {
+    "gameObjectID": 40,
+    "name": "Generated",
+    "isSerializable": true,
+    "isTriggerable": true,
+    "componentList": [
+      {
+        "Type": "main.haspid.Transform",
+        "Properties": {
+          "position": {
+            "x": 107.2,
+            "y": 17.6
+          },
+          "scale": {
+            "x": 3.2,
+            "y": 3.2
+          },
+          "rotation": 0.0,
+          "zIndex": 1,
+          "componentID": 1043
+        }
+      },
+      {
+        "Type": "main.components.SpriteRenderer",
+        "Properties": {
+          "spriteID": 2,
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0,
+            "w": 1.0
+          },
+          "texture": {
+            "filePath": "assets/images/items.png",
+            "texID": 6,
+            "width": 112,
+            "height": 80
+          },
+          "width": 16.0,
+          "height": 16.0,
+          "texCords": [
+            {
+              "x": 0.8571428656578064,
+              "y": 1.0
+            },
+            {
+              "x": 0.8571428656578064,
+              "y": 0.800000011920929
+            },
+            {
+              "x": 0.7142857313156128,
+              "y": 0.800000011920929
+            },
+            {
+              "x": 0.7142857313156128,
+              "y": 1.0
+            }
+          ],
+          "componentID": 1044
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.RigidBody",
+        "Properties": {
+          "mass": 0.0,
+          "friction": 0.1,
+          "isSensor": false,
+          "velocity": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "bodyType": "Static",
+          "gravityScale": 1.0,
+          "linearDamping": 0.9,
+          "angularDamping": 0.8,
+          "angularVelocity": 0.0,
+          "fixedRotation": false,
+          "continuousCollision": true,
+          "componentID": 1045
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.BoxCollider",
+        "Properties": {
+          "halfSize": {
+            "x": 1.6,
+            "y": 1.6
+          },
+          "origin": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "center": {
+            "x": 107.2,
+            "y": 17.6
+          },
+          "offset": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "componentID": 1046
+        }
+      }
+    ]
+  },
+  {
+    "gameObjectID": 41,
+    "name": "Generated",
+    "isSerializable": true,
+    "isTriggerable": true,
+    "componentList": [
+      {
+        "Type": "main.haspid.Transform",
+        "Properties": {
+          "position": {
+            "x": 104.0,
+            "y": 14.4
+          },
+          "scale": {
+            "x": 3.2,
+            "y": 3.2
+          },
+          "rotation": 0.0,
+          "zIndex": 1,
+          "componentID": 1048
+        }
+      },
+      {
+        "Type": "main.components.SpriteRenderer",
+        "Properties": {
+          "spriteID": 2,
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0,
+            "w": 1.0
+          },
+          "texture": {
+            "filePath": "assets/images/items.png",
+            "texID": 6,
+            "width": 112,
+            "height": 80
+          },
+          "width": 16.0,
+          "height": 16.0,
+          "texCords": [
+            {
+              "x": 0.8571428656578064,
+              "y": 1.0
+            },
+            {
+              "x": 0.8571428656578064,
+              "y": 0.800000011920929
+            },
+            {
+              "x": 0.7142857313156128,
+              "y": 0.800000011920929
+            },
+            {
+              "x": 0.7142857313156128,
+              "y": 1.0
+            }
+          ],
+          "componentID": 1049
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.RigidBody",
+        "Properties": {
+          "mass": 0.0,
+          "friction": 0.1,
+          "isSensor": false,
+          "velocity": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "bodyType": "Static",
+          "gravityScale": 1.0,
+          "linearDamping": 0.9,
+          "angularDamping": 0.8,
+          "angularVelocity": 0.0,
+          "fixedRotation": false,
+          "continuousCollision": true,
+          "componentID": 1050
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.BoxCollider",
+        "Properties": {
+          "halfSize": {
+            "x": 1.6,
+            "y": 1.6
+          },
+          "origin": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "center": {
+            "x": 104.0,
+            "y": 14.4
+          },
+          "offset": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "componentID": 1051
+        }
+      }
+    ]
+  },
+  {
+    "gameObjectID": 42,
+    "name": "Generated",
+    "isSerializable": true,
+    "isTriggerable": true,
+    "componentList": [
+      {
+        "Type": "main.haspid.Transform",
+        "Properties": {
+          "position": {
+            "x": 100.8,
+            "y": 11.200000000000001
+          },
+          "scale": {
+            "x": 3.2,
+            "y": 3.2
+          },
+          "rotation": 0.0,
+          "zIndex": 1,
+          "componentID": 1053
+        }
+      },
+      {
+        "Type": "main.components.SpriteRenderer",
+        "Properties": {
+          "spriteID": 2,
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0,
+            "w": 1.0
+          },
+          "texture": {
+            "filePath": "assets/images/items.png",
+            "texID": 6,
+            "width": 112,
+            "height": 80
+          },
+          "width": 16.0,
+          "height": 16.0,
+          "texCords": [
+            {
+              "x": 0.8571428656578064,
+              "y": 1.0
+            },
+            {
+              "x": 0.8571428656578064,
+              "y": 0.800000011920929
+            },
+            {
+              "x": 0.7142857313156128,
+              "y": 0.800000011920929
+            },
+            {
+              "x": 0.7142857313156128,
+              "y": 1.0
+            }
+          ],
+          "componentID": 1054
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.RigidBody",
+        "Properties": {
+          "mass": 0.0,
+          "friction": 0.1,
+          "isSensor": false,
+          "velocity": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "bodyType": "Static",
+          "gravityScale": 1.0,
+          "linearDamping": 0.9,
+          "angularDamping": 0.8,
+          "angularVelocity": 0.0,
+          "fixedRotation": false,
+          "continuousCollision": true,
+          "componentID": 1055
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.BoxCollider",
+        "Properties": {
+          "halfSize": {
+            "x": 1.6,
+            "y": 1.6
+          },
+          "origin": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "center": {
+            "x": 100.8,
+            "y": 11.200000000000001
+          },
+          "offset": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "componentID": 1056
+        }
+      }
+    ]
+  },
+  {
+    "gameObjectID": 62,
+    "name": "Generated",
+    "isSerializable": true,
+    "isTriggerable": true,
+    "componentList": [
+      {
+        "Type": "main.haspid.Transform",
+        "Properties": {
+          "position": {
+            "x": 62.400000000000006,
+            "y": 24.000000000000004
+          },
+          "scale": {
+            "x": 3.2,
+            "y": 3.2
+          },
+          "rotation": 0.0,
+          "zIndex": 1,
+          "componentID": 1873
         }
       },
       {
@@ -3601,7 +4441,7 @@
               "doesLoop": true,
               "frameList": [
                 {
-                  "frameTime": 0.23,
+                  "frameTime": 0.23000000417232513,
                   "spriteRenderer": {
                     "spriteID": 0,
                     "color": {
@@ -3620,11 +4460,11 @@
                     "height": 16.0,
                     "texCords": [
                       {
-                        "x": 0.071428575,
+                        "x": 0.0714285746216774,
                         "y": 1.0
                       },
                       {
-                        "x": 0.071428575,
+                        "x": 0.0714285746216774,
                         "y": 0.5
                       },
                       {
@@ -3640,7 +4480,7 @@
                   }
                 },
                 {
-                  "frameTime": 0.23,
+                  "frameTime": 0.23000000417232513,
                   "spriteRenderer": {
                     "spriteID": 0,
                     "color": {
@@ -3659,19 +4499,19 @@
                     "height": 16.0,
                     "texCords": [
                       {
-                        "x": 0.21428573,
+                        "x": 0.2142857313156128,
                         "y": 1.0
                       },
                       {
-                        "x": 0.21428573,
+                        "x": 0.2142857313156128,
                         "y": 0.5
                       },
                       {
-                        "x": 0.14285715,
+                        "x": 0.1428571492433548,
                         "y": 0.5
                       },
                       {
-                        "x": 0.14285715,
+                        "x": 0.1428571492433548,
                         "y": 1.0
                       }
                     ],
@@ -3679,7 +4519,7 @@
                   }
                 },
                 {
-                  "frameTime": 0.23,
+                  "frameTime": 0.23000000417232513,
                   "spriteRenderer": {
                     "spriteID": 0,
                     "color": {
@@ -3698,19 +4538,19 @@
                     "height": 16.0,
                     "texCords": [
                       {
-                        "x": 0.2857143,
+                        "x": 0.2857142984867096,
                         "y": 1.0
                       },
                       {
-                        "x": 0.2857143,
+                        "x": 0.2857142984867096,
                         "y": 0.5
                       },
                       {
-                        "x": 0.21428573,
+                        "x": 0.2142857313156128,
                         "y": 0.5
                       },
                       {
-                        "x": 0.21428573,
+                        "x": 0.2142857313156128,
                         "y": 1.0
                       }
                     ],
@@ -3718,7 +4558,7 @@
                   }
                 },
                 {
-                  "frameTime": 0.23,
+                  "frameTime": 0.23000000417232513,
                   "spriteRenderer": {
                     "spriteID": 0,
                     "color": {
@@ -3737,19 +4577,19 @@
                     "height": 16.0,
                     "texCords": [
                       {
-                        "x": 0.21428573,
+                        "x": 0.2142857313156128,
                         "y": 1.0
                       },
                       {
-                        "x": 0.21428573,
+                        "x": 0.2142857313156128,
                         "y": 0.5
                       },
                       {
-                        "x": 0.14285715,
+                        "x": 0.1428571492433548,
                         "y": 0.5
                       },
                       {
-                        "x": 0.14285715,
+                        "x": 0.1428571492433548,
                         "y": 1.0
                       }
                     ],
@@ -3759,13 +4599,13 @@
               ]
             }
           ],
-          "componentID": 218
+          "componentID": 1874
         }
       },
       {
         "Type": "main.components.SpriteRenderer",
         "Properties": {
-          "spriteID": 6,
+          "spriteID": 1,
           "color": {
             "x": 1.0,
             "y": 1.0,
@@ -3782,133 +4622,65 @@
           "height": 0.0,
           "texCords": [
             {
-              "x": 0.2857143,
+              "x": 0.2142857313156128,
               "y": 1.0
             },
             {
-              "x": 0.2857143,
+              "x": 0.2142857313156128,
               "y": 0.5
             },
             {
-              "x": 0.21428573,
+              "x": 0.1428571492433548,
               "y": 0.5
             },
             {
-              "x": 0.21428573,
+              "x": 0.1428571492433548,
               "y": 1.0
             }
           ],
-          "componentID": 219
+          "componentID": 1875
         }
       },
       {
         "Type": "main.components.PlayerController",
         "Properties": {
-          "walkSpeed": 200.0,
-          "jumpBoost": 1.0,
-          "jumpImpulse": 3.0,
-          "slowDownForce": 0.05,
-          "terminalVelocity": {
-            "x": 2.1,
-            "y": 3.1
-          },
           "onGround": false,
-          "componentID": 220
+          "startVelYM": 120.0,
+          "startVelXM": 2.0,
+          "thresholdLS": 0.2,
+          "frictionLS": 0.5,
+          "startVelYLS": -1.0,
+          "speedScalarLS": 1.1,
+          "speedScalarM": 1.5,
+          "resetGainIterations": 15,
+          "gainHeightIterations": 0,
+          "terminalVelocity": {
+            "x": 50.0,
+            "y": 50.0
+          },
+          "componentID": 1876
         }
       },
       {
-        "Type": "main.components.physicsComponent.PillboxCollider",
+        "Type": "main.components.physicsComponent.BoxCollider",
         "Properties": {
-          "width": 27.2,
-          "height": 45.76,
+          "halfSize": {
+            "x": 1.6,
+            "y": 1.6
+          },
+          "origin": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "center": {
+            "x": 62.400000000000006,
+            "y": 24.000000000000004
+          },
           "offset": {
             "x": 0.0,
             "y": 0.0
           },
-          "componentID": 221
-        }
-      },
-      {
-        "Type": "main.components.physicsComponent.RigidBody",
-        "Properties": {
-          "mass": 0.0,
-          "friction": 0.1,
-          "isSensor": false,
-          "velocity": {
-            "x": 0.0,
-            "y": -3.1
-          },
-          "bodyType": "Dynamic",
-          "gravityScale": 0.0,
-          "linearDamping": 0.9,
-          "angularDamping": 0.8,
-          "angularVelocity": 0.0,
-          "fixedRotation": false,
-          "continuousCollision": true,
-          "componentID": 238
-        }
-      }
-    ]
-  },
-  {
-    "gameObjectID": 36,
-    "name": "Generated",
-    "isSerializable": true,
-    "isTriggerable": true,
-    "componentList": [
-      {
-        "Type": "main.haspid.Transform",
-        "Properties": {
-          "position": {
-            "x": 464.0,
-            "y": 432.0
-          },
-          "scale": {
-            "x": 32.0,
-            "y": 32.0
-          },
-          "rotation": 5.40669E-4,
-          "zIndex": 1,
-          "componentID": 281
-        }
-      },
-      {
-        "Type": "main.components.SpriteRenderer",
-        "Properties": {
-          "spriteID": 1,
-          "color": {
-            "x": 1.0,
-            "y": 1.0,
-            "z": 1.0,
-            "w": 1.0
-          },
-          "texture": {
-            "filePath": "assets/images/decorationsAndBlocks.png",
-            "texID": 4,
-            "width": 112,
-            "height": 192
-          },
-          "width": 16.0,
-          "height": 16.0,
-          "texCords": [
-            {
-              "x": 0.85714287,
-              "y": 1.0
-            },
-            {
-              "x": 0.85714287,
-              "y": 0.9166667
-            },
-            {
-              "x": 0.71428573,
-              "y": 0.9166667
-            },
-            {
-              "x": 0.71428573,
-              "y": 1.0
-            }
-          ],
-          "componentID": 282
+          "componentID": 1877
         }
       },
       {
@@ -3928,29 +4700,7 @@
           "angularVelocity": 0.0,
           "fixedRotation": false,
           "continuousCollision": true,
-          "componentID": 283
-        }
-      },
-      {
-        "Type": "main.components.physicsComponent.BoxCollider",
-        "Properties": {
-          "halfSize": {
-            "x": 16.0,
-            "y": 16.0
-          },
-          "origin": {
-            "x": 0.0,
-            "y": 0.0
-          },
-          "center": {
-            "x": 464.0,
-            "y": 432.0
-          },
-          "offset": {
-            "x": 0.0,
-            "y": 0.0
-          },
-          "componentID": 284
+          "componentID": 1919
         }
       }
     ]

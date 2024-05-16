@@ -36,7 +36,7 @@ public class Physics2D {
         physicsTime += dt;
         if(physicsTime >= 0f){
             physicsTime -= physicsTimeStep;
-            world.step(physicsTime, velocityIterations, positionIterations); //todo
+            world.step(physicsTimeStep, velocityIterations, positionIterations);
         }
     }
 
@@ -131,9 +131,9 @@ public class Physics2D {
         }
     }
 
-    public RayCastInfo rayCastInfo(GameObject requestingObject, Vector2f point1, Vector2f point2){
+    public RayCastInfo rayCastInfo(GameObject requestingObject, Vector2d point1, Vector2d point2){
         RayCastInfo callback = new RayCastInfo(requestingObject);
-        world.raycast(callback, new Vec2(point1.x, point1.y), new Vec2(point2.x, point2.y));
+        world.raycast(callback, new Vec2((float) point1.x, (float) point1.y), new Vec2((float) point2.x, (float) point2.y));
 
         return callback;
     }
