@@ -24,7 +24,7 @@ public class BoxCollider extends Collider {
     public void update(float dt){
         Transform t = getParent().getTransform();
         center = new Vector2d(t.getPosition()).add(getOffset());
-     //todo   DebugDraw.drawBoxes2D(colliderIndex, center, new Vector2d(halfSize.x * 2, halfSize.y * 2), t.getRotation(), colliderColor, 1 );
+        DebugDraw.drawBoxes2D(colliderIndex, center, new Vector2d(halfSize.x * 2, halfSize.y * 2), t.getRotation(), colliderColor, 1 );
     }
 
     public BoxCollider copy(){

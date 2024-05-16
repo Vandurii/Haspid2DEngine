@@ -4,6 +4,7 @@ import main.components.Component;
 import main.components.SpriteRenderer;
 import main.editor.JImGui;
 import main.util.Texture;
+import org.joml.Vector2d;
 import org.joml.Vector2f;
 
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class StateMachine extends Component {
 
         SpriteRenderer nextSpriteRender = currentAnimation.getCurrentSpriteRender();
         Texture nextTexture = nextSpriteRender.getTexture();
-        Vector2f[] nextTexCords = nextSpriteRender.getSpriteCords();
+        Vector2d[] nextTexCords = nextSpriteRender.getSpriteCords();
 
         if(objectSpriteRender != null && objectSpriteRender.getSpriteCords() != nextTexCords) {
             objectSpriteRender.setTexture(nextTexture);

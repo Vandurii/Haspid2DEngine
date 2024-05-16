@@ -48,12 +48,12 @@ public class Physics2D {
             BodyDef bodyDef = new BodyDef();
             bodyDef.angle = (float)Math.toRadians(transform.getRotation());
             bodyDef.position.set((float) transform.getPosition().x, (float) transform.getPosition().y);
-            bodyDef.angularDamping = rigidBody.getAngularDamping();
-            bodyDef.linearDamping = rigidBody.getLinearDamping();
+            bodyDef.angularDamping = (float) rigidBody.getAngularDamping();
+            bodyDef.linearDamping = (float) rigidBody.getLinearDamping();
             bodyDef.fixedRotation = rigidBody.isFixedRotation();
             bodyDef.bullet = rigidBody.isContinuousCollision();
-            bodyDef.gravityScale = rigidBody.getGravityScale();
-            bodyDef.angularVelocity = rigidBody.getAngularVelocity();
+            bodyDef.gravityScale = (float) rigidBody.getGravityScale();
+            bodyDef.angularVelocity = (float) rigidBody.getAngularVelocity();
             bodyDef.userData = rigidBody.getParent();
 
             switch (rigidBody.getBodyType()){
@@ -63,7 +63,7 @@ public class Physics2D {
             }
 
             Body body = world.createBody(bodyDef);
-            body.m_mass = rigidBody.getMass();
+            body.m_mass = (float) rigidBody.getMass();
             rigidBody.setRawBody(body);
 
             CircleCollider circleCollider = gameObject.getComponent(CircleCollider.class);
@@ -116,7 +116,7 @@ public class Physics2D {
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
         fixtureDef.density = 1f;
-        fixtureDef.friction = rigidBody.getFriction();
+        fixtureDef.friction = (float) rigidBody.getFriction();
         fixtureDef.userData = rigidBody.getParent();
         fixtureDef.isSensor = rigidBody.isSensor();
 

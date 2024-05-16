@@ -12,23 +12,23 @@ import org.joml.Vector2f;
 import static org.lwjgl.glfw.GLFW.*;
 
 public class PlayerController extends Component {
-    private float walkSpeed = 1.9f;
-    private float jumpBoost = 1f;
-    private float jumpImpulse = 3f;
-    private float slowDownForce = 0.05f;
-    private Vector2f terminalVelocity = new Vector2f(2.1f, 3.1f);
+    private double walkSpeed = 1.9f;
+    private double jumpBoost = 1f;
+    private double jumpImpulse = 3f;
+    private double slowDownForce = 0.05f;
+    private Vector2d terminalVelocity = new Vector2d(2.1f, 3.1f);
 
     private boolean onGround = false;
-    private transient float groundDebounce = 0f;
-    private transient float groundDebounceTime = 0.1f;
+    private transient double groundDebounce = 0f;
+    private transient double groundDebounceTime = 0.1f;
 
     private transient RigidBody rigidBody;
     private transient StateMachine stateMachine;
-    private transient float bigJumpBoostFactor = 1.05f;
-    private transient float playerWidth = 32f;//0.25f;
+    private transient double bigJumpBoostFactor = 1.05f;
+    private transient double playerWidth = 32f;//0.25f;
     private transient int jumpTime = 0;
-    private transient Vector2f acceleration = new Vector2f();
-    private transient Vector2f velocity = new Vector2f();
+    private transient Vector2d acceleration = new Vector2d();
+    private transient Vector2d velocity = new Vector2d();
     private transient boolean isDead = false;
     private transient int enemyBounce = 0;
 

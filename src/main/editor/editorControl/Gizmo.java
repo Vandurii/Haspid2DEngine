@@ -26,14 +26,14 @@ public class Gizmo extends Component {
 
     private SpriteRenderer xAxisSpriteRender;
     private GameObject xAxisBody;
-    private int xAxisXPadding;
-    private int xAxisYPadding;
+    private double xAxisXPadding;
+    private double xAxisYPadding;
     private boolean isXAxisHot;
 
     private SpriteRenderer yAxisSpriteRender;
     private GameObject yAxisBody;
-    private int yAxisXPadding;
-    private int yAxisYPadding;
+    private double yAxisXPadding;
+    private double yAxisYPadding;
     private boolean isYAxisHot;
 
     public Gizmo(EditorScene editorScene){

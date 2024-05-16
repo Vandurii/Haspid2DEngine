@@ -8,6 +8,7 @@ import main.components.SpriteRenderer;
 import main.editor.editorControl.MouseControls;
 import main.haspid.GameObject;
 import main.util.*;
+import org.joml.Vector2d;
 import org.joml.Vector2f;
 
 import java.util.ArrayList;
@@ -53,13 +54,13 @@ public class PropertiesWindow {
     public void generateButtons(SpriteSheet spriteSheet, int index){
         for (int i = 0; i < spriteSheet.getSize(); i++) {
             SpriteRenderer sprite = spriteSheet.getSprite(i);
-            float spriteWidth = sprite.getWidth();
-            float spriteHeight = sprite.getHeight();
+            double spriteWidth = sprite.getWidth();
+            double spriteHeight = sprite.getHeight();
             int texID = sprite.getTexID();
-            Vector2f[] cords = sprite.getSpriteCords();
+            Vector2d[] cords = sprite.getSpriteCords();
 
             ImGui.pushID(i);
-            if (ImGui.imageButton(texID, spriteWidth, spriteHeight, cords[3].x, cords[3].y, cords[1].x, cords[1].y)) {
+            if (ImGui.imageButton(texID, (float) spriteWidth, (float) spriteHeight, (float) cords[3].x, (float) cords[3].y, (float) cords[1].x, (float) cords[1].y)) {
                 GameObject holdingObject;
                 // todo
                 if(i == 0 && index == 3){
@@ -90,7 +91,7 @@ public class PropertiesWindow {
             }
             ImGui.popID();
 
-            if (enoughSpaceForNextButton(spriteWidth)) ImGui.sameLine();
+            if (enoughSpaceForNextButton((float) spriteWidth)) ImGui.sameLine();
         }
     }
 

@@ -3,6 +3,7 @@ package main.components;
 import imgui.ImGui;
 import main.haspid.Transform;
 import main.util.Texture;
+import org.joml.Vector2d;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
 
@@ -17,28 +18,28 @@ public class SpriteRenderer extends Component {
     private int spriteID;
     private Vector4f color;
     private Texture texture;
-    private float width, height;
-    private Vector2f[] texCords;
+    private double width, height;
+    private Vector2d[] texCords;
 
     public SpriteRenderer() {
         this.isDirty = true;
         this.color = new Vector4f(1, 1, 1, 1);
-        this.texCords = new Vector2f[]{
-                new Vector2f(1, 1),
-                new Vector2f(1, 0),
-                new Vector2f(0, 0),
-                new Vector2f(0, 1)
+        this.texCords = new Vector2d[]{
+                new Vector2d(1, 1),
+                new Vector2d(1, 0),
+                new Vector2d(0, 0),
+                new Vector2d(0, 1)
         };
     }
 
     public SpriteRenderer(Vector4f color) {
         this.isDirty = true;
         this.color = color;
-        this.texCords = new Vector2f[]{
-                new Vector2f(1, 1),
-                new Vector2f(1, 0),
-                new Vector2f(0, 0),
-                new Vector2f(0, 1)
+        this.texCords = new Vector2d[]{
+                new Vector2d(1, 1),
+                new Vector2d(1, 0),
+                new Vector2d(0, 0),
+                new Vector2d(0, 1)
         };
     }
 
@@ -46,21 +47,21 @@ public class SpriteRenderer extends Component {
         this.isDirty = true;
         this.texture = texture;
         this.color = new Vector4f(1, 1, 1, 1);
-        this.texCords = new Vector2f[]{
-                new Vector2f(1, 1),
-                new Vector2f(1, 0),
-                new Vector2f(0, 0),
-                new Vector2f(0, 1)
+        this.texCords = new Vector2d[]{
+                new Vector2d(1, 1),
+                new Vector2d(1, 0),
+                new Vector2d(0, 0),
+                new Vector2d(0, 1)
         };
     }
 
-    public SpriteRenderer(Vector4f color, Vector2f[] texCords) {
+    public SpriteRenderer(Vector4f color, Vector2d[] texCords) {
         this.isDirty = true;
         this.color = color;
         this.texCords = texCords;
     }
 
-    public SpriteRenderer(Texture texture, float width, float height, Vector2f[] texCords) {
+    public SpriteRenderer(Texture texture, double width, double height, Vector2d[] texCords) {
         this.isDirty = true;
         this.width = width;
         this.height = height;
@@ -163,11 +164,11 @@ public class SpriteRenderer extends Component {
         }
     }
 
-    public Vector2f[] getSpriteCords() {
+    public Vector2d[] getSpriteCords() {
         return texCords;
     }
 
-    public void setSpriteCords(Vector2f[] texCords) {
+    public void setSpriteCords(Vector2d[] texCords) {
         this.texCords = texCords;
     }
 
@@ -191,11 +192,11 @@ public class SpriteRenderer extends Component {
         return texture.getTexID();
     }
 
-    public float getWidth() {
+    public double getWidth() {
         return width;
     }
 
-    public float getHeight() {
+    public double getHeight() {
         return height;
     }
 

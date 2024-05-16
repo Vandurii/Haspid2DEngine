@@ -260,7 +260,7 @@ public class MouseControls extends Component {
             if(startDraggingWMode != null && mouse.isMouseDragging() && mouse.isButtonPressed(GLFW_MOUSE_BUTTON_2)){
                 distance = new Vector2d(endDragging.x - startDraggingWMode.x, endDragging.y - startDraggingWMode.y);
                 center = new Vector2d(startDraggingWMode.x + (distance.x/ 2f), startDraggingWMode.y + (distance.y / 2f));
-               //todo DebugDraw.drawBoxes2D(selectorIndex, center, distance, 0, new Vector3f(0, 0, 0), 1);
+                DebugDraw.drawBoxes2D(selectorIndex, center, distance, 0, new Vector3f(0, 0, 0), 1);
 
                 if(selector != null) Window.getInstance().getCurrentScene().removeFromScene(selector);
                 selector = new GameObject("Selector");

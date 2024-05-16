@@ -40,6 +40,12 @@ public class JImGui {
             ImGui.dragFloat(name, valArr, 0.1f);
             pop();
             return valArr[0];
+        }else if(type instanceof Double){
+            double dType = (double) type;
+            float[] valArr = {(float)dType};
+            ImGui.dragFloat(name, valArr, 0.1f);
+            pop();
+            return valArr[0];
         }else if(type instanceof String){
             String str  = (String) type;
             ImString outString = new ImString(str, 256);

@@ -1,6 +1,7 @@
 package main.util;
 
 import main.components.SpriteRenderer;
+import org.joml.Vector2d;
 import org.joml.Vector2f;
 
 import java.util.ArrayList;
@@ -34,11 +35,11 @@ public class SpriteSheet implements Properties{
             float y0 = row * spriteHeight;;
             float y1 = row * spriteHeight + spriteHeight;
 
-            spriteList.add(new SpriteRenderer(parentTexture,config.spriteWidth, config.spriteHeight,  new Vector2f[]{
-                    new Vector2f(x1, y1),
-                    new Vector2f(x1, y0),
-                    new Vector2f(x0, y0),
-                    new Vector2f(x0, y1)
+            spriteList.add(new SpriteRenderer(parentTexture,config.spriteWidth, config.spriteHeight,  new Vector2d[]{
+                    new Vector2d(x1, y1),
+                    new Vector2d(x1, y0),
+                    new Vector2d(x0, y0),
+                    new Vector2d(x0, y1)
             }));
         }
     }

@@ -18,7 +18,7 @@ public class CircleCollider extends Collider {
         Vector2d pos = getParent().getTransform().getPosition();
         Vector2d offset = getOffset();
         Vector2d center = new Vector2d(pos.x + offset.x, pos.y + offset.y);
-       // todo DebugDraw.drawCircle2D(center, radius, colliderIndex);
+        DebugDraw.drawCircle2D(center, radius, colliderIndex);
     }
 
     @Override

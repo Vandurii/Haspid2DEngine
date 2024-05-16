@@ -11,9 +11,9 @@ import static org.lwjgl.glfw.GLFW.*;
 
 public class GameKeyControls extends Component {
 
-    private float keyDebounce;
+    private double keyDebounce;
     private KeyListener keyboard;
-    private float resetDebounce;
+    private double resetDebounce;
 
     public GameKeyControls(){
         this.keyDebounce = keyDebounceC;

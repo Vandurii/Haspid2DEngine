@@ -13,8 +13,8 @@ import static org.lwjgl.glfw.GLFW.*;
 
 public class CameraControl extends Component {
     private Camera camera;
-    private float debounce;
-    private float resetDebounce;
+    private double debounce;
+    private double resetDebounce;
     private MouseListener mouse;
     private boolean resetMode;
     private MouseControls mouseControls;
@@ -45,8 +45,8 @@ public class CameraControl extends Component {
 
             // reset camera to start position if reset mode is true
             if(resetMode){
-                float xPos = camera.getPosition().x * resetCameraSpeed;
-                float yPos = camera.getPosition().y * resetCameraSpeed;
+                double xPos = camera.getPosition().x * resetCameraSpeed;
+                double yPos = camera.getPosition().y * resetCameraSpeed;
 
                 if(camera.getPosition().x != 0 && camera.getPosition().y != 0) {
                     camera.getPosition().sub(xPos, yPos);

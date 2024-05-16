@@ -8,7 +8,7 @@ import java.util.List;
 public class Animation {
     private String title;
     private boolean doesLoop;
-    private transient float timeTracker;
+    private transient double timeTracker;
     private transient int currentSpriteRender;
     private List<Frame> frameList;
 
@@ -34,7 +34,7 @@ public class Animation {
         }
     }
 
-    public void addFrame(SpriteRenderer spriteRenderer, float frameTime){
+    public void addFrame(SpriteRenderer spriteRenderer, double frameTime){
         frameList.add(new Frame(spriteRenderer, frameTime));
     }
 
@@ -67,7 +67,7 @@ public class Animation {
         this.title = title;
     }
 
-    public float getTimeTracker(){
+    public double getTimeTracker(){
         return timeTracker;
     }
 
@@ -75,7 +75,7 @@ public class Animation {
         this.doesLoop = doesLoop;
     }
 
-    public void setTimeTracker(float timeTracker) {
+    public void setTimeTracker(double timeTracker) {
         this.timeTracker = timeTracker;
     }
 

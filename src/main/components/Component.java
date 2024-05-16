@@ -65,7 +65,7 @@ public abstract class Component {
                 Object value = f.get(obj);
                 String name = f.getName();
 
-                if (clazz == int.class || clazz == float.class) {
+                if (clazz == int.class || clazz == float.class || clazz == double.class) {
                     f.set(obj, JImGui.drawValue(f.getName(), value, obj.hashCode() + ""));
                 }else if(clazz == boolean.class){
                     boolean imBoolean = (boolean) value;

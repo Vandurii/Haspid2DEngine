@@ -6,6 +6,7 @@ import main.physics.Physics2D;
 import main.physics.BodyType;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
+import org.joml.Vector2d;
 import org.joml.Vector2f;
 
 public class RigidBody extends Component {
@@ -13,25 +14,25 @@ public class RigidBody extends Component {
     private transient Window window;
     private transient Physics2D physics;
 
-    private float mass;
-    private float friction;
+    private double mass;
+    private double friction;
     private boolean isSensor;
-    private Vector2f velocity;
+    private Vector2d velocity;
     private BodyType bodyType;
-    private float gravityScale;
-    private float linearDamping;
-    private float angularDamping;
-    private float angularVelocity;
+    private double gravityScale;
+    private double linearDamping;
+    private double angularDamping;
+    private double angularVelocity;
     private boolean fixedRotation;
     private transient Body rawBody;
     private boolean continuousCollision;
 
     public RigidBody(){
-        this.friction = 0.1f;
-        this.gravityScale = 1f;
-        this.linearDamping = 0.9f;
-        this.angularDamping = 0.8f;
-        this.velocity = new Vector2f();
+        this.friction = 0.1;
+        this.gravityScale = 1;
+        this.linearDamping = 0.9;
+        this.angularDamping = 0.8;
+        this.velocity = new Vector2d();
         this.continuousCollision = true;
         this.bodyType = BodyType.Dynamic;
         this.window = Window.getInstance();
@@ -66,31 +67,31 @@ public class RigidBody extends Component {
         return rigidBody;
     }
 
-    public void addVelocity(Vector2f velocity){
-        if(rawBody != null) rawBody.applyForceToCenter(new Vec2(velocity.x, velocity.y));
+    public void addVelocity(Vector2d velocity){
+        if(rawBody != null) rawBody.applyForceToCenter(new Vec2((float) velocity.x, (float) velocity.y));
     }
 
-    public void addImpulse(Vector2f impulse){
-        if(rawBody != null) rawBody.applyLinearImpulse(new Vec2(impulse.x, impulse.y), rawBody.getWorldCenter());
+    public void addImpulse(Vector2d impulse){
+        if(rawBody != null) rawBody.applyLinearImpulse(new Vec2((float) impulse.x, (float) impulse.y), rawBody.getWorldCenter());
     }
 
     public boolean isSensor(){
         return isSensor;
     }
 
-    public void setVelocity(Vector2f velocity) {
+    public void setVelocity(Vector2d velocity) {
         this.velocity.set(velocity);
-        if(rawBody != null) rawBody.setLinearVelocity(new Vec2(velocity.x, velocity.y));
+        if(rawBody != null) rawBody.setLinearVelocity(new Vec2((float) velocity.x, (float) velocity.y));
     }
 
-    public void setAngularVelocity(float angularVelocity) {
+    public void setAngularVelocity(double angularVelocity) {
         this.angularVelocity = angularVelocity;
-        if(rawBody != null) rawBody.setAngularVelocity(angularVelocity);
+        if(rawBody != null) rawBody.setAngularVelocity((float) angularVelocity);
     }
 
-    public void setGravityScale(float gravityScale) {
+    public void setGravityScale(double gravityScale) {
         this.gravityScale = gravityScale;
-        if(rawBody != null) rawBody.setGravityScale(gravityScale);
+        if(rawBody != null) rawBody.setGravityScale((float) gravityScale);
     }
 
     public void setSensor(boolean isSensor){
@@ -98,35 +99,35 @@ public class RigidBody extends Component {
         if(rawBody != null) physics.setSensor(this, isSensor);
     }
 
-    public float getFriction(){
+    public double getFriction(){
         return friction;
     }
 
-    public Vector2f getVelocity() {
+    public Vector2d getVelocity() {
         return velocity;
     }
 
-    public float getAngularDamping() {
+    public double getAngularDamping() {
         return angularDamping;
     }
 
-    public void setAngularDamping(float angularDamping) {
+    public void setAngularDamping(double angularDamping) {
         this.angularDamping = angularDamping;
     }
 
-    public float getLinearDamping() {
+    public double getLinearDamping() {
         return linearDamping;
     }
 
-    public void setLinearDamping(float linearDamping) {
+    public void setLinearDamping(double linearDamping) {
         this.linearDamping = linearDamping;
     }
 
-    public float getMass() {
+    public double getMass() {
         return mass;
     }
 
-    public void setMass(float mass) {
+    public void setMass(double mass) {
         this.mass = mass;
     }
 
@@ -162,15 +163,15 @@ public class RigidBody extends Component {
         this.rawBody = rawBody;
     }
 
-    public float getAngularVelocity(){
+    public double getAngularVelocity(){
         return angularVelocity;
     }
 
-    public float getGravityScale(){
+    public double getGravityScale(){
         return gravityScale;
     }
 
-    public void setFriction(float friction) {
+    public void setFriction(double friction) {
         this.friction = friction;
     }
 }

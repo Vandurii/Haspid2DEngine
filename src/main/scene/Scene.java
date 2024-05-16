@@ -13,6 +13,7 @@ import main.physics.Physics2D;
 import main.renderer.Renderer;
 import main.util.AssetPool;
 import main.util.Texture;
+import org.joml.Vector2d;
 import org.joml.Vector2f;
 
 import java.io.FileWriter;
@@ -35,7 +36,7 @@ public abstract class Scene {
     private static List<GameObject> sceneObjectList;
 
     public Scene(){
-        this.camera = new Camera(new Vector2f(0, 0));
+        this.camera = new Camera(new Vector2d(0, 0));
         this.sceneObjectList = new ArrayList<>();
         this.renderer = Renderer.getInstance();
         this.physics = new Physics2D();

@@ -152,7 +152,7 @@ public class RenderBatch implements Comparable<RenderBatch> {
 
             freeSlots.add(index);
         }else {
-            Vector2f[] texCords = spriteRenderer.getSpriteCords();
+            Vector2d[] texCords = spriteRenderer.getSpriteCords();
             Vector4f color = spriteRenderer.getColor();
             Vector2d position = transform.getPosition();
             Vector2d scale = transform.getScale();
@@ -183,8 +183,8 @@ public class RenderBatch implements Comparable<RenderBatch> {
                 vertexArray[offset + 4] = color.z;
                 vertexArray[offset + 5] = color.w;
 
-                vertexArray[offset + 6] = texCords[j].x;
-                vertexArray[offset + 7] = texCords[j].y;
+                vertexArray[offset + 6] = (float) texCords[j].x;
+                vertexArray[offset + 7] = (float) texCords[j].y;
 
                 vertexArray[offset + 8] = spriteRenderer.getSpriteID();
 

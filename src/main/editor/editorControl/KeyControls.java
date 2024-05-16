@@ -14,9 +14,9 @@ import static main.haspid.Direction.*;
 import static org.lwjgl.glfw.GLFW.*;
 
 public class KeyControls extends Component {
-    private float keyDebounce;
+    private double keyDebounce;
     private KeyListener keyboard;
-    private float resetDebounce;
+    private double resetDebounce;
     private EditorScene editorScene;
     private MouseControls mouseControls;
     private MouseListener mouseListener;
@@ -84,9 +84,9 @@ public class KeyControls extends Component {
     }
 
     public void move(Direction direction){
-        int xAxis = 0;
-        int yAxis = 0;
-        int unit = gridSize;
+        double xAxis = 0;
+        double yAxis = 0;
+        double unit = gridSize;
         switch (direction){
             case Up -> yAxis = -unit;
             case Down -> yAxis = unit;

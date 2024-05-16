@@ -5,6 +5,7 @@ import main.haspid.Camera;
 import main.haspid.Window;
 import main.util.AssetPool;
 import main.util.Shader;
+import org.joml.Vector2d;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
@@ -85,11 +86,11 @@ public class DebugDraw {
             List<Line2D> list = lineMap.get(zIndexList.get(j));
             for(Line2D line: list) {
                 for (int i = 0; i < 2; i++) {
-                    Vector2f position = i == 0 ? line.getFrom() : line.getTo();
+                    Vector2d position = i == 0 ? line.getFrom() : line.getTo();
                     Vector3f color = line.getColor();
 
-                    vertexArray[offset + 0] = position.x;
-                    vertexArray[offset + 1] = position.y;
+                    vertexArray[offset + 0] = (float) position.x;
+                    vertexArray[offset + 1] = (float) position.y;
                     vertexArray[offset + 2] = 0;
 
                     vertexArray[offset + 3] = color.x;
@@ -131,23 +132,23 @@ public class DebugDraw {
         }
     }
 
-    public static void drawCircle2D(Vector2f centre, float radius, int zIndex){
+    public static void drawCircle2D(Vector2d centre, double radius, int zIndex){
         drawCircle2D(centre, radius, colorGreen, zIndex);
     }
 
-    public static void drawCircle2D(Vector2f centre, float radius, Vector3f color, int zIndex){
+    public static void drawCircle2D(Vector2d centre, double radius, Vector3f color, int zIndex){
         drawCircle2D(centre, radius, color, 1, zIndex);
     }
 
-    public static void drawCircle2D(Vector2f centre, float radius, Vector3f color, int lifeTime, int zIndex){
-        Vector2f[] points = new Vector2f[20];
+    public static void drawCircle2D(Vector2d centre, double radius, Vector3f color, int lifeTime, int zIndex){
+        Vector2d[] points = new Vector2d[20];
         int increment = 360 / points.length;
 
-        float currentAngle = 0;
+        double currentAngle = 0;
         for(int i = 0; i < points.length; i++){
-            Vector2f tmp = new Vector2f(0, radius);
-            rotate(tmp, currentAngle, new Vector2f());
-            points[i] = new Vector2f(tmp).add(centre);
+            Vector2d tmp = new Vector2d(0, radius);
+            rotate(tmp, currentAngle, new Vector2d());
+            points[i] = new Vector2d(tmp).add(centre);
 
             currentAngle += increment;
             if(i == 0) continue;
@@ -157,27 +158,27 @@ public class DebugDraw {
         addLine2D(zIndex, points[0], points[points.length - 1], color, lifeTime);
     }
 
-    public static void drawBoxes2D(int zIndex, Vector2f center, Vector2f dimension, float rotation){
+    public static void drawBoxes2D(int zIndex, Vector2d center, Vector2d dimension, double rotation){
         drawBoxes2D(zIndex, center, dimension, rotation, colorGreen);
     }
 
-    public static void drawBoxes2D(int zIndex, Vector2f center, Vector2f dimension, float rotation, Vector3f color){
+    public static void drawBoxes2D(int zIndex, Vector2d center, Vector2d dimension, double rotation, Vector3f color){
         drawBoxes2D(zIndex, center, dimension, rotation, color, 1);
     }
 
-    public static void drawBoxes2D(int zIndex, Vector2f center, Vector2f dimension, float rotation, Vector3f color, int lifeTime){
-        Vector2f min = new Vector2f(center).add(new Vector2f(dimension.x * 0.5f, dimension.y * 0.5f));
-        Vector2f max = new Vector2f(center).sub(new Vector2f(new Vector2f(dimension.x * 0.5f, dimension.y * 0.5f)));
+    public static void drawBoxes2D(int zIndex, Vector2d center, Vector2d dimension, double rotation, Vector3f color, int lifeTime){
+        Vector2d min = new Vector2d(center).add(new Vector2d(dimension.x * 0.5f, dimension.y * 0.5f));
+        Vector2d max = new Vector2d(center).sub(new Vector2d(new Vector2d(dimension.x * 0.5f, dimension.y * 0.5f)));
 
-        Vector2f[] vertices = {
-                new Vector2f(min.x, min.y),
-                new Vector2f(max.x, min.y),
-                new Vector2f(max.x, max.y),
-                new Vector2f(min.x, max.y)
+        Vector2d[] vertices = {
+                new Vector2d(min.x, min.y),
+                new Vector2d(max.x, min.y),
+                new Vector2d(max.x, max.y),
+                new Vector2d(min.x, max.y)
         };
 
         if(rotation > 0){
-            for(Vector2f ver: vertices){
+            for(Vector2d ver: vertices){
                 rotate(ver, rotation, center);
             }
         }
@@ -188,15 +189,15 @@ public class DebugDraw {
         addLine2D(zIndex, vertices[3], vertices[0], color,  lifeTime);
     }
 
-    public static void addLine2D(int zIndex, Vector2f from, Vector2f to){
+    public static void addLine2D(int zIndex, Vector2d from, Vector2d to){
         addLine2D(zIndex, from, to, colorRed, 1);
     }
 
-    public static void addLine2D(int zIndex, Vector2f from, Vector2f to, Vector3f color){
+    public static void addLine2D(int zIndex, Vector2d from, Vector2d to, Vector3f color){
         addLine2D( zIndex, from, to, color, 1);
     }
 
-    public static void addLine2D( int zIndex, Vector2f from, Vector2f to, Vector3f color, int lifeTime){
+    public static void addLine2D( int zIndex, Vector2d from, Vector2d to, Vector3f color, int lifeTime){
         if(!started) start();
 
         if(getMapSize() < maxLines){
@@ -206,15 +207,15 @@ public class DebugDraw {
         }
     }
 
-    public static void rotate(Vector2f vec, float angleDeg, Vector2f origin) {
-        float x = vec.x - origin.x;
-        float y = vec.y - origin.y;
+    public static void rotate(Vector2d vec, double angleDeg, Vector2d origin) {
+        double x = vec.x - origin.x;
+        double y = vec.y - origin.y;
 
-        float cos = (float)Math.cos(Math.toRadians(angleDeg));
-        float sin = (float)Math.sin(Math.toRadians(angleDeg));
+        double cos = Math.cos(Math.toRadians(angleDeg));
+        double sin = Math.sin(Math.toRadians(angleDeg));
 
-        float xPrime = (x * cos) - (y * sin);
-        float yPrime = (x * sin) + (y * cos);
+        double xPrime = (x * cos) - (y * sin);
+        double yPrime = (x * sin) + (y * cos);
 
         xPrime += origin.x;
         yPrime += origin.y;

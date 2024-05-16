@@ -3,15 +3,15 @@ package main.components.stateMachine;
 import main.components.SpriteRenderer;
 
 public class Frame {
-    private float frameTime;
+    private double frameTime;
     private SpriteRenderer spriteRenderer;
 
-    public Frame(SpriteRenderer spriteRenderer, float frameTime){
+    public Frame(SpriteRenderer spriteRenderer, double frameTime){
         this.frameTime = frameTime;
         this.spriteRenderer = spriteRenderer;
     }
 
-    public float getFrameTime() {
+    public double getFrameTime() {
         return frameTime;
     }
 

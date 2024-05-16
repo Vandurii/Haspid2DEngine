@@ -4,6 +4,7 @@ import org.joml.*;
 import org.lwjgl.BufferUtils;
 
 import java.io.IOException;
+import java.nio.DoubleBuffer;
 import java.nio.FloatBuffer;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -11,6 +12,7 @@ import java.nio.file.Paths;
 import static org.lwjgl.opengl.GL11.GL_FALSE;
 import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL20.glGetShaderInfoLog;
+import static org.lwjgl.opengl.GL40.glUniformMatrix4dv;
 
 public class Shader {
 
@@ -122,6 +124,10 @@ public class Shader {
             FloatBuffer matBuff = BufferUtils.createFloatBuffer(9);
             ((Matrix3f)type).get(matBuff);
             glUniformMatrix3fv(varLocation, false, matBuff);
+        }else if(type instanceof Matrix4d){
+            DoubleBuffer matBuff = BufferUtils.createDoubleBuffer(16);
+            ((Matrix4d)type).get(matBuff);
+            glUniformMatrix4dv(varLocation, false, matBuff);
         }else if(type instanceof Vector4f value){
             glUniform4f(varLocation, value.x, value.y, value.z, value.w);
         }else if(type instanceof Vector3f value){
@@ -136,7 +142,7 @@ public class Shader {
             int[] value = (int[]) type;
             glUniform1iv(varLocation, value);
         }else{
-            throw new IllegalStateException("Unexpected value in shader class uploadValue method");
+            throw new IllegalStateException("Unexpected value in shader class uploadValue method. --> type:" + type.getClass().getSimpleName() );
         }
     }
 

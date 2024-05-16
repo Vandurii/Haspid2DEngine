@@ -15,8 +15,8 @@ import static main.Configuration.pillboxHeight;
 import static main.Configuration.pillboxWidth;
 
 public class PillboxCollider extends Collider {
-    private float width;
-    private float height;
+    private double width;
+    private double height;
 
     private transient BoxCollider boxCollider;
     private transient CircleCollider topCircle;
@@ -56,8 +56,10 @@ public class PillboxCollider extends Collider {
     @Override
     public void dearGui(){
         super.dearGui();
-        setWidth((float)JImGui.drawValue("width", width, this.hashCode() + ""));
-        setHeight((float)JImGui.drawValue("height", height, this.hashCode() + ""));
+        float w = (float)JImGui.drawValue("width", width, this.hashCode() + "");
+        float h = (float)JImGui.drawValue("height", height, this.hashCode() + "");
+        setWidth(w);
+        setHeight(h);
     }
 
     public void resetFixture(){
@@ -72,8 +74,8 @@ public class PillboxCollider extends Collider {
 
     public void recalculateColliders(){
         Vector2d offset = getOffset();
-        float circleRadius = width / 4f;
-        float boxHeight = height - 2 * circleRadius;
+        double circleRadius = width / 4f;
+        double boxHeight = height - 2 * circleRadius;
 
         topCircle.setRadius(circleRadius);
         topCircle.setOffset(new Vector2d(offset.x, offset.y + (boxHeight / 4f)));
@@ -85,13 +87,13 @@ public class PillboxCollider extends Collider {
         boxCollider.setOffset(offset);
     }
 
-    public void setWidth(float width){
+    public void setWidth(double width){
         this.width = width;
         recalculateColliders();
         resetFixture();
     }
 
-    public void setHeight(float height){
+    public void setHeight(double height){
         this.height = height;
         recalculateColliders();
         resetFixture();

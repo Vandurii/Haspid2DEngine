@@ -1,18 +1,18 @@
 package main.haspid;
 
-import org.joml.Matrix4f;
-import org.joml.Vector3f;
-import org.joml.Vector2f;
+import org.joml.*;
+
+import java.lang.Math;
 
 import static main.Configuration.*;
 
 public class Camera {
     private Matrix4f uProjection, uView;
-    private Vector2f position;
+    private Vector2d position;
     private Matrix4f inverseUProjection, inverseUView;
     private double xBuffer, yBuffer;
 
-    public Camera(Vector2f position){
+    public Camera(Vector2d position){
         this.position = position;
         this.uProjection = new Matrix4f();
         this.uView = new Matrix4f();
@@ -23,7 +23,7 @@ public class Camera {
 
     public void adjustProjection(){
         uProjection.identity();
-        uProjection.ortho(0f, uProjectionDimension.x * zoom, 0f, uProjectionDimension.y * zoom, 0f, uProjectionDimension.z);
+        uProjection.ortho(0f, (float) (uProjectionDimension.x * zoom), 0f, (float) (uProjectionDimension.y * zoom), 0f, uProjectionDimension.z);
 
         uProjection.invert(inverseUProjection);
     }
@@ -68,14 +68,14 @@ public class Camera {
     }
 
     public void resetPosition(){
-        position = new Vector2f();
+        position = new Vector2d();
     }
 
     public Matrix4f getUView(){
         Vector3f cameraFront = new Vector3f(0f, 0f, -1f);
         Vector3f cameraUp = new Vector3f(0f, 1f, 0f);
         uView.identity();
-        uView.lookAt(new Vector3f(position.x, position.y, 20f), cameraFront.add(position.x, position.y, 0f), cameraUp);
+        uView.lookAt(new Vector3f((float) position.x, (float) position.y, 20f), cameraFront.add((float) position.x, (float) position.y, 0f), cameraUp);
 
         return uView;
     }
@@ -93,7 +93,7 @@ public class Camera {
         return uProjection;
     }
 
-    public Vector2f getPosition(){
+    public Vector2d getPosition(){
         return position;
     }
 
@@ -105,11 +105,11 @@ public class Camera {
         this.position.y = position;
     }
 
-    public void setPositionX(Vector2f position){
+    public void setPositionX(Vector2d position){
         this.position = position;
     }
 
-    public void setPosition(float x, float y){
+    public void setPosition(double x, double y){
         position.x = x;
         position.y = y;
     }
