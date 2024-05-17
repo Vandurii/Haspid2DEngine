@@ -9,9 +9,7 @@ import main.editor.editorControl.MouseControls;
 import main.haspid.GameObject;
 import main.util.*;
 import org.joml.Vector2d;
-import org.joml.Vector2f;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static main.Configuration.*;
@@ -64,15 +62,14 @@ public class PropertiesWindow {
                 GameObject holdingObject;
                 // todo
                 if(i == 0 && index == 3){
-                    List<SpriteRenderer> animationList = new ArrayList<>();
                     SpriteSheet sheet = AssetPool.getSpriteSheet(firstSpriteSheet);
+                    Animation animation = new Animation("run");
+                    animation.addFrame(sheet.getSprite(0), 0.23);
+                    animation.addFrame(sheet.getSprite(2), 0.23);
+                    animation.addFrame(sheet.getSprite(3), 0.23);
+                    animation.addFrame(sheet.getSprite(2), 0.23);
 
-                    animationList.add(sheet.getSprite(0));
-                    animationList.add(sheet.getSprite(2));
-                    animationList.add(sheet.getSprite(3));
-                    animationList.add(sheet.getSprite(2));
-
-                    holdingObject = Prefabs.generateAnimateObject(spriteWidth, spriteHeight, 0.23f, "run", animationList);
+                    holdingObject = Prefabs.generateMario(spriteWidth, spriteHeight, animation);
                 }else if(i == 0 && index == 2){
                     SpriteSheet items = AssetPool.getSpriteSheet(itemsConfig);
                     Animation animation = new Animation("questionBlock");
@@ -82,10 +79,9 @@ public class PropertiesWindow {
                     animation.addFrame(items.getSprite(2), 0.23f);
 
 
-                    holdingObject = Prefabs.generateAnimateObject(spriteWidth, spriteHeight, animation);
+                    holdingObject = Prefabs.generateStaticAnimatedObject(spriteWidth, spriteHeight, animation);
                 }else{
-                   // holdingObject = Prefabs.generateSpriteObject(sprite, spriteWidth, spriteHeight);
-                    holdingObject = Prefabs.generateSolidObject(sprite, spriteWidth, spriteHeight);
+                    holdingObject = Prefabs.generateStaticObject(sprite, spriteWidth, spriteHeight);
                 }
                 mouseControls.pickupObject(holdingObject);
             }

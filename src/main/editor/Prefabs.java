@@ -7,12 +7,8 @@ import main.components.stateMachine.Animation;
 import main.components.stateMachine.StateMachine;
 import main.haspid.GameObject;
 import main.haspid.Transform;
-import main.components.physicsComponent.PillboxCollider;
 import main.physics.BodyType;
 import org.joml.Vector2d;
-import org.joml.Vector2f;
-
-import java.util.List;
 
 import static main.Configuration.*;
 
@@ -33,35 +29,55 @@ public class Prefabs {
         return holdingObject;
     }
 
-    public static GameObject generateSolidObject(SpriteRenderer spriteR, double width, double height){
-        GameObject solidObject = generateSpriteObject(spriteR, width, height);
+    public static GameObject generateColliderObject(SpriteRenderer spriteRenderer, double width, double height){
+        GameObject colliderObject = generateSpriteObject(spriteRenderer, width, height);
         RigidBody rigidBody = new RigidBody();
-        rigidBody.setBodyType(BodyType.Static);
         BoxCollider boxCollider = new BoxCollider(new Vector2d(objectHalfSize, objectHalfSize));
-        solidObject.addComponent(rigidBody);
-        solidObject.addComponent(boxCollider);
 
-        return solidObject;
+        colliderObject.addComponent(rigidBody);
+        colliderObject.addComponent(boxCollider);
+
+        return colliderObject;
     }
 
-    public static GameObject generateAnimateObject(double width, double height, double defaultFrameTime, String title, List<SpriteRenderer> spriteRenderList){
-        Animation animation = new Animation(title);
-        for(SpriteRenderer spriteRenderer: spriteRenderList){
-            animation.addFrame(spriteRenderer, defaultFrameTime);
-        }
+    public static GameObject generateStaticObject(SpriteRenderer spriteR, double width, double height){
+        GameObject staticObject = generateColliderObject(spriteR, width, height);
+        RigidBody  rigidBody = staticObject.getComponent(RigidBody.class);
+        rigidBody.setBodyType(BodyType.Static);
 
-        return  generateAnimateObject(width, height, animation);
+        return staticObject;
     }
 
-    public static GameObject generateAnimateObject(double width, double height, Animation animation){
-        GameObject animatedHoldingObject = generateObject(width, height);
+    public static GameObject generateDynamicObject(SpriteRenderer spriteR, double width, double height){
+        GameObject dynamicObject = generateColliderObject(spriteR, width, height);
+        RigidBody  rigidBody = dynamicObject.getComponent(RigidBody.class);
+        rigidBody.setBodyType(BodyType.Dynamic);
+
+        return dynamicObject;
+    }
+
+    public static GameObject generateDynamicAnimatedObject(double width, double height, Animation animation){
+        GameObject dynamicAnimatedObject = generateDynamicObject(new SpriteRenderer(), width, height);
         StateMachine stateMachine = new StateMachine();
         stateMachine.addState(animation);
-        animatedHoldingObject.addComponent(stateMachine);
-        animatedHoldingObject.addComponent(new SpriteRenderer());
-       animatedHoldingObject.addComponent(new PlayerController());
-        animatedHoldingObject.addComponent(new BoxCollider(new Vector2d(objectHalfSize, objectHalfSize)));
+        dynamicAnimatedObject.addComponent(stateMachine);
 
-        return  animatedHoldingObject;
+        return  dynamicAnimatedObject;
+    }
+
+    public static GameObject generateStaticAnimatedObject(double width, double height, Animation animation){
+        GameObject staticAnimatedObject = generateStaticObject(new SpriteRenderer(), width, height);
+        StateMachine stateMachine = new StateMachine();
+        stateMachine.addState(animation);
+        staticAnimatedObject.addComponent(stateMachine);
+
+        return  staticAnimatedObject;
+    }
+
+    public static GameObject generateMario(double width, double height, Animation animation){
+        GameObject mario = generateDynamicAnimatedObject(width, height, animation);
+        mario.addComponent(new PlayerController());
+
+        return mario;
     }
 }

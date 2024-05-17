@@ -65,9 +65,16 @@ public class MouseControls extends Component {
             unselectActiveObjects();
         }
 
-        if(mouse.isButtonPressed(GLFW_MOUSE_BUTTON_1)){
-          //  System.out.println(String.format("x: %.1f y:%.1f", mouse.getViewPortX(), mouse.getViewPortY()));
+
+        // todo debounce conflict
+        if(debounce < -0.5) {
+            if (mouse.isButtonPressed(GLFW_MOUSE_BUTTON_1)) {
+
+                System.out.println(String.format("x: %.1f y:%.1f", mouse.getWorldX(), mouse.getWorldY()));
+                debounce = resetDebounce;
+            }
         }
+        debounce -= dt;
 
         //Mouse + Key Event
         KeyListener keyboard = KeyListener.getInstance();
@@ -102,6 +109,7 @@ public class MouseControls extends Component {
         draggingObject.getTransform().setPosition(new Vector2d(xPos, yPos));
         if(mouse.isButtonPressed(GLFW_MOUSE_BUTTON_1) && debounce < 0){
             place();
+            debounce = resetDebounce;
         }
         debounce -= dt;
     }
@@ -155,7 +163,6 @@ public class MouseControls extends Component {
             draggingObject = objectClone;
 
             editorScene.addGameObjectToScene(draggingObject);
-            debounce = resetDebounce;
         }
     }
 
@@ -202,6 +209,8 @@ public class MouseControls extends Component {
 
         GameObject active = editorScene.getGameObjectFromID(id);
         if(active != null && active.isTriggerable()){
+            System.out.println(active.getTransform().getPosition().x);
+            System.out.println(active.getTransform().getPosition().y);
 
             if(!multipleMode){
                 unselectActiveObjects();

@@ -40,8 +40,8 @@ public class PlayerController extends Component {
     public PlayerController(){
 
         // movind left < > right
-        this.startVelYM = 120;
         this.startVelXM = 2;
+        this.startVelYM = 120;
         this.speedScalarM = 1.5;
         this.playerWidth = objectHalfSize * 2;
 
@@ -62,6 +62,25 @@ public class PlayerController extends Component {
     }
 
     @Override
+    public PlayerController copy(){
+        PlayerController playerController = new PlayerController();
+        playerController.setStartVelXM(startVelXM);
+        playerController.setStartVelYM(startVelYM);
+        playerController.setSpeedScalarM(speedScalarM);
+        playerController.setPlayerWidth(playerWidth);
+
+        playerController.setResetGainIterations(resetGainIterations);
+
+        playerController.setThresholdLS(thresholdLS);
+        playerController.setFrictionLS(frictionLS);
+        playerController.setStartVelYLS(startVelYLS);
+        playerController.setSpeedScalarLS(speedScalarLS);
+        playerController.setTerminalVelocity(terminalVelocity);
+
+        return playerController;
+    }
+
+    @Override
     public void start(){
         rigidBody = getParent().getComponent(RigidBody.class);
         if(rigidBody != null) {
@@ -69,9 +88,11 @@ public class PlayerController extends Component {
         }
     }
 
+
+
     @Override
     public void update(float dt) {
-        System.out.println(onGround + " --> "+velocity.y);
+      //  System.out.println(onGround + " --> "+velocity.y);
         if(rigidBody == null) return;
         checkIfOnGround();
 
@@ -173,5 +194,85 @@ public class PlayerController extends Component {
     
     public boolean gainingHeight(){
         return gainHeightIterations >= 0;
+    }
+
+    public double getStartVelYM() {
+        return startVelYM;
+    }
+
+    public void setStartVelYM(double startVelYM) {
+        this.startVelYM = startVelYM;
+    }
+
+    public double getStartVelXM() {
+        return startVelXM;
+    }
+
+    public void setStartVelXM(double startVelXM) {
+        this.startVelXM = startVelXM;
+    }
+
+    public double getThresholdLS() {
+        return thresholdLS;
+    }
+
+    public void setThresholdLS(double thresholdLS) {
+        this.thresholdLS = thresholdLS;
+    }
+
+    public double getFrictionLS() {
+        return frictionLS;
+    }
+
+    public void setFrictionLS(double frictionLS) {
+        this.frictionLS = frictionLS;
+    }
+
+    public double getStartVelYLS() {
+        return startVelYLS;
+    }
+
+    public void setStartVelYLS(double startVelYLS) {
+        this.startVelYLS = startVelYLS;
+    }
+
+    public double getSpeedScalarLS() {
+        return speedScalarLS;
+    }
+
+    public void setSpeedScalarLS(double speedScalarLS) {
+        this.speedScalarLS = speedScalarLS;
+    }
+
+    public double getSpeedScalarM() {
+        return speedScalarM;
+    }
+
+    public void setSpeedScalarM(double speedScalarM) {
+        this.speedScalarM = speedScalarM;
+    }
+
+    public int getResetGainIterations() {
+        return resetGainIterations;
+    }
+
+    public void setResetGainIterations(int resetGainIterations) {
+        this.resetGainIterations = resetGainIterations;
+    }
+
+    public Vector2d getTerminalVelocity() {
+        return terminalVelocity;
+    }
+
+    public void setTerminalVelocity(Vector2d terminalVelocity) {
+        this.terminalVelocity = terminalVelocity;
+    }
+
+    public double getPlayerWidth() {
+        return playerWidth;
+    }
+
+    public void setPlayerWidth(double playerWidth) {
+        this.playerWidth = playerWidth;
     }
 }

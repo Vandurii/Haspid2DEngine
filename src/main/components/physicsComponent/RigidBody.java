@@ -27,6 +27,8 @@ public class RigidBody extends Component {
     private transient Body rawBody;
     private boolean continuousCollision;
 
+    private boolean updateRotation;
+
     public RigidBody(){
         this.friction = 0.1;
         this.gravityScale = 1;
@@ -44,9 +46,8 @@ public class RigidBody extends Component {
         if(window.getCurrentScene().isInEditMode()) return;
 
         if(rawBody != null){
-           // System.out.println(velocity.x + " : "+ velocity.y);
             getParent().getTransform().setPosition(rawBody.getPosition().x, rawBody.getPosition().y);
-            getParent().getTransform().setRotation((float) Math.toDegrees(rawBody.getAngle()));
+            if(updateRotation) getParent().getTransform().setRotation((float) Math.toDegrees(rawBody.getAngle()));
         }
     }
 
@@ -173,5 +174,9 @@ public class RigidBody extends Component {
 
     public void setFriction(double friction) {
         this.friction = friction;
+    }
+
+    public void setUpdateRotation(boolean updateRotation){
+        this.updateRotation = updateRotation;
     }
 }

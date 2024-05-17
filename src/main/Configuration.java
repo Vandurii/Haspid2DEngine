@@ -53,7 +53,7 @@ public class Configuration {
 
 
     public static double skipCamera = 2;
-    public static double cameraSensivity = 80;
+    public static double cameraSensivity = 8.0;
     public static double resetCameraSpeed = 0.1f;
     public static double debounceForCamera = 0.0000032f;
 
@@ -66,13 +66,13 @@ public class Configuration {
 
     public static Vector4f hoverGizmoColor = new Vector4f(0f, 0.5f, 0f, 1f);
     public static Vector4f gizmoColor = new Vector4f(0.0f, .0f, 0.0f, 1f);
-    public static Vector2d gizmoScale = new Vector2d(30, 60);
-    public static double xGizmoXAxis = 10;
-    public static double xGizmoYAxis = -9;
+    public static Vector2d gizmoScale = new Vector2d(3.0, 6.0);
+    public static double xGizmoXAxis = 1.0;
+    public static double xGizmoYAxis = -0.9;
     public static double xGizmoRotation = 90;
 
-    public static double yGizmoXAxis = -10;
-    public static double yGizmoYAxis = 9;
+    public static double yGizmoXAxis = -1.0;
+    public static double yGizmoYAxis = 0.9;
     public static double yGizmoRotation = 180;
 
 
@@ -110,11 +110,11 @@ public class Configuration {
     public static Vector4f mouseHoveColor = new Vector4f(0.2f,0.8f,1f,1);
     public static Vector4f mouseRectColor = new Vector4f(0.04f, 0.04f, 0.04f, 0.4f);
 
-    public static int gridLinesIndex = 1;
-    public static int colliderIndex = 2;
+    public static int gridLinesIndex = 2;
+    public static int colliderIndex = 3;
     public static int selectorIndex = 4;
 
-    public static double selectorScale = 1.20f;
+    public static double selectorScale = 1.36f;
 
     public static double pillboxWidth = (objectHalfSize * 2) * 0.85f;
     public static double pillboxHeight = (objectHalfSize * 2) * 1.43f;
