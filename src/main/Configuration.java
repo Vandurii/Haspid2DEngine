@@ -122,6 +122,22 @@ public class Configuration {
     public static String levelPath = "level.txt";
 
     public static Vector2d windowsScale = new Vector2d(windowWidth / uProjectionDimension.x, windowHeight /  uProjectionDimension.y);
+
+    public static float menuBarHeight = 9;
+    public static float menuBarButtonSpacing = 2;
+    public static float menuBarButtonSize = menuBarHeight * 3;
+
+    public static Color exitNormal = new Color(0.20f, 0.20f, 0.20f, 1f);
+    public static Color exitHover = new Color(0.9f, 0.2f, 0.2f, 1.0f);
+    public static Color exitActive = new Color(0.8f, 0.1f, 0.15f, 1.0f);
+
+    public static Color maximizeNormal = new Color(0.20f, 0.20f, 0.20f, 1f);
+    public static Color maximizeHover = new Color(0.8f, 0.8f, 0.8f, 1.0f);
+    public static Color maximizeActive = new Color(0.2f, 0.7f, 0.2f, 1.0f);
+
+    public static Color minimizeNormal = new Color(0.20f, 0.20f, 0.20f, 1f);
+    public static Color minimizeHover = new Color(0.8f, 0.8f, 0.8f, 1.0f);
+    public static Color minimizeActive = new Color(0.2f, 0.7f, 0.2f, 1.0f);
 }
 
 

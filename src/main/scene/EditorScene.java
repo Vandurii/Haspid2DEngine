@@ -129,4 +129,8 @@ public class EditorScene extends Scene {
     public KeyControls getKeyControls(){
         return  keyControls;
     }
+
+    public MenuBar getMenuBar(){
+        return menuBar;
+    }
 }

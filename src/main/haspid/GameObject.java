@@ -1,6 +1,7 @@
 package main.haspid;
 
 import imgui.ImGui;
+import main.components.InactiveInEditor;
 import main.editor.JImGui;
 import main.components.Component;
 
@@ -50,7 +51,10 @@ public class GameObject {
 
     public void update(float dt){
         for(Component c: componentList){
-            c.update(dt);
+           if((c instanceof InactiveInEditor) && Window.getInstance().getCurrentScene().isInEditMode()){
+               continue;
+           }
+               c.update(dt);
         }
     }
 

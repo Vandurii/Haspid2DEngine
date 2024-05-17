@@ -16,7 +16,7 @@ import static main.Configuration.jumpSmall;
 import static main.Configuration.objectHalfSize;
 import static org.lwjgl.glfw.GLFW.*;
 
-public class PlayerController extends Component {
+public class PlayerController extends Component implements InactiveInEditor{
 
     private boolean onGround;
     private double startVelYM;
@@ -169,7 +169,7 @@ public class PlayerController extends Component {
             }
         }
 
-        gainHeightIterations--;
+        if(gainHeightIterations >= 0) gainHeightIterations--;
     }
 
     public boolean checkIfOnGround(){

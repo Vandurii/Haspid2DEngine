@@ -2,11 +2,11 @@ package main.editor.editorControl;
 
 import main.components.Component;
 import main.components.SpriteRenderer;
+import main.editor.MenuBar;
 import main.haspid.*;
 import main.renderer.DebugDraw;
 import main.scene.EditorScene;
 import org.joml.Vector2d;
-import org.joml.Vector2f;
 import org.joml.Vector3f;
 
 import java.util.*;
@@ -26,6 +26,12 @@ public class MouseControls extends Component {
     private float debounce = 0.05f;
     private float resetDebounce = debounce;
 
+    private boolean draggingWindow;
+    private Vector2d startDraggingWindow;
+
+    private double controlDebounce;
+    private double resetControlDebounce = 0.00;
+
     private Vector2d distance;
     private Vector2d center;
     private GameObject selector;
@@ -42,13 +48,12 @@ public class MouseControls extends Component {
         this.mouse = mouse;
         this.editorScene = editorScene;
         this.window = Window.getInstance();
-        activeObjectList = new ArrayList<>();
+        this.activeObjectList = new ArrayList<>();
     }
 
     @Override
     public void update(float dt) {
         //Mouse Event
-
         if (draggingObject != null) {
             trackMouse(dt);
         }
@@ -65,16 +70,12 @@ public class MouseControls extends Component {
             unselectActiveObjects();
         }
 
-
-        // todo debounce conflict
-        if(debounce < -0.5) {
-            if (mouse.isButtonPressed(GLFW_MOUSE_BUTTON_1)) {
-
-                System.out.println(String.format("x: %.1f y:%.1f", mouse.getWorldX(), mouse.getWorldY()));
-                debounce = resetDebounce;
-            }
+        if (mouse.isButtonPressed(GLFW_MOUSE_BUTTON_1) && !editorScene.getMenuBar().getMaximizedMode() && (isCursorInsideMenuBar() || draggingWindow)) {
+            dragWindow();
+            controlDebounce = resetControlDebounce;
+        }else{
+            draggingWindow = false;
         }
-        debounce -= dt;
 
         //Mouse + Key Event
         KeyListener keyboard = KeyListener.getInstance();
@@ -87,7 +88,42 @@ public class MouseControls extends Component {
             }
         }
 
-        if(!gizmo.isGizmoActive() && !keyboard.isKeyPressed(GLFW_KEY_LEFT_CONTROL) && draggingObject == null) selectorUpdate();
+        if(!gizmo.isGizmoActive() && !keyboard.isKeyPressed(GLFW_KEY_LEFT_CONTROL) && draggingObject == null){
+            selectorUpdate();
+        }
+
+        if (mouse.isButtonPressed(GLFW_MOUSE_BUTTON_1) && keyboard.isKeyPressed(GLFW_KEY_P)) {
+            System.out.println(String.format("x: %.1f y:%.1f", mouse.getWorldX(), mouse.getWorldY()));
+        }
+
+        controlDebounce -= dt;
+    }
+
+    public void dragWindow(){
+        int[] posX = new int[1];
+        int[] posY = new int[1];
+        long glfw = window.getGlfwWindow();
+        glfwGetWindowPos(glfw, posX, posY);
+
+        if(!draggingWindow){
+            draggingWindow = true;
+            startDraggingWindow = mouse.getMouseListenerPos();
+        }
+
+        int deltaX = (int) (posX[0] + (mouse.getX() - startDraggingWindow.x));
+        int deltaY = (int) (posY[0] + (mouse.getY() - startDraggingWindow.y));
+        glfwSetWindowPos(glfw, deltaX, deltaY);
+    }
+
+    public boolean isCursorInsideMenuBar(){
+        MenuBar menuBar = editorScene.getMenuBar();
+        float width = menuBar.getWindowSize().x;
+        float height = menuBar.getWindowSize().y;
+        float startX = menuBar.getWindowPos().x;
+        float startY = menuBar.getWindowPos().y;
+
+        return mouse.getX() > startX && mouse.getX() < startX + width
+                &&  mouse.getY() > startY && mouse.getY() < startY + height;
     }
 
     public void highLightObject(GameObject gameObject){

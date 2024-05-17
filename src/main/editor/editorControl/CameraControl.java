@@ -29,7 +29,7 @@ public class CameraControl extends Component {
 
     @Override
     public void update(float dt) {
-        if(debounce < 0  && !mouseControls.hasDraggingOrActiveObject()){
+        if(debounce < 0  && !mouseControls.hasDraggingOrActiveObject() && mouse.isCursorInsideViewPort()){
             // update camera
             if (mouse.isMouseDragging() && mouse.isCursorInsideViewPort() && mouse.isButtonPressed(GLFW_MOUSE_BUTTON_1)) {
                 Vector2d delta = mouse.getDelta();

@@ -15,6 +15,8 @@ public class MouseListener {
     private static double x, y, scroll;
     private Vector2d startFrameCursorPos;
     private Vector2d endFrameCursorPos;
+    private Vector2d startFrameCursorPosMMode;
+    private Vector2d endFrameCursorPosMMode;
     private static boolean[] buttonPressed;
     private static boolean isMouseDragged;
     private static ViewPort viewPort;
@@ -74,10 +76,12 @@ public class MouseListener {
 
     public void startFrame(){
        startFrameCursorPos = getViewPortPos();
+       startFrameCursorPosMMode = getMouseListenerPos();
     }
 
     public void endFrame(){
         endFrameCursorPos = startFrameCursorPos;
+        endFrameCursorPosMMode = getMouseListenerPos();
         scroll = 0;
     }
 
@@ -96,6 +100,10 @@ public class MouseListener {
 
     public Vector2d getDelta(){
         return new Vector2d(startFrameCursorPos.x - endFrameCursorPos.x, startFrameCursorPos.y - endFrameCursorPos.y);
+    }
+
+    public Vector2d getDeltaMMode(){
+        return new Vector2d(startFrameCursorPosMMode.x - endFrameCursorPosMMode.x, startFrameCursorPosMMode.y - endFrameCursorPosMMode.y);
     }
 
     public double getScroll() {
