@@ -4,6 +4,7 @@ import imgui.ImGui;
 import imgui.ImVec2;
 import imgui.flag.ImGuiCol;
 import main.components.SpriteRenderer;
+import main.components.physicsComponent.ColliderType;
 import main.editor.editorControl.MouseControls;
 import main.haspid.GameObject;
 import main.util.*;
@@ -66,7 +67,7 @@ public class PropertiesWindow {
                 }else if(i == 0 && index == 2){
                     holdingObject = Prefabs.generateQuestionBlock(spriteWidth, spriteHeight, Coin);
                 }else{
-                    holdingObject = Prefabs.generateBopObject(sprite, spriteWidth, spriteHeight);
+                    holdingObject = Prefabs.generateBopObject(sprite, spriteWidth, spriteHeight, ColliderType.Box);
                 }
                 mouseControls.pickupObject(holdingObject);
             }

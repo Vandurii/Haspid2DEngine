@@ -2,11 +2,14 @@ package main.components.behaviour;
 
 import main.components.PlayerController;
 import main.components.Hitable;
+import main.components.physicsComponent.ColliderType;
 import main.editor.Prefabs;
 import main.haspid.GameObject;
+import main.haspid.Scene;
 import main.haspid.Window;
+import org.joml.Vector2d;
 
-import static main.Configuration.standardSpriteSize;
+import static main.Configuration.*;
 
 public class QuestionBlockBeh extends Hitable {
     public enum BlockType {
@@ -15,8 +18,8 @@ public class QuestionBlockBeh extends Hitable {
         Invincibility
     }
 
-    private boolean isUsed;
     private BlockType blockType;
+    private transient boolean isUsed;
 
     public QuestionBlockBeh(BlockType blockType){
         this.blockType = blockType;
@@ -42,10 +45,17 @@ public class QuestionBlockBeh extends Hitable {
     }
 
     public void doPowerUp(){
-
+        spawnFlower();
     }
 
     public void doInvincibility(){
 
+    }
+
+    public void spawnFlower(){
+        GameObject flower = Prefabs.generateFlower(standardSpriteSize, standardSpriteSize);
+        Vector2d pos = getParent().getTransform().getPosition();
+        flower.getTransform().setPosition(pos.x, pos.y + objectHalfSize * 2);
+        Window.getInstance().getCurrentScene().addGameObjectToScene(flower);
     }
 }
