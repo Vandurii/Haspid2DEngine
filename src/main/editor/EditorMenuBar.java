@@ -8,17 +8,25 @@ import main.haspid.Window;
 import main.physics.events.EventSystem;
 import main.physics.events.Event;
 import main.physics.events.EventType;
+import main.util.AssetPool;
+import main.util.Texture;
 
 import static main.Configuration.*;
 import static org.lwjgl.glfw.GLFW.*;
 
-public class MenuBar {
+public class EditorMenuBar {
     private ImVec2 windowPos;
     private ImVec2 windowSize;
     private boolean maximizeMode;
-    private static boolean isPlaying;
+    private EditorScene editorScene;
+
+    public EditorMenuBar(EditorScene editorScene){
+        this.editorScene = editorScene;
+    }
 
     public void display(){
+        long glfw = Window.getInstance().getGlfwWindow();
+
         ImGui.pushStyleVar(ImGuiStyleVar.FramePadding, 0, menuBarHeight);
         ImGui.pushStyleColor(ImGuiCol.MenuBarBg, imGuiMenuBar.x, imGuiMenuBar.y, imGuiMenuBar.z, imGuiTabActive.w);
         ImGui.beginMainMenuBar();
@@ -30,13 +38,18 @@ public class MenuBar {
             ImGui.endMenu();
         }
 
-        if(ImGui.menuItem("Play", "", isPlaying, !isPlaying)){
-            isPlaying = true;
+        if(ImGui.menuItem("Play")){
             EventSystem.notify(null, new Event(EventType.GameEngineStart));
-        }else if (ImGui.menuItem("Stop", "", !isPlaying, isPlaying)) {
-            isPlaying = false;
-            EventSystem.notify(null, new Event(EventType.GameEngineStop));
+            glfwMaximizeWindow(glfw);
         }
+
+        ImGui.pushStyleColor(ImGuiCol.Button, exitNormal.getRed(), exitNormal.getGreen(), exitNormal.getBlue(), exitNormal.getAlpha());
+        ImGui.pushStyleColor(ImGuiCol.ButtonHovered, exitHover.getRed(), exitHover.getGreen(), exitHover.getBlue(), exitHover.getAlpha());
+        ImGui.pushStyleColor(ImGuiCol.ButtonActive, exitActive.getRed(), exitActive.getGreen(), exitActive.getBlue(), exitActive.getAlpha());
+        Texture tex = AssetPool.getTexture( "assets/images/sys/turnOff.png");
+        int texId = tex.getTexID();
+        if(ImGui.imageButton(texId, tex.getWidth() / 2f , tex.getHeight() /2f)){}
+        ImGui.popStyleColor(3);
 
 
         ImGui.pushStyleColor(ImGuiCol.Button, exitNormal.getRed(), exitNormal.getGreen(), exitNormal.getBlue(), exitNormal.getAlpha());
@@ -44,7 +57,7 @@ public class MenuBar {
         ImGui.pushStyleColor(ImGuiCol.ButtonActive, exitActive.getRed(), exitActive.getGreen(), exitActive.getBlue(), exitActive.getAlpha());
         ImGui.setCursorPos(ImGui.getWindowSizeX() - (menuBarButtonSize + menuBarButtonSpacing), 0);
         if(ImGui.button("X", menuBarButtonSize, menuBarButtonSize)){
-            glfwSetWindowShouldClose(Window.getInstance().getGlfwWindow(), true);
+            glfwSetWindowShouldClose(glfw, true);
         }
         ImGui.popStyleColor(3);
 
@@ -53,8 +66,13 @@ public class MenuBar {
         ImGui.pushStyleColor(ImGuiCol.ButtonActive, maximizeActive.getRed(), maximizeActive.getGreen(), maximizeActive.getBlue(), maximizeActive.getAlpha());
         ImGui.setCursorPos(ImGui.getWindowSizeX() - (menuBarButtonSize + menuBarButtonSpacing) * 2, 0);
         if(ImGui.button("M", menuBarButtonSize, menuBarButtonSize)){
-           glfwMaximizeWindow(Window.getInstance().getGlfwWindow());
-            maximizeMode = true;
+            if(!maximizeMode) {
+                glfwMaximizeWindow(glfw);
+                maximizeMode = true;
+            }else{
+                glfwRestoreWindow(glfw);
+                maximizeMode = false;
+            }
         }
         ImGui.popStyleColor(3);
 
@@ -63,8 +81,7 @@ public class MenuBar {
         ImGui.pushStyleColor(ImGuiCol.ButtonActive, minimizeActive.getRed(), minimizeActive.getGreen(), minimizeActive.getBlue(), minimizeActive.getAlpha());
         ImGui.setCursorPos(ImGui.getWindowSizeX() - (menuBarButtonSize + menuBarButtonSpacing) * 3, 0);
         if(ImGui.button("V", menuBarButtonSize, menuBarButtonSize)){
-            glfwRestoreWindow(Window.getInstance().getGlfwWindow());
-            maximizeMode = false;
+           glfwIconifyWindow(glfw);
         }
         ImGui.popStyleColor(3);
 

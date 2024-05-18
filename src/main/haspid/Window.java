@@ -6,9 +6,8 @@ import main.physics.events.Event;
 import main.renderer.FrameBuffer;
 import main.renderer.IDBuffer;
 import main.renderer.Renderer;
-import main.scene.EditorScene;
-import main.scene.GameScene;
-import main.scene.Scene;
+import main.editor.EditorScene;
+import main.game.GameScene;
 import main.util.AssetPool;
 import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
@@ -54,7 +53,7 @@ public class Window implements Observer {
         loop();
 
         currentScene.save();
-        currentScene.end();
+        currentScene.disposeDearGui();
 
         // Free audio context
         alcDestroyContext(audioContext);
@@ -187,7 +186,7 @@ public class Window implements Observer {
             // Bind frame buffer and write to it.
             frameBuffer.bind();
             renderer.replaceShader(AssetPool.getShader(defaultShaderPath));
-            glClearColor(clearColor.getRed() / 255f, clearColor.getGreen() / 255f, clearColor.getBlue() / 255f, clearColor.getAlpha());
+            glClearColor(currentClearColor.getRed() / 255f, currentClearColor.getGreen() / 255f, currentClearColor.getBlue() / 255f, currentClearColor.getAlpha());
 
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //clear the framebuffer
 
@@ -200,7 +199,7 @@ public class Window implements Observer {
             MouseListener.getInstance().endFrame();
 
             if(newScene != null){
-                currentScene.end();
+                currentScene.disposeDearGui();
                 initScene(newScene);
                 newScene = null;
             }
@@ -251,11 +250,15 @@ public class Window implements Observer {
     public void onNotify(GameObject gameObject, Event event) {
         switch (event.getEventType()){
             case GameEngineStart -> {
+                currentScene.clear();
                 currentScene.save();
                 newScene = new GameScene();
+                currentClearColor = gameClearColor;
             }
             case GameEngineStop -> {
+                currentScene.clear();
                 newScene = new EditorScene();
+                currentClearColor = editorClearColor;
             }
 
             case SaveLevel -> currentScene.save();

@@ -1,7 +1,6 @@
-package main.scene;
+package main.editor;
 
 import imgui.app.Configuration;
-import main.editor.*;
 import main.editor.editorControl.CameraControl;
 import main.editor.editorControl.Gizmo;
 import main.editor.editorControl.KeyControls;
@@ -10,6 +9,7 @@ import main.haspid.*;
 import main.haspid.Window;
 import main.renderer.DebugDraw;
 import main.renderer.Renderer;
+import main.haspid.Scene;
 import main.util.AssetPool;
 import main.util.Properties;
 
@@ -21,7 +21,7 @@ import static main.Configuration.*;
 public class EditorScene extends Scene {
 
     private Gizmo gizmo;
-    private MenuBar menuBar;
+    private EditorMenuBar editorMenuBar;
     private GridLines gridLines;
     private ImGuiLayer imGuiLayer;
     private KeyControls keyControls;
@@ -69,7 +69,7 @@ public class EditorScene extends Scene {
         properties.add(AssetPool.getSpriteSheet(decorationAndBlockConfig));
         properties.add(AssetPool.getAllSound());
 
-        menuBar = new MenuBar();
+        editorMenuBar = new EditorMenuBar(this);
         inspectorWindow = new InspectorWindow(mouseControls);
         propertiesWindow = new PropertiesWindow(mouseControls, properties);
     }
@@ -94,7 +94,7 @@ public class EditorScene extends Scene {
     public void dearGui(){
         imGuiLayer.startFrame();
 
-        menuBar.display();
+        editorMenuBar.display();
         sceneHierarchy.display();
         inspectorWindow.display();
         propertiesWindow.display();
@@ -103,10 +103,13 @@ public class EditorScene extends Scene {
         imGuiLayer.endFrame();
     }
 
-    public void end(){
+    public void clear(){
         zoom = 1;
-        mouseControls.removeDraggingObject();
         mouseControls.unselectActiveObjects();
+        mouseControls.removeDraggingObject();
+    }
+
+    public void disposeDearGui(){
         imGuiLayer.dispose();
     }
 
@@ -130,7 +133,11 @@ public class EditorScene extends Scene {
         return  keyControls;
     }
 
-    public MenuBar getMenuBar(){
-        return menuBar;
+    public EditorMenuBar getMenuBar(){
+        return editorMenuBar;
+    }
+
+    public void setActiveGameObjectList(List<GameObject> activeGameObjectList){
+        this.activeGameObjectList = activeGameObjectList;
     }
 }

@@ -1,20 +1,16 @@
-package main.scene;
+package main.haspid;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import main.Helper;
 import main.components.Component;
 import main.components.SpriteRenderer;
-import main.haspid.Camera;
 import main.components.ComponentSerializer;
-import main.haspid.GameObject;
-import main.haspid.GameObjectDeserializer;
 import main.physics.Physics2D;
 import main.renderer.Renderer;
 import main.util.AssetPool;
 import main.util.Texture;
 import org.joml.Vector2d;
-import org.joml.Vector2f;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -34,10 +30,12 @@ public abstract class Scene {
     protected Physics2D physics;
     protected boolean editorMode;
     private static List<GameObject> sceneObjectList;
+    private static List<GameObject> objectToRemove;
 
     public Scene(){
         this.camera = new Camera(new Vector2d(0, 0));
         this.sceneObjectList = new ArrayList<>();
+        this.objectToRemove = new ArrayList<>();
         this.renderer = Renderer.getInstance();
         this.physics = new Physics2D();
 
@@ -49,7 +47,9 @@ public abstract class Scene {
 
     public abstract void init();
 
-    public abstract void end();
+    public abstract void disposeDearGui();
+
+    public abstract void clear();
 
     public abstract void render(float dt, boolean bufferIDMode);
 
@@ -79,6 +79,22 @@ public abstract class Scene {
             physics.destroyGameObject(gameObject);
             sceneObjectList.remove(gameObject);
         }
+    }
+
+    public void removeFromSceneRuntime(GameObject gameObject){
+        if(Helper.isNotNull(gameObject) && Helper.isNotNull(gameObject.getComponent(SpriteRenderer.class))){
+            gameObject.getComponent(SpriteRenderer.class).markToRemove();
+            physics.destroyGameObject(gameObject);
+            objectToRemove.add(gameObject);
+        }
+    }
+
+    public void removeDeadObject(){
+        for(GameObject gameObject: objectToRemove){
+            sceneObjectList.remove(gameObject);
+        }
+
+        objectToRemove.clear();
     }
 
     public void clearScene(){

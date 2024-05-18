@@ -3,7 +3,6 @@ package main.editor;
 import imgui.ImGui;
 import imgui.ImVec2;
 import imgui.flag.ImGuiCol;
-import main.components.stateMachine.Animation;
 import main.components.SpriteRenderer;
 import main.editor.editorControl.MouseControls;
 import main.haspid.GameObject;
@@ -14,6 +13,7 @@ import java.util.List;
 
 import static main.Configuration.*;
 import static main.Configuration.imGuiTabActive;
+import static main.components.behaviour.QuestionBlockBeh.BlockType.Coin;
 
 public class PropertiesWindow {
 
@@ -62,26 +62,11 @@ public class PropertiesWindow {
                 GameObject holdingObject;
                 // todo
                 if(i == 0 && index == 3){
-                    SpriteSheet sheet = AssetPool.getSpriteSheet(firstSpriteSheet);
-                    Animation animation = new Animation("run");
-                    animation.addFrame(sheet.getSprite(0), 0.23);
-                    animation.addFrame(sheet.getSprite(2), 0.23);
-                    animation.addFrame(sheet.getSprite(3), 0.23);
-                    animation.addFrame(sheet.getSprite(2), 0.23);
-
-                    holdingObject = Prefabs.generateMario(spriteWidth, spriteHeight, animation);
+                    holdingObject = Prefabs.generateMario(spriteWidth, spriteHeight);
                 }else if(i == 0 && index == 2){
-                    SpriteSheet items = AssetPool.getSpriteSheet(itemsConfig);
-                    Animation animation = new Animation("questionBlock");
-
-                    animation.addFrame(items.getSprite(0), 0.57f);
-                    animation.addFrame(items.getSprite(1), 0.23f);
-                    animation.addFrame(items.getSprite(2), 0.23f);
-
-
-                    holdingObject = Prefabs.generateStaticAnimatedObject(spriteWidth, spriteHeight, animation);
+                    holdingObject = Prefabs.generateQuestionBlock(spriteWidth, spriteHeight, Coin);
                 }else{
-                    holdingObject = Prefabs.generateStaticObject(sprite, spriteWidth, spriteHeight);
+                    holdingObject = Prefabs.generateBopObject(sprite, spriteWidth, spriteHeight);
                 }
                 mouseControls.pickupObject(holdingObject);
             }

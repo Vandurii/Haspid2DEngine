@@ -5,7 +5,7 @@ import imgui.flag.ImGuiCol;
 import imgui.flag.ImGuiTreeNodeFlags;
 import main.haspid.GameObject;
 import main.haspid.Window;
-import main.scene.Scene;
+import main.haspid.Scene;
 
 import java.util.List;
 

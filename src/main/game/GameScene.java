@@ -1,19 +1,21 @@
-package main.scene;
+package main.game;
 
 import imgui.app.Configuration;
-import main.editor.MenuBar;
+import main.editor.EditorMenuBar;
 import main.editor.ViewPort;
-import main.game.GameKeyControls;
 import main.haspid.GameObject;
 import main.haspid.ImGuiLayer;
 import main.haspid.Window;
 import main.renderer.Renderer;
+import main.haspid.Scene;
+
+import static main.Configuration.gameClearColor;
 
 public class GameScene extends Scene {
 
     private ImGuiLayer imGuiLayer;
     private GameObject gameSceneStuff;
-    public MenuBar menuBar = new MenuBar();
+    public GameMenuBar gameMenuBar = new GameMenuBar();
 
     @Override
     public void init() {
@@ -37,6 +39,8 @@ public class GameScene extends Scene {
         for (GameObject go : getSceneObjectList()) {
             go.update(dt);
         }
+
+        removeDeadObject();
     }
 
     @Override
@@ -47,11 +51,16 @@ public class GameScene extends Scene {
     public void dearGui(){
         imGuiLayer.startFrame();
         ViewPort.getInstance().display();
-        menuBar.display();
+        gameMenuBar.display();
         imGuiLayer.endFrame();
     }
 
-    public void end(){
+    public void disposeDearGui(){
         imGuiLayer.dispose();
+    }
+
+    @Override
+    public void clear() {
+
     }
 }

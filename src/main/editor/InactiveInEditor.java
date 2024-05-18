@@ -1,4 +1,4 @@
-package main.components;
+package main.editor;
 
 public interface InactiveInEditor {
 }

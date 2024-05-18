@@ -1,6 +1,8 @@
 package main.components.physicsComponent;
 
 import main.components.Component;
+import main.haspid.GameObject;
+import main.haspid.Transform;
 import main.haspid.Window;
 import main.physics.Physics2D;
 import main.physics.BodyType;
@@ -46,8 +48,13 @@ public class RigidBody extends Component {
         if(window.getCurrentScene().isInEditMode()) return;
 
         if(rawBody != null){
-            getParent().getTransform().setPosition(rawBody.getPosition().x, rawBody.getPosition().y);
-            if(updateRotation) getParent().getTransform().setRotation((float) Math.toDegrees(rawBody.getAngle()));
+            if(bodyType == BodyType.Dynamic || bodyType == BodyType.Kinematic) {
+                getParent().getTransform().setPosition(rawBody.getPosition().x, rawBody.getPosition().y);
+                if (updateRotation) getParent().getTransform().setRotation((float) Math.toDegrees(rawBody.getAngle()));
+            }else{
+                Transform t = getParent().getTransform();
+                rawBody.setTransform(new Vec2((float) t.getPosition().x, (float) t.getPosition().y), (float)t.getRotation());
+            }
         }
     }
 

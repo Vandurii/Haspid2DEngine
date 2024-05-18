@@ -7,6 +7,7 @@ import org.jbox2d.callbacks.ContactListener;
 import org.jbox2d.collision.Manifold;
 import org.jbox2d.collision.WorldManifold;
 import org.jbox2d.dynamics.contacts.Contact;
+import org.joml.Vector2d;
 import org.joml.Vector2f;
 
 public class HContactListener implements ContactListener {
@@ -17,8 +18,8 @@ public class HContactListener implements ContactListener {
         GameObject objectB = (GameObject) contact.getFixtureB().getUserData();
         WorldManifold worldManifold = new WorldManifold();
         contact.getWorldManifold(worldManifold);
-        Vector2f aNormal = new Vector2f(worldManifold.normal.x, worldManifold.normal.y);
-        Vector2f bNormal = new Vector2f(aNormal).negate();
+        Vector2d aNormal = new Vector2d(worldManifold.normal.x, worldManifold.normal.y);
+        Vector2d bNormal = new Vector2d(aNormal).negate();
 
         for(Component c: objectA.getAllComponent()){
              c.beginCollision(objectB, contact, aNormal);
@@ -35,8 +36,8 @@ public class HContactListener implements ContactListener {
         GameObject objectB = (GameObject) contact.getFixtureB().getUserData();
         WorldManifold worldManifold = new WorldManifold();
         contact.getWorldManifold(worldManifold);
-        Vector2f aNormal = new Vector2f(worldManifold.normal.x, worldManifold.normal.y);
-        Vector2f bNormal = new Vector2f(aNormal).negate();
+        Vector2d aNormal = new Vector2d(worldManifold.normal.x, worldManifold.normal.y);
+        Vector2d bNormal = new Vector2d(aNormal).negate();
 
         for(Component c: objectA.getAllComponent()){
             c.endCollision(objectB, contact, aNormal);
@@ -53,8 +54,8 @@ public class HContactListener implements ContactListener {
         GameObject objectB = (GameObject) contact.getFixtureB().getUserData();
         WorldManifold worldManifold = new WorldManifold();
         contact.getWorldManifold(worldManifold);
-        Vector2f aNormal = new Vector2f(worldManifold.normal.x, worldManifold.normal.y);
-        Vector2f bNormal = new Vector2f(aNormal).negate();
+        Vector2d aNormal = new Vector2d(worldManifold.normal.x, worldManifold.normal.y);
+        Vector2d bNormal = new Vector2d(aNormal).negate();
 
         for(Component c: objectA.getAllComponent()){
             c.preSolve(objectB, contact, aNormal);
@@ -71,8 +72,8 @@ public class HContactListener implements ContactListener {
         GameObject objectB = (GameObject) contact.getFixtureB().getUserData();
         WorldManifold worldManifold = new WorldManifold();
         contact.getWorldManifold(worldManifold);
-        Vector2f aNormal = new Vector2f(worldManifold.normal.x, worldManifold.normal.y);
-        Vector2f bNormal = new Vector2f(aNormal).negate();
+        Vector2d aNormal = new Vector2d(worldManifold.normal.x, worldManifold.normal.y);
+        Vector2d bNormal = new Vector2d(aNormal).negate();
 
         for(Component c: objectA.getAllComponent()){
             c.postSolve(objectB, contact, aNormal);

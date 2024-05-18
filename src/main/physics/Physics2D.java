@@ -63,7 +63,7 @@ public class Physics2D {
             }
 
             Body body = world.createBody(bodyDef);
-            body.m_mass = (float) rigidBody.getMass();
+            if(body != null)body.m_mass = (float) rigidBody.getMass(); // todo
             rigidBody.setRawBody(body);
 
             CircleCollider circleCollider = gameObject.getComponent(CircleCollider.class);

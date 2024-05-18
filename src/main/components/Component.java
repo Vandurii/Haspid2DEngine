@@ -5,6 +5,7 @@ import imgui.type.ImInt;
 import main.editor.JImGui;
 import main.haspid.GameObject;
 import org.jbox2d.dynamics.contacts.Contact;
+import org.joml.Vector2d;
 import org.joml.Vector2f;
 
 import java.lang.reflect.Field;
@@ -33,19 +34,19 @@ public abstract class Component {
         ID_COUNTER = componentID;
     }
 
-    public void beginCollision(GameObject collidingObject, Contact contact, Vector2f hitNormal){
+    public void beginCollision(GameObject collidingObject, Contact contact, Vector2d hitNormal){
 
     }
 
-    public void endCollision(GameObject collidingObject, Contact contact, Vector2f hitNormal){
+    public void endCollision(GameObject collidingObject, Contact contact, Vector2d hitNormal){
 
     }
 
-    public void preSolve(GameObject collidingObject, Contact contact, Vector2f hitNormal){
+    public void preSolve(GameObject collidingObject, Contact contact, Vector2d hitNormal){
 
     }
 
-    public void postSolve(GameObject collidingObject, Contact contact, Vector2f hitNormal){
+    public void postSolve(GameObject collidingObject, Contact contact, Vector2d hitNormal){
 
     }
 

@@ -2,9 +2,6 @@ package main.game;
 
 import main.components.Component;
 import main.haspid.KeyListener;
-import main.haspid.MouseListener;
-import main.haspid.Window;
-import main.scene.EditorScene;
 
 import static main.Configuration.keyDebounceC;
 import static org.lwjgl.glfw.GLFW.*;

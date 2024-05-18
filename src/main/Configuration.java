@@ -23,11 +23,12 @@ public class Configuration {
     public static String line2DShaderPath = "assets/shaders/line2D.glsl";
     public static String idShaderPath = "assets/shaders/idShader.glsl";
 
+    public static int standardSpriteSize = 16;
     public static String marioImagePath = "assets/images/mario.png";
-    public static SpriteConfig firstSpriteSheet = new SpriteConfig("assets/images/spritesheet.png", 16, 16, 26, 0);
-    public static SpriteConfig decorationAndBlockConfig = new SpriteConfig("assets/images/decorationsAndBlocks.png", 16, 16, 81, 0);
+    public static SpriteConfig firstSpriteSheet = new SpriteConfig("assets/images/spritesheet.png", standardSpriteSize, standardSpriteSize, 26, 0);
+    public static SpriteConfig decorationAndBlockConfig = new SpriteConfig("assets/images/decorationsAndBlocks.png", standardSpriteSize, standardSpriteSize, 81, 0);
     public static SpriteConfig gizmosConfig = new SpriteConfig("assets/images/gizmos.png", 24, 48, 3, 0);
-    public static SpriteConfig itemsConfig = new SpriteConfig("assets/images/items.png", 16, 16, 33, 0);
+    public static SpriteConfig itemsConfig = new SpriteConfig("assets/images/items.png", standardSpriteSize, standardSpriteSize, 33, 0);
 
 
     public static AudioConfig mainTheme = new AudioConfig("assets/sounds/main-theme-overworld.ogg", true);
@@ -96,7 +97,9 @@ public class Configuration {
     public static Vector4f colorGreenAlpha = new Vector4f(0, 1, 0, 1);
     public static Vector4f colorBlueAlpha = new Vector4f(0, 0, 1, 1);
 
-    public static Color clearColor = new Color(60, 60, 60, 1);
+    public static Color editorClearColor = new Color(60, 60, 60, 1);
+    public static Color gameClearColor = new Color(255, 255, 255, 1);
+    public static Color currentClearColor = editorClearColor;
 
     public static Vector4f imGuiColor = new Vector4f(0.25f, 0.25f, 0.25f, 1);
     public static Vector4f imGuiButtonColor = new Vector4f(0.25f, 0.25f, 0.25f, 1);
@@ -114,7 +117,7 @@ public class Configuration {
     public static int colliderIndex = 3;
     public static int selectorIndex = 4;
 
-    public static double selectorScale = 1.36f;
+    public static double selectorScale = 1;
 
     public static double pillboxWidth = (objectHalfSize * 2) * 0.85f;
     public static double pillboxHeight = (objectHalfSize * 2) * 1.43f;

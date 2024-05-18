@@ -4,11 +4,10 @@ import main.components.Component;
 import main.components.SpriteRenderer;
 import main.haspid.*;
 import main.renderer.Renderer;
-import main.scene.EditorScene;
+import main.editor.EditorScene;
 import main.util.AssetPool;
 import main.util.SpriteSheet;
 import org.joml.Vector2d;
-import org.joml.Vector2f;
 
 import java.util.List;
 

@@ -1,14 +1,13 @@
 package main.components;
 
-import main.haspid.Direction;
-import main.haspid.KeyListener;
-import main.haspid.Transform;
-import main.haspid.Window;
+import main.editor.InactiveInEditor;
+import main.haspid.*;
 import main.physics.Physics2D;
 import main.components.physicsComponent.RigidBody;
 import main.physics.RayCastInfo;
 import main.renderer.DebugDraw;
 import main.util.AssetPool;
+import org.jbox2d.dynamics.contacts.Contact;
 import org.joml.Vector2d;
 import org.joml.Vector3f;
 
@@ -16,7 +15,7 @@ import static main.Configuration.jumpSmall;
 import static main.Configuration.objectHalfSize;
 import static org.lwjgl.glfw.GLFW.*;
 
-public class PlayerController extends Component implements InactiveInEditor{
+public class PlayerController extends Component implements InactiveInEditor {
 
     private boolean onGround;
     private double startVelYM;
@@ -190,6 +189,20 @@ public class PlayerController extends Component implements InactiveInEditor{
         RayCastInfo rightSideInfo = physics.rayCastInfo(getParent(), beginRight, endRight);
 
         return onGround = leftSideInfo.isHit() && leftSideInfo.getHitObject() != null || rightSideInfo.isHit() && rightSideInfo.getHitObject() != null;
+    }
+
+    @Override
+    public void beginCollision(GameObject collidingObject, Contact contact, Vector2d contactNormal){
+        double threshold = 0.8;
+
+        if(Math.abs(contactNormal.x) > threshold){
+            velocity.x = 0;
+        }
+
+        if(Math.abs(contactNormal.y) > threshold){
+            velocity.y = 0;
+            gainHeightIterations = 0;
+        }
     }
     
     public boolean gainingHeight(){

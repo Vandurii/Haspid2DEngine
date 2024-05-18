@@ -2,10 +2,10 @@ package main.editor.editorControl;
 
 import main.components.Component;
 import main.components.SpriteRenderer;
-import main.editor.MenuBar;
+import main.editor.EditorMenuBar;
 import main.haspid.*;
 import main.renderer.DebugDraw;
-import main.scene.EditorScene;
+import main.editor.EditorScene;
 import org.joml.Vector2d;
 import org.joml.Vector3f;
 
@@ -116,11 +116,11 @@ public class MouseControls extends Component {
     }
 
     public boolean isCursorInsideMenuBar(){
-        MenuBar menuBar = editorScene.getMenuBar();
-        float width = menuBar.getWindowSize().x;
-        float height = menuBar.getWindowSize().y;
-        float startX = menuBar.getWindowPos().x;
-        float startY = menuBar.getWindowPos().y;
+        EditorMenuBar editorMenuBar = editorScene.getMenuBar();
+        float width = editorMenuBar.getWindowSize().x;
+        float height = editorMenuBar.getWindowSize().y;
+        float startX = editorMenuBar.getWindowPos().x;
+        float startY = editorMenuBar.getWindowPos().y;
 
         return mouse.getX() > startX && mouse.getX() < startX + width
                 &&  mouse.getY() > startY && mouse.getY() < startY + height;
@@ -304,7 +304,7 @@ public class MouseControls extends Component {
             endDragging = mouse.getWorld();
             if(startDraggingWMode != null && mouse.isMouseDragging() && mouse.isButtonPressed(GLFW_MOUSE_BUTTON_2)){
                 distance = new Vector2d(endDragging.x - startDraggingWMode.x, endDragging.y - startDraggingWMode.y);
-                center = new Vector2d(startDraggingWMode.x + (distance.x/ 2f), startDraggingWMode.y + (distance.y / 2f));
+                center = new Vector2d(startDraggingWMode.x + (distance.x / 2), startDraggingWMode.y + (distance.y / 2));
                 DebugDraw.drawBoxes2D(selectorIndex, center, distance, 0, new Vector3f(0, 0, 0), 1);
 
                 if(selector != null) Window.getInstance().getCurrentScene().removeFromScene(selector);
@@ -349,11 +349,13 @@ public class MouseControls extends Component {
 
     public void setObjectActive(GameObject active){
         activeObjectList.add(active);
+        editorScene.addObjectToActiveList(active);
     }
 
     public void setObjectActive(List<GameObject> cloneList){
         unselectActiveObjects();
         activeObjectList = cloneList;
+        editorScene.setActiveGameObjectList(cloneList);
         highLightObject(activeObjectList);
     }
 

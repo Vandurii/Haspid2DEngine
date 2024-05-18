@@ -1,7 +1,7 @@
 package main.haspid;
 
 import imgui.ImGui;
-import main.components.InactiveInEditor;
+import main.editor.InactiveInEditor;
 import main.editor.JImGui;
 import main.components.Component;
 
