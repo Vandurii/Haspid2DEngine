@@ -245,8 +245,6 @@ public class MouseControls extends Component {
 
         GameObject active = editorScene.getGameObjectFromID(id);
         if(active != null && active.isTriggerable()){
-            System.out.println(active.getTransform().getPosition().x);
-            System.out.println(active.getTransform().getPosition().y);
 
             if(!multipleMode){
                 unselectActiveObjects();

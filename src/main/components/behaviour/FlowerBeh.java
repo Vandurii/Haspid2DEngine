@@ -8,27 +8,25 @@ import main.util.AssetPool;
 import org.jbox2d.dynamics.contacts.Contact;
 import org.joml.Vector2d;
 
-import static main.Configuration.powerUp;
+import static main.Configuration.powerUpAppears;
 
 public class FlowerBeh extends Component {
 
     @Override
     public void start(){
-        AssetPool.getSound(powerUp).play();
+        AssetPool.getSound(powerUpAppears).play();
     }
-
 
     @Override
     public void update(float dt) {
-
     }
 
     @Override
     public void beginCollision(GameObject gameObject, Contact contact, Vector2d contactNormal){
         PlayerController playerController = gameObject.getComponent(PlayerController.class);
-
         if(playerController != null){
-           // playerController.powerUP;
+
+            playerController.powerUP();
             Window.getInstance().getCurrentScene().removeFromSceneRuntime(getParent());
         }
     }

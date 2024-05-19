@@ -11,8 +11,7 @@ import org.jbox2d.dynamics.contacts.Contact;
 import org.joml.Vector2d;
 import org.joml.Vector3f;
 
-import static main.Configuration.jumpSmall;
-import static main.Configuration.objectHalfSize;
+import static main.Configuration.*;
 import static org.lwjgl.glfw.GLFW.*;
 
 public class PlayerController extends Component implements InactiveInEditor {
@@ -36,6 +35,14 @@ public class PlayerController extends Component implements InactiveInEditor {
     private transient Physics2D physics;
     private transient KeyListener keyboard;
 
+    private PlayerState playerState;
+
+    public enum PlayerState{
+        small,
+        big,
+        fire
+    }
+
     public PlayerController(){
 
         // movind left < > right
@@ -54,7 +61,9 @@ public class PlayerController extends Component implements InactiveInEditor {
         this.speedScalarLS = 1.1;
 
         this.velocity = new Vector2d();
-        this.terminalVelocity = new Vector2d(50, 50);
+        this.terminalVelocity = new Vector2d(20, 50);
+
+        this.playerState = PlayerState.small;
 
         this.keyboard = KeyListener.getInstance();
         this.physics = Window.getInstance().getCurrentScene().getPhysics();
@@ -87,11 +96,8 @@ public class PlayerController extends Component implements InactiveInEditor {
         }
     }
 
-
-
     @Override
     public void update(float dt) {
-      //  System.out.println(onGround + " --> "+velocity.y);
         if(rigidBody == null) return;
         checkIfOnGround();
 
@@ -191,9 +197,14 @@ public class PlayerController extends Component implements InactiveInEditor {
         return onGround = leftSideInfo.isHit() && leftSideInfo.getHitObject() != null || rightSideInfo.isHit() && rightSideInfo.getHitObject() != null;
     }
 
+    public void powerUP(){
+        AssetPool.getSound(powerUp).play();
+    }
+
     @Override
     public void beginCollision(GameObject collidingObject, Contact contact, Vector2d contactNormal){
         double threshold = 0.8;
+        System.out.println(collidingObject.getName());
 
         if(Math.abs(contactNormal.x) > threshold){
             velocity.x = 0;
@@ -287,5 +298,13 @@ public class PlayerController extends Component implements InactiveInEditor {
 
     public void setPlayerWidth(double playerWidth) {
         this.playerWidth = playerWidth;
+    }
+
+    public PlayerState getPlayerState() {
+        return playerState;
+    }
+
+    public void setPlayerState(PlayerState playerState) {
+        this.playerState = playerState;
     }
 }

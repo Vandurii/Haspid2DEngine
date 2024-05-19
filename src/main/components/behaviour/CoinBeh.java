@@ -30,7 +30,6 @@ public class CoinBeh extends Component {
         Vector2d pos = t.getPosition();
         if(pos.y < maxPosY){
             pos.y += dt * speed;
-            System.out.println();
             t.getScale().x -= (0.5f * dt) % -1;
         }else{
             Window.getInstance().getCurrentScene().removeFromSceneRuntime(getParent());

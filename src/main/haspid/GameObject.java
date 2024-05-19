@@ -123,6 +123,10 @@ public class GameObject {
         name = (String) JImGui.drawValue("Name: ", name, this.hashCode() + "");
     }
 
+    public void setName(String name){
+        this.name = name;
+    }
+
     public void setTransformFromItself(){
         this.transform = getComponent(Transform.class);
     }

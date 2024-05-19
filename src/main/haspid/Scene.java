@@ -30,12 +30,14 @@ public abstract class Scene {
     protected Physics2D physics;
     protected boolean editorMode;
     private static List<GameObject> sceneObjectList;
-    private static List<GameObject> objectToRemove;
+    private static List<GameObject> objectToRemoveList;
+    private static List<GameObject> pendingObjectList;
 
     public Scene(){
         this.camera = new Camera(new Vector2d(0, 0));
         this.sceneObjectList = new ArrayList<>();
-        this.objectToRemove = new ArrayList<>();
+        this.objectToRemoveList = new ArrayList<>();
+        this.pendingObjectList = new ArrayList<>();
         this.renderer = Renderer.getInstance();
         this.physics = new Physics2D();
 
@@ -81,20 +83,41 @@ public abstract class Scene {
         }
     }
 
-    public void removeFromSceneRuntime(GameObject gameObject){
-        if(Helper.isNotNull(gameObject) && Helper.isNotNull(gameObject.getComponent(SpriteRenderer.class))){
-            gameObject.getComponent(SpriteRenderer.class).markToRemove();
-            physics.destroyGameObject(gameObject);
-            objectToRemove.add(gameObject);
+    public void addObjectToSceneRunTime(GameObject gameObject){
+        pendingObjectList.add(gameObject);
+    }
+
+    public void addPendingObject(){
+        for(GameObject gameObject: pendingObjectList){
+            addGameObjectToScene(gameObject);
         }
+
+        pendingObjectList.clear();
+    }
+
+    public void removeFromSceneRuntime(GameObject gameObject){
+        objectToRemoveList.add(gameObject);
     }
 
     public void removeDeadObject(){
-        for(GameObject gameObject: objectToRemove){
+        for(GameObject gameObject: objectToRemoveList){
+            SpriteRenderer spriteRenderer = gameObject.getComponent(SpriteRenderer.class);
+            if(spriteRenderer != null){
+                spriteRenderer.markToRemove();
+            }
+
+            physics.destroyGameObject(gameObject);
             sceneObjectList.remove(gameObject);
         }
 
-        objectToRemove.clear();
+        objectToRemoveList.clear();
+    }
+
+    public void runTimeUpdate(float dt){
+        removeDeadObject();
+        addPendingObject();
+
+        physics.update(dt);
     }
 
     public void clearScene(){

@@ -92,6 +92,16 @@ public class RigidBody extends Component {
         if(rawBody != null) rawBody.setLinearVelocity(new Vec2((float) velocity.x, (float) velocity.y));
     }
 
+    public void setVelocityX(double velocityX) {
+        this.velocity.set(velocityX, velocity.y);
+        if(rawBody != null) rawBody.setLinearVelocity(new Vec2((float) velocityX, (float) velocity.y));
+    }
+
+    public void setVelocityY(double velocityY) {
+        this.velocity.set(velocity.x, velocityY);
+        if(rawBody != null) rawBody.setLinearVelocity(new Vec2((float) velocity.x, (float) velocityY));
+    }
+
     public void setAngularVelocity(double angularVelocity) {
         this.angularVelocity = angularVelocity;
         if(rawBody != null) rawBody.setAngularVelocity((float) angularVelocity);

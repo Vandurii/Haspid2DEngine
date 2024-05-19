@@ -4,6 +4,7 @@ import main.components.*;
 import main.components.behaviour.CoinBeh;
 import main.components.Hitable;
 import main.components.behaviour.FlowerBeh;
+import main.components.behaviour.MushroomBeh;
 import main.components.behaviour.QuestionBlockBeh;
 import main.components.physicsComponent.*;
 import main.components.stateMachine.Animation;
@@ -130,7 +131,7 @@ public class Prefabs {
         animation.addFrame(items.getSprite(8), 0.23);
         animation.addFrame(items.getSprite(9), 0.23);
 
-        GameObject coin = generateDynamicAnimatedObject(width, height, animation, ColliderType.Circle);
+        GameObject coin = generateStaticAnimatedObject(width, height, animation, ColliderType.Circle);
         coin.addComponent(new CoinBeh());
 
         return  coin;
@@ -138,9 +139,22 @@ public class Prefabs {
 
     public static GameObject generateFlower(double width, double height){
         GameObject flower = generateStaticObject(items.getSprite(20), width, height, ColliderType.Circle);
+
+        flower.setName("flower");
         flower.addComponent(new FlowerBeh());
+
+        RigidBody rigidBody = flower.getComponent(RigidBody.class);
+        rigidBody.setSensor(true);
 
         return flower;
     }
 
+    public static GameObject generateMushroom(double width, double height){
+        GameObject flower = generateDynamicObject(items.getSprite(10), width, height, ColliderType.Circle);
+
+        flower.setName("mushroom");
+        flower.addComponent(new MushroomBeh());
+
+        return flower;
+    }
 }

@@ -6,6 +6,7 @@ import main.editor.ViewPort;
 import main.haspid.GameObject;
 import main.haspid.ImGuiLayer;
 import main.haspid.Window;
+import main.renderer.DebugDraw;
 import main.renderer.Renderer;
 import main.haspid.Scene;
 
@@ -34,13 +35,12 @@ public class GameScene extends Scene {
     public void update(float dt) {
         dearGui();
         gameSceneStuff.update(dt);
-        physics.update(dt);
 
         for (GameObject go : getSceneObjectList()) {
             go.update(dt);
         }
 
-        removeDeadObject();
+        runTimeUpdate(dt);
     }
 
     @Override
