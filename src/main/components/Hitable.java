@@ -3,10 +3,12 @@ package main.components;
 import main.components.Component;
 import main.components.PlayerController;
 import main.haspid.GameObject;
+import main.haspid.Window;
 import main.util.AssetPool;
 import org.jbox2d.dynamics.contacts.Contact;
 import org.joml.Vector2d;
 
+import static main.Configuration.breakBlock;
 import static main.Configuration.bump;
 
 public class Hitable extends Component {
@@ -15,6 +17,7 @@ public class Hitable extends Component {
     private transient double maxPosY;
     private transient double startPosY;
     private transient boolean active;
+    private transient PlayerController playerController;
 
     public Hitable(){
         this.speed = 3;
@@ -28,22 +31,36 @@ public class Hitable extends Component {
     }
 
     @Override
+    public Hitable copy(){
+        Hitable hitable = new Hitable();
+        hitable.setDistance(distance);
+        hitable.setSpeed(speed);
+
+        return hitable;
+    }
+
+    @Override
     public void update(float dt) {
         Vector2d pos = getParent().getTransform().getPosition();
 
         if(active){
-            if(pos.y < maxPosY){
-                pos.y += speed * dt;
-            }else if(pos.y > startPosY){
-                pos.y = startPosY;
-                active = false;
+            if(playerController != null && playerController.getPlayerState() == PlayerController.PlayerState.small) {
+                if (pos.y < maxPosY) {
+                    pos.y += speed * dt;
+                } else if (pos.y > startPosY) {
+                    pos.y = startPosY;
+                    active = false;
+                }
+            }else if(playerController != null){
+                AssetPool.getSound(breakBlock).play();;
+                Window.getInstance().getCurrentScene().removeFromSceneRuntime(getParent());
             }
         }
     }
 
     @Override
     public void beginCollision(GameObject gameObject, Contact contact, Vector2d contactNormal){
-        PlayerController playerController = gameObject.getComponent(PlayerController.class);
+        playerController = gameObject.getComponent(PlayerController.class);
         if(playerController != null && contactNormal.y < -0.8f){
             active = true;
             AssetPool.getSound(bump).play();
@@ -52,4 +69,20 @@ public class Hitable extends Component {
     }
 
     public void playerHit(PlayerController playerController){};
+
+    public double getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(double speed) {
+        this.speed = speed;
+    }
+
+    public double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
+    }
 }

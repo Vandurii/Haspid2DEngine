@@ -6,9 +6,12 @@ import main.Helper;
 import main.components.Component;
 import main.components.SpriteRenderer;
 import main.components.ComponentSerializer;
+import main.components.stateMachine.Animation;
+import main.components.stateMachine.StateMachine;
 import main.physics.Physics2D;
 import main.renderer.Renderer;
 import main.util.AssetPool;
+import main.util.SpriteSheet;
 import main.util.Texture;
 import org.joml.Vector2d;
 
@@ -17,7 +20,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static main.Configuration.*;
 import static org.lwjgl.opengl.GL11.glGetIntegerv;
@@ -32,12 +37,20 @@ public abstract class Scene {
     private static List<GameObject> sceneObjectList;
     private static List<GameObject> objectToRemoveList;
     private static List<GameObject> pendingObjectList;
+    private static Map<Component, GameObject> componentToRemoveMap;
+    private static Map<Component, GameObject> componentToAddMap;
+
+    private static SpriteSheet itemsSheet = AssetPool.getSpriteSheet(itemsConfig);
+    private static SpriteSheet smallFormSheet = AssetPool.getSpriteSheet(smallForm);
+    private static SpriteSheet bigFormSheet = AssetPool.getSpriteSheet(bigForm);
 
     public Scene(){
         this.camera = new Camera(new Vector2d(0, 0));
         this.sceneObjectList = new ArrayList<>();
         this.objectToRemoveList = new ArrayList<>();
         this.pendingObjectList = new ArrayList<>();
+        this.componentToRemoveMap = new HashMap<>();
+        this.componentToAddMap = new HashMap<>();
         this.renderer = Renderer.getInstance();
         this.physics = new Physics2D();
 
@@ -114,10 +127,39 @@ public abstract class Scene {
     }
 
     public void runTimeUpdate(float dt){
+        removeComponentFromObject();
+        addComponentToObject();
+
         removeDeadObject();
         addPendingObject();
 
         physics.update(dt);
+    }
+
+    public void updateGameObject(float dt){
+        for (GameObject go : getSceneObjectList()) {
+           go.update(dt);
+        }
+    }
+
+    public void removeComponentRuntime(GameObject gameObject, Component component){
+        componentToRemoveMap.put(component, gameObject);
+    }
+
+    public void removeComponentFromObject() {
+        for (Map.Entry<Component, GameObject> entry : componentToRemoveMap.entrySet()) {
+            entry.getValue().removeComponent(entry.getKey());
+        }
+    }
+
+    public void addComponentRuntime(GameObject gameObject, Component component){
+        componentToAddMap.put(component, gameObject);
+    }
+
+    public void addComponentToObject() {
+        for (Map.Entry<Component, GameObject> entry : componentToRemoveMap.entrySet()) {
+            entry.getValue().addComponent(entry.getKey());
+        }
     }
 
     public void clearScene(){
@@ -220,7 +262,7 @@ public abstract class Scene {
 
     private void loadResources(){
         AssetPool.getShader(defaultShaderPath);
-        AssetPool.getSpriteSheet(firstSpriteSheet);
+        AssetPool.getSpriteSheet(smallForm);
         AssetPool.getSpriteSheet(decorationAndBlockConfig);
         AssetPool.getSpriteSheet(gizmosConfig);
         AssetPool.getSpriteSheet(itemsConfig);
@@ -240,6 +282,79 @@ public abstract class Scene {
         AssetPool.getSound(stomp);
         AssetPool.getSound(kick);
         AssetPool.getSound(invincible);
+
+        //===================================
+        //  State Machine
+        //===================================
+        double defaultFrameTime = 0.23;
+
+        // small Mario
+        StateMachine smallMario = new StateMachine("idle");
+
+        Animation run = new Animation("run", true);
+        run.addFrame(smallFormSheet.getSprite(0), defaultFrameTime);
+        run.addFrame(smallFormSheet.getSprite(2), defaultFrameTime);
+        run.addFrame(smallFormSheet.getSprite(3), defaultFrameTime);
+        run.addFrame(smallFormSheet.getSprite(2), defaultFrameTime);
+
+        Animation switchDirection = new Animation("switch", false);
+        switchDirection.addFrame(smallFormSheet.getSprite(4), 0.2);
+
+        Animation idle  = new Animation("idle", true);
+        idle.addFrame(smallFormSheet.getSprite(0), 1);
+
+        Animation jump = new Animation("jump", true);
+        jump.addFrame(smallFormSheet.getSprite(5), 0.1);
+
+        smallMario.addState(idle, switchDirection, run, jump);
+        AssetPool.putStateMachine("smallMario", smallMario);
+
+
+        // big Mario
+        StateMachine bigMario = new StateMachine("idle");
+
+        Animation bigRun = new Animation("run", true);
+        bigRun.addFrame(bigFormSheet.getSprite(0), defaultFrameTime);
+        bigRun.addFrame(bigFormSheet.getSprite(1), defaultFrameTime);
+        bigRun.addFrame(bigFormSheet.getSprite(2), defaultFrameTime);
+        bigRun.addFrame(bigFormSheet.getSprite(3), defaultFrameTime);
+        bigRun.addFrame(bigFormSheet.getSprite(2), defaultFrameTime);
+        bigRun.addFrame(bigFormSheet.getSprite(1), defaultFrameTime);
+
+        Animation bigSwitchDirection = new Animation("switch", false);
+        bigSwitchDirection.addFrame(bigFormSheet.getSprite(4), 0.1f);
+
+        Animation bigIdle = new Animation("idle", true);
+        bigIdle.addFrame(bigFormSheet.getSprite(0), 0.1f);
+
+        Animation bigJump = new Animation("jump", true);
+        bigJump.addFrame(bigFormSheet.getSprite(5), 0.1f);
+
+        bigMario.addState(bigRun, bigIdle, bigJump, bigSwitchDirection);
+        AssetPool.putStateMachine("bigMario", bigMario);
+
+        // fire Mario
+        StateMachine fireMario = new StateMachine("idle");
+
+        Animation fireRun = new Animation("run", true);
+        fireRun.addFrame(bigFormSheet.getSprite(21), defaultFrameTime);
+        fireRun.addFrame(bigFormSheet.getSprite(22), defaultFrameTime);
+        fireRun.addFrame(bigFormSheet.getSprite(23), defaultFrameTime);
+        fireRun.addFrame(bigFormSheet.getSprite(24), defaultFrameTime);
+        fireRun.addFrame(bigFormSheet.getSprite(23), defaultFrameTime);
+        fireRun.addFrame(bigFormSheet.getSprite(22), defaultFrameTime);
+
+        Animation fireSwitchDirection = new Animation("switch", false);
+        fireSwitchDirection.addFrame(bigFormSheet.getSprite(25), 0.1f);
+
+        Animation fireIdle = new Animation("idle", true);
+        fireIdle.addFrame(bigFormSheet.getSprite(21), 0.1f);
+
+        Animation fireJump = new Animation("jump", true);
+        fireJump.addFrame(bigFormSheet.getSprite(26), 0.1f);
+
+        fireMario.addState(fireRun, fireIdle, fireJump, fireSwitchDirection);
+        AssetPool.putStateMachine("fireMario", fireMario);
     }
 
     public GameObject getGameObjectFromID(int id){

@@ -1,7 +1,8 @@
 package main.util;
 
+import main.components.stateMachine.StateMachine;
+
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class AssetPool{
@@ -9,6 +10,7 @@ public class AssetPool{
     private static Map<String, Texture> textures = new HashMap<>();
     private static Map<String, SpriteSheet> spriteSheetList = new HashMap<>();
     private static Map<String, Sound> soundList = new HashMap<>();
+    private static Map<String, StateMachine> stateMachineMap = new HashMap<>();
 
     public static Shader getShader(String resourceName){
         if(!shaders.containsKey(resourceName)){
@@ -57,6 +59,14 @@ public class AssetPool{
         }
 
         return audioSheet;
+    }
+
+    public static StateMachine getStateMachine(String name){
+        return stateMachineMap.get(name);
+    }
+
+    public static void putStateMachine(String name, StateMachine stateMachine){
+        stateMachineMap.put(name, stateMachine);
     }
 
     public static void printResourcesInAssetPool(){

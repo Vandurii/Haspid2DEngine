@@ -2,11 +2,16 @@ package main.components.behaviour;
 
 import main.components.PlayerController;
 import main.components.Hitable;
+import main.components.SpriteRenderer;
 import main.components.physicsComponent.ColliderType;
+import main.components.stateMachine.Animation;
+import main.components.stateMachine.StateMachine;
 import main.editor.Prefabs;
 import main.haspid.GameObject;
 import main.haspid.Scene;
 import main.haspid.Window;
+import main.util.AssetPool;
+import main.util.SpriteSheet;
 import org.joml.Vector2d;
 import main.components.PlayerController.PlayerState;
 
@@ -28,6 +33,16 @@ public class QuestionBlockBeh extends Hitable {
     }
 
     @Override
+    public void update(float dt){
+
+    }
+
+    @Override
+    public QuestionBlockBeh copy(){
+        return new QuestionBlockBeh(blockType);
+    }
+
+    @Override
     public void playerHit(PlayerController playerController) {
         if(isUsed) return;
 
@@ -40,6 +55,13 @@ public class QuestionBlockBeh extends Hitable {
         }
 
         isUsed = true;
+//        StateMachine stateMachine = getParent().getComponent(StateMachine.class);
+//        Window.getInstance().getCurrentScene().removeComponentRuntime(getParent(), stateMachine);
+//
+//        SpriteRenderer spriteRenderer = getParent().getComponent(SpriteRenderer.class);
+//        spriteRenderer.markToRemove();
+//        SpriteSheet items = AssetPool.getSpriteSheet(itemsConfig);
+//       // Window.getInstance().getCurrentScene().addComponentRuntime(getParent(), new SpriteRenderer(items.getSprite(4).getTexture()));
     }
 
     public void doCoin(){
@@ -68,7 +90,7 @@ public class QuestionBlockBeh extends Hitable {
     }
 
     public void spawnMushroom(){
-    GameObject mushroom = Prefabs.generateMushroom(standardSpriteSize, standardSpriteSize);
+        GameObject mushroom = Prefabs.generateMushroom(standardSpriteSize, standardSpriteSize);
         Vector2d pos = getParent().getTransform().getPosition();
         mushroom.getTransform().setPosition(pos.x, pos.y + objectHalfSize * 2);
         Window.getInstance().getCurrentScene().addObjectToSceneRunTime(mushroom);

@@ -54,7 +54,7 @@ public class GameObject {
            if((c instanceof InactiveInEditor) && Window.getInstance().getCurrentScene().isInEditMode()){
                continue;
            }
-               c.update(dt);
+             c.update(dt);
         }
     }
 

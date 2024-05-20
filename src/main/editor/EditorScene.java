@@ -65,7 +65,7 @@ public class EditorScene extends Scene {
 
         properties = new ArrayList<>();
         properties.add(AssetPool.getSpriteSheet(itemsConfig));
-        properties.add(AssetPool.getSpriteSheet(firstSpriteSheet));
+        properties.add(AssetPool.getSpriteSheet(smallForm));
         properties.add(AssetPool.getSpriteSheet(decorationAndBlockConfig));
         properties.add(AssetPool.getAllSound());
 
@@ -78,10 +78,7 @@ public class EditorScene extends Scene {
     public void update(float dt) {
         dearGui();
         levelEditorStuff.update(dt);
-
-        for (GameObject go : getSceneObjectList()) {
-            go.update(dt);
-        }
+        updateGameObject(dt);
     }
 
     public void render(float dt, boolean bufferIdMode){

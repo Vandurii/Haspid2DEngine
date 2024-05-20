@@ -25,14 +25,14 @@ public class Configuration {
 
     public static int standardSpriteSize = 16;
     public static String marioImagePath = "assets/images/mario.png";
-    public static SpriteConfig firstSpriteSheet = new SpriteConfig("assets/images/spritesheet.png", standardSpriteSize, standardSpriteSize, 26, 0);
+    public static SpriteConfig smallForm = new SpriteConfig("assets/images/smallForm.png", standardSpriteSize, standardSpriteSize, 26, 0);
     public static SpriteConfig decorationAndBlockConfig = new SpriteConfig("assets/images/decorationsAndBlocks.png", standardSpriteSize, standardSpriteSize, 81, 0);
     public static SpriteConfig gizmosConfig = new SpriteConfig("assets/images/gizmos.png", 24, 48, 3, 0);
     public static SpriteConfig itemsConfig = new SpriteConfig("assets/images/items.png", standardSpriteSize, standardSpriteSize, 33, 0);
-
+    public static SpriteConfig bigForm = new SpriteConfig("assets/images/bigForm.png", 16, 32, 42, 0);
 
     public static AudioConfig mainTheme = new AudioConfig("assets/sounds/main-theme-overworld.ogg", true);
-    public static AudioConfig breakBlock = new AudioConfig("assets/sounds/flagpole.ogg", false);
+    public static AudioConfig breakBlock = new AudioConfig("assets/sounds/break_block.ogg", false);
     public static AudioConfig bump = new AudioConfig("assets/sounds/bump.ogg", false);
     public static AudioConfig coin = new AudioConfig("assets/sounds/coin.ogg", false);
     public static AudioConfig gameOver = new AudioConfig("assets/sounds/gameover.ogg", false);

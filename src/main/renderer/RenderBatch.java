@@ -296,6 +296,10 @@ public class RenderBatch implements Comparable<RenderBatch> {
         return zIndex;
     }
 
+    public int getSpriteCount(){
+        return  spriteCount;
+    }
+
     public List<Integer> getFreeSlots(){
         return freeSlots;
     }

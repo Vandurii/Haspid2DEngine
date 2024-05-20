@@ -12,16 +12,21 @@ public class Animation {
     private transient int currentSpriteRender;
     private List<Frame> frameList;
 
-    public Animation(String title){
+    public Animation(String title, boolean doesLoop){
         this.title = title;
-        this.doesLoop = true;
+        this.doesLoop = doesLoop;
         this.frameList = new ArrayList<>();
     }
 
     public void update(float dt){
         timeTracker -= dt;
-        if(timeTracker <= 0 && doesLoop){
+        if(timeTracker <= 0){
             increaseCurrentSpriteIfAvailable();
+            if(frameList.get(currentSpriteRender).isUsed() && !doesLoop){
+                frameList.get(currentSpriteRender).setUsed(false);
+                currentSpriteRender = -1;
+                return;
+            }
             timeTracker = frameList.get(currentSpriteRender).getFrameTime();
         }
     }
@@ -39,7 +44,7 @@ public class Animation {
     }
 
     public Animation copy(){
-        Animation animation = new Animation(title);
+        Animation animation = new Animation(title, doesLoop);
         animation.setLoop(doesLoop);
         animation.setTimeTracker(timeTracker);
         animation.setCurrentSpriteRender(currentSpriteRender);
@@ -56,6 +61,11 @@ public class Animation {
     }
 
     public SpriteRenderer getCurrentSpriteRender(){
+        if(currentSpriteRender == -1){
+            currentSpriteRender = 0;
+            return null;
+        }
+
         return frameList.get(currentSpriteRender).getSpriteRenderer();
     }
 

@@ -1,5 +1,7 @@
 package main.components;
 
+import main.components.physicsComponent.BoxCollider;
+import main.components.stateMachine.StateMachine;
 import main.editor.InactiveInEditor;
 import main.haspid.*;
 import main.physics.Physics2D;
@@ -7,9 +9,11 @@ import main.components.physicsComponent.RigidBody;
 import main.physics.RayCastInfo;
 import main.renderer.DebugDraw;
 import main.util.AssetPool;
+import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.contacts.Contact;
 import org.joml.Vector2d;
 import org.joml.Vector3f;
+import org.lwjgl.system.windows.WinBase;
 
 import static main.Configuration.*;
 import static org.lwjgl.glfw.GLFW.*;
@@ -35,7 +39,9 @@ public class PlayerController extends Component implements InactiveInEditor {
     private transient Physics2D physics;
     private transient KeyListener keyboard;
 
-    private PlayerState playerState;
+    private transient boolean right;
+    private transient PlayerState playerState;
+    private StateMachine stateMachine;
 
     public enum PlayerState{
         small,
@@ -55,7 +61,7 @@ public class PlayerController extends Component implements InactiveInEditor {
         this.resetGainIterations = 15;
 
         // friction
-        this.thresholdLS = 0.2;
+        this.thresholdLS = 0.4;
         this.frictionLS = 0.5;
         this.startVelYLS = -1;
         this.speedScalarLS = 1.1;
@@ -63,6 +69,7 @@ public class PlayerController extends Component implements InactiveInEditor {
         this.velocity = new Vector2d();
         this.terminalVelocity = new Vector2d(20, 50);
 
+        this.right = true;
         this.playerState = PlayerState.small;
 
         this.keyboard = KeyListener.getInstance();
@@ -91,6 +98,7 @@ public class PlayerController extends Component implements InactiveInEditor {
     @Override
     public void start(){
         rigidBody = getParent().getComponent(RigidBody.class);
+        stateMachine = getParent().getComponent(StateMachine.class);
         if(rigidBody != null) {
             rigidBody.setGravityScale(0f);
         }
@@ -100,7 +108,9 @@ public class PlayerController extends Component implements InactiveInEditor {
     public void update(float dt) {
         if(rigidBody == null) return;
         checkIfOnGround();
-
+//        System.out.println("***");
+//        System.out.println(velocity.x);
+//        System.out.println(velocity.y);
         if(keyboard.isKeyPressed(GLFW_KEY_UP)){
             move(Direction.Up);
         }else if(keyboard.isKeyPressed(GLFW_KEY_DOWN)){
@@ -112,6 +122,7 @@ public class PlayerController extends Component implements InactiveInEditor {
         }
 
         loseSpeed();
+        resolveAnimation();
 
         velocity.x = Math.max(Math.min(velocity.x, terminalVelocity.x), -terminalVelocity.x);
         velocity.y = Math.max(Math.min(velocity.y, terminalVelocity.y), -terminalVelocity.y);
@@ -134,6 +145,11 @@ public class PlayerController extends Component implements InactiveInEditor {
 
             }
             case Right -> {
+                if(!right){
+                    right = true;
+                    stateMachine.switchAnimation("switch");
+                }
+
                 scale.x = playerWidth;
                 if(velocity.x <= 0){
                     velocity.x = startVelXM;
@@ -142,12 +158,29 @@ public class PlayerController extends Component implements InactiveInEditor {
                 }
             }
             case Left -> {
+                if(right){
+                    right = false;
+                    stateMachine.switchAnimation("switch");
+                }
+
                 scale.x = -playerWidth;
                 if(velocity.x >= 0){
                     velocity.x = -startVelXM;
                 }else{
                     velocity.x *= speedScalarM;
                 }
+            }
+        }
+    }
+
+    public void resolveAnimation(){
+        if(!stateMachine.getNextAnimationTitle().equals("switch")) {
+            if (velocity.x == 0 && velocity.y == 0) {
+                stateMachine.switchAnimation("idle");
+            } else if (Math.abs(velocity.x) > 0 && velocity.y == 0) {
+                stateMachine.switchAnimation("run");
+            } else if (Math.abs(velocity.y) > 0) {
+                stateMachine.switchAnimation("jump");
             }
         }
     }
@@ -177,6 +210,7 @@ public class PlayerController extends Component implements InactiveInEditor {
         if(gainHeightIterations >= 0) gainHeightIterations--;
     }
 
+
     public boolean checkIfOnGround(){
         Transform t = getParent().getTransform();
         Vector2d pos = t.getPosition();
@@ -198,13 +232,30 @@ public class PlayerController extends Component implements InactiveInEditor {
     }
 
     public void powerUP(){
+        if(playerState == PlayerState.fire) return;
         AssetPool.getSound(powerUp).play();
+        increasePlayerState();
+
+        Window.getInstance().getCurrentScene().removeComponentRuntime(getParent(), stateMachine);
+
+        if(playerState == PlayerState.big) {
+            Vector2d scale = getParent().getTransform().getScale();
+            scale.set( new Vector2d(scale.x, scale.y * 2));
+            BoxCollider boxCollider = getParent().getComponent(BoxCollider.class);
+            boxCollider.setHalfSize(new Vector2d(objectHalfSize, objectHalfSize * 2));
+            boxCollider.resetFixture();
+            stateMachine = AssetPool.getStateMachine("bigMario");
+        }else if(playerState == PlayerState.fire){
+            stateMachine = AssetPool.getStateMachine("fireMario");
+        }
+
+        getParent().addComponent(stateMachine);
+
     }
 
     @Override
     public void beginCollision(GameObject collidingObject, Contact contact, Vector2d contactNormal){
         double threshold = 0.8;
-        System.out.println(collidingObject.getName());
 
         if(Math.abs(contactNormal.x) > threshold){
             velocity.x = 0;
@@ -215,9 +266,25 @@ public class PlayerController extends Component implements InactiveInEditor {
             gainHeightIterations = 0;
         }
     }
-    
+
     public boolean gainingHeight(){
         return gainHeightIterations >= 0;
+    }
+
+    public void increasePlayerState(){
+        if(playerState == PlayerState.small){
+            playerState = PlayerState.big;
+        } else if(playerState == PlayerState.big){
+            playerState = PlayerState.fire;
+        }
+    }
+
+    public void decreasePlayerState(){
+        if(playerState == PlayerState.fire){
+            playerState = PlayerState.big;
+        } else if(playerState == PlayerState.big){
+            playerState = PlayerState.small;
+        }
     }
 
     public double getStartVelYM() {

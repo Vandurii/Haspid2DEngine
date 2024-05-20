@@ -35,10 +35,7 @@ public class GameScene extends Scene {
     public void update(float dt) {
         dearGui();
         gameSceneStuff.update(dt);
-
-        for (GameObject go : getSceneObjectList()) {
-            go.update(dt);
-        }
+        updateGameObject(dt);
 
         runTimeUpdate(dt);
     }

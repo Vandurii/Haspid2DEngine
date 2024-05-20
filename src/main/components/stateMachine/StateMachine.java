@@ -2,42 +2,58 @@ package main.components.stateMachine;
 
 import main.components.Component;
 import main.components.SpriteRenderer;
+import main.editor.InactiveInEditor;
 import main.editor.JImGui;
 import main.util.Texture;
 import org.joml.Vector2d;
-import org.joml.Vector2f;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 
-public class StateMachine extends Component {
-    private HashMap<StateTrigger, String> stateTransfer;
+public class StateMachine extends Component implements InactiveInEditor {
     private List<Animation> animationList;
+    private String nextAnimation;
+    private String defaultAnimation;
     private transient Animation currentAnimation;
 
-    public StateMachine(){
+    public StateMachine(String defaultAnimation){
         this.animationList = new ArrayList<>();
-        this.stateTransfer = new HashMap<>();
+        this.defaultAnimation = defaultAnimation;
+        this.nextAnimation = defaultAnimation;
+    }
+
+    @Override
+    public void start(){
+        currentAnimation = findAnimation(nextAnimation);
+        updateTexture();
     }
 
     @Override
     public void update(float dt) {
+        currentAnimation = findAnimation(nextAnimation);
         currentAnimation.update(dt);
 
-        SpriteRenderer objectSpriteRender = getParent().getComponent(SpriteRenderer.class);
+        SpriteRenderer nextSpriteRender = currentAnimation.getCurrentSpriteRender();
 
+        if(nextSpriteRender == null){
+            currentAnimation = findAnimation(defaultAnimation);
+            nextAnimation = defaultAnimation;
+        }
+
+        updateTexture();
+
+        SpriteRenderer objectSpriteRender = getParent().getComponent(SpriteRenderer.class);
+        objectSpriteRender.markToRelocate();
+    }
+
+    public void updateTexture(){
         SpriteRenderer nextSpriteRender = currentAnimation.getCurrentSpriteRender();
         Texture nextTexture = nextSpriteRender.getTexture();
         Vector2d[] nextTexCords = nextSpriteRender.getSpriteCords();
 
-        if(objectSpriteRender != null && objectSpriteRender.getSpriteCords() != nextTexCords) {
-            objectSpriteRender.setTexture(nextTexture);
-            objectSpriteRender.setSpriteCords(nextTexCords);
-
-            objectSpriteRender.markToRelocate();
-        }
+        SpriteRenderer objectSpriteRender = getParent().getComponent(SpriteRenderer.class);
+        objectSpriteRender.setTexture(nextTexture);
+        objectSpriteRender.setSpriteCords(nextTexCords);
     }
 
     @Override
@@ -47,14 +63,14 @@ public class StateMachine extends Component {
 
             int index = 0;
             for(Frame frame: animation.getFrameList()){
-                frame.setFrameTime((float)JImGui.drawValue("Frame " + index++ + ": ", frame.getFrameTime(), this.hashCode() + ""));
+                frame.setFrameTime((float)JImGui.drawValue("Frame " + index++ + ": ", frame.getFrameTime(), this.hashCode() + animation.getTitle()));
             }
         }
     }
 
     @Override
     public Component copy() {
-        StateMachine stateMachine = new StateMachine();
+        StateMachine stateMachine = new StateMachine(defaultAnimation);
         for(Animation animation: animationList){
             stateMachine.addState(animation.copy());
         }
@@ -62,50 +78,34 @@ public class StateMachine extends Component {
         return stateMachine;
     }
 
-    @Override
-    public void start(){
-        currentAnimation = animationList.get(0);
+    public void addState(Animation ...animations){
+        for(Animation animation: animations){
+            animationList.add(animation);
+        }
     }
 
-    public void addState(Animation animation){
-        animationList.add(animation);
+    public Animation findAnimation(String title){
+
+        for(Animation animation: animationList){
+            if(animation.getTitle().equals(title)) return animation;
+        }
+
+        return null;
     }
 
-//    public void addStateTransfer(String from, String to, String onTrigger){
-//        stateTransfer.put(new StateTrigger(from, onTrigger), to);
-//    }
-//
-//    public void trigger(String trigger){
-//        for(StateTrigger stateTrigger: stateTransfer.keySet()){
-//            if(stateTrigger.state.equals(currentAnimation.getTitle()) && stateTrigger.trigger.equals(trigger)){
-//                if(stateTransfer.get(stateTrigger) != null){
-//                    int newStateIndex = animationList.indexOf(stateTransfer.get(stateTrigger));
-//                    if(newStateIndex > -1) currentAnimation = animationList.get(newStateIndex);
-//                }
-//                return;
-//            }
-//        }
-//        System.out.println("Unable to find trigger: " + trigger);
-//    }
+    public void switchAnimation(String title){
+        this.nextAnimation = title;
+    }
 
-    private class StateTrigger {
-        public String state;
-        public String trigger;
+    public String getNextAnimationTitle(){
+        return nextAnimation;
+    }
 
-        public StateTrigger(String state, String trigger){
-            this.state = state;
-            this.trigger = trigger;
-        }
+    public String getDefaultAnimation() {
+        return defaultAnimation;
+    }
 
-        @Override
-        public boolean equals(Object o){
-            if(!(o instanceof StateTrigger stateTrigger)) return false;
-            return this.state.equals(stateTrigger.state) && this.trigger.equals(stateTrigger.trigger);
-        }
-
-        @Override
-        public int hashCode(){
-            return Objects.hash(state, trigger);
-        }
+    public void setDefaultAnimation(String defaultAnimation) {
+        this.defaultAnimation = defaultAnimation;
     }
 }
