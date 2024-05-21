@@ -6,6 +6,7 @@ import main.components.Hitable;
 import main.components.physicsComponent.*;
 import main.components.stateMachine.Animation;
 import main.components.stateMachine.StateMachine;
+import main.haspid.Direction;
 import main.haspid.GameObject;
 import main.components.behaviour.QuestionBlockBeh.BlockType;
 import main.haspid.Transform;
@@ -42,10 +43,11 @@ public class Prefabs {
         RigidBody rigidBody = new RigidBody();
 
         Collider collider = null;
+        Vector2d halfSize = new Vector2d(width / 10, height / 10);
         if(colliderType == ColliderType.Box) {
-            collider = new BoxCollider(new Vector2d(objectHalfSize, objectHalfSize));
+            collider = new BoxCollider(halfSize);
         }else if(colliderType == ColliderType.Circle){
-            collider = new CircleCollider(objectHalfSize);
+            collider = new CircleCollider(halfSize.x);
         }else if(colliderType == ColliderType.PillBox){
             collider = new PillboxCollider();
         }else{
@@ -154,5 +156,12 @@ public class Prefabs {
         flower.addComponent(new MushroomBeh());
 
         return flower;
+    }
+
+    public static GameObject generatePipe(SpriteRenderer spriteRenderer, double width, double height, Direction direction){
+        GameObject pipe = generateStaticObject(spriteRenderer, width, height, ColliderType.Box);
+        pipe.addComponent(new PipeBeh(direction));
+
+        return pipe;
     }
 }

@@ -386,6 +386,12 @@ public class PlayerController extends Component implements InactiveInEditor {
         }
     }
 
+    public void setPosition(Vector2d position){
+
+        getParent().getTransform().setPosition(position);
+        rigidBody.setPosition(position);
+    }
+
     public double getStartVelYM() {
         return startVelYM;
     }

@@ -414,6 +414,14 @@ public abstract class Scene {
         return null;
     }
 
+    public GameObject getGameObjectByName(String name){
+        for(GameObject go: sceneObjectList){
+            if(go.getName().equals(name)) return go;
+        }
+
+        return null;
+    }
+
     public Physics2D getPhysics(){
         return physics;
     }

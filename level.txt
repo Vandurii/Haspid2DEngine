@@ -1,6 +1,6 @@
 [
   {
-    "gameObjectID": 465,
+    "gameObjectID": 1,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -9,122 +9,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 14.4,
-            "y": 4.800000000000001
-          },
-          "scale": {
-            "x": 3.2,
-            "y": 3.2
-          },
-          "rotation": 0.0,
-          "zIndex": 1,
-          "componentID": 7
-        }
-      },
-      {
-        "Type": "main.components.SpriteRenderer",
-        "Properties": {
-          "spriteID": 1,
-          "color": {
-            "x": 1.0,
-            "y": 1.0,
-            "z": 1.0,
-            "w": 1.0
-          },
-          "texture": {
-            "filePath": "assets/images/decorationsAndBlocks.png",
-            "texID": 6,
-            "width": 112,
-            "height": 192
-          },
-          "width": 16.0,
-          "height": 16.0,
-          "texCords": [
-            {
-              "x": 0.8571428656578064,
-              "y": 0.9166666865348816
-            },
-            {
-              "x": 0.8571428656578064,
-              "y": 0.8333333730697632
-            },
-            {
-              "x": 0.7142857313156128,
-              "y": 0.8333333730697632
-            },
-            {
-              "x": 0.7142857313156128,
-              "y": 0.9166666865348816
-            }
-          ],
-          "componentID": 8
-        }
-      },
-      {
-        "Type": "main.components.physicsComponent.RigidBody",
-        "Properties": {
-          "mass": 0.0,
-          "friction": 0.1,
-          "isSensor": false,
-          "velocity": {
-            "x": 0.0,
-            "y": 0.0
-          },
-          "bodyType": "Static",
-          "gravityScale": 1.0,
-          "linearDamping": 0.9,
-          "angularDamping": 0.8,
-          "angularVelocity": 0.0,
-          "fixedRotation": false,
-          "continuousCollision": true,
-          "updateRotation": false,
-          "componentID": 9
-        }
-      },
-      {
-        "Type": "main.components.physicsComponent.BoxCollider",
-        "Properties": {
-          "halfSize": {
-            "x": 1.6,
+            "x": 8.0,
             "y": 1.6
-          },
-          "origin": {
-            "x": 0.0,
-            "y": 0.0
-          },
-          "center": {
-            "x": 14.4,
-            "y": 4.800000000000001
-          },
-          "offset": {
-            "x": 0.0,
-            "y": 0.0
-          },
-          "componentID": 10
-        }
-      },
-      {
-        "Type": "main.components.Hitable",
-        "Properties": {
-          "speed": 3.0,
-          "distance": 0.4,
-          "componentID": 11
-        }
-      }
-    ]
-  },
-  {
-    "gameObjectID": 466,
-    "name": "Generated",
-    "isSerializable": true,
-    "isTriggerable": true,
-    "componentList": [
-      {
-        "Type": "main.haspid.Transform",
-        "Properties": {
-          "position": {
-            "x": 17.6,
-            "y": 4.800000000000001
           },
           "scale": {
             "x": 3.2,
@@ -155,19 +41,19 @@
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.9166666865348816
             },
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.9166666865348816
             }
           ],
@@ -207,8 +93,8 @@
             "y": 0.0
           },
           "center": {
-            "x": 17.6,
-            "y": 4.800000000000001
+            "x": 8.0,
+            "y": 1.6
           },
           "offset": {
             "x": 0.0,
@@ -228,7 +114,7 @@
     ]
   },
   {
-    "gameObjectID": 467,
+    "gameObjectID": 2,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -237,8 +123,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 20.800000000000004,
-            "y": 4.800000000000001
+            "x": 11.200000000000001,
+            "y": 1.6
           },
           "scale": {
             "x": 3.2,
@@ -269,19 +155,19 @@
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.9166666865348816
             },
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.9166666865348816
             }
           ],
@@ -321,8 +207,8 @@
             "y": 0.0
           },
           "center": {
-            "x": 20.800000000000004,
-            "y": 4.800000000000001
+            "x": 11.200000000000001,
+            "y": 1.6
           },
           "offset": {
             "x": 0.0,
@@ -342,7 +228,7 @@
     ]
   },
   {
-    "gameObjectID": 468,
+    "gameObjectID": 3,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -351,8 +237,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 24.000000000000004,
-            "y": 4.800000000000001
+            "x": 14.4,
+            "y": 1.6
           },
           "scale": {
             "x": 3.2,
@@ -383,19 +269,19 @@
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.9166666865348816
             },
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.9166666865348816
             }
           ],
@@ -435,8 +321,8 @@
             "y": 0.0
           },
           "center": {
-            "x": 24.000000000000004,
-            "y": 4.800000000000001
+            "x": 14.4,
+            "y": 1.6
           },
           "offset": {
             "x": 0.0,
@@ -456,7 +342,7 @@
     ]
   },
   {
-    "gameObjectID": 469,
+    "gameObjectID": 4,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -465,8 +351,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 27.200000000000003,
-            "y": 4.800000000000001
+            "x": 17.6,
+            "y": 1.6
           },
           "scale": {
             "x": 3.2,
@@ -497,19 +383,19 @@
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.9166666865348816
             },
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.9166666865348816
             }
           ],
@@ -549,8 +435,8 @@
             "y": 0.0
           },
           "center": {
-            "x": 27.200000000000003,
-            "y": 4.800000000000001
+            "x": 17.6,
+            "y": 1.6
           },
           "offset": {
             "x": 0.0,
@@ -570,7 +456,7 @@
     ]
   },
   {
-    "gameObjectID": 470,
+    "gameObjectID": 5,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -579,8 +465,236 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 33.6,
-            "y": 4.800000000000001
+            "x": 30.400000000000002,
+            "y": 1.6
+          },
+          "scale": {
+            "x": 3.2,
+            "y": 3.2
+          },
+          "rotation": 0.0,
+          "zIndex": 1,
+          "componentID": 37
+        }
+      },
+      {
+        "Type": "main.components.SpriteRenderer",
+        "Properties": {
+          "spriteID": 1,
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0,
+            "w": 1.0
+          },
+          "texture": {
+            "filePath": "assets/images/decorationsAndBlocks.png",
+            "texID": 6,
+            "width": 112,
+            "height": 192
+          },
+          "width": 16.0,
+          "height": 16.0,
+          "texCords": [
+            {
+              "x": 1.0000001192092896,
+              "y": 0.9166666865348816
+            },
+            {
+              "x": 1.0000001192092896,
+              "y": 0.8333333730697632
+            },
+            {
+              "x": 0.8571429252624512,
+              "y": 0.8333333730697632
+            },
+            {
+              "x": 0.8571429252624512,
+              "y": 0.9166666865348816
+            }
+          ],
+          "componentID": 38
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.RigidBody",
+        "Properties": {
+          "mass": 0.0,
+          "friction": 0.1,
+          "isSensor": false,
+          "velocity": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "bodyType": "Static",
+          "gravityScale": 1.0,
+          "linearDamping": 0.9,
+          "angularDamping": 0.8,
+          "angularVelocity": 0.0,
+          "fixedRotation": false,
+          "continuousCollision": true,
+          "updateRotation": false,
+          "componentID": 39
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.BoxCollider",
+        "Properties": {
+          "halfSize": {
+            "x": 1.6,
+            "y": 1.6
+          },
+          "origin": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "center": {
+            "x": 30.400000000000002,
+            "y": 1.6
+          },
+          "offset": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "componentID": 40
+        }
+      },
+      {
+        "Type": "main.components.Hitable",
+        "Properties": {
+          "speed": 3.0,
+          "distance": 0.4,
+          "componentID": 41
+        }
+      }
+    ]
+  },
+  {
+    "gameObjectID": 6,
+    "name": "Generated",
+    "isSerializable": true,
+    "isTriggerable": true,
+    "componentList": [
+      {
+        "Type": "main.haspid.Transform",
+        "Properties": {
+          "position": {
+            "x": 36.800000000000004,
+            "y": 1.6
+          },
+          "scale": {
+            "x": 3.2,
+            "y": 3.2
+          },
+          "rotation": 0.0,
+          "zIndex": 1,
+          "componentID": 43
+        }
+      },
+      {
+        "Type": "main.components.SpriteRenderer",
+        "Properties": {
+          "spriteID": 1,
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0,
+            "w": 1.0
+          },
+          "texture": {
+            "filePath": "assets/images/decorationsAndBlocks.png",
+            "texID": 6,
+            "width": 112,
+            "height": 192
+          },
+          "width": 16.0,
+          "height": 16.0,
+          "texCords": [
+            {
+              "x": 1.0000001192092896,
+              "y": 0.9166666865348816
+            },
+            {
+              "x": 1.0000001192092896,
+              "y": 0.8333333730697632
+            },
+            {
+              "x": 0.8571429252624512,
+              "y": 0.8333333730697632
+            },
+            {
+              "x": 0.8571429252624512,
+              "y": 0.9166666865348816
+            }
+          ],
+          "componentID": 44
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.RigidBody",
+        "Properties": {
+          "mass": 0.0,
+          "friction": 0.1,
+          "isSensor": false,
+          "velocity": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "bodyType": "Static",
+          "gravityScale": 1.0,
+          "linearDamping": 0.9,
+          "angularDamping": 0.8,
+          "angularVelocity": 0.0,
+          "fixedRotation": false,
+          "continuousCollision": true,
+          "updateRotation": false,
+          "componentID": 45
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.BoxCollider",
+        "Properties": {
+          "halfSize": {
+            "x": 1.6,
+            "y": 1.6
+          },
+          "origin": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "center": {
+            "x": 36.800000000000004,
+            "y": 1.6
+          },
+          "offset": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "componentID": 46
+        }
+      },
+      {
+        "Type": "main.components.Hitable",
+        "Properties": {
+          "speed": 3.0,
+          "distance": 0.4,
+          "componentID": 47
+        }
+      }
+    ]
+  },
+  {
+    "gameObjectID": 7,
+    "name": "Generated",
+    "isSerializable": true,
+    "isTriggerable": true,
+    "componentList": [
+      {
+        "Type": "main.haspid.Transform",
+        "Properties": {
+          "position": {
+            "x": 36.800000000000004,
+            "y": 1.6
           },
           "scale": {
             "x": 3.2,
@@ -611,19 +725,19 @@
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.9166666865348816
             },
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.9166666865348816
             }
           ],
@@ -663,8 +777,8 @@
             "y": 0.0
           },
           "center": {
-            "x": 33.6,
-            "y": 4.800000000000001
+            "x": 36.800000000000004,
+            "y": 1.6
           },
           "offset": {
             "x": 0.0,
@@ -684,7 +798,7 @@
     ]
   },
   {
-    "gameObjectID": 471,
+    "gameObjectID": 8,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -694,7 +808,7 @@
         "Properties": {
           "position": {
             "x": 36.800000000000004,
-            "y": 4.800000000000001
+            "y": 1.6
           },
           "scale": {
             "x": 3.2,
@@ -725,19 +839,19 @@
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.9166666865348816
             },
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.9166666865348816
             }
           ],
@@ -778,7 +892,7 @@
           },
           "center": {
             "x": 36.800000000000004,
-            "y": 4.800000000000001
+            "y": 1.6
           },
           "offset": {
             "x": 0.0,
@@ -798,7 +912,7 @@
     ]
   },
   {
-    "gameObjectID": 472,
+    "gameObjectID": 9,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -807,8 +921,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 43.2,
-            "y": 4.800000000000001
+            "x": 40.00000000000001,
+            "y": 1.6
           },
           "scale": {
             "x": 3.2,
@@ -839,19 +953,19 @@
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.9166666865348816
             },
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.9166666865348816
             }
           ],
@@ -891,8 +1005,8 @@
             "y": 0.0
           },
           "center": {
-            "x": 43.2,
-            "y": 4.800000000000001
+            "x": 40.00000000000001,
+            "y": 1.6
           },
           "offset": {
             "x": 0.0,
@@ -912,7 +1026,7 @@
     ]
   },
   {
-    "gameObjectID": 473,
+    "gameObjectID": 10,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -921,8 +1035,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 46.400000000000006,
-            "y": 4.800000000000001
+            "x": 40.00000000000001,
+            "y": 1.6
           },
           "scale": {
             "x": 3.2,
@@ -953,19 +1067,19 @@
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.9166666865348816
             },
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.9166666865348816
             }
           ],
@@ -1005,8 +1119,8 @@
             "y": 0.0
           },
           "center": {
-            "x": 46.400000000000006,
-            "y": 4.800000000000001
+            "x": 40.00000000000001,
+            "y": 1.6
           },
           "offset": {
             "x": 0.0,
@@ -1026,7 +1140,7 @@
     ]
   },
   {
-    "gameObjectID": 474,
+    "gameObjectID": 11,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -1035,8 +1149,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 49.6,
-            "y": 4.800000000000001
+            "x": 43.2,
+            "y": 1.6
           },
           "scale": {
             "x": 3.2,
@@ -1067,19 +1181,19 @@
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.9166666865348816
             },
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.9166666865348816
             }
           ],
@@ -1119,8 +1233,8 @@
             "y": 0.0
           },
           "center": {
-            "x": 49.6,
-            "y": 4.800000000000001
+            "x": 43.2,
+            "y": 1.6
           },
           "offset": {
             "x": 0.0,
@@ -1140,7 +1254,7 @@
     ]
   },
   {
-    "gameObjectID": 475,
+    "gameObjectID": 12,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -1149,8 +1263,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 52.800000000000004,
-            "y": 4.800000000000001
+            "x": 43.2,
+            "y": 1.6
           },
           "scale": {
             "x": 3.2,
@@ -1181,19 +1295,19 @@
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.9166666865348816
             },
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.9166666865348816
             }
           ],
@@ -1233,8 +1347,8 @@
             "y": 0.0
           },
           "center": {
-            "x": 52.800000000000004,
-            "y": 4.800000000000001
+            "x": 43.2,
+            "y": 1.6
           },
           "offset": {
             "x": 0.0,
@@ -1254,7 +1368,7 @@
     ]
   },
   {
-    "gameObjectID": 476,
+    "gameObjectID": 13,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -1263,8 +1377,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 56.00000000000001,
-            "y": 4.800000000000001
+            "x": 46.400000000000006,
+            "y": 1.6
           },
           "scale": {
             "x": 3.2,
@@ -1295,19 +1409,19 @@
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.9166666865348816
             },
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.9166666865348816
             }
           ],
@@ -1347,8 +1461,8 @@
             "y": 0.0
           },
           "center": {
-            "x": 56.00000000000001,
-            "y": 4.800000000000001
+            "x": 46.400000000000006,
+            "y": 1.6
           },
           "offset": {
             "x": 0.0,
@@ -1368,7 +1482,7 @@
     ]
   },
   {
-    "gameObjectID": 477,
+    "gameObjectID": 14,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -1377,8 +1491,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 59.2,
-            "y": 4.800000000000001
+            "x": 46.400000000000006,
+            "y": 1.6
           },
           "scale": {
             "x": 3.2,
@@ -1409,19 +1523,19 @@
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.9166666865348816
             },
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.9166666865348816
             }
           ],
@@ -1461,8 +1575,8 @@
             "y": 0.0
           },
           "center": {
-            "x": 59.2,
-            "y": 4.800000000000001
+            "x": 46.400000000000006,
+            "y": 1.6
           },
           "offset": {
             "x": 0.0,
@@ -1482,7 +1596,7 @@
     ]
   },
   {
-    "gameObjectID": 478,
+    "gameObjectID": 15,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -1491,8 +1605,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 62.400000000000006,
-            "y": 4.800000000000001
+            "x": 46.400000000000006,
+            "y": 1.6
           },
           "scale": {
             "x": 3.2,
@@ -1523,19 +1637,19 @@
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.9166666865348816
             },
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.9166666865348816
             }
           ],
@@ -1575,8 +1689,8 @@
             "y": 0.0
           },
           "center": {
-            "x": 62.400000000000006,
-            "y": 4.800000000000001
+            "x": 46.400000000000006,
+            "y": 1.6
           },
           "offset": {
             "x": 0.0,
@@ -1596,7 +1710,7 @@
     ]
   },
   {
-    "gameObjectID": 479,
+    "gameObjectID": 16,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -1605,8 +1719,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 68.8,
-            "y": 4.800000000000001
+            "x": 49.6,
+            "y": 1.6
           },
           "scale": {
             "x": 3.2,
@@ -1637,19 +1751,19 @@
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.9166666865348816
             },
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.9166666865348816
             }
           ],
@@ -1689,8 +1803,8 @@
             "y": 0.0
           },
           "center": {
-            "x": 68.8,
-            "y": 4.800000000000001
+            "x": 49.6,
+            "y": 1.6
           },
           "offset": {
             "x": 0.0,
@@ -1710,7 +1824,7 @@
     ]
   },
   {
-    "gameObjectID": 480,
+    "gameObjectID": 17,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -1719,8 +1833,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 72.0,
-            "y": 4.800000000000001
+            "x": 52.800000000000004,
+            "y": 1.6
           },
           "scale": {
             "x": 3.2,
@@ -1751,19 +1865,19 @@
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.9166666865348816
             },
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.9166666865348816
             }
           ],
@@ -1803,8 +1917,8 @@
             "y": 0.0
           },
           "center": {
-            "x": 72.0,
-            "y": 4.800000000000001
+            "x": 52.800000000000004,
+            "y": 1.6
           },
           "offset": {
             "x": 0.0,
@@ -1824,7 +1938,7 @@
     ]
   },
   {
-    "gameObjectID": 481,
+    "gameObjectID": 18,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -1833,8 +1947,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 75.2,
-            "y": 4.800000000000001
+            "x": 56.00000000000001,
+            "y": 1.6
           },
           "scale": {
             "x": 3.2,
@@ -1865,19 +1979,19 @@
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.9166666865348816
             },
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.9166666865348816
             }
           ],
@@ -1917,8 +2031,8 @@
             "y": 0.0
           },
           "center": {
-            "x": 75.2,
-            "y": 4.800000000000001
+            "x": 56.00000000000001,
+            "y": 1.6
           },
           "offset": {
             "x": 0.0,
@@ -1938,7 +2052,7 @@
     ]
   },
   {
-    "gameObjectID": 482,
+    "gameObjectID": 19,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -1947,8 +2061,350 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 91.2,
-            "y": 4.800000000000001
+            "x": 59.2,
+            "y": 1.6
+          },
+          "scale": {
+            "x": 3.2,
+            "y": 3.2
+          },
+          "rotation": 0.0,
+          "zIndex": 1,
+          "componentID": 121
+        }
+      },
+      {
+        "Type": "main.components.SpriteRenderer",
+        "Properties": {
+          "spriteID": 1,
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0,
+            "w": 1.0
+          },
+          "texture": {
+            "filePath": "assets/images/decorationsAndBlocks.png",
+            "texID": 6,
+            "width": 112,
+            "height": 192
+          },
+          "width": 16.0,
+          "height": 16.0,
+          "texCords": [
+            {
+              "x": 1.0000001192092896,
+              "y": 0.9166666865348816
+            },
+            {
+              "x": 1.0000001192092896,
+              "y": 0.8333333730697632
+            },
+            {
+              "x": 0.8571429252624512,
+              "y": 0.8333333730697632
+            },
+            {
+              "x": 0.8571429252624512,
+              "y": 0.9166666865348816
+            }
+          ],
+          "componentID": 122
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.RigidBody",
+        "Properties": {
+          "mass": 0.0,
+          "friction": 0.1,
+          "isSensor": false,
+          "velocity": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "bodyType": "Static",
+          "gravityScale": 1.0,
+          "linearDamping": 0.9,
+          "angularDamping": 0.8,
+          "angularVelocity": 0.0,
+          "fixedRotation": false,
+          "continuousCollision": true,
+          "updateRotation": false,
+          "componentID": 123
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.BoxCollider",
+        "Properties": {
+          "halfSize": {
+            "x": 1.6,
+            "y": 1.6
+          },
+          "origin": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "center": {
+            "x": 59.2,
+            "y": 1.6
+          },
+          "offset": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "componentID": 124
+        }
+      },
+      {
+        "Type": "main.components.Hitable",
+        "Properties": {
+          "speed": 3.0,
+          "distance": 0.4,
+          "componentID": 125
+        }
+      }
+    ]
+  },
+  {
+    "gameObjectID": 20,
+    "name": "Generated",
+    "isSerializable": true,
+    "isTriggerable": true,
+    "componentList": [
+      {
+        "Type": "main.haspid.Transform",
+        "Properties": {
+          "position": {
+            "x": 59.2,
+            "y": 1.6
+          },
+          "scale": {
+            "x": 3.2,
+            "y": 3.2
+          },
+          "rotation": 0.0,
+          "zIndex": 1,
+          "componentID": 127
+        }
+      },
+      {
+        "Type": "main.components.SpriteRenderer",
+        "Properties": {
+          "spriteID": 1,
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0,
+            "w": 1.0
+          },
+          "texture": {
+            "filePath": "assets/images/decorationsAndBlocks.png",
+            "texID": 6,
+            "width": 112,
+            "height": 192
+          },
+          "width": 16.0,
+          "height": 16.0,
+          "texCords": [
+            {
+              "x": 1.0000001192092896,
+              "y": 0.9166666865348816
+            },
+            {
+              "x": 1.0000001192092896,
+              "y": 0.8333333730697632
+            },
+            {
+              "x": 0.8571429252624512,
+              "y": 0.8333333730697632
+            },
+            {
+              "x": 0.8571429252624512,
+              "y": 0.9166666865348816
+            }
+          ],
+          "componentID": 128
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.RigidBody",
+        "Properties": {
+          "mass": 0.0,
+          "friction": 0.1,
+          "isSensor": false,
+          "velocity": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "bodyType": "Static",
+          "gravityScale": 1.0,
+          "linearDamping": 0.9,
+          "angularDamping": 0.8,
+          "angularVelocity": 0.0,
+          "fixedRotation": false,
+          "continuousCollision": true,
+          "updateRotation": false,
+          "componentID": 129
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.BoxCollider",
+        "Properties": {
+          "halfSize": {
+            "x": 1.6,
+            "y": 1.6
+          },
+          "origin": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "center": {
+            "x": 59.2,
+            "y": 1.6
+          },
+          "offset": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "componentID": 130
+        }
+      },
+      {
+        "Type": "main.components.Hitable",
+        "Properties": {
+          "speed": 3.0,
+          "distance": 0.4,
+          "componentID": 131
+        }
+      }
+    ]
+  },
+  {
+    "gameObjectID": 21,
+    "name": "Generated",
+    "isSerializable": true,
+    "isTriggerable": true,
+    "componentList": [
+      {
+        "Type": "main.haspid.Transform",
+        "Properties": {
+          "position": {
+            "x": 59.2,
+            "y": 1.6
+          },
+          "scale": {
+            "x": 3.2,
+            "y": 3.2
+          },
+          "rotation": 0.0,
+          "zIndex": 1,
+          "componentID": 133
+        }
+      },
+      {
+        "Type": "main.components.SpriteRenderer",
+        "Properties": {
+          "spriteID": 1,
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0,
+            "w": 1.0
+          },
+          "texture": {
+            "filePath": "assets/images/decorationsAndBlocks.png",
+            "texID": 6,
+            "width": 112,
+            "height": 192
+          },
+          "width": 16.0,
+          "height": 16.0,
+          "texCords": [
+            {
+              "x": 1.0000001192092896,
+              "y": 0.9166666865348816
+            },
+            {
+              "x": 1.0000001192092896,
+              "y": 0.8333333730697632
+            },
+            {
+              "x": 0.8571429252624512,
+              "y": 0.8333333730697632
+            },
+            {
+              "x": 0.8571429252624512,
+              "y": 0.9166666865348816
+            }
+          ],
+          "componentID": 134
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.RigidBody",
+        "Properties": {
+          "mass": 0.0,
+          "friction": 0.1,
+          "isSensor": false,
+          "velocity": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "bodyType": "Static",
+          "gravityScale": 1.0,
+          "linearDamping": 0.9,
+          "angularDamping": 0.8,
+          "angularVelocity": 0.0,
+          "fixedRotation": false,
+          "continuousCollision": true,
+          "updateRotation": false,
+          "componentID": 135
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.BoxCollider",
+        "Properties": {
+          "halfSize": {
+            "x": 1.6,
+            "y": 1.6
+          },
+          "origin": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "center": {
+            "x": 59.2,
+            "y": 1.6
+          },
+          "offset": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "componentID": 136
+        }
+      },
+      {
+        "Type": "main.components.Hitable",
+        "Properties": {
+          "speed": 3.0,
+          "distance": 0.4,
+          "componentID": 137
+        }
+      }
+    ]
+  },
+  {
+    "gameObjectID": 22,
+    "name": "Generated",
+    "isSerializable": true,
+    "isTriggerable": true,
+    "componentList": [
+      {
+        "Type": "main.haspid.Transform",
+        "Properties": {
+          "position": {
+            "x": 62.400000000000006,
+            "y": 1.6
           },
           "scale": {
             "x": 3.2,
@@ -1979,19 +2435,19 @@
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.9166666865348816
             },
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.9166666865348816
             }
           ],
@@ -2031,8 +2487,8 @@
             "y": 0.0
           },
           "center": {
-            "x": 91.2,
-            "y": 4.800000000000001
+            "x": 62.400000000000006,
+            "y": 1.6
           },
           "offset": {
             "x": 0.0,
@@ -2052,7 +2508,7 @@
     ]
   },
   {
-    "gameObjectID": 483,
+    "gameObjectID": 23,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -2061,8 +2517,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 94.4,
-            "y": 4.800000000000001
+            "x": 62.400000000000006,
+            "y": 1.6
           },
           "scale": {
             "x": 3.2,
@@ -2093,19 +2549,19 @@
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.9166666865348816
             },
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.9166666865348816
             }
           ],
@@ -2145,8 +2601,8 @@
             "y": 0.0
           },
           "center": {
-            "x": 94.4,
-            "y": 4.800000000000001
+            "x": 62.400000000000006,
+            "y": 1.6
           },
           "offset": {
             "x": 0.0,
@@ -2166,7 +2622,7 @@
     ]
   },
   {
-    "gameObjectID": 484,
+    "gameObjectID": 24,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -2175,8 +2631,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 88.0,
-            "y": 4.800000000000001
+            "x": 65.6,
+            "y": 1.6
           },
           "scale": {
             "x": 3.2,
@@ -2207,19 +2663,19 @@
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.9166666865348816
             },
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.9166666865348816
             }
           ],
@@ -2259,8 +2715,8 @@
             "y": 0.0
           },
           "center": {
-            "x": 88.0,
-            "y": 4.800000000000001
+            "x": 65.6,
+            "y": 1.6
           },
           "offset": {
             "x": 0.0,
@@ -2280,7 +2736,7 @@
     ]
   },
   {
-    "gameObjectID": 485,
+    "gameObjectID": 25,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -2289,8 +2745,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 84.8,
-            "y": 4.800000000000001
+            "x": 68.8,
+            "y": 1.6
           },
           "scale": {
             "x": 3.2,
@@ -2321,19 +2777,19 @@
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.9166666865348816
             },
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.9166666865348816
             }
           ],
@@ -2373,8 +2829,8 @@
             "y": 0.0
           },
           "center": {
-            "x": 84.8,
-            "y": 4.800000000000001
+            "x": 68.8,
+            "y": 1.6
           },
           "offset": {
             "x": 0.0,
@@ -2394,7 +2850,7 @@
     ]
   },
   {
-    "gameObjectID": 486,
+    "gameObjectID": 26,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -2403,8 +2859,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 81.6,
-            "y": 4.800000000000001
+            "x": 72.0,
+            "y": 1.6
           },
           "scale": {
             "x": 3.2,
@@ -2435,19 +2891,19 @@
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.9166666865348816
             },
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.9166666865348816
             }
           ],
@@ -2487,8 +2943,8 @@
             "y": 0.0
           },
           "center": {
-            "x": 81.6,
-            "y": 4.800000000000001
+            "x": 72.0,
+            "y": 1.6
           },
           "offset": {
             "x": 0.0,
@@ -2508,7 +2964,7 @@
     ]
   },
   {
-    "gameObjectID": 487,
+    "gameObjectID": 27,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -2517,8 +2973,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 78.4,
-            "y": 4.800000000000001
+            "x": 88.0,
+            "y": 1.6
           },
           "scale": {
             "x": 3.2,
@@ -2549,19 +3005,19 @@
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.9166666865348816
             },
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.9166666865348816
             }
           ],
@@ -2601,8 +3057,8 @@
             "y": 0.0
           },
           "center": {
-            "x": 78.4,
-            "y": 4.800000000000001
+            "x": 88.0,
+            "y": 1.6
           },
           "offset": {
             "x": 0.0,
@@ -2622,7 +3078,7 @@
     ]
   },
   {
-    "gameObjectID": 488,
+    "gameObjectID": 28,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -2631,8 +3087,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 65.6,
-            "y": 4.800000000000001
+            "x": 84.8,
+            "y": 1.6
           },
           "scale": {
             "x": 3.2,
@@ -2663,19 +3119,19 @@
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.9166666865348816
             },
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.9166666865348816
             }
           ],
@@ -2715,8 +3171,8 @@
             "y": 0.0
           },
           "center": {
-            "x": 65.6,
-            "y": 4.800000000000001
+            "x": 84.8,
+            "y": 1.6
           },
           "offset": {
             "x": 0.0,
@@ -2736,7 +3192,7 @@
     ]
   },
   {
-    "gameObjectID": 489,
+    "gameObjectID": 29,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -2745,8 +3201,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 40.00000000000001,
-            "y": 4.800000000000001
+            "x": 81.6,
+            "y": 1.6
           },
           "scale": {
             "x": 3.2,
@@ -2777,19 +3233,19 @@
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.9166666865348816
             },
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.9166666865348816
             }
           ],
@@ -2829,8 +3285,8 @@
             "y": 0.0
           },
           "center": {
-            "x": 40.00000000000001,
-            "y": 4.800000000000001
+            "x": 81.6,
+            "y": 1.6
           },
           "offset": {
             "x": 0.0,
@@ -2850,7 +3306,7 @@
     ]
   },
   {
-    "gameObjectID": 490,
+    "gameObjectID": 30,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -2859,8 +3315,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 30.400000000000002,
-            "y": 4.800000000000001
+            "x": 78.4,
+            "y": 1.6
           },
           "scale": {
             "x": 3.2,
@@ -2891,19 +3347,19 @@
           "height": 16.0,
           "texCords": [
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.9166666865348816
             },
             {
-              "x": 0.8571428656578064,
+              "x": 1.0000001192092896,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.8333333730697632
             },
             {
-              "x": 0.7142857313156128,
+              "x": 0.8571429252624512,
               "y": 0.9166666865348816
             }
           ],
@@ -2943,8 +3399,8 @@
             "y": 0.0
           },
           "center": {
-            "x": 30.400000000000002,
-            "y": 4.800000000000001
+            "x": 78.4,
+            "y": 1.6
           },
           "offset": {
             "x": 0.0,
@@ -2964,7 +3420,7 @@
     ]
   },
   {
-    "gameObjectID": 491,
+    "gameObjectID": 31,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -2973,8 +3429,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 94.4,
-            "y": 8.0
+            "x": 75.2,
+            "y": 1.6
           },
           "scale": {
             "x": 3.2,
@@ -2982,7 +3438,7 @@
           },
           "rotation": 0.0,
           "zIndex": 1,
-          "componentID": 412
+          "componentID": 193
         }
       },
       {
@@ -3021,7 +3477,7 @@
               "y": 0.9166666865348816
             }
           ],
-          "componentID": 413
+          "componentID": 194
         }
       },
       {
@@ -3042,7 +3498,7 @@
           "fixedRotation": false,
           "continuousCollision": true,
           "updateRotation": false,
-          "componentID": 414
+          "componentID": 195
         }
       },
       {
@@ -3057,14 +3513,14 @@
             "y": 0.0
           },
           "center": {
-            "x": 94.4,
-            "y": 8.0
+            "x": 75.2,
+            "y": 1.6
           },
           "offset": {
             "x": 0.0,
             "y": 0.0
           },
-          "componentID": 415
+          "componentID": 196
         }
       },
       {
@@ -3072,13 +3528,13 @@
         "Properties": {
           "speed": 3.0,
           "distance": 0.4,
-          "componentID": 416
+          "componentID": 197
         }
       }
     ]
   },
   {
-    "gameObjectID": 492,
+    "gameObjectID": 32,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -3087,8 +3543,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 14.4,
-            "y": 8.0
+            "x": 27.200000000000003,
+            "y": 1.6
           },
           "scale": {
             "x": 3.2,
@@ -3096,7 +3552,7 @@
           },
           "rotation": 0.0,
           "zIndex": 1,
-          "componentID": 418
+          "componentID": 199
         }
       },
       {
@@ -3135,7 +3591,7 @@
               "y": 0.9166666865348816
             }
           ],
-          "componentID": 419
+          "componentID": 200
         }
       },
       {
@@ -3156,7 +3612,7 @@
           "fixedRotation": false,
           "continuousCollision": true,
           "updateRotation": false,
-          "componentID": 420
+          "componentID": 201
         }
       },
       {
@@ -3171,14 +3627,14 @@
             "y": 0.0
           },
           "center": {
-            "x": 14.4,
-            "y": 8.0
+            "x": 27.200000000000003,
+            "y": 1.6
           },
           "offset": {
             "x": 0.0,
             "y": 0.0
           },
-          "componentID": 421
+          "componentID": 202
         }
       },
       {
@@ -3186,13 +3642,13 @@
         "Properties": {
           "speed": 3.0,
           "distance": 0.4,
-          "componentID": 422
+          "componentID": 203
         }
       }
     ]
   },
   {
-    "gameObjectID": 493,
+    "gameObjectID": 33,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -3201,8 +3657,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 84.8,
-            "y": 17.6
+            "x": 24.000000000000004,
+            "y": 1.6
           },
           "scale": {
             "x": 3.2,
@@ -3210,7 +3666,7 @@
           },
           "rotation": 0.0,
           "zIndex": 1,
-          "componentID": 727
+          "componentID": 205
         }
       },
       {
@@ -3249,7 +3705,7 @@
               "y": 0.9166666865348816
             }
           ],
-          "componentID": 728
+          "componentID": 206
         }
       },
       {
@@ -3270,7 +3726,7 @@
           "fixedRotation": false,
           "continuousCollision": true,
           "updateRotation": false,
-          "componentID": 729
+          "componentID": 207
         }
       },
       {
@@ -3285,14 +3741,14 @@
             "y": 0.0
           },
           "center": {
-            "x": 84.8,
-            "y": 17.6
+            "x": 24.000000000000004,
+            "y": 1.6
           },
           "offset": {
             "x": 0.0,
             "y": 0.0
           },
-          "componentID": 730
+          "componentID": 208
         }
       },
       {
@@ -3300,13 +3756,13 @@
         "Properties": {
           "speed": 3.0,
           "distance": 0.4,
-          "componentID": 731
+          "componentID": 209
         }
       }
     ]
   },
   {
-    "gameObjectID": 494,
+    "gameObjectID": 34,
     "name": "Generated",
     "isSerializable": true,
     "isTriggerable": true,
@@ -3315,8 +3771,8 @@
         "Type": "main.haspid.Transform",
         "Properties": {
           "position": {
-            "x": 73.87406158447266,
-            "y": 8.00925350189209
+            "x": 20.800000000000004,
+            "y": 1.6
           },
           "scale": {
             "x": 3.2,
@@ -3324,7 +3780,465 @@
           },
           "rotation": 0.0,
           "zIndex": 1,
-          "componentID": 773
+          "componentID": 211
+        }
+      },
+      {
+        "Type": "main.components.SpriteRenderer",
+        "Properties": {
+          "spriteID": 1,
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0,
+            "w": 1.0
+          },
+          "texture": {
+            "filePath": "assets/images/decorationsAndBlocks.png",
+            "texID": 6,
+            "width": 112,
+            "height": 192
+          },
+          "width": 16.0,
+          "height": 16.0,
+          "texCords": [
+            {
+              "x": 1.0000001192092896,
+              "y": 0.9166666865348816
+            },
+            {
+              "x": 1.0000001192092896,
+              "y": 0.8333333730697632
+            },
+            {
+              "x": 0.8571429252624512,
+              "y": 0.8333333730697632
+            },
+            {
+              "x": 0.8571429252624512,
+              "y": 0.9166666865348816
+            }
+          ],
+          "componentID": 212
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.RigidBody",
+        "Properties": {
+          "mass": 0.0,
+          "friction": 0.1,
+          "isSensor": false,
+          "velocity": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "bodyType": "Static",
+          "gravityScale": 1.0,
+          "linearDamping": 0.9,
+          "angularDamping": 0.8,
+          "angularVelocity": 0.0,
+          "fixedRotation": false,
+          "continuousCollision": true,
+          "updateRotation": false,
+          "componentID": 213
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.BoxCollider",
+        "Properties": {
+          "halfSize": {
+            "x": 1.6,
+            "y": 1.6
+          },
+          "origin": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "center": {
+            "x": 20.800000000000004,
+            "y": 1.6
+          },
+          "offset": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "componentID": 214
+        }
+      },
+      {
+        "Type": "main.components.Hitable",
+        "Properties": {
+          "speed": 3.0,
+          "distance": 0.4,
+          "componentID": 215
+        }
+      }
+    ]
+  },
+  {
+    "gameObjectID": 35,
+    "name": "Generated",
+    "isSerializable": true,
+    "isTriggerable": true,
+    "componentList": [
+      {
+        "Type": "main.haspid.Transform",
+        "Properties": {
+          "position": {
+            "x": 33.6,
+            "y": 1.6
+          },
+          "scale": {
+            "x": 3.2,
+            "y": 3.2
+          },
+          "rotation": 0.0,
+          "zIndex": 1,
+          "componentID": 217
+        }
+      },
+      {
+        "Type": "main.components.SpriteRenderer",
+        "Properties": {
+          "spriteID": 1,
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0,
+            "w": 1.0
+          },
+          "texture": {
+            "filePath": "assets/images/decorationsAndBlocks.png",
+            "texID": 6,
+            "width": 112,
+            "height": 192
+          },
+          "width": 16.0,
+          "height": 16.0,
+          "texCords": [
+            {
+              "x": 1.0000001192092896,
+              "y": 0.9166666865348816
+            },
+            {
+              "x": 1.0000001192092896,
+              "y": 0.8333333730697632
+            },
+            {
+              "x": 0.8571429252624512,
+              "y": 0.8333333730697632
+            },
+            {
+              "x": 0.8571429252624512,
+              "y": 0.9166666865348816
+            }
+          ],
+          "componentID": 218
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.RigidBody",
+        "Properties": {
+          "mass": 0.0,
+          "friction": 0.1,
+          "isSensor": false,
+          "velocity": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "bodyType": "Static",
+          "gravityScale": 1.0,
+          "linearDamping": 0.9,
+          "angularDamping": 0.8,
+          "angularVelocity": 0.0,
+          "fixedRotation": false,
+          "continuousCollision": true,
+          "updateRotation": false,
+          "componentID": 219
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.BoxCollider",
+        "Properties": {
+          "halfSize": {
+            "x": 1.6,
+            "y": 1.6
+          },
+          "origin": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "center": {
+            "x": 33.6,
+            "y": 1.6
+          },
+          "offset": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "componentID": 220
+        }
+      },
+      {
+        "Type": "main.components.Hitable",
+        "Properties": {
+          "speed": 3.0,
+          "distance": 0.4,
+          "componentID": 221
+        }
+      }
+    ]
+  },
+  {
+    "gameObjectID": 36,
+    "name": "pip1",
+    "isSerializable": true,
+    "isTriggerable": true,
+    "componentList": [
+      {
+        "Type": "main.haspid.Transform",
+        "Properties": {
+          "position": {
+            "x": 16.0,
+            "y": 6.4
+          },
+          "scale": {
+            "x": 6.4,
+            "y": 6.4
+          },
+          "rotation": 0.0,
+          "zIndex": 1,
+          "componentID": 238
+        }
+      },
+      {
+        "Type": "main.components.SpriteRenderer",
+        "Properties": {
+          "spriteID": 2,
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0,
+            "w": 1.0
+          },
+          "texture": {
+            "filePath": "assets/images/pipes.png",
+            "texID": 8,
+            "width": 128,
+            "height": 64
+          },
+          "width": 32.0,
+          "height": 32.0,
+          "texCords": [
+            {
+              "x": 0.5,
+              "y": 1.0
+            },
+            {
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "x": 0.25,
+              "y": 0.5
+            },
+            {
+              "x": 0.25,
+              "y": 1.0
+            }
+          ],
+          "componentID": 239
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.RigidBody",
+        "Properties": {
+          "mass": 0.0,
+          "friction": 0.1,
+          "isSensor": false,
+          "velocity": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "bodyType": "Static",
+          "gravityScale": 1.0,
+          "linearDamping": 0.9,
+          "angularDamping": 0.8,
+          "angularVelocity": 0.0,
+          "fixedRotation": false,
+          "continuousCollision": true,
+          "updateRotation": false,
+          "componentID": 240
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.BoxCollider",
+        "Properties": {
+          "halfSize": {
+            "x": 3.2,
+            "y": 3.2
+          },
+          "origin": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "center": {
+            "x": 16.0,
+            "y": 6.4
+          },
+          "offset": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "componentID": 241
+        }
+      },
+      {
+        "Type": "main.components.behaviour.PipeBeh",
+        "Properties": {
+          "direction": "Up",
+          "entranceTolerance": 0.6000000238418579,
+          "connectingPipeName": "pip2",
+          "componentID": 242
+        }
+      }
+    ]
+  },
+  {
+    "gameObjectID": 37,
+    "name": "pip2",
+    "isSerializable": true,
+    "isTriggerable": true,
+    "componentList": [
+      {
+        "Type": "main.haspid.Transform",
+        "Properties": {
+          "position": {
+            "x": 51.2,
+            "y": 6.4
+          },
+          "scale": {
+            "x": 6.4,
+            "y": 6.4
+          },
+          "rotation": 0.0,
+          "zIndex": 1,
+          "componentID": 264
+        }
+      },
+      {
+        "Type": "main.components.SpriteRenderer",
+        "Properties": {
+          "spriteID": 2,
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0,
+            "w": 1.0
+          },
+          "texture": {
+            "filePath": "assets/images/pipes.png",
+            "texID": 8,
+            "width": 128,
+            "height": 64
+          },
+          "width": 32.0,
+          "height": 32.0,
+          "texCords": [
+            {
+              "x": 0.75,
+              "y": 1.0
+            },
+            {
+              "x": 0.75,
+              "y": 0.5
+            },
+            {
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "x": 0.5,
+              "y": 1.0
+            }
+          ],
+          "componentID": 265
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.RigidBody",
+        "Properties": {
+          "mass": 0.0,
+          "friction": 0.1,
+          "isSensor": false,
+          "velocity": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "bodyType": "Static",
+          "gravityScale": 1.0,
+          "linearDamping": 0.9,
+          "angularDamping": 0.8,
+          "angularVelocity": 0.0,
+          "fixedRotation": false,
+          "continuousCollision": true,
+          "updateRotation": false,
+          "componentID": 266
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.BoxCollider",
+        "Properties": {
+          "halfSize": {
+            "x": 3.2,
+            "y": 3.2
+          },
+          "origin": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "center": {
+            "x": 51.2,
+            "y": 6.4
+          },
+          "offset": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "componentID": 267
+        }
+      },
+      {
+        "Type": "main.components.behaviour.PipeBeh",
+        "Properties": {
+          "direction": "Right",
+          "entranceTolerance": 0.6000000238418579,
+          "connectingPipeName": "pip1",
+          "componentID": 268
+        }
+      }
+    ]
+  },
+  {
+    "gameObjectID": 38,
+    "name": "Generated",
+    "isSerializable": true,
+    "isTriggerable": true,
+    "componentList": [
+      {
+        "Type": "main.haspid.Transform",
+        "Properties": {
+          "position": {
+            "x": 16.3176326751709,
+            "y": 11.417936325073242
+          },
+          "scale": {
+            "x": -3.2,
+            "y": 3.2
+          },
+          "rotation": 0.0,
+          "zIndex": 1,
+          "componentID": 294
         }
       },
       {
@@ -3348,2038 +4262,10 @@
           "texCords": [
             {
               "x": 0.0714285746216774,
-              "y": 0.5
+              "y": 1.0
             },
             {
               "x": 0.0714285746216774,
-              "y": 0.0
-            },
-            {
-              "x": 0.0,
-              "y": 0.0
-            },
-            {
-              "x": 0.0,
-              "y": 0.5
-            }
-          ],
-          "componentID": 774
-        }
-      },
-      {
-        "Type": "main.components.physicsComponent.RigidBody",
-        "Properties": {
-          "mass": 0.0,
-          "friction": 0.1,
-          "isSensor": false,
-          "velocity": {
-            "x": -20.0,
-            "y": 0.0
-          },
-          "bodyType": "Dynamic",
-          "gravityScale": 100.0,
-          "linearDamping": 0.9,
-          "angularDamping": 0.8,
-          "angularVelocity": 0.0,
-          "fixedRotation": false,
-          "continuousCollision": true,
-          "updateRotation": false,
-          "componentID": 775
-        }
-      },
-      {
-        "Type": "main.components.physicsComponent.CircleCollider",
-        "Properties": {
-          "radius": 1.6,
-          "offset": {
-            "x": 0.0,
-            "y": 0.0
-          },
-          "componentID": 776
-        }
-      },
-      {
-        "Type": "main.components.stateMachine.StateMachine",
-        "Properties": {
-          "animationList": [
-            {
-              "title": "walk",
-              "doesLoop": true,
-              "frameList": [
-                {
-                  "frameTime": 0.23,
-                  "spriteRenderer": {
-                    "spriteID": 0,
-                    "color": {
-                      "x": 1.0,
-                      "y": 1.0,
-                      "z": 1.0,
-                      "w": 1.0
-                    },
-                    "texture": {
-                      "filePath": "assets/images/smallForm.png",
-                      "texID": 4,
-                      "width": 224,
-                      "height": 32
-                    },
-                    "width": 16.0,
-                    "height": 16.0,
-                    "texCords": [
-                      {
-                        "x": 0.0714285746216774,
-                        "y": 0.5
-                      },
-                      {
-                        "x": 0.0714285746216774,
-                        "y": 0.0
-                      },
-                      {
-                        "x": 0.0,
-                        "y": 0.0
-                      },
-                      {
-                        "x": 0.0,
-                        "y": 0.5
-                      }
-                    ],
-                    "componentID": 47
-                  },
-                  "used": true
-                },
-                {
-                  "frameTime": 0.23,
-                  "spriteRenderer": {
-                    "spriteID": 0,
-                    "color": {
-                      "x": 1.0,
-                      "y": 1.0,
-                      "z": 1.0,
-                      "w": 1.0
-                    },
-                    "texture": {
-                      "filePath": "assets/images/smallForm.png",
-                      "texID": 4,
-                      "width": 224,
-                      "height": 32
-                    },
-                    "width": 16.0,
-                    "height": 16.0,
-                    "texCords": [
-                      {
-                        "x": 0.1428571492433548,
-                        "y": 0.5
-                      },
-                      {
-                        "x": 0.1428571492433548,
-                        "y": 0.0
-                      },
-                      {
-                        "x": 0.0714285746216774,
-                        "y": 0.0
-                      },
-                      {
-                        "x": 0.0714285746216774,
-                        "y": 0.5
-                      }
-                    ],
-                    "componentID": 48
-                  },
-                  "used": true
-                }
-              ]
-            },
-            {
-              "title": "squashed",
-              "doesLoop": true,
-              "frameList": [
-                {
-                  "frameTime": 0.10000000149011612,
-                  "spriteRenderer": {
-                    "spriteID": 0,
-                    "color": {
-                      "x": 1.0,
-                      "y": 1.0,
-                      "z": 1.0,
-                      "w": 1.0
-                    },
-                    "texture": {
-                      "filePath": "assets/images/smallForm.png",
-                      "texID": 4,
-                      "width": 224,
-                      "height": 32
-                    },
-                    "width": 16.0,
-                    "height": 16.0,
-                    "texCords": [
-                      {
-                        "x": 0.2142857313156128,
-                        "y": 0.5
-                      },
-                      {
-                        "x": 0.2142857313156128,
-                        "y": 0.0
-                      },
-                      {
-                        "x": 0.1428571492433548,
-                        "y": 0.0
-                      },
-                      {
-                        "x": 0.1428571492433548,
-                        "y": 0.5
-                      }
-                    ],
-                    "componentID": 49
-                  },
-                  "used": false
-                }
-              ]
-            }
-          ],
-          "nextAnimation": "walk",
-          "defaultAnimation": "walk",
-          "componentID": 90
-        }
-      },
-      {
-        "Type": "main.components.behaviour.GoombaBeh",
-        "Properties": {
-          "speed": -20.0,
-          "gravity": 100.0,
-          "minContact": 0.7,
-          "componentID": 777
-        }
-      }
-    ]
-  },
-  {
-    "gameObjectID": 495,
-    "name": "Generated",
-    "isSerializable": true,
-    "isTriggerable": true,
-    "componentList": [
-      {
-        "Type": "main.haspid.Transform",
-        "Properties": {
-          "position": {
-            "x": 36.800000000000004,
-            "y": 17.6
-          },
-          "scale": {
-            "x": 3.2,
-            "y": 3.2
-          },
-          "rotation": 0.0,
-          "zIndex": 1,
-          "componentID": 1002
-        }
-      },
-      {
-        "Type": "main.components.SpriteRenderer",
-        "Properties": {
-          "spriteID": 4,
-          "color": {
-            "x": 1.0,
-            "y": 1.0,
-            "z": 1.0,
-            "w": 1.0
-          },
-          "texture": {
-            "filePath": "assets/images/items.png",
-            "texID": 3,
-            "width": 112,
-            "height": 80
-          },
-          "width": 16.0,
-          "height": 16.0,
-          "texCords": [
-            {
-              "x": 0.5714285969734192,
-              "y": 1.0
-            },
-            {
-              "x": 0.5714285969734192,
-              "y": 0.800000011920929
-            },
-            {
-              "x": 0.4285714626312256,
-              "y": 0.800000011920929
-            },
-            {
-              "x": 0.4285714626312256,
-              "y": 1.0
-            }
-          ],
-          "componentID": 1003
-        }
-      },
-      {
-        "Type": "main.components.physicsComponent.RigidBody",
-        "Properties": {
-          "mass": 0.0,
-          "friction": 0.1,
-          "isSensor": false,
-          "velocity": {
-            "x": 0.0,
-            "y": 0.0
-          },
-          "bodyType": "Static",
-          "gravityScale": 1.0,
-          "linearDamping": 0.9,
-          "angularDamping": 0.8,
-          "angularVelocity": 0.0,
-          "fixedRotation": false,
-          "continuousCollision": true,
-          "updateRotation": false,
-          "componentID": 1004
-        }
-      },
-      {
-        "Type": "main.components.physicsComponent.BoxCollider",
-        "Properties": {
-          "halfSize": {
-            "x": 1.6,
-            "y": 1.6
-          },
-          "origin": {
-            "x": 0.0,
-            "y": 0.0
-          },
-          "center": {
-            "x": 36.800000000000004,
-            "y": 17.6
-          },
-          "offset": {
-            "x": 0.0,
-            "y": 0.0
-          },
-          "componentID": 1005
-        }
-      },
-      {
-        "Type": "main.components.stateMachine.StateMachine",
-        "Properties": {
-          "animationList": [
-            {
-              "title": "active",
-              "doesLoop": true,
-              "frameList": [
-                {
-                  "frameTime": 0.5699999928474426,
-                  "spriteRenderer": {
-                    "spriteID": 0,
-                    "color": {
-                      "x": 1.0,
-                      "y": 1.0,
-                      "z": 1.0,
-                      "w": 1.0
-                    },
-                    "texture": {
-                      "filePath": "assets/images/items.png",
-                      "texID": 3,
-                      "width": 112,
-                      "height": 80
-                    },
-                    "width": 16.0,
-                    "height": 16.0,
-                    "texCords": [
-                      {
-                        "x": 0.1428571492433548,
-                        "y": 1.0
-                      },
-                      {
-                        "x": 0.1428571492433548,
-                        "y": 0.800000011920929
-                      },
-                      {
-                        "x": 0.0,
-                        "y": 0.800000011920929
-                      },
-                      {
-                        "x": 0.0,
-                        "y": 1.0
-                      }
-                    ],
-                    "componentID": 0
-                  },
-                  "used": true
-                },
-                {
-                  "frameTime": 0.23000000417232513,
-                  "spriteRenderer": {
-                    "spriteID": 0,
-                    "color": {
-                      "x": 1.0,
-                      "y": 1.0,
-                      "z": 1.0,
-                      "w": 1.0
-                    },
-                    "texture": {
-                      "filePath": "assets/images/items.png",
-                      "texID": 3,
-                      "width": 112,
-                      "height": 80
-                    },
-                    "width": 16.0,
-                    "height": 16.0,
-                    "texCords": [
-                      {
-                        "x": 0.2857142984867096,
-                        "y": 1.0
-                      },
-                      {
-                        "x": 0.2857142984867096,
-                        "y": 0.800000011920929
-                      },
-                      {
-                        "x": 0.1428571492433548,
-                        "y": 0.800000011920929
-                      },
-                      {
-                        "x": 0.1428571492433548,
-                        "y": 1.0
-                      }
-                    ],
-                    "componentID": 1
-                  },
-                  "used": true
-                },
-                {
-                  "frameTime": 0.23000000417232513,
-                  "spriteRenderer": {
-                    "spriteID": 0,
-                    "color": {
-                      "x": 1.0,
-                      "y": 1.0,
-                      "z": 1.0,
-                      "w": 1.0
-                    },
-                    "texture": {
-                      "filePath": "assets/images/items.png",
-                      "texID": 3,
-                      "width": 112,
-                      "height": 80
-                    },
-                    "width": 16.0,
-                    "height": 16.0,
-                    "texCords": [
-                      {
-                        "x": 0.4285714626312256,
-                        "y": 1.0
-                      },
-                      {
-                        "x": 0.4285714626312256,
-                        "y": 0.800000011920929
-                      },
-                      {
-                        "x": 0.2857142984867096,
-                        "y": 0.800000011920929
-                      },
-                      {
-                        "x": 0.2857142984867096,
-                        "y": 1.0
-                      }
-                    ],
-                    "componentID": 2
-                  },
-                  "used": true
-                }
-              ]
-            },
-            {
-              "title": "inactive",
-              "doesLoop": true,
-              "frameList": [
-                {
-                  "frameTime": 0.1,
-                  "spriteRenderer": {
-                    "spriteID": 0,
-                    "color": {
-                      "x": 1.0,
-                      "y": 1.0,
-                      "z": 1.0,
-                      "w": 1.0
-                    },
-                    "texture": {
-                      "filePath": "assets/images/items.png",
-                      "texID": 3,
-                      "width": 112,
-                      "height": 80
-                    },
-                    "width": 16.0,
-                    "height": 16.0,
-                    "texCords": [
-                      {
-                        "x": 0.5714285969734192,
-                        "y": 1.0
-                      },
-                      {
-                        "x": 0.5714285969734192,
-                        "y": 0.800000011920929
-                      },
-                      {
-                        "x": 0.4285714626312256,
-                        "y": 0.800000011920929
-                      },
-                      {
-                        "x": 0.4285714626312256,
-                        "y": 1.0
-                      }
-                    ],
-                    "componentID": 3
-                  },
-                  "used": true
-                }
-              ]
-            }
-          ],
-          "nextAnimation": "inactive",
-          "defaultAnimation": "active",
-          "componentID": 4
-        }
-      },
-      {
-        "Type": "main.components.behaviour.QuestionBlockBeh",
-        "Properties": {
-          "blockType": "PowerUp",
-          "speed": 3.0,
-          "distance": 0.4,
-          "componentID": 1006
-        }
-      }
-    ]
-  },
-  {
-    "gameObjectID": 496,
-    "name": "Generated",
-    "isSerializable": true,
-    "isTriggerable": true,
-    "componentList": [
-      {
-        "Type": "main.haspid.Transform",
-        "Properties": {
-          "position": {
-            "x": 40.00000000000001,
-            "y": 17.6
-          },
-          "scale": {
-            "x": 3.2,
-            "y": 3.2
-          },
-          "rotation": 0.0,
-          "zIndex": 1,
-          "componentID": 1027
-        }
-      },
-      {
-        "Type": "main.components.SpriteRenderer",
-        "Properties": {
-          "spriteID": 5,
-          "color": {
-            "x": 1.0,
-            "y": 1.0,
-            "z": 1.0,
-            "w": 1.0
-          },
-          "texture": {
-            "filePath": "assets/images/items.png",
-            "texID": 3,
-            "width": 112,
-            "height": 80
-          },
-          "width": 16.0,
-          "height": 16.0,
-          "texCords": [
-            {
-              "x": 0.5714285969734192,
-              "y": 1.0
-            },
-            {
-              "x": 0.5714285969734192,
-              "y": 0.800000011920929
-            },
-            {
-              "x": 0.4285714626312256,
-              "y": 0.800000011920929
-            },
-            {
-              "x": 0.4285714626312256,
-              "y": 1.0
-            }
-          ],
-          "componentID": 1028
-        }
-      },
-      {
-        "Type": "main.components.physicsComponent.RigidBody",
-        "Properties": {
-          "mass": 0.0,
-          "friction": 0.1,
-          "isSensor": false,
-          "velocity": {
-            "x": 0.0,
-            "y": 0.0
-          },
-          "bodyType": "Static",
-          "gravityScale": 1.0,
-          "linearDamping": 0.9,
-          "angularDamping": 0.8,
-          "angularVelocity": 0.0,
-          "fixedRotation": false,
-          "continuousCollision": true,
-          "updateRotation": false,
-          "componentID": 1029
-        }
-      },
-      {
-        "Type": "main.components.physicsComponent.BoxCollider",
-        "Properties": {
-          "halfSize": {
-            "x": 1.6,
-            "y": 1.6
-          },
-          "origin": {
-            "x": 0.0,
-            "y": 0.0
-          },
-          "center": {
-            "x": 40.00000000000001,
-            "y": 17.6
-          },
-          "offset": {
-            "x": 0.0,
-            "y": 0.0
-          },
-          "componentID": 1030
-        }
-      },
-      {
-        "Type": "main.components.stateMachine.StateMachine",
-        "Properties": {
-          "animationList": [
-            {
-              "title": "active",
-              "doesLoop": true,
-              "frameList": [
-                {
-                  "frameTime": 0.5699999928474426,
-                  "spriteRenderer": {
-                    "spriteID": 0,
-                    "color": {
-                      "x": 1.0,
-                      "y": 1.0,
-                      "z": 1.0,
-                      "w": 1.0
-                    },
-                    "texture": {
-                      "filePath": "assets/images/items.png",
-                      "texID": 3,
-                      "width": 112,
-                      "height": 80
-                    },
-                    "width": 16.0,
-                    "height": 16.0,
-                    "texCords": [
-                      {
-                        "x": 0.1428571492433548,
-                        "y": 1.0
-                      },
-                      {
-                        "x": 0.1428571492433548,
-                        "y": 0.800000011920929
-                      },
-                      {
-                        "x": 0.0,
-                        "y": 0.800000011920929
-                      },
-                      {
-                        "x": 0.0,
-                        "y": 1.0
-                      }
-                    ],
-                    "componentID": 1032
-                  },
-                  "used": true
-                },
-                {
-                  "frameTime": 0.23000000417232513,
-                  "spriteRenderer": {
-                    "spriteID": 0,
-                    "color": {
-                      "x": 1.0,
-                      "y": 1.0,
-                      "z": 1.0,
-                      "w": 1.0
-                    },
-                    "texture": {
-                      "filePath": "assets/images/items.png",
-                      "texID": 3,
-                      "width": 112,
-                      "height": 80
-                    },
-                    "width": 16.0,
-                    "height": 16.0,
-                    "texCords": [
-                      {
-                        "x": 0.2857142984867096,
-                        "y": 1.0
-                      },
-                      {
-                        "x": 0.2857142984867096,
-                        "y": 0.800000011920929
-                      },
-                      {
-                        "x": 0.1428571492433548,
-                        "y": 0.800000011920929
-                      },
-                      {
-                        "x": 0.1428571492433548,
-                        "y": 1.0
-                      }
-                    ],
-                    "componentID": 1033
-                  },
-                  "used": true
-                },
-                {
-                  "frameTime": 0.23000000417232513,
-                  "spriteRenderer": {
-                    "spriteID": 0,
-                    "color": {
-                      "x": 1.0,
-                      "y": 1.0,
-                      "z": 1.0,
-                      "w": 1.0
-                    },
-                    "texture": {
-                      "filePath": "assets/images/items.png",
-                      "texID": 3,
-                      "width": 112,
-                      "height": 80
-                    },
-                    "width": 16.0,
-                    "height": 16.0,
-                    "texCords": [
-                      {
-                        "x": 0.4285714626312256,
-                        "y": 1.0
-                      },
-                      {
-                        "x": 0.4285714626312256,
-                        "y": 0.800000011920929
-                      },
-                      {
-                        "x": 0.2857142984867096,
-                        "y": 0.800000011920929
-                      },
-                      {
-                        "x": 0.2857142984867096,
-                        "y": 1.0
-                      }
-                    ],
-                    "componentID": 1034
-                  },
-                  "used": true
-                }
-              ]
-            },
-            {
-              "title": "inactive",
-              "doesLoop": true,
-              "frameList": [
-                {
-                  "frameTime": 0.1,
-                  "spriteRenderer": {
-                    "spriteID": 0,
-                    "color": {
-                      "x": 1.0,
-                      "y": 1.0,
-                      "z": 1.0,
-                      "w": 1.0
-                    },
-                    "texture": {
-                      "filePath": "assets/images/items.png",
-                      "texID": 3,
-                      "width": 112,
-                      "height": 80
-                    },
-                    "width": 16.0,
-                    "height": 16.0,
-                    "texCords": [
-                      {
-                        "x": 0.5714285969734192,
-                        "y": 1.0
-                      },
-                      {
-                        "x": 0.5714285969734192,
-                        "y": 0.800000011920929
-                      },
-                      {
-                        "x": 0.4285714626312256,
-                        "y": 0.800000011920929
-                      },
-                      {
-                        "x": 0.4285714626312256,
-                        "y": 1.0
-                      }
-                    ],
-                    "componentID": 1035
-                  },
-                  "used": true
-                }
-              ]
-            }
-          ],
-          "nextAnimation": "inactive",
-          "defaultAnimation": "active",
-          "componentID": 1031
-        }
-      },
-      {
-        "Type": "main.components.behaviour.QuestionBlockBeh",
-        "Properties": {
-          "blockType": "PowerUp",
-          "speed": 3.0,
-          "distance": 0.4,
-          "componentID": 1036
-        }
-      }
-    ]
-  },
-  {
-    "gameObjectID": 497,
-    "name": "Generated",
-    "isSerializable": true,
-    "isTriggerable": true,
-    "componentList": [
-      {
-        "Type": "main.haspid.Transform",
-        "Properties": {
-          "position": {
-            "x": 43.2,
-            "y": 17.6
-          },
-          "scale": {
-            "x": 3.2,
-            "y": 3.2
-          },
-          "rotation": 0.0,
-          "zIndex": 1,
-          "componentID": 1038
-        }
-      },
-      {
-        "Type": "main.components.SpriteRenderer",
-        "Properties": {
-          "spriteID": 4,
-          "color": {
-            "x": 1.0,
-            "y": 1.0,
-            "z": 1.0,
-            "w": 1.0
-          },
-          "texture": {
-            "filePath": "assets/images/items.png",
-            "texID": 3,
-            "width": 112,
-            "height": 80
-          },
-          "width": 16.0,
-          "height": 16.0,
-          "texCords": [
-            {
-              "x": 0.5714285969734192,
-              "y": 1.0
-            },
-            {
-              "x": 0.5714285969734192,
-              "y": 0.800000011920929
-            },
-            {
-              "x": 0.4285714626312256,
-              "y": 0.800000011920929
-            },
-            {
-              "x": 0.4285714626312256,
-              "y": 1.0
-            }
-          ],
-          "componentID": 1039
-        }
-      },
-      {
-        "Type": "main.components.physicsComponent.RigidBody",
-        "Properties": {
-          "mass": 0.0,
-          "friction": 0.1,
-          "isSensor": false,
-          "velocity": {
-            "x": 0.0,
-            "y": 0.0
-          },
-          "bodyType": "Static",
-          "gravityScale": 1.0,
-          "linearDamping": 0.9,
-          "angularDamping": 0.8,
-          "angularVelocity": 0.0,
-          "fixedRotation": false,
-          "continuousCollision": true,
-          "updateRotation": false,
-          "componentID": 1040
-        }
-      },
-      {
-        "Type": "main.components.physicsComponent.BoxCollider",
-        "Properties": {
-          "halfSize": {
-            "x": 1.6,
-            "y": 1.6
-          },
-          "origin": {
-            "x": 0.0,
-            "y": 0.0
-          },
-          "center": {
-            "x": 43.2,
-            "y": 17.6
-          },
-          "offset": {
-            "x": 0.0,
-            "y": 0.0
-          },
-          "componentID": 1041
-        }
-      },
-      {
-        "Type": "main.components.stateMachine.StateMachine",
-        "Properties": {
-          "animationList": [
-            {
-              "title": "active",
-              "doesLoop": true,
-              "frameList": [
-                {
-                  "frameTime": 0.5699999928474426,
-                  "spriteRenderer": {
-                    "spriteID": 0,
-                    "color": {
-                      "x": 1.0,
-                      "y": 1.0,
-                      "z": 1.0,
-                      "w": 1.0
-                    },
-                    "texture": {
-                      "filePath": "assets/images/items.png",
-                      "texID": 3,
-                      "width": 112,
-                      "height": 80
-                    },
-                    "width": 16.0,
-                    "height": 16.0,
-                    "texCords": [
-                      {
-                        "x": 0.1428571492433548,
-                        "y": 1.0
-                      },
-                      {
-                        "x": 0.1428571492433548,
-                        "y": 0.800000011920929
-                      },
-                      {
-                        "x": 0.0,
-                        "y": 0.800000011920929
-                      },
-                      {
-                        "x": 0.0,
-                        "y": 1.0
-                      }
-                    ],
-                    "componentID": 1043
-                  },
-                  "used": true
-                },
-                {
-                  "frameTime": 0.23000000417232513,
-                  "spriteRenderer": {
-                    "spriteID": 0,
-                    "color": {
-                      "x": 1.0,
-                      "y": 1.0,
-                      "z": 1.0,
-                      "w": 1.0
-                    },
-                    "texture": {
-                      "filePath": "assets/images/items.png",
-                      "texID": 3,
-                      "width": 112,
-                      "height": 80
-                    },
-                    "width": 16.0,
-                    "height": 16.0,
-                    "texCords": [
-                      {
-                        "x": 0.2857142984867096,
-                        "y": 1.0
-                      },
-                      {
-                        "x": 0.2857142984867096,
-                        "y": 0.800000011920929
-                      },
-                      {
-                        "x": 0.1428571492433548,
-                        "y": 0.800000011920929
-                      },
-                      {
-                        "x": 0.1428571492433548,
-                        "y": 1.0
-                      }
-                    ],
-                    "componentID": 1044
-                  },
-                  "used": true
-                },
-                {
-                  "frameTime": 0.23000000417232513,
-                  "spriteRenderer": {
-                    "spriteID": 0,
-                    "color": {
-                      "x": 1.0,
-                      "y": 1.0,
-                      "z": 1.0,
-                      "w": 1.0
-                    },
-                    "texture": {
-                      "filePath": "assets/images/items.png",
-                      "texID": 3,
-                      "width": 112,
-                      "height": 80
-                    },
-                    "width": 16.0,
-                    "height": 16.0,
-                    "texCords": [
-                      {
-                        "x": 0.4285714626312256,
-                        "y": 1.0
-                      },
-                      {
-                        "x": 0.4285714626312256,
-                        "y": 0.800000011920929
-                      },
-                      {
-                        "x": 0.2857142984867096,
-                        "y": 0.800000011920929
-                      },
-                      {
-                        "x": 0.2857142984867096,
-                        "y": 1.0
-                      }
-                    ],
-                    "componentID": 1045
-                  },
-                  "used": true
-                }
-              ]
-            },
-            {
-              "title": "inactive",
-              "doesLoop": true,
-              "frameList": [
-                {
-                  "frameTime": 0.1,
-                  "spriteRenderer": {
-                    "spriteID": 0,
-                    "color": {
-                      "x": 1.0,
-                      "y": 1.0,
-                      "z": 1.0,
-                      "w": 1.0
-                    },
-                    "texture": {
-                      "filePath": "assets/images/items.png",
-                      "texID": 3,
-                      "width": 112,
-                      "height": 80
-                    },
-                    "width": 16.0,
-                    "height": 16.0,
-                    "texCords": [
-                      {
-                        "x": 0.5714285969734192,
-                        "y": 1.0
-                      },
-                      {
-                        "x": 0.5714285969734192,
-                        "y": 0.800000011920929
-                      },
-                      {
-                        "x": 0.4285714626312256,
-                        "y": 0.800000011920929
-                      },
-                      {
-                        "x": 0.4285714626312256,
-                        "y": 1.0
-                      }
-                    ],
-                    "componentID": 1046
-                  },
-                  "used": true
-                }
-              ]
-            }
-          ],
-          "nextAnimation": "inactive",
-          "defaultAnimation": "active",
-          "componentID": 1042
-        }
-      },
-      {
-        "Type": "main.components.behaviour.QuestionBlockBeh",
-        "Properties": {
-          "blockType": "PowerUp",
-          "speed": 3.0,
-          "distance": 0.4,
-          "componentID": 1047
-        }
-      }
-    ]
-  },
-  {
-    "gameObjectID": 498,
-    "name": "Generated",
-    "isSerializable": true,
-    "isTriggerable": true,
-    "componentList": [
-      {
-        "Type": "main.haspid.Transform",
-        "Properties": {
-          "position": {
-            "x": 46.400000000000006,
-            "y": 17.6
-          },
-          "scale": {
-            "x": 3.2,
-            "y": 3.2
-          },
-          "rotation": 0.0,
-          "zIndex": 1,
-          "componentID": 1049
-        }
-      },
-      {
-        "Type": "main.components.SpriteRenderer",
-        "Properties": {
-          "spriteID": 3,
-          "color": {
-            "x": 1.0,
-            "y": 1.0,
-            "z": 1.0,
-            "w": 1.0
-          },
-          "texture": {
-            "filePath": "assets/images/items.png",
-            "texID": 3,
-            "width": 112,
-            "height": 80
-          },
-          "width": 16.0,
-          "height": 16.0,
-          "texCords": [
-            {
-              "x": 0.5714285969734192,
-              "y": 1.0
-            },
-            {
-              "x": 0.5714285969734192,
-              "y": 0.800000011920929
-            },
-            {
-              "x": 0.4285714626312256,
-              "y": 0.800000011920929
-            },
-            {
-              "x": 0.4285714626312256,
-              "y": 1.0
-            }
-          ],
-          "componentID": 1050
-        }
-      },
-      {
-        "Type": "main.components.physicsComponent.RigidBody",
-        "Properties": {
-          "mass": 0.0,
-          "friction": 0.1,
-          "isSensor": false,
-          "velocity": {
-            "x": 0.0,
-            "y": 0.0
-          },
-          "bodyType": "Static",
-          "gravityScale": 1.0,
-          "linearDamping": 0.9,
-          "angularDamping": 0.8,
-          "angularVelocity": 0.0,
-          "fixedRotation": false,
-          "continuousCollision": true,
-          "updateRotation": false,
-          "componentID": 1051
-        }
-      },
-      {
-        "Type": "main.components.physicsComponent.BoxCollider",
-        "Properties": {
-          "halfSize": {
-            "x": 1.6,
-            "y": 1.6
-          },
-          "origin": {
-            "x": 0.0,
-            "y": 0.0
-          },
-          "center": {
-            "x": 46.400000000000006,
-            "y": 17.6
-          },
-          "offset": {
-            "x": 0.0,
-            "y": 0.0
-          },
-          "componentID": 1052
-        }
-      },
-      {
-        "Type": "main.components.stateMachine.StateMachine",
-        "Properties": {
-          "animationList": [
-            {
-              "title": "active",
-              "doesLoop": true,
-              "frameList": [
-                {
-                  "frameTime": 0.5699999928474426,
-                  "spriteRenderer": {
-                    "spriteID": 0,
-                    "color": {
-                      "x": 1.0,
-                      "y": 1.0,
-                      "z": 1.0,
-                      "w": 1.0
-                    },
-                    "texture": {
-                      "filePath": "assets/images/items.png",
-                      "texID": 3,
-                      "width": 112,
-                      "height": 80
-                    },
-                    "width": 16.0,
-                    "height": 16.0,
-                    "texCords": [
-                      {
-                        "x": 0.1428571492433548,
-                        "y": 1.0
-                      },
-                      {
-                        "x": 0.1428571492433548,
-                        "y": 0.800000011920929
-                      },
-                      {
-                        "x": 0.0,
-                        "y": 0.800000011920929
-                      },
-                      {
-                        "x": 0.0,
-                        "y": 1.0
-                      }
-                    ],
-                    "componentID": 1054
-                  },
-                  "used": true
-                },
-                {
-                  "frameTime": 0.23000000417232513,
-                  "spriteRenderer": {
-                    "spriteID": 0,
-                    "color": {
-                      "x": 1.0,
-                      "y": 1.0,
-                      "z": 1.0,
-                      "w": 1.0
-                    },
-                    "texture": {
-                      "filePath": "assets/images/items.png",
-                      "texID": 3,
-                      "width": 112,
-                      "height": 80
-                    },
-                    "width": 16.0,
-                    "height": 16.0,
-                    "texCords": [
-                      {
-                        "x": 0.2857142984867096,
-                        "y": 1.0
-                      },
-                      {
-                        "x": 0.2857142984867096,
-                        "y": 0.800000011920929
-                      },
-                      {
-                        "x": 0.1428571492433548,
-                        "y": 0.800000011920929
-                      },
-                      {
-                        "x": 0.1428571492433548,
-                        "y": 1.0
-                      }
-                    ],
-                    "componentID": 1055
-                  },
-                  "used": true
-                },
-                {
-                  "frameTime": 0.23000000417232513,
-                  "spriteRenderer": {
-                    "spriteID": 0,
-                    "color": {
-                      "x": 1.0,
-                      "y": 1.0,
-                      "z": 1.0,
-                      "w": 1.0
-                    },
-                    "texture": {
-                      "filePath": "assets/images/items.png",
-                      "texID": 3,
-                      "width": 112,
-                      "height": 80
-                    },
-                    "width": 16.0,
-                    "height": 16.0,
-                    "texCords": [
-                      {
-                        "x": 0.4285714626312256,
-                        "y": 1.0
-                      },
-                      {
-                        "x": 0.4285714626312256,
-                        "y": 0.800000011920929
-                      },
-                      {
-                        "x": 0.2857142984867096,
-                        "y": 0.800000011920929
-                      },
-                      {
-                        "x": 0.2857142984867096,
-                        "y": 1.0
-                      }
-                    ],
-                    "componentID": 1056
-                  },
-                  "used": true
-                }
-              ]
-            },
-            {
-              "title": "inactive",
-              "doesLoop": true,
-              "frameList": [
-                {
-                  "frameTime": 0.1,
-                  "spriteRenderer": {
-                    "spriteID": 0,
-                    "color": {
-                      "x": 1.0,
-                      "y": 1.0,
-                      "z": 1.0,
-                      "w": 1.0
-                    },
-                    "texture": {
-                      "filePath": "assets/images/items.png",
-                      "texID": 3,
-                      "width": 112,
-                      "height": 80
-                    },
-                    "width": 16.0,
-                    "height": 16.0,
-                    "texCords": [
-                      {
-                        "x": 0.5714285969734192,
-                        "y": 1.0
-                      },
-                      {
-                        "x": 0.5714285969734192,
-                        "y": 0.800000011920929
-                      },
-                      {
-                        "x": 0.4285714626312256,
-                        "y": 0.800000011920929
-                      },
-                      {
-                        "x": 0.4285714626312256,
-                        "y": 1.0
-                      }
-                    ],
-                    "componentID": 1057
-                  },
-                  "used": true
-                }
-              ]
-            }
-          ],
-          "nextAnimation": "inactive",
-          "defaultAnimation": "active",
-          "componentID": 1053
-        }
-      },
-      {
-        "Type": "main.components.behaviour.QuestionBlockBeh",
-        "Properties": {
-          "blockType": "PowerUp",
-          "speed": 3.0,
-          "distance": 0.4,
-          "componentID": 1058
-        }
-      }
-    ]
-  },
-  {
-    "gameObjectID": 499,
-    "name": "Generated",
-    "isSerializable": true,
-    "isTriggerable": true,
-    "componentList": [
-      {
-        "Type": "main.haspid.Transform",
-        "Properties": {
-          "position": {
-            "x": 49.6,
-            "y": 17.6
-          },
-          "scale": {
-            "x": 3.2,
-            "y": 3.2
-          },
-          "rotation": 0.0,
-          "zIndex": 1,
-          "componentID": 1060
-        }
-      },
-      {
-        "Type": "main.components.SpriteRenderer",
-        "Properties": {
-          "spriteID": 7,
-          "color": {
-            "x": 1.0,
-            "y": 1.0,
-            "z": 1.0,
-            "w": 1.0
-          },
-          "texture": {
-            "filePath": "assets/images/items.png",
-            "texID": 3,
-            "width": 112,
-            "height": 80
-          },
-          "width": 16.0,
-          "height": 16.0,
-          "texCords": [
-            {
-              "x": 0.5714285969734192,
-              "y": 1.0
-            },
-            {
-              "x": 0.5714285969734192,
-              "y": 0.800000011920929
-            },
-            {
-              "x": 0.4285714626312256,
-              "y": 0.800000011920929
-            },
-            {
-              "x": 0.4285714626312256,
-              "y": 1.0
-            }
-          ],
-          "componentID": 1061
-        }
-      },
-      {
-        "Type": "main.components.physicsComponent.RigidBody",
-        "Properties": {
-          "mass": 0.0,
-          "friction": 0.1,
-          "isSensor": false,
-          "velocity": {
-            "x": 0.0,
-            "y": 0.0
-          },
-          "bodyType": "Static",
-          "gravityScale": 1.0,
-          "linearDamping": 0.9,
-          "angularDamping": 0.8,
-          "angularVelocity": 0.0,
-          "fixedRotation": false,
-          "continuousCollision": true,
-          "updateRotation": false,
-          "componentID": 1062
-        }
-      },
-      {
-        "Type": "main.components.physicsComponent.BoxCollider",
-        "Properties": {
-          "halfSize": {
-            "x": 1.6,
-            "y": 1.6
-          },
-          "origin": {
-            "x": 0.0,
-            "y": 0.0
-          },
-          "center": {
-            "x": 49.6,
-            "y": 17.6
-          },
-          "offset": {
-            "x": 0.0,
-            "y": 0.0
-          },
-          "componentID": 1063
-        }
-      },
-      {
-        "Type": "main.components.stateMachine.StateMachine",
-        "Properties": {
-          "animationList": [
-            {
-              "title": "active",
-              "doesLoop": true,
-              "frameList": [
-                {
-                  "frameTime": 0.5699999928474426,
-                  "spriteRenderer": {
-                    "spriteID": 0,
-                    "color": {
-                      "x": 1.0,
-                      "y": 1.0,
-                      "z": 1.0,
-                      "w": 1.0
-                    },
-                    "texture": {
-                      "filePath": "assets/images/items.png",
-                      "texID": 3,
-                      "width": 112,
-                      "height": 80
-                    },
-                    "width": 16.0,
-                    "height": 16.0,
-                    "texCords": [
-                      {
-                        "x": 0.1428571492433548,
-                        "y": 1.0
-                      },
-                      {
-                        "x": 0.1428571492433548,
-                        "y": 0.800000011920929
-                      },
-                      {
-                        "x": 0.0,
-                        "y": 0.800000011920929
-                      },
-                      {
-                        "x": 0.0,
-                        "y": 1.0
-                      }
-                    ],
-                    "componentID": 1065
-                  },
-                  "used": true
-                },
-                {
-                  "frameTime": 0.23000000417232513,
-                  "spriteRenderer": {
-                    "spriteID": 0,
-                    "color": {
-                      "x": 1.0,
-                      "y": 1.0,
-                      "z": 1.0,
-                      "w": 1.0
-                    },
-                    "texture": {
-                      "filePath": "assets/images/items.png",
-                      "texID": 3,
-                      "width": 112,
-                      "height": 80
-                    },
-                    "width": 16.0,
-                    "height": 16.0,
-                    "texCords": [
-                      {
-                        "x": 0.2857142984867096,
-                        "y": 1.0
-                      },
-                      {
-                        "x": 0.2857142984867096,
-                        "y": 0.800000011920929
-                      },
-                      {
-                        "x": 0.1428571492433548,
-                        "y": 0.800000011920929
-                      },
-                      {
-                        "x": 0.1428571492433548,
-                        "y": 1.0
-                      }
-                    ],
-                    "componentID": 1066
-                  },
-                  "used": true
-                },
-                {
-                  "frameTime": 0.23000000417232513,
-                  "spriteRenderer": {
-                    "spriteID": 0,
-                    "color": {
-                      "x": 1.0,
-                      "y": 1.0,
-                      "z": 1.0,
-                      "w": 1.0
-                    },
-                    "texture": {
-                      "filePath": "assets/images/items.png",
-                      "texID": 3,
-                      "width": 112,
-                      "height": 80
-                    },
-                    "width": 16.0,
-                    "height": 16.0,
-                    "texCords": [
-                      {
-                        "x": 0.4285714626312256,
-                        "y": 1.0
-                      },
-                      {
-                        "x": 0.4285714626312256,
-                        "y": 0.800000011920929
-                      },
-                      {
-                        "x": 0.2857142984867096,
-                        "y": 0.800000011920929
-                      },
-                      {
-                        "x": 0.2857142984867096,
-                        "y": 1.0
-                      }
-                    ],
-                    "componentID": 1067
-                  },
-                  "used": true
-                }
-              ]
-            },
-            {
-              "title": "inactive",
-              "doesLoop": true,
-              "frameList": [
-                {
-                  "frameTime": 0.1,
-                  "spriteRenderer": {
-                    "spriteID": 0,
-                    "color": {
-                      "x": 1.0,
-                      "y": 1.0,
-                      "z": 1.0,
-                      "w": 1.0
-                    },
-                    "texture": {
-                      "filePath": "assets/images/items.png",
-                      "texID": 3,
-                      "width": 112,
-                      "height": 80
-                    },
-                    "width": 16.0,
-                    "height": 16.0,
-                    "texCords": [
-                      {
-                        "x": 0.5714285969734192,
-                        "y": 1.0
-                      },
-                      {
-                        "x": 0.5714285969734192,
-                        "y": 0.800000011920929
-                      },
-                      {
-                        "x": 0.4285714626312256,
-                        "y": 0.800000011920929
-                      },
-                      {
-                        "x": 0.4285714626312256,
-                        "y": 1.0
-                      }
-                    ],
-                    "componentID": 1068
-                  },
-                  "used": true
-                }
-              ]
-            }
-          ],
-          "nextAnimation": "inactive",
-          "defaultAnimation": "active",
-          "componentID": 1064
-        }
-      },
-      {
-        "Type": "main.components.behaviour.QuestionBlockBeh",
-        "Properties": {
-          "blockType": "PowerUp",
-          "speed": 3.0,
-          "distance": 0.4,
-          "componentID": 1069
-        }
-      }
-    ]
-  },
-  {
-    "gameObjectID": 500,
-    "name": "Generated",
-    "isSerializable": true,
-    "isTriggerable": true,
-    "componentList": [
-      {
-        "Type": "main.haspid.Transform",
-        "Properties": {
-          "position": {
-            "x": 52.800000000000004,
-            "y": 17.6
-          },
-          "scale": {
-            "x": 3.2,
-            "y": 3.2
-          },
-          "rotation": 0.0,
-          "zIndex": 1,
-          "componentID": 1071
-        }
-      },
-      {
-        "Type": "main.components.SpriteRenderer",
-        "Properties": {
-          "spriteID": 6,
-          "color": {
-            "x": 1.0,
-            "y": 1.0,
-            "z": 1.0,
-            "w": 1.0
-          },
-          "texture": {
-            "filePath": "assets/images/items.png",
-            "texID": 3,
-            "width": 112,
-            "height": 80
-          },
-          "width": 16.0,
-          "height": 16.0,
-          "texCords": [
-            {
-              "x": 0.5714285969734192,
-              "y": 1.0
-            },
-            {
-              "x": 0.5714285969734192,
-              "y": 0.800000011920929
-            },
-            {
-              "x": 0.4285714626312256,
-              "y": 0.800000011920929
-            },
-            {
-              "x": 0.4285714626312256,
-              "y": 1.0
-            }
-          ],
-          "componentID": 1072
-        }
-      },
-      {
-        "Type": "main.components.physicsComponent.RigidBody",
-        "Properties": {
-          "mass": 0.0,
-          "friction": 0.1,
-          "isSensor": false,
-          "velocity": {
-            "x": 0.0,
-            "y": 0.0
-          },
-          "bodyType": "Static",
-          "gravityScale": 1.0,
-          "linearDamping": 0.9,
-          "angularDamping": 0.8,
-          "angularVelocity": 0.0,
-          "fixedRotation": false,
-          "continuousCollision": true,
-          "updateRotation": false,
-          "componentID": 1073
-        }
-      },
-      {
-        "Type": "main.components.physicsComponent.BoxCollider",
-        "Properties": {
-          "halfSize": {
-            "x": 1.6,
-            "y": 1.6
-          },
-          "origin": {
-            "x": 0.0,
-            "y": 0.0
-          },
-          "center": {
-            "x": 52.800000000000004,
-            "y": 17.6
-          },
-          "offset": {
-            "x": 0.0,
-            "y": 0.0
-          },
-          "componentID": 1074
-        }
-      },
-      {
-        "Type": "main.components.stateMachine.StateMachine",
-        "Properties": {
-          "animationList": [
-            {
-              "title": "active",
-              "doesLoop": true,
-              "frameList": [
-                {
-                  "frameTime": 0.5699999928474426,
-                  "spriteRenderer": {
-                    "spriteID": 0,
-                    "color": {
-                      "x": 1.0,
-                      "y": 1.0,
-                      "z": 1.0,
-                      "w": 1.0
-                    },
-                    "texture": {
-                      "filePath": "assets/images/items.png",
-                      "texID": 3,
-                      "width": 112,
-                      "height": 80
-                    },
-                    "width": 16.0,
-                    "height": 16.0,
-                    "texCords": [
-                      {
-                        "x": 0.1428571492433548,
-                        "y": 1.0
-                      },
-                      {
-                        "x": 0.1428571492433548,
-                        "y": 0.800000011920929
-                      },
-                      {
-                        "x": 0.0,
-                        "y": 0.800000011920929
-                      },
-                      {
-                        "x": 0.0,
-                        "y": 1.0
-                      }
-                    ],
-                    "componentID": 1076
-                  },
-                  "used": true
-                },
-                {
-                  "frameTime": 0.23000000417232513,
-                  "spriteRenderer": {
-                    "spriteID": 0,
-                    "color": {
-                      "x": 1.0,
-                      "y": 1.0,
-                      "z": 1.0,
-                      "w": 1.0
-                    },
-                    "texture": {
-                      "filePath": "assets/images/items.png",
-                      "texID": 3,
-                      "width": 112,
-                      "height": 80
-                    },
-                    "width": 16.0,
-                    "height": 16.0,
-                    "texCords": [
-                      {
-                        "x": 0.2857142984867096,
-                        "y": 1.0
-                      },
-                      {
-                        "x": 0.2857142984867096,
-                        "y": 0.800000011920929
-                      },
-                      {
-                        "x": 0.1428571492433548,
-                        "y": 0.800000011920929
-                      },
-                      {
-                        "x": 0.1428571492433548,
-                        "y": 1.0
-                      }
-                    ],
-                    "componentID": 1077
-                  },
-                  "used": true
-                },
-                {
-                  "frameTime": 0.23000000417232513,
-                  "spriteRenderer": {
-                    "spriteID": 0,
-                    "color": {
-                      "x": 1.0,
-                      "y": 1.0,
-                      "z": 1.0,
-                      "w": 1.0
-                    },
-                    "texture": {
-                      "filePath": "assets/images/items.png",
-                      "texID": 3,
-                      "width": 112,
-                      "height": 80
-                    },
-                    "width": 16.0,
-                    "height": 16.0,
-                    "texCords": [
-                      {
-                        "x": 0.4285714626312256,
-                        "y": 1.0
-                      },
-                      {
-                        "x": 0.4285714626312256,
-                        "y": 0.800000011920929
-                      },
-                      {
-                        "x": 0.2857142984867096,
-                        "y": 0.800000011920929
-                      },
-                      {
-                        "x": 0.2857142984867096,
-                        "y": 1.0
-                      }
-                    ],
-                    "componentID": 1078
-                  },
-                  "used": true
-                }
-              ]
-            },
-            {
-              "title": "inactive",
-              "doesLoop": true,
-              "frameList": [
-                {
-                  "frameTime": 0.1,
-                  "spriteRenderer": {
-                    "spriteID": 0,
-                    "color": {
-                      "x": 1.0,
-                      "y": 1.0,
-                      "z": 1.0,
-                      "w": 1.0
-                    },
-                    "texture": {
-                      "filePath": "assets/images/items.png",
-                      "texID": 3,
-                      "width": 112,
-                      "height": 80
-                    },
-                    "width": 16.0,
-                    "height": 16.0,
-                    "texCords": [
-                      {
-                        "x": 0.5714285969734192,
-                        "y": 1.0
-                      },
-                      {
-                        "x": 0.5714285969734192,
-                        "y": 0.800000011920929
-                      },
-                      {
-                        "x": 0.4285714626312256,
-                        "y": 0.800000011920929
-                      },
-                      {
-                        "x": 0.4285714626312256,
-                        "y": 1.0
-                      }
-                    ],
-                    "componentID": 1079
-                  },
-                  "used": true
-                }
-              ]
-            }
-          ],
-          "nextAnimation": "inactive",
-          "defaultAnimation": "active",
-          "componentID": 1075
-        }
-      },
-      {
-        "Type": "main.components.behaviour.QuestionBlockBeh",
-        "Properties": {
-          "blockType": "PowerUp",
-          "speed": 3.0,
-          "distance": 0.4,
-          "componentID": 1080
-        }
-      }
-    ]
-  },
-  {
-    "gameObjectID": 501,
-    "name": "Generated",
-    "isSerializable": true,
-    "isTriggerable": true,
-    "componentList": [
-      {
-        "Type": "main.haspid.Transform",
-        "Properties": {
-          "position": {
-            "x": 61.272789001464844,
-            "y": 9.619585990905762
-          },
-          "scale": {
-            "x": -3.2,
-            "y": 6.4
-          },
-          "rotation": 0.0,
-          "zIndex": 1,
-          "componentID": 1083
-        }
-      },
-      {
-        "Type": "main.components.SpriteRenderer",
-        "Properties": {
-          "spriteID": 6,
-          "color": {
-            "x": 1.0,
-            "y": 1.0,
-            "z": 1.0,
-            "w": 1.0
-          },
-          "texture": {
-            "filePath": "assets/images/bigForm.png",
-            "texID": 5,
-            "width": 336,
-            "height": 64
-          },
-          "width": 16.0,
-          "height": 16.0,
-          "texCords": [
-            {
-              "x": 0.0476190485060215,
-              "y": 1.0
-            },
-            {
-              "x": 0.0476190485060215,
               "y": 0.5
             },
             {
@@ -5391,7 +4277,7 @@
               "y": 1.0
             }
           ],
-          "componentID": 1084
+          "componentID": 295
         }
       },
       {
@@ -5399,7 +4285,7 @@
         "Properties": {
           "mass": 0.0,
           "friction": 0.1,
-          "isSensor": true,
+          "isSensor": false,
           "velocity": {
             "x": 0.0,
             "y": 0.0
@@ -5412,7 +4298,7 @@
           "fixedRotation": false,
           "continuousCollision": true,
           "updateRotation": false,
-          "componentID": 1085
+          "componentID": 296
         }
       },
       {
@@ -5420,21 +4306,335 @@
         "Properties": {
           "halfSize": {
             "x": 1.6,
-            "y": 3.2
+            "y": 1.6
           },
           "origin": {
             "x": 0.0,
             "y": 0.0
           },
           "center": {
-            "x": 61.272789001464844,
-            "y": 9.619585990905762
+            "x": 16.3176326751709,
+            "y": 11.417936325073242
           },
           "offset": {
             "x": 0.0,
             "y": 0.0
           },
-          "componentID": 1086
+          "componentID": 297
+        }
+      },
+      {
+        "Type": "main.components.stateMachine.StateMachine",
+        "Properties": {
+          "animationList": [
+            {
+              "title": "idle",
+              "doesLoop": true,
+              "frameList": [
+                {
+                  "frameTime": 1.0,
+                  "spriteRenderer": {
+                    "spriteID": 0,
+                    "color": {
+                      "x": 1.0,
+                      "y": 1.0,
+                      "z": 1.0,
+                      "w": 1.0
+                    },
+                    "texture": {
+                      "filePath": "assets/images/smallForm.png",
+                      "texID": 4,
+                      "width": 224,
+                      "height": 32
+                    },
+                    "width": 16.0,
+                    "height": 16.0,
+                    "texCords": [
+                      {
+                        "x": 0.0714285746216774,
+                        "y": 1.0
+                      },
+                      {
+                        "x": 0.0714285746216774,
+                        "y": 0.5
+                      },
+                      {
+                        "x": 0.0,
+                        "y": 0.5
+                      },
+                      {
+                        "x": 0.0,
+                        "y": 1.0
+                      }
+                    ],
+                    "componentID": 33
+                  },
+                  "used": true
+                }
+              ]
+            },
+            {
+              "title": "switch",
+              "doesLoop": false,
+              "frameList": [
+                {
+                  "frameTime": 0.2,
+                  "spriteRenderer": {
+                    "spriteID": 0,
+                    "color": {
+                      "x": 1.0,
+                      "y": 1.0,
+                      "z": 1.0,
+                      "w": 1.0
+                    },
+                    "texture": {
+                      "filePath": "assets/images/smallForm.png",
+                      "texID": 4,
+                      "width": 224,
+                      "height": 32
+                    },
+                    "width": 16.0,
+                    "height": 16.0,
+                    "texCords": [
+                      {
+                        "x": 0.3571428656578064,
+                        "y": 1.0
+                      },
+                      {
+                        "x": 0.3571428656578064,
+                        "y": 0.5
+                      },
+                      {
+                        "x": 0.2857142984867096,
+                        "y": 0.5
+                      },
+                      {
+                        "x": 0.2857142984867096,
+                        "y": 1.0
+                      }
+                    ],
+                    "componentID": 37
+                  },
+                  "used": false
+                }
+              ]
+            },
+            {
+              "title": "run",
+              "doesLoop": true,
+              "frameList": [
+                {
+                  "frameTime": 0.23,
+                  "spriteRenderer": {
+                    "spriteID": 0,
+                    "color": {
+                      "x": 1.0,
+                      "y": 1.0,
+                      "z": 1.0,
+                      "w": 1.0
+                    },
+                    "texture": {
+                      "filePath": "assets/images/smallForm.png",
+                      "texID": 4,
+                      "width": 224,
+                      "height": 32
+                    },
+                    "width": 16.0,
+                    "height": 16.0,
+                    "texCords": [
+                      {
+                        "x": 0.0714285746216774,
+                        "y": 1.0
+                      },
+                      {
+                        "x": 0.0714285746216774,
+                        "y": 0.5
+                      },
+                      {
+                        "x": 0.0,
+                        "y": 0.5
+                      },
+                      {
+                        "x": 0.0,
+                        "y": 1.0
+                      }
+                    ],
+                    "componentID": 33
+                  },
+                  "used": true
+                },
+                {
+                  "frameTime": 0.23,
+                  "spriteRenderer": {
+                    "spriteID": 0,
+                    "color": {
+                      "x": 1.0,
+                      "y": 1.0,
+                      "z": 1.0,
+                      "w": 1.0
+                    },
+                    "texture": {
+                      "filePath": "assets/images/smallForm.png",
+                      "texID": 4,
+                      "width": 224,
+                      "height": 32
+                    },
+                    "width": 16.0,
+                    "height": 16.0,
+                    "texCords": [
+                      {
+                        "x": 0.2142857313156128,
+                        "y": 1.0
+                      },
+                      {
+                        "x": 0.2142857313156128,
+                        "y": 0.5
+                      },
+                      {
+                        "x": 0.1428571492433548,
+                        "y": 0.5
+                      },
+                      {
+                        "x": 0.1428571492433548,
+                        "y": 1.0
+                      }
+                    ],
+                    "componentID": 35
+                  },
+                  "used": true
+                },
+                {
+                  "frameTime": 0.23,
+                  "spriteRenderer": {
+                    "spriteID": 0,
+                    "color": {
+                      "x": 1.0,
+                      "y": 1.0,
+                      "z": 1.0,
+                      "w": 1.0
+                    },
+                    "texture": {
+                      "filePath": "assets/images/smallForm.png",
+                      "texID": 4,
+                      "width": 224,
+                      "height": 32
+                    },
+                    "width": 16.0,
+                    "height": 16.0,
+                    "texCords": [
+                      {
+                        "x": 0.2857142984867096,
+                        "y": 1.0
+                      },
+                      {
+                        "x": 0.2857142984867096,
+                        "y": 0.5
+                      },
+                      {
+                        "x": 0.2142857313156128,
+                        "y": 0.5
+                      },
+                      {
+                        "x": 0.2142857313156128,
+                        "y": 1.0
+                      }
+                    ],
+                    "componentID": 36
+                  },
+                  "used": true
+                },
+                {
+                  "frameTime": 0.23,
+                  "spriteRenderer": {
+                    "spriteID": 0,
+                    "color": {
+                      "x": 1.0,
+                      "y": 1.0,
+                      "z": 1.0,
+                      "w": 1.0
+                    },
+                    "texture": {
+                      "filePath": "assets/images/smallForm.png",
+                      "texID": 4,
+                      "width": 224,
+                      "height": 32
+                    },
+                    "width": 16.0,
+                    "height": 16.0,
+                    "texCords": [
+                      {
+                        "x": 0.2142857313156128,
+                        "y": 1.0
+                      },
+                      {
+                        "x": 0.2142857313156128,
+                        "y": 0.5
+                      },
+                      {
+                        "x": 0.1428571492433548,
+                        "y": 0.5
+                      },
+                      {
+                        "x": 0.1428571492433548,
+                        "y": 1.0
+                      }
+                    ],
+                    "componentID": 35
+                  },
+                  "used": true
+                }
+              ]
+            },
+            {
+              "title": "jump",
+              "doesLoop": true,
+              "frameList": [
+                {
+                  "frameTime": 0.1,
+                  "spriteRenderer": {
+                    "spriteID": 0,
+                    "color": {
+                      "x": 1.0,
+                      "y": 1.0,
+                      "z": 1.0,
+                      "w": 1.0
+                    },
+                    "texture": {
+                      "filePath": "assets/images/smallForm.png",
+                      "texID": 4,
+                      "width": 224,
+                      "height": 32
+                    },
+                    "width": 16.0,
+                    "height": 16.0,
+                    "texCords": [
+                      {
+                        "x": 0.4285714328289032,
+                        "y": 1.0
+                      },
+                      {
+                        "x": 0.4285714328289032,
+                        "y": 0.5
+                      },
+                      {
+                        "x": 0.3571428656578064,
+                        "y": 0.5
+                      },
+                      {
+                        "x": 0.3571428656578064,
+                        "y": 1.0
+                      }
+                    ],
+                    "componentID": 38
+                  },
+                  "used": true
+                }
+              ]
+            }
+          ],
+          "nextAnimation": "idle",
+          "defaultAnimation": "idle",
+          "componentID": 84
         }
       },
       {
@@ -5456,13 +4656,105 @@
           },
           "dieDistance": 20.0,
           "dieVelocity": 30.0,
-          "isHurt": true,
-          "hurtTime": 2.4336700439453125,
+          "isHurt": false,
+          "hurtTime": 5.0,
           "resetHurtTime": 5.0,
-          "hurtThreshold": 0.016690063476562503,
+          "hurtThreshold": 0.05,
           "resetHurtThreshold": 0.05,
           "stateMachine": {
             "animationList": [
+              {
+                "title": "idle",
+                "doesLoop": true,
+                "frameList": [
+                  {
+                    "frameTime": 1.0,
+                    "spriteRenderer": {
+                      "spriteID": 0,
+                      "color": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0,
+                        "w": 1.0
+                      },
+                      "texture": {
+                        "filePath": "assets/images/smallForm.png",
+                        "texID": 4,
+                        "width": 224,
+                        "height": 32
+                      },
+                      "width": 16.0,
+                      "height": 16.0,
+                      "texCords": [
+                        {
+                          "x": 0.0714285746216774,
+                          "y": 1.0
+                        },
+                        {
+                          "x": 0.0714285746216774,
+                          "y": 0.5
+                        },
+                        {
+                          "x": 0.0,
+                          "y": 0.5
+                        },
+                        {
+                          "x": 0.0,
+                          "y": 1.0
+                        }
+                      ],
+                      "componentID": 33
+                    },
+                    "used": true
+                  }
+                ]
+              },
+              {
+                "title": "switch",
+                "doesLoop": false,
+                "frameList": [
+                  {
+                    "frameTime": 0.2,
+                    "spriteRenderer": {
+                      "spriteID": 0,
+                      "color": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0,
+                        "w": 1.0
+                      },
+                      "texture": {
+                        "filePath": "assets/images/smallForm.png",
+                        "texID": 4,
+                        "width": 224,
+                        "height": 32
+                      },
+                      "width": 16.0,
+                      "height": 16.0,
+                      "texCords": [
+                        {
+                          "x": 0.3571428656578064,
+                          "y": 1.0
+                        },
+                        {
+                          "x": 0.3571428656578064,
+                          "y": 0.5
+                        },
+                        {
+                          "x": 0.2857142984867096,
+                          "y": 0.5
+                        },
+                        {
+                          "x": 0.2857142984867096,
+                          "y": 1.0
+                        }
+                      ],
+                      "componentID": 37
+                    },
+                    "used": false
+                  }
+                ]
+              },
               {
                 "title": "run",
                 "doesLoop": true,
@@ -5478,20 +4770,20 @@
                         "w": 1.0
                       },
                       "texture": {
-                        "filePath": "assets/images/bigForm.png",
-                        "texID": 5,
-                        "width": 336,
-                        "height": 64
+                        "filePath": "assets/images/smallForm.png",
+                        "texID": 4,
+                        "width": 224,
+                        "height": 32
                       },
                       "width": 16.0,
-                      "height": 32.0,
+                      "height": 16.0,
                       "texCords": [
                         {
-                          "x": 0.0476190485060215,
+                          "x": 0.0714285746216774,
                           "y": 1.0
                         },
                         {
-                          "x": 0.0476190485060215,
+                          "x": 0.0714285746216774,
                           "y": 0.5
                         },
                         {
@@ -5503,7 +4795,7 @@
                           "y": 1.0
                         }
                       ],
-                      "componentID": 59
+                      "componentID": 33
                     },
                     "used": true
                   },
@@ -5518,32 +4810,32 @@
                         "w": 1.0
                       },
                       "texture": {
-                        "filePath": "assets/images/bigForm.png",
-                        "texID": 5,
-                        "width": 336,
-                        "height": 64
+                        "filePath": "assets/images/smallForm.png",
+                        "texID": 4,
+                        "width": 224,
+                        "height": 32
                       },
                       "width": 16.0,
-                      "height": 32.0,
+                      "height": 16.0,
                       "texCords": [
                         {
-                          "x": 0.095238097012043,
+                          "x": 0.2142857313156128,
                           "y": 1.0
                         },
                         {
-                          "x": 0.095238097012043,
+                          "x": 0.2142857313156128,
                           "y": 0.5
                         },
                         {
-                          "x": 0.0476190485060215,
+                          "x": 0.1428571492433548,
                           "y": 0.5
                         },
                         {
-                          "x": 0.0476190485060215,
+                          "x": 0.1428571492433548,
                           "y": 1.0
                         }
                       ],
-                      "componentID": 60
+                      "componentID": 35
                     },
                     "used": true
                   },
@@ -5558,32 +4850,32 @@
                         "w": 1.0
                       },
                       "texture": {
-                        "filePath": "assets/images/bigForm.png",
-                        "texID": 5,
-                        "width": 336,
-                        "height": 64
+                        "filePath": "assets/images/smallForm.png",
+                        "texID": 4,
+                        "width": 224,
+                        "height": 32
                       },
                       "width": 16.0,
-                      "height": 32.0,
+                      "height": 16.0,
                       "texCords": [
                         {
-                          "x": 0.1428571492433548,
+                          "x": 0.2857142984867096,
                           "y": 1.0
                         },
                         {
-                          "x": 0.1428571492433548,
+                          "x": 0.2857142984867096,
                           "y": 0.5
                         },
                         {
-                          "x": 0.095238097012043,
+                          "x": 0.2142857313156128,
                           "y": 0.5
                         },
                         {
-                          "x": 0.095238097012043,
+                          "x": 0.2142857313156128,
                           "y": 1.0
                         }
                       ],
-                      "componentID": 61
+                      "componentID": 36
                     },
                     "used": true
                   },
@@ -5598,20 +4890,20 @@
                         "w": 1.0
                       },
                       "texture": {
-                        "filePath": "assets/images/bigForm.png",
-                        "texID": 5,
-                        "width": 336,
-                        "height": 64
+                        "filePath": "assets/images/smallForm.png",
+                        "texID": 4,
+                        "width": 224,
+                        "height": 32
                       },
                       "width": 16.0,
-                      "height": 32.0,
+                      "height": 16.0,
                       "texCords": [
                         {
-                          "x": 0.190476194024086,
+                          "x": 0.2142857313156128,
                           "y": 1.0
                         },
                         {
-                          "x": 0.190476194024086,
+                          "x": 0.2142857313156128,
                           "y": 0.5
                         },
                         {
@@ -5623,133 +4915,7 @@
                           "y": 1.0
                         }
                       ],
-                      "componentID": 62
-                    },
-                    "used": true
-                  },
-                  {
-                    "frameTime": 0.23,
-                    "spriteRenderer": {
-                      "spriteID": 0,
-                      "color": {
-                        "x": 1.0,
-                        "y": 1.0,
-                        "z": 1.0,
-                        "w": 1.0
-                      },
-                      "texture": {
-                        "filePath": "assets/images/bigForm.png",
-                        "texID": 5,
-                        "width": 336,
-                        "height": 64
-                      },
-                      "width": 16.0,
-                      "height": 32.0,
-                      "texCords": [
-                        {
-                          "x": 0.1428571492433548,
-                          "y": 1.0
-                        },
-                        {
-                          "x": 0.1428571492433548,
-                          "y": 0.5
-                        },
-                        {
-                          "x": 0.095238097012043,
-                          "y": 0.5
-                        },
-                        {
-                          "x": 0.095238097012043,
-                          "y": 1.0
-                        }
-                      ],
-                      "componentID": 61
-                    },
-                    "used": true
-                  },
-                  {
-                    "frameTime": 0.23,
-                    "spriteRenderer": {
-                      "spriteID": 0,
-                      "color": {
-                        "x": 1.0,
-                        "y": 1.0,
-                        "z": 1.0,
-                        "w": 1.0
-                      },
-                      "texture": {
-                        "filePath": "assets/images/bigForm.png",
-                        "texID": 5,
-                        "width": 336,
-                        "height": 64
-                      },
-                      "width": 16.0,
-                      "height": 32.0,
-                      "texCords": [
-                        {
-                          "x": 0.095238097012043,
-                          "y": 1.0
-                        },
-                        {
-                          "x": 0.095238097012043,
-                          "y": 0.5
-                        },
-                        {
-                          "x": 0.0476190485060215,
-                          "y": 0.5
-                        },
-                        {
-                          "x": 0.0476190485060215,
-                          "y": 1.0
-                        }
-                      ],
-                      "componentID": 60
-                    },
-                    "used": true
-                  }
-                ]
-              },
-              {
-                "title": "idle",
-                "doesLoop": true,
-                "frameList": [
-                  {
-                    "frameTime": 0.10000000149011612,
-                    "spriteRenderer": {
-                      "spriteID": 0,
-                      "color": {
-                        "x": 1.0,
-                        "y": 1.0,
-                        "z": 1.0,
-                        "w": 1.0
-                      },
-                      "texture": {
-                        "filePath": "assets/images/bigForm.png",
-                        "texID": 5,
-                        "width": 336,
-                        "height": 64
-                      },
-                      "width": 16.0,
-                      "height": 32.0,
-                      "texCords": [
-                        {
-                          "x": 0.0476190485060215,
-                          "y": 1.0
-                        },
-                        {
-                          "x": 0.0476190485060215,
-                          "y": 0.5
-                        },
-                        {
-                          "x": 0.0,
-                          "y": 0.5
-                        },
-                        {
-                          "x": 0.0,
-                          "y": 1.0
-                        }
-                      ],
-                      "componentID": 59
+                      "componentID": 35
                     },
                     "used": true
                   }
@@ -5760,7 +4926,7 @@
                 "doesLoop": true,
                 "frameList": [
                   {
-                    "frameTime": 0.10000000149011612,
+                    "frameTime": 0.1,
                     "spriteRenderer": {
                       "spriteID": 0,
                       "color": {
@@ -5770,483 +4936,43 @@
                         "w": 1.0
                       },
                       "texture": {
-                        "filePath": "assets/images/bigForm.png",
-                        "texID": 5,
-                        "width": 336,
-                        "height": 64
+                        "filePath": "assets/images/smallForm.png",
+                        "texID": 4,
+                        "width": 224,
+                        "height": 32
                       },
                       "width": 16.0,
-                      "height": 32.0,
+                      "height": 16.0,
                       "texCords": [
                         {
-                          "x": 0.2857142984867096,
+                          "x": 0.4285714328289032,
                           "y": 1.0
                         },
                         {
-                          "x": 0.2857142984867096,
+                          "x": 0.4285714328289032,
                           "y": 0.5
                         },
                         {
-                          "x": 0.2380952388048172,
+                          "x": 0.3571428656578064,
                           "y": 0.5
                         },
                         {
-                          "x": 0.2380952388048172,
+                          "x": 0.3571428656578064,
                           "y": 1.0
                         }
                       ],
-                      "componentID": 64
+                      "componentID": 38
                     },
-                    "used": false
-                  }
-                ]
-              },
-              {
-                "title": "switch",
-                "doesLoop": false,
-                "frameList": [
-                  {
-                    "frameTime": 0.10000000149011612,
-                    "spriteRenderer": {
-                      "spriteID": 0,
-                      "color": {
-                        "x": 1.0,
-                        "y": 1.0,
-                        "z": 1.0,
-                        "w": 1.0
-                      },
-                      "texture": {
-                        "filePath": "assets/images/bigForm.png",
-                        "texID": 5,
-                        "width": 336,
-                        "height": 64
-                      },
-                      "width": 16.0,
-                      "height": 32.0,
-                      "texCords": [
-                        {
-                          "x": 0.2380952388048172,
-                          "y": 1.0
-                        },
-                        {
-                          "x": 0.2380952388048172,
-                          "y": 0.5
-                        },
-                        {
-                          "x": 0.190476194024086,
-                          "y": 0.5
-                        },
-                        {
-                          "x": 0.190476194024086,
-                          "y": 1.0
-                        }
-                      ],
-                      "componentID": 63
-                    },
-                    "used": false
+                    "used": true
                   }
                 ]
               }
             ],
             "nextAnimation": "idle",
             "defaultAnimation": "idle",
-            "componentID": 1
+            "componentID": 84
           },
-          "componentID": 1087
-        }
-      },
-      {
-        "Type": "main.components.stateMachine.StateMachine",
-        "Properties": {
-          "animationList": [
-            {
-              "title": "run",
-              "doesLoop": true,
-              "frameList": [
-                {
-                  "frameTime": 0.23,
-                  "spriteRenderer": {
-                    "spriteID": 0,
-                    "color": {
-                      "x": 1.0,
-                      "y": 1.0,
-                      "z": 1.0,
-                      "w": 1.0
-                    },
-                    "texture": {
-                      "filePath": "assets/images/bigForm.png",
-                      "texID": 5,
-                      "width": 336,
-                      "height": 64
-                    },
-                    "width": 16.0,
-                    "height": 32.0,
-                    "texCords": [
-                      {
-                        "x": 0.0476190485060215,
-                        "y": 1.0
-                      },
-                      {
-                        "x": 0.0476190485060215,
-                        "y": 0.5
-                      },
-                      {
-                        "x": 0.0,
-                        "y": 0.5
-                      },
-                      {
-                        "x": 0.0,
-                        "y": 1.0
-                      }
-                    ],
-                    "componentID": 59
-                  },
-                  "used": true
-                },
-                {
-                  "frameTime": 0.23,
-                  "spriteRenderer": {
-                    "spriteID": 0,
-                    "color": {
-                      "x": 1.0,
-                      "y": 1.0,
-                      "z": 1.0,
-                      "w": 1.0
-                    },
-                    "texture": {
-                      "filePath": "assets/images/bigForm.png",
-                      "texID": 5,
-                      "width": 336,
-                      "height": 64
-                    },
-                    "width": 16.0,
-                    "height": 32.0,
-                    "texCords": [
-                      {
-                        "x": 0.095238097012043,
-                        "y": 1.0
-                      },
-                      {
-                        "x": 0.095238097012043,
-                        "y": 0.5
-                      },
-                      {
-                        "x": 0.0476190485060215,
-                        "y": 0.5
-                      },
-                      {
-                        "x": 0.0476190485060215,
-                        "y": 1.0
-                      }
-                    ],
-                    "componentID": 60
-                  },
-                  "used": true
-                },
-                {
-                  "frameTime": 0.23,
-                  "spriteRenderer": {
-                    "spriteID": 0,
-                    "color": {
-                      "x": 1.0,
-                      "y": 1.0,
-                      "z": 1.0,
-                      "w": 1.0
-                    },
-                    "texture": {
-                      "filePath": "assets/images/bigForm.png",
-                      "texID": 5,
-                      "width": 336,
-                      "height": 64
-                    },
-                    "width": 16.0,
-                    "height": 32.0,
-                    "texCords": [
-                      {
-                        "x": 0.1428571492433548,
-                        "y": 1.0
-                      },
-                      {
-                        "x": 0.1428571492433548,
-                        "y": 0.5
-                      },
-                      {
-                        "x": 0.095238097012043,
-                        "y": 0.5
-                      },
-                      {
-                        "x": 0.095238097012043,
-                        "y": 1.0
-                      }
-                    ],
-                    "componentID": 61
-                  },
-                  "used": true
-                },
-                {
-                  "frameTime": 0.23,
-                  "spriteRenderer": {
-                    "spriteID": 0,
-                    "color": {
-                      "x": 1.0,
-                      "y": 1.0,
-                      "z": 1.0,
-                      "w": 1.0
-                    },
-                    "texture": {
-                      "filePath": "assets/images/bigForm.png",
-                      "texID": 5,
-                      "width": 336,
-                      "height": 64
-                    },
-                    "width": 16.0,
-                    "height": 32.0,
-                    "texCords": [
-                      {
-                        "x": 0.190476194024086,
-                        "y": 1.0
-                      },
-                      {
-                        "x": 0.190476194024086,
-                        "y": 0.5
-                      },
-                      {
-                        "x": 0.1428571492433548,
-                        "y": 0.5
-                      },
-                      {
-                        "x": 0.1428571492433548,
-                        "y": 1.0
-                      }
-                    ],
-                    "componentID": 62
-                  },
-                  "used": true
-                },
-                {
-                  "frameTime": 0.23,
-                  "spriteRenderer": {
-                    "spriteID": 0,
-                    "color": {
-                      "x": 1.0,
-                      "y": 1.0,
-                      "z": 1.0,
-                      "w": 1.0
-                    },
-                    "texture": {
-                      "filePath": "assets/images/bigForm.png",
-                      "texID": 5,
-                      "width": 336,
-                      "height": 64
-                    },
-                    "width": 16.0,
-                    "height": 32.0,
-                    "texCords": [
-                      {
-                        "x": 0.1428571492433548,
-                        "y": 1.0
-                      },
-                      {
-                        "x": 0.1428571492433548,
-                        "y": 0.5
-                      },
-                      {
-                        "x": 0.095238097012043,
-                        "y": 0.5
-                      },
-                      {
-                        "x": 0.095238097012043,
-                        "y": 1.0
-                      }
-                    ],
-                    "componentID": 61
-                  },
-                  "used": true
-                },
-                {
-                  "frameTime": 0.23,
-                  "spriteRenderer": {
-                    "spriteID": 0,
-                    "color": {
-                      "x": 1.0,
-                      "y": 1.0,
-                      "z": 1.0,
-                      "w": 1.0
-                    },
-                    "texture": {
-                      "filePath": "assets/images/bigForm.png",
-                      "texID": 5,
-                      "width": 336,
-                      "height": 64
-                    },
-                    "width": 16.0,
-                    "height": 32.0,
-                    "texCords": [
-                      {
-                        "x": 0.095238097012043,
-                        "y": 1.0
-                      },
-                      {
-                        "x": 0.095238097012043,
-                        "y": 0.5
-                      },
-                      {
-                        "x": 0.0476190485060215,
-                        "y": 0.5
-                      },
-                      {
-                        "x": 0.0476190485060215,
-                        "y": 1.0
-                      }
-                    ],
-                    "componentID": 60
-                  },
-                  "used": true
-                }
-              ]
-            },
-            {
-              "title": "idle",
-              "doesLoop": true,
-              "frameList": [
-                {
-                  "frameTime": 0.10000000149011612,
-                  "spriteRenderer": {
-                    "spriteID": 0,
-                    "color": {
-                      "x": 1.0,
-                      "y": 1.0,
-                      "z": 1.0,
-                      "w": 1.0
-                    },
-                    "texture": {
-                      "filePath": "assets/images/bigForm.png",
-                      "texID": 5,
-                      "width": 336,
-                      "height": 64
-                    },
-                    "width": 16.0,
-                    "height": 32.0,
-                    "texCords": [
-                      {
-                        "x": 0.0476190485060215,
-                        "y": 1.0
-                      },
-                      {
-                        "x": 0.0476190485060215,
-                        "y": 0.5
-                      },
-                      {
-                        "x": 0.0,
-                        "y": 0.5
-                      },
-                      {
-                        "x": 0.0,
-                        "y": 1.0
-                      }
-                    ],
-                    "componentID": 59
-                  },
-                  "used": true
-                }
-              ]
-            },
-            {
-              "title": "jump",
-              "doesLoop": true,
-              "frameList": [
-                {
-                  "frameTime": 0.10000000149011612,
-                  "spriteRenderer": {
-                    "spriteID": 0,
-                    "color": {
-                      "x": 1.0,
-                      "y": 1.0,
-                      "z": 1.0,
-                      "w": 1.0
-                    },
-                    "texture": {
-                      "filePath": "assets/images/bigForm.png",
-                      "texID": 5,
-                      "width": 336,
-                      "height": 64
-                    },
-                    "width": 16.0,
-                    "height": 32.0,
-                    "texCords": [
-                      {
-                        "x": 0.2857142984867096,
-                        "y": 1.0
-                      },
-                      {
-                        "x": 0.2857142984867096,
-                        "y": 0.5
-                      },
-                      {
-                        "x": 0.2380952388048172,
-                        "y": 0.5
-                      },
-                      {
-                        "x": 0.2380952388048172,
-                        "y": 1.0
-                      }
-                    ],
-                    "componentID": 64
-                  },
-                  "used": false
-                }
-              ]
-            },
-            {
-              "title": "switch",
-              "doesLoop": false,
-              "frameList": [
-                {
-                  "frameTime": 0.10000000149011612,
-                  "spriteRenderer": {
-                    "spriteID": 0,
-                    "color": {
-                      "x": 1.0,
-                      "y": 1.0,
-                      "z": 1.0,
-                      "w": 1.0
-                    },
-                    "texture": {
-                      "filePath": "assets/images/bigForm.png",
-                      "texID": 5,
-                      "width": 336,
-                      "height": 64
-                    },
-                    "width": 16.0,
-                    "height": 32.0,
-                    "texCords": [
-                      {
-                        "x": 0.2380952388048172,
-                        "y": 1.0
-                      },
-                      {
-                        "x": 0.2380952388048172,
-                        "y": 0.5
-                      },
-                      {
-                        "x": 0.190476194024086,
-                        "y": 0.5
-                      },
-                      {
-                        "x": 0.190476194024086,
-                        "y": 1.0
-                      }
-                    ],
-                    "componentID": 63
-                  },
-                  "used": false
-                }
-              ]
-            }
-          ],
-          "nextAnimation": "idle",
-          "defaultAnimation": "idle",
-          "componentID": 1
+          "componentID": 298
         }
       }
     ]

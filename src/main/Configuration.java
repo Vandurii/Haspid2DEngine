@@ -30,6 +30,7 @@ public class Configuration {
     public static SpriteConfig gizmosConfig = new SpriteConfig("assets/images/gizmos.png", 24, 48, 3, 0);
     public static SpriteConfig itemsConfig = new SpriteConfig("assets/images/items.png", standardSpriteSize, standardSpriteSize, 33, 0);
     public static SpriteConfig bigForm = new SpriteConfig("assets/images/bigForm.png", 16, 32, 42, 0);
+    public static SpriteConfig pipes = new SpriteConfig("assets/images/pipes.png", 32, 32, 6, 0);
 
     public static AudioConfig mainTheme = new AudioConfig("assets/sounds/main-theme-overworld.ogg", true);
     public static AudioConfig breakBlock = new AudioConfig("assets/sounds/break_block.ogg", false);
@@ -78,7 +79,7 @@ public class Configuration {
 
 
     public static double gridSize = uProjectionDimension.x / 40;;
-    public static double spriteSize = gridSize / 16;
+    public static double spriteSize = gridSize / standardSpriteSize;
     public static double objectHalfSize = gridSize / 2;
 
 

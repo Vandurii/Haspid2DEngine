@@ -6,6 +6,7 @@ import imgui.flag.ImGuiCol;
 import main.components.SpriteRenderer;
 import main.components.physicsComponent.ColliderType;
 import main.editor.editorControl.MouseControls;
+import main.haspid.Direction;
 import main.haspid.GameObject;
 import main.util.*;
 import org.joml.Vector2d;
@@ -76,6 +77,18 @@ public class PropertiesWindow {
                     }else{
                         holdingObject = Prefabs.generateBopObject(sprite, spriteWidth, spriteHeight, ColliderType.Box);
                     }
+                }else if(index == 5){
+                    if(i == 0){
+                        holdingObject = Prefabs.generatePipe(sprite, spriteWidth, spriteHeight, Direction.Down);
+                    }else if(i == 1){
+                        holdingObject = Prefabs.generatePipe(sprite, spriteWidth, spriteHeight, Direction.Up);
+                    }else if(i == 2){
+                        holdingObject = Prefabs.generatePipe(sprite, spriteWidth, spriteHeight, Direction.Right);
+                    }else if(i == 3){
+                        holdingObject = Prefabs.generatePipe(sprite, spriteWidth, spriteHeight, Direction.Left);
+                    }else{
+                        holdingObject = Prefabs.generateStaticObject(sprite, spriteWidth, spriteHeight, ColliderType.Box);
+                    }
                 }else{
                     holdingObject = Prefabs.generateBopObject(sprite, spriteWidth, spriteHeight, ColliderType.Box);
                 }
@@ -91,6 +104,7 @@ public class PropertiesWindow {
         for(Sound sound: audioSheet.getSoundList()) {
             String p = sound.getFilePath();
             String name = p.substring(p.lastIndexOf("/") + 1, p.lastIndexOf(".ogg"));
+            ImGui.pushID(index);
             if (ImGui.button(name)) {
                 if (!sound.isPlaying()) {
                     sound.play();
@@ -101,6 +115,7 @@ public class PropertiesWindow {
 
             float buttonWidth = name.length() * (ImGui.getFontSize() / 1.75f);
             if(enoughSpaceForNextButton(buttonWidth)) ImGui.sameLine();
+            ImGui.popID();
         }
     }
 

@@ -79,6 +79,9 @@ public abstract class Component {
                     if(ImGui.combo(f.getName(), index, enumValues, enumValues.length)){
                         f.set(obj, clazz.getEnumConstants()[index.get()]);
                     }
+                }else if(clazz == String.class){
+
+                  //      f.set(obj, JImGui.drawValue("Name: ", name, obj.hashCode() + ""));
 
                 }else{
                     JImGui.drawValue(name, value, obj.hashCode() + "");
