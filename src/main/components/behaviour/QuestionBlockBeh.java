@@ -27,9 +27,15 @@ public class QuestionBlockBeh extends Hitable {
     private BlockType blockType;
     private transient boolean isUsed;
     private transient PlayerState playerState;
+    private transient StateMachine stateMachine;
 
     public QuestionBlockBeh(BlockType blockType){
         this.blockType = blockType;
+    }
+
+    @Override
+    public void start(){
+        this.stateMachine = getParent().getComponent(StateMachine.class);
     }
 
     @Override
@@ -55,13 +61,7 @@ public class QuestionBlockBeh extends Hitable {
         }
 
         isUsed = true;
-//        StateMachine stateMachine = getParent().getComponent(StateMachine.class);
-//        Window.getInstance().getCurrentScene().removeComponentRuntime(getParent(), stateMachine);
-//
-//        SpriteRenderer spriteRenderer = getParent().getComponent(SpriteRenderer.class);
-//        spriteRenderer.markToRemove();
-//        SpriteSheet items = AssetPool.getSpriteSheet(itemsConfig);
-//       // Window.getInstance().getCurrentScene().addComponentRuntime(getParent(), new SpriteRenderer(items.getSprite(4).getTexture()));
+        stateMachine.switchAnimation("inactive");
     }
 
     public void doCoin(){

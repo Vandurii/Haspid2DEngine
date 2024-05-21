@@ -150,6 +150,7 @@ public abstract class Scene {
         for (Map.Entry<Component, GameObject> entry : componentToRemoveMap.entrySet()) {
             entry.getValue().removeComponent(entry.getKey());
         }
+        componentToRemoveMap.clear();
     }
 
     public void addComponentRuntime(GameObject gameObject, Component component){
@@ -288,6 +289,7 @@ public abstract class Scene {
         //===================================
         double defaultFrameTime = 0.23;
 
+
         // small Mario
         StateMachine smallMario = new StateMachine("idle");
 
@@ -333,6 +335,7 @@ public abstract class Scene {
         bigMario.addState(bigRun, bigIdle, bigJump, bigSwitchDirection);
         AssetPool.putStateMachine("bigMario", bigMario);
 
+
         // fire Mario
         StateMachine fireMario = new StateMachine("idle");
 
@@ -355,6 +358,52 @@ public abstract class Scene {
 
         fireMario.addState(fireRun, fireIdle, fireJump, fireSwitchDirection);
         AssetPool.putStateMachine("fireMario", fireMario);
+
+        // die Mario
+        StateMachine dieMario = new StateMachine("die");
+        Animation die = new Animation("die", true);
+        die.addFrame(smallFormSheet.getSprite(6), 0.1);
+        dieMario.addState(die);
+        AssetPool.putStateMachine("dieMario", dieMario);
+
+
+        // question block
+        StateMachine questionBlock = new StateMachine("active");
+
+        Animation active = new Animation("active", true);
+        active.addFrame(itemsSheet.getSprite(0), 0.57f);
+        active.addFrame(itemsSheet.getSprite(1), 0.23f);
+        active.addFrame(itemsSheet.getSprite(2), 0.23f);
+
+        Animation inactive = new Animation("inactive", true);
+        inactive.addFrame(itemsSheet.getSprite(3), 0.1);
+
+        questionBlock.addState(active, inactive);
+        AssetPool.putStateMachine("questionBlock", questionBlock);
+
+
+        // coin flip
+        StateMachine coin = new StateMachine("coin");
+        Animation coinFlip = new Animation("coin", true);
+        coinFlip.addFrame(itemsSheet.getSprite(7), 0.57f);
+        coinFlip.addFrame(itemsSheet.getSprite(8), defaultFrameTime);
+        coinFlip.addFrame(itemsSheet.getSprite(9), defaultFrameTime);
+        coin.addState(coinFlip);
+        AssetPool.putStateMachine("coin", coin);
+
+
+        // goomba
+        StateMachine goomba = new StateMachine("walk");
+
+        Animation walk = new Animation("walk", true);
+        walk.addFrame(smallFormSheet.getSprite(14), defaultFrameTime);
+        walk.addFrame(smallFormSheet.getSprite(15), defaultFrameTime);
+
+        Animation squashed = new Animation("squashed", true);
+        squashed.addFrame(smallFormSheet.getSprite(16), 0.1f);
+
+        goomba.addState(walk, squashed);
+        AssetPool.putStateMachine("goomba", goomba);
     }
 
     public GameObject getGameObjectFromID(int id){

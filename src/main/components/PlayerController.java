@@ -9,11 +9,9 @@ import main.components.physicsComponent.RigidBody;
 import main.physics.RayCastInfo;
 import main.renderer.DebugDraw;
 import main.util.AssetPool;
-import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.contacts.Contact;
 import org.joml.Vector2d;
 import org.joml.Vector3f;
-import org.lwjgl.system.windows.WinBase;
 
 import static main.Configuration.*;
 import static org.lwjgl.glfw.GLFW.*;
@@ -39,7 +37,20 @@ public class PlayerController extends Component implements InactiveInEditor {
     private transient Physics2D physics;
     private transient KeyListener keyboard;
 
-    private transient boolean right;
+    private double dieDistance;
+    private double dieVelocity;
+    private transient boolean top;
+    private transient boolean die;
+    private transient double maxDiePosY;
+    private transient double dieStartPosY;
+
+    private boolean isHurt;
+    private double hurtTime;
+    private double resetHurtTime;
+    private double hurtThreshold;
+    private double resetHurtThreshold;
+
+    private transient boolean goingRight;
     private transient PlayerState playerState;
     private StateMachine stateMachine;
 
@@ -50,6 +61,15 @@ public class PlayerController extends Component implements InactiveInEditor {
     }
 
     public PlayerController(){
+        // hurt
+        this.resetHurtTime = 5;
+        this.hurtTime = resetHurtTime;
+        this.resetHurtThreshold = 0.05;
+        this.hurtThreshold = resetHurtThreshold;
+
+        // die
+        this.dieDistance = 20;
+        this.dieVelocity = 30;
 
         // movind left < > right
         this.startVelXM = 2;
@@ -69,7 +89,7 @@ public class PlayerController extends Component implements InactiveInEditor {
         this.velocity = new Vector2d();
         this.terminalVelocity = new Vector2d(20, 50);
 
-        this.right = true;
+        this.goingRight = true;
         this.playerState = PlayerState.small;
 
         this.keyboard = KeyListener.getInstance();
@@ -107,27 +127,31 @@ public class PlayerController extends Component implements InactiveInEditor {
     @Override
     public void update(float dt) {
         if(rigidBody == null) return;
-        checkIfOnGround();
-//        System.out.println("***");
-//        System.out.println(velocity.x);
-//        System.out.println(velocity.y);
-        if(keyboard.isKeyPressed(GLFW_KEY_UP)){
-            move(Direction.Up);
-        }else if(keyboard.isKeyPressed(GLFW_KEY_DOWN)){
-            move(Direction.Down);
-        }else if(keyboard.isKeyPressed(GLFW_KEY_RIGHT)){
-            move(Direction.Right);
-        }else if(keyboard.isKeyPressed(GLFW_KEY_LEFT)){
-            move(Direction.Left);
-        }
+            if(isHurt) hurt(dt);
 
-        loseSpeed();
-        resolveAnimation();
+            if(die) {
+                dieAnimation();
+            }
+            else{
+                checkIfOnGround();
+                if (keyboard.isKeyPressed(GLFW_KEY_UP)) {
+                    move(Direction.Up);
+                } else if (keyboard.isKeyPressed(GLFW_KEY_DOWN)) {
+                    move(Direction.Down);
+                } else if (keyboard.isKeyPressed(GLFW_KEY_RIGHT)) {
+                    move(Direction.Right);
+                } else if (keyboard.isKeyPressed(GLFW_KEY_LEFT)) {
+                    move(Direction.Left);
+                }
 
-        velocity.x = Math.max(Math.min(velocity.x, terminalVelocity.x), -terminalVelocity.x);
-        velocity.y = Math.max(Math.min(velocity.y, terminalVelocity.y), -terminalVelocity.y);
-        rigidBody.setVelocity(velocity);
-        rigidBody.setAngularVelocity(0);
+                loseSpeed();
+                resolveAnimation();
+
+                velocity.x = Math.max(Math.min(velocity.x, terminalVelocity.x), -terminalVelocity.x);
+                velocity.y = Math.max(Math.min(velocity.y, terminalVelocity.y), -terminalVelocity.y);
+                rigidBody.setVelocity(velocity);
+                rigidBody.setAngularVelocity(0);
+            }
     }
 
     public void move(Direction direction){
@@ -145,8 +169,8 @@ public class PlayerController extends Component implements InactiveInEditor {
 
             }
             case Right -> {
-                if(!right){
-                    right = true;
+                if(!goingRight){
+                    goingRight = true;
                     stateMachine.switchAnimation("switch");
                 }
 
@@ -158,8 +182,8 @@ public class PlayerController extends Component implements InactiveInEditor {
                 }
             }
             case Left -> {
-                if(right){
-                    right = false;
+                if(goingRight){
+                    goingRight = false;
                     stateMachine.switchAnimation("switch");
                 }
 
@@ -215,7 +239,7 @@ public class PlayerController extends Component implements InactiveInEditor {
         Transform t = getParent().getTransform();
         Vector2d pos = t.getPosition();
         Vector2d scale = t.getScale();
-        double minusX = (scale.x / 2)  - (scale.x / 10);
+        double minusX = (scale.x / 2) - (scale.x / 10);
         double minusY = (scale.y / 2) + (scale.y / 10);
 
         Vector2d beginLeft = new Vector2d(pos.x - minusX, pos.y);
@@ -231,27 +255,26 @@ public class PlayerController extends Component implements InactiveInEditor {
         return onGround = leftSideInfo.isHit() && leftSideInfo.getHitObject() != null || rightSideInfo.isHit() && rightSideInfo.getHitObject() != null;
     }
 
-    public void powerUP(){
-        if(playerState == PlayerState.fire) return;
-        AssetPool.getSound(powerUp).play();
-        increasePlayerState();
-
-        Window.getInstance().getCurrentScene().removeComponentRuntime(getParent(), stateMachine);
-
-        if(playerState == PlayerState.big) {
-            Vector2d scale = getParent().getTransform().getScale();
-            scale.set( new Vector2d(scale.x, scale.y * 2));
-            BoxCollider boxCollider = getParent().getComponent(BoxCollider.class);
-            boxCollider.setHalfSize(new Vector2d(objectHalfSize, objectHalfSize * 2));
-            boxCollider.resetFixture();
-            stateMachine = AssetPool.getStateMachine("bigMario");
-        }else if(playerState == PlayerState.fire){
-            stateMachine = AssetPool.getStateMachine("fireMario");
-        }
-
-        getParent().addComponent(stateMachine);
-
-    }
+//    public void powerUP(){
+//        if(playerState == PlayerState.fire) return;
+//        AssetPool.getSound(powerUp).play();
+//        increasePlayerState();
+//
+//        Window.getInstance().getCurrentScene().removeComponentRuntime(getParent(), stateMachine);
+//
+//        if(playerState == PlayerState.big) {
+//            Vector2d scale = getParent().getTransform().getScale();
+//            scale.set( new Vector2d(scale.x, scale.y * 2));
+//            BoxCollider boxCollider = getParent().getComponent(BoxCollider.class);
+//            boxCollider.setHalfSize(new Vector2d(objectHalfSize, objectHalfSize * 2));
+//            boxCollider.resetFixture();
+//            stateMachine = AssetPool.getStateMachine("bigMario");
+//        }else if(playerState == PlayerState.fire){
+//            stateMachine = AssetPool.getStateMachine("fireMario");
+//        }
+//
+//        getParent().addComponent(stateMachine);
+//    }
 
     @Override
     public void beginCollision(GameObject collidingObject, Contact contact, Vector2d contactNormal){
@@ -271,19 +294,95 @@ public class PlayerController extends Component implements InactiveInEditor {
         return gainHeightIterations >= 0;
     }
 
-    public void increasePlayerState(){
+    public void powerUP(){
+        if(playerState == PlayerState.fire) return;
+        AssetPool.getSound(powerUp).play();
+        Window.getInstance().getCurrentScene().removeComponentRuntime(getParent(), stateMachine);
+
         if(playerState == PlayerState.small){
+            Vector2d scale = getParent().getTransform().getScale();
+            scale.set( new Vector2d(scale.x, scale.y * 2));
+            BoxCollider boxCollider = getParent().getComponent(BoxCollider.class);
+            boxCollider.setHalfSize(new Vector2d(objectHalfSize, objectHalfSize * 2));
+            boxCollider.resetFixture();
+            stateMachine = AssetPool.getStateMachine("bigMario");
             playerState = PlayerState.big;
         } else if(playerState == PlayerState.big){
+            stateMachine = AssetPool.getStateMachine("fireMario");
             playerState = PlayerState.fire;
+        }
+
+        getParent().addComponent(stateMachine);
+    }
+
+    public void powerDown(){
+        Window.getInstance().getCurrentScene().removeComponentRuntime(getParent(), stateMachine);
+        if(playerState == PlayerState.fire){
+            playerState = PlayerState.big;
+            stateMachine = AssetPool.getStateMachine("bigMario");
+            getParent().addComponent(stateMachine);
+            AssetPool.getSound(pipe).play();
+        } else if(playerState == PlayerState.big){
+            playerState = PlayerState.small;
+            stateMachine = AssetPool.getStateMachine("smallMario");
+            getParent().addComponent(stateMachine);
+            AssetPool.getSound(pipe).play();
+
+            Vector2d scale = getParent().getTransform().getScale();
+            scale.set( new Vector2d(scale.x, scale.y / 2));
+            BoxCollider boxCollider = getParent().getComponent(BoxCollider.class);
+            boxCollider.setHalfSize(new Vector2d(objectHalfSize, objectHalfSize / 2));
+            boxCollider.resetFixture();
+        }else if(playerState == PlayerState.small){
+            die();
+        }
+
+        isHurt = true;
+        rigidBody.setSensor(true);
+    }
+
+    public void die(){
+        AssetPool.getSound(marioDie).play();
+        stateMachine = AssetPool.getStateMachine("dieMario");
+        getParent().addComponent(stateMachine);
+
+        die = true;
+
+
+        dieStartPosY = getParent().getTransform().getPosition().y;
+        maxDiePosY = dieStartPosY + dieDistance;
+    }
+
+    public void dieAnimation(){
+        Vector2d pos = getParent().getTransform().getPosition();
+
+        if (pos.y < maxDiePosY && !top) {
+            rigidBody.setVelocity(new Vector2d(0, dieVelocity));
+        } else if (!top) {
+            rigidBody.setVelocity(new Vector2d(0, -dieVelocity));
+            top = true;
+        }else if(pos.y < dieStartPosY){
+            Window.getInstance().getCurrentScene().removeFromSceneRuntime(getParent());
         }
     }
 
-    public void decreasePlayerState(){
-        if(playerState == PlayerState.fire){
-            playerState = PlayerState.big;
-        } else if(playerState == PlayerState.big){
-            playerState = PlayerState.small;
+    public void hurt(float dt){
+        SpriteRenderer spriteRenderer = getParent().getComponent(SpriteRenderer.class);
+
+        if((hurtTime -= dt) < 0){
+            isHurt = false;
+            rigidBody.setSensor(false);
+            hurtTime = resetHurtTime;
+            spriteRenderer.getColor().w = 1;
+        }else{
+            if((hurtThreshold -= dt) < 0){
+                hurtThreshold = resetHurtThreshold;
+                if(spriteRenderer.getColor().w == 0){
+                    spriteRenderer.getColor().w = 1;
+                }else{
+                    spriteRenderer.getColor().w = 0;
+                }
+            }
         }
     }
 
@@ -371,7 +470,15 @@ public class PlayerController extends Component implements InactiveInEditor {
         return playerState;
     }
 
+    public void setSensor(boolean isSensor){
+        rigidBody.setSensor(isSensor);
+    }
+
     public void setPlayerState(PlayerState playerState) {
         this.playerState = playerState;
+    }
+
+    public boolean isHurt(){
+        return isHurt;
     }
 }

@@ -58,14 +58,24 @@ public class PropertiesWindow {
             int texID = sprite.getTexID();
             Vector2d[] cords = sprite.getSpriteCords();
 
-            ImGui.pushID(i);
+            ImGui.pushID((index * 100) + i);
             if (ImGui.imageButton(texID, (float) spriteWidth, (float) spriteHeight, (float) cords[3].x, (float) cords[3].y, (float) cords[1].x, (float) cords[1].y)) {
-                GameObject holdingObject;
+                GameObject holdingObject = null;
                 // todo
-                if(i == 0 && index == 3){
-                    holdingObject = Prefabs.generateMario(spriteWidth, spriteHeight);
-                }else if(i == 0 && index == 2){
-                    holdingObject = Prefabs.generateQuestionBlock(spriteWidth, spriteHeight, Coin);
+                if(index == 3){
+                    if(i == 0){
+                        holdingObject = Prefabs.generateMario(spriteWidth, spriteHeight);
+                    }else if(i == 14) {
+                        holdingObject = Prefabs.generateGoomba(spriteWidth, spriteHeight);
+                    }else{
+                        holdingObject = Prefabs.generateBopObject(sprite, spriteWidth, spriteHeight, ColliderType.Box);
+                    }
+                }else if(index == 2){
+                    if(i == 0) {
+                        holdingObject = Prefabs.generateQuestionBlock(spriteWidth, spriteHeight, Coin);
+                    }else{
+                        holdingObject = Prefabs.generateBopObject(sprite, spriteWidth, spriteHeight, ColliderType.Box);
+                    }
                 }else{
                     holdingObject = Prefabs.generateBopObject(sprite, spriteWidth, spriteHeight, ColliderType.Box);
                 }

@@ -1,11 +1,8 @@
 package main.editor;
 
 import main.components.*;
-import main.components.behaviour.CoinBeh;
+import main.components.behaviour.*;
 import main.components.Hitable;
-import main.components.behaviour.FlowerBeh;
-import main.components.behaviour.MushroomBeh;
-import main.components.behaviour.QuestionBlockBeh;
 import main.components.physicsComponent.*;
 import main.components.stateMachine.Animation;
 import main.components.stateMachine.StateMachine;
@@ -114,27 +111,25 @@ public class Prefabs {
         return mario;
     }
 
+    public static GameObject generateGoomba(double width, double height){
+        GameObject goomba = generateDynamicObject(new SpriteRenderer(), width, height, ColliderType.Circle);
+        goomba.addComponent(AssetPool.getStateMachine("goomba"));
+        goomba.addComponent(new GoombaBeh());
+
+        return goomba;
+    }
+
     public static GameObject generateQuestionBlock(double width, double height, BlockType blockType){
-        Animation animation = new Animation("questionBlock", true);
-
-        animation.addFrame(items.getSprite(0), 0.57f);
-        animation.addFrame(items.getSprite(1), 0.23f);
-        animation.addFrame(items.getSprite(2), 0.23f);
-
-        GameObject questionBlock = generateStaticAnimatedObject(width, height, ColliderType.Box, animation);
+        GameObject questionBlock = generateStaticObject(new SpriteRenderer(), width, height, ColliderType.Box);
+        questionBlock.addComponent(AssetPool.getStateMachine("questionBlock"));
         questionBlock.addComponent(new QuestionBlockBeh(blockType));
 
         return questionBlock;
     }
 
     public static GameObject generateCoin(double width, double height ){
-        Animation animation = new Animation("coinFlip", true);
-        animation.addFrame(items.getSprite(7), 0.57);
-        animation.addFrame(items.getSprite(8), 0.23);
-        animation.addFrame(items.getSprite(9), 0.23);
-
-        GameObject coin = generateStaticAnimatedObject(width, height,ColliderType.Circle,  animation);
-        coin.setName("coin");
+        GameObject coin = generateStaticObject(new SpriteRenderer(), width, height,ColliderType.Circle);
+        coin.addComponent(AssetPool.getStateMachine("coin"));
         coin.addComponent(new CoinBeh());
 
         return  coin;

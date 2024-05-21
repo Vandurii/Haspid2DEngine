@@ -88,8 +88,6 @@ public class GameObject {
             if(component.isAssignableFrom(c.getClass())){
                 System.out.println(componentList.size());
                 componentList.remove(c);
-                System.out.println("removed: " + component);
-                System.out.println(componentList.size());
                 return;
             }
         }
@@ -97,6 +95,7 @@ public class GameObject {
 
     public void removeComponent(Component component){
         componentList.remove(component);
+      //  System.out.println(componentList.stream().toList() + " : " +  getName() );
     }
 
     public boolean isSerializable(){

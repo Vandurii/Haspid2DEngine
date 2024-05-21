@@ -53,6 +53,7 @@ public class Window implements Observer {
         loop();
 
         currentScene.save();
+        //if(currentScene instanceof EditorScene) currentScene.save();
         currentScene.disposeDearGui();
 
         // Free audio context
