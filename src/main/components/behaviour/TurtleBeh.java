@@ -47,15 +47,19 @@ public class TurtleBeh extends Component {
         Vector2d camPos = Window.getInstance().getCurrentScene().getCamera().getPosition();
 
         if(getParent().getTransform().getPosition().x < camPos.x || getParent().getTransform().getPosition().x > camPos.x + uProjectionDimension.x){
-            System.out.println("now");
-            Window.getInstance().getCurrentScene().removeFromSceneRuntime(getParent());
+            die();
         }
     }
 
     @Override
     public void beginCollision(GameObject gameObject, Contact contact, Vector2d contactNormal){
-        PlayerController playerController = gameObject.getComponent(PlayerController.class);
+        // die from fireball
+        FireballBeh fireballBeh = gameObject.getComponent(FireballBeh.class);
+        if(fireballBeh != null){
+            die();
+        }
 
+        PlayerController playerController = gameObject.getComponent(PlayerController.class);
         if (playerController != null && !playerController.isHurt()) {
             if (Math.abs(contactNormal.x) > 0.8) {
                 playerController.powerDown();
@@ -87,10 +91,18 @@ public class TurtleBeh extends Component {
             Vector2d scale = getParent().getTransform().getScale();
             scale.x = -scale.x;
             currentSpeed *= -1;
+            if(isDie()){
+                AssetPool.getSound(bump).play();
+            }
         }
     }
 
     public boolean isDie(){
         return die;
     }
+
+    public void die(){
+        Window.getInstance().getCurrentScene().removeFromSceneRuntime(getParent());
+    }
+
 }

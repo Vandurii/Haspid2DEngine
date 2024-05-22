@@ -61,7 +61,7 @@ public class PropertiesWindow {
 
             ImGui.pushID((index * 100) + i);
             if (ImGui.imageButton(texID, (float) spriteWidth, (float) spriteHeight, (float) cords[3].x, (float) cords[3].y, (float) cords[1].x, (float) cords[1].y)) {
-                GameObject holdingObject = null;
+                GameObject holdingObject = Prefabs.generateBopObject(sprite, spriteWidth, spriteHeight, ColliderType.Box);
                 // todo
                 if(index == 7){
                     switch (i){
@@ -78,8 +78,10 @@ public class PropertiesWindow {
                         case 15 -> holdingObject = Prefabs.generateTurtle(spriteWidth / 2, spriteHeight / 2 / 10 * 14);
                         default -> holdingObject = Prefabs.generateBopObject(sprite, spriteWidth / 2, spriteHeight / 2, ColliderType.Box);
                     }
-                }else{
-                    holdingObject = Prefabs.generateBopObject(sprite, spriteWidth, spriteHeight, ColliderType.Box);
+                }else if(index == 2){
+                    if(i == 6){
+                        holdingObject = Prefabs.generateFlag(sprite, 16, spriteHeight);
+                    }
                 }
                 mouseControls.pickupObject(holdingObject);
             }

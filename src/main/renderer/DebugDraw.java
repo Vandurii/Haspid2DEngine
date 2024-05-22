@@ -116,7 +116,7 @@ public class DebugDraw {
         glEnableVertexAttribArray(0);
         glEnableVertexAttribArray(1);
 
-        glDrawArrays(GL_LINES, 0, getMapSize() * lineSizeFloat);
+        glDrawArrays(GL_LINES, 0, getMapSize() * lineSizeFloat);// todo
 
         glDisableVertexAttribArray(0);
         glDisableVertexAttribArray(1);

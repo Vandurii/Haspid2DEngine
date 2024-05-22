@@ -28,11 +28,11 @@ public class Configuration {
     public static SpriteConfig smallFormConfig = new SpriteConfig("assets/images/smallForm.png", standardSpriteSize, standardSpriteSize, 26, 0);
     public static SpriteConfig decorationAndBlockConfig = new SpriteConfig("assets/images/decorationsAndBlocks.png", standardSpriteSize, standardSpriteSize, 81, 0);
     public static SpriteConfig gizmosConfig = new SpriteConfig("assets/images/gizmos.png", 24, 48, 3, 0);
-    public static SpriteConfig itemsConfig = new SpriteConfig("assets/images/items.png", standardSpriteSize, standardSpriteSize, 33, 0);
+    public static SpriteConfig itemsConfig = new SpriteConfig("assets/images/items.png", standardSpriteSize, standardSpriteSize, 34, 0);
     public static SpriteConfig bigFormConfig = new SpriteConfig("assets/images/bigForm.png", 16, 32, 42, 0);
     public static SpriteConfig pipesConfig = new SpriteConfig("assets/images/pipes.png", 32, 32, 6, 0);
     public static SpriteConfig turtleConfig = new SpriteConfig("assets/images/turtle.png", 16, 24, 4, 0);// todo
-    public static SpriteConfig iconConfig = new SpriteConfig("assets/images/icons.png", 32, 32, 17, 0);// todo
+    public static SpriteConfig iconConfig = new SpriteConfig("assets/images/icons.png", 32, 32, 16, 0);// todo
 
     public static AudioConfig mainTheme = new AudioConfig("assets/sounds/main-theme-overworld.ogg", true);
     public static AudioConfig breakBlock = new AudioConfig("assets/sounds/break_block.ogg", false);

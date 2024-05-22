@@ -1,8 +1,10 @@
 package main.components;
 
+import main.components.behaviour.FireballBeh;
 import main.components.physicsComponent.BoxCollider;
 import main.components.stateMachine.StateMachine;
 import main.editor.InactiveInEditor;
+import main.editor.Prefabs;
 import main.haspid.*;
 import main.physics.Physics2D;
 import main.components.physicsComponent.RigidBody;
@@ -12,9 +14,13 @@ import main.physics.events.EventSystem;
 import main.physics.events.EventType;
 import main.renderer.DebugDraw;
 import main.util.AssetPool;
+import main.util.SpriteSheet;
 import org.jbox2d.dynamics.contacts.Contact;
 import org.joml.Vector2d;
 import org.joml.Vector3f;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static main.Configuration.*;
 import static org.lwjgl.glfw.GLFW.*;
@@ -52,6 +58,18 @@ public class PlayerController extends Component implements InactiveInEditor {
     private double resetHurtTime;
     private double hurtThreshold;
     private double resetHurtThreshold;
+
+    private boolean win;
+    private double winStartPos;
+    private double winEndPos;
+    private double winWalkDistance;
+
+
+    private double fireballCollDown;
+    private double fireballResetCoolDown;
+    private SpriteSheet items;
+    private List<GameObject> fireballList;
+
 
     private transient boolean goingRight;
     private transient PlayerState playerState;
@@ -95,6 +113,16 @@ public class PlayerController extends Component implements InactiveInEditor {
         this.goingRight = true;
         this.playerState = PlayerState.small;
 
+        // win
+        this.winWalkDistance = 20;
+
+        // fireball
+        this.fireballResetCoolDown = 0.3;
+        this.fireballCollDown = fireballResetCoolDown;
+        this.fireballList = new ArrayList<>();
+        this.items = AssetPool.getSpriteSheet(itemsConfig);
+
+
         this.keyboard = KeyListener.getInstance();
         this.physics = Window.getInstance().getCurrentScene().getPhysics();
     }
@@ -129,35 +157,70 @@ public class PlayerController extends Component implements InactiveInEditor {
 
     @Override
     public void update(float dt) {
+
         updateCamera();
 
-        if(rigidBody == null) return;
+        if(win){
+            winAnimation();
+            return;
+        }
 
-            if(isHurt) hurt(dt);
+        if(rigidBody == null){
+            return;
+        }
 
-            if(die) {
-                dieAnimation();
+        if(isHurt){
+            hurt(dt);
+        }
+
+        if(playerState == PlayerState.small){ // todo change to fire
+            if(((fireballCollDown -= dt) < 0) && keyboard.isKeyPressed(GLFW_KEY_E)){
+                spawnFireball();
+                fireballCollDown = fireballResetCoolDown;
             }
-            else{
-                checkIfOnGround();
-                if (keyboard.isKeyPressed(GLFW_KEY_UP)) {
-                    move(Direction.Up);
-                } else if (keyboard.isKeyPressed(GLFW_KEY_DOWN)) {
-                    move(Direction.Down);
-                } else if (keyboard.isKeyPressed(GLFW_KEY_RIGHT)) {
-                    move(Direction.Right);
-                } else if (keyboard.isKeyPressed(GLFW_KEY_LEFT)) {
-                    move(Direction.Left);
-                }
+        }
 
-                loseSpeed();
-                resolveAnimation();
-
-                velocity.x = Math.max(Math.min(velocity.x, terminalVelocity.x), -terminalVelocity.x);
-                velocity.y = Math.max(Math.min(velocity.y, terminalVelocity.y), -terminalVelocity.y);
-                rigidBody.setVelocity(velocity);
-                rigidBody.setAngularVelocity(0);
+        if(die) {
+            dieAnimation();
+        } else{
+            checkIfOnGround();
+            if (keyboard.isKeyPressed(GLFW_KEY_UP)) {
+                move(Direction.Up);
+            } else if (keyboard.isKeyPressed(GLFW_KEY_DOWN)) {
+                move(Direction.Down);
+            } else if (keyboard.isKeyPressed(GLFW_KEY_RIGHT)) {
+                move(Direction.Right);
+            } else if (keyboard.isKeyPressed(GLFW_KEY_LEFT)) {
+                move(Direction.Left);
             }
+
+            loseSpeed();
+            resolveAnimation();
+
+            velocity.x = Math.max(Math.min(velocity.x, terminalVelocity.x), -terminalVelocity.x);
+            velocity.y = Math.max(Math.min(velocity.y, terminalVelocity.y), -terminalVelocity.y);
+            rigidBody.setVelocity(velocity);
+            rigidBody.setAngularVelocity(0);
+        }
+    }
+
+    public void spawnFireball(){
+        if(fireballList.size() > 3) return;
+
+        Transform transform = getParent().getTransform();
+        Vector2d pos = transform.getPosition();
+        Vector2d scale = transform.getScale();
+
+        double offset = scale.x > 0 ? gridSize : -gridSize;
+        GameObject fireBall = Prefabs.generateFireball(items.getSprite(32), 11, 11, this);
+        fireBall.getTransform().setPosition(pos.x + offset, pos.y + gridSize / 10);
+
+        fireballList.add(fireBall);
+        Window.getInstance().getCurrentScene().addObjectToSceneRunTime(fireBall);
+    }
+
+    public void removeFireball(GameObject fireball){
+        fireballList.remove(fireball);
     }
 
     public void move(Direction direction){
@@ -386,6 +449,21 @@ public class PlayerController extends Component implements InactiveInEditor {
         }
     }
 
+    public void winAnimation(){
+        Vector2d pos = getParent().getTransform().getPosition();
+
+        if(!checkIfOnGround()){
+            rigidBody.setVelocity(new Vector2d(0, -30));
+        }else{
+            if(pos.x < winEndPos){
+                rigidBody.setVelocity(new Vector2d(10, 0));
+                stateMachine.switchAnimation("run");
+            }else{
+                EventSystem.notify(null, new Event(EventType.GameEngineStop));
+            }
+        }
+    }
+
     public void hurt(float dt){
         SpriteRenderer spriteRenderer = getParent().getComponent(SpriteRenderer.class);
 
@@ -504,5 +582,18 @@ public class PlayerController extends Component implements InactiveInEditor {
 
     public boolean isHurt(){
         return isHurt;
+    }
+
+    public boolean isWin(){
+        return win;
+    }
+
+    public void setWin(boolean win){
+        Transform transform = getParent().getTransform();
+        Vector2d scale = transform.getScale();
+        if(!goingRight) scale.x *= -1;
+        winStartPos = transform.getPosition().x;
+        winEndPos = winStartPos + winWalkDistance;
+        this.win = win;
     }
 }

@@ -172,4 +172,20 @@ public class Prefabs {
 
         return pipe;
     }
+
+    public static GameObject generateFlag(SpriteRenderer spriteRenderer, double width, double height){
+        GameObject flag = generateStaticObject(spriteRenderer, width, height, ColliderType.Box);
+        RigidBody rigidBody = flag.getComponent(RigidBody.class);
+        rigidBody.setSensor(true);
+        flag.addComponent(new FlagBeh());
+
+        return flag;
+    }
+
+    public static GameObject generateFireball(SpriteRenderer spriteRenderer, double width, double height, PlayerController playerController){
+        GameObject fireball = generateDynamicObject(spriteRenderer, width, height, ColliderType.Circle);
+        fireball.addComponent(new FireballBeh(playerController));
+
+        return fireball;
+    }
 }

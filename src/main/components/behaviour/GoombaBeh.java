@@ -38,23 +38,33 @@ public class GoombaBeh extends Component {
 
     @Override
     public void beginCollision(GameObject gameObject, Contact contact, Vector2d contactNormal){
-        PlayerController playerController = gameObject.getComponent(PlayerController.class);
+        // die from fireball
+        FireballBeh fireballBeh = gameObject.getComponent(FireballBeh.class);
+        if(fireballBeh != null){
+            die();
+        }
 
+        PlayerController playerController = gameObject.getComponent(PlayerController.class);
         if (playerController != null && !playerController.isHurt()) {
             if (Math.abs(contactNormal.x) > 0.8) {
                 playerController.powerDown();
             }else if (contactNormal.y > 0.3 && Math.abs(contactNormal.x) < 0.5) {
                 getParent().getComponent(StateMachine.class).switchAnimation("squashed");
-                Window.getInstance().getCurrentScene().removeFromSceneRuntime(getParent());
+                die();
             }
         }
 
         TurtleBeh turtleBeh = gameObject.getComponent(TurtleBeh.class);
         if(turtleBeh != null && turtleBeh.isDie()){
-            Window.getInstance().getCurrentScene().removeFromSceneRuntime(getParent());
+            die();
         }
 
         if(playerController != null) return;
         if( Math.abs(contactNormal.x) > minContact) speed *= -1;
     }
+
+    public void die(){
+        Window.getInstance().getCurrentScene().removeFromSceneRuntime(getParent());
+    }
+
 }
