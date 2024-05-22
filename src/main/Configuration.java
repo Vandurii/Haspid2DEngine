@@ -142,6 +142,11 @@ public class Configuration {
     public static Color minimizeNormal = new Color(0.20f, 0.20f, 0.20f, 1f);
     public static Color minimizeHover = new Color(0.8f, 0.8f, 0.8f, 1.0f);
     public static Color minimizeActive = new Color(0.2f, 0.7f, 0.2f, 1.0f);
+
+
+    // Game Camera
+    public static double xAxisMargin = 30;
+    public static double yAxisMargin = 5;
 }
 
 

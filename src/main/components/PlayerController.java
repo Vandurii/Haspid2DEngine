@@ -126,7 +126,10 @@ public class PlayerController extends Component implements InactiveInEditor {
 
     @Override
     public void update(float dt) {
+        updateCamera();
+
         if(rigidBody == null) return;
+
             if(isHurt) hurt(dt);
 
             if(die) {
@@ -209,6 +212,40 @@ public class PlayerController extends Component implements InactiveInEditor {
         }
     }
 
+    public void updateCamera(){
+        Vector2d playerPos = getParent().getTransform().getPosition();
+        Vector2d camPos = Window.getInstance().getCurrentScene().getCamera().getPosition();
+
+        double leftMargin = xAxisMargin;
+        double rightMargin = uProjectionDimension.x - leftMargin;
+        double bottomMargin = yAxisMargin;
+        double topMargin = uProjectionDimension.y - bottomMargin;
+
+        double distanceFromCamX = playerPos.x - camPos.x;
+        double distanceFromCamY = playerPos.y - camPos.y;
+
+
+        // < left side
+        if(distanceFromCamX < leftMargin){
+            camPos.set(playerPos.x - leftMargin, camPos.y);
+        }
+
+        // > right side
+        if(distanceFromCamX > rightMargin){
+            camPos.set(playerPos.x - rightMargin, camPos.y);
+        }
+
+        // bottom
+        if(distanceFromCamY < bottomMargin){
+            camPos.set(camPos.x, playerPos.y - bottomMargin);
+        }
+
+        // top
+        if(distanceFromCamY > topMargin){
+            camPos.set(camPos.x, playerPos.y - topMargin);
+        }
+    }
+
     public void loseSpeed(){
 
         // Linear X
@@ -254,27 +291,6 @@ public class PlayerController extends Component implements InactiveInEditor {
 
         return onGround = leftSideInfo.isHit() && leftSideInfo.getHitObject() != null || rightSideInfo.isHit() && rightSideInfo.getHitObject() != null;
     }
-
-//    public void powerUP(){
-//        if(playerState == PlayerState.fire) return;
-//        AssetPool.getSound(powerUp).play();
-//        increasePlayerState();
-//
-//        Window.getInstance().getCurrentScene().removeComponentRuntime(getParent(), stateMachine);
-//
-//        if(playerState == PlayerState.big) {
-//            Vector2d scale = getParent().getTransform().getScale();
-//            scale.set( new Vector2d(scale.x, scale.y * 2));
-//            BoxCollider boxCollider = getParent().getComponent(BoxCollider.class);
-//            boxCollider.setHalfSize(new Vector2d(objectHalfSize, objectHalfSize * 2));
-//            boxCollider.resetFixture();
-//            stateMachine = AssetPool.getStateMachine("bigMario");
-//        }else if(playerState == PlayerState.fire){
-//            stateMachine = AssetPool.getStateMachine("fireMario");
-//        }
-//
-//        getParent().addComponent(stateMachine);
-//    }
 
     @Override
     public void beginCollision(GameObject collidingObject, Contact contact, Vector2d contactNormal){
@@ -353,7 +369,7 @@ public class PlayerController extends Component implements InactiveInEditor {
         maxDiePosY = dieStartPosY + dieDistance;
     }
 
-    public void dieAnimation(){
+   public void dieAnimation(){
         Vector2d pos = getParent().getTransform().getPosition();
 
         if (pos.y < maxDiePosY && !top) {
@@ -387,9 +403,7 @@ public class PlayerController extends Component implements InactiveInEditor {
     }
 
     public void setPosition(Vector2d position){
-
-        getParent().getTransform().setPosition(position);
-        rigidBody.setPosition(position);
+        Window.getInstance().getCurrentScene().changePositionRuntime(position, getParent());
     }
 
     public double getStartVelYM() {

@@ -119,10 +119,8 @@ public class RigidBody extends Component {
 
     public void setPosition(Vector2d position){
         if(rawBody != null){
-            rawBody.getPosition().set(new Vec2((float) position.x, (float) position.y)); // todo
             rawBody.setTransform(new Vec2((float) position.x, (float) position.y), (float)getParent().getTransform().getRotation());
         }
-
     }
 
     public double getFriction(){

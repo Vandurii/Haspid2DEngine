@@ -6,10 +6,12 @@ import main.editor.JImGui;
 import main.haspid.Direction;
 import main.haspid.GameObject;
 import main.haspid.Window;
+import main.util.AssetPool;
 import org.jbox2d.dynamics.contacts.Contact;
 import org.joml.Vector2d;
 
 import static main.Configuration.gridSize;
+import static main.Configuration.pipe;
 
 public class PipeBeh extends Component {
     private Direction direction;
@@ -53,21 +55,22 @@ public class PipeBeh extends Component {
     }
 
     public void travelThroughPipe(PlayerController playerController){
+        AssetPool.getSound(pipe).play();
         Vector2d pos = connectingPipe.getTransform().getPosition();
         Direction dir = connectingPipe.getComponent(PipeBeh.class).getDirection();
 
         switch (dir){
             case Up -> {
-                playerController.setPosition(new Vector2d(pos.x, pos.y + gridSize * 4));
+                playerController.setPosition(new Vector2d(pos.x, pos.y + gridSize * 2));
             }
             case Down -> {
-                playerController.setPosition(new Vector2d(pos.x, pos.y - gridSize * 4));
+                playerController.setPosition(new Vector2d(pos.x, pos.y - gridSize * 2));
             }
             case Right -> {
-                playerController.setPosition(new Vector2d(pos.x + gridSize * 4, pos.y));
+                playerController.setPosition(new Vector2d(pos.x + gridSize * 2, pos.y));
             }
             case Left -> {
-                playerController.setPosition(new Vector2d(pos.x - gridSize * 4, pos.y));
+                playerController.setPosition(new Vector2d(pos.x - gridSize * 2, pos.y));
             }
         }
     }

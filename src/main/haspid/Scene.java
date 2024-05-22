@@ -6,6 +6,7 @@ import main.Helper;
 import main.components.Component;
 import main.components.SpriteRenderer;
 import main.components.ComponentSerializer;
+import main.components.physicsComponent.RigidBody;
 import main.components.stateMachine.Animation;
 import main.components.stateMachine.StateMachine;
 import main.physics.Physics2D;
@@ -39,6 +40,7 @@ public abstract class Scene {
     private static List<GameObject> pendingObjectList;
     private static Map<Component, GameObject> componentToRemoveMap;
     private static Map<Component, GameObject> componentToAddMap;
+    private static Map<GameObject, Vector2d> positionToChageMap = new HashMap<>();
 
     private static SpriteSheet itemsSheet = AssetPool.getSpriteSheet(itemsConfig);
     private static SpriteSheet smallFormSheet = AssetPool.getSpriteSheet(smallForm);
@@ -96,6 +98,19 @@ public abstract class Scene {
         }
     }
 
+    public void changePositionRuntime(Vector2d pos, GameObject gameObject){
+        positionToChageMap.put(gameObject, pos);
+    }
+
+    public void changePosition(){
+        for(Map.Entry<GameObject, Vector2d> entry: positionToChageMap.entrySet()) {
+            entry.getKey().getTransform().setPosition(entry.getValue());
+            entry.getKey().getComponent(RigidBody.class).setPosition(entry.getValue());
+        }
+
+        positionToChageMap.clear();
+    }
+
     public void addObjectToSceneRunTime(GameObject gameObject){
         pendingObjectList.add(gameObject);
     }
@@ -133,6 +148,7 @@ public abstract class Scene {
         removeDeadObject();
         addPendingObject();
 
+        changePosition();
         physics.update(dt);
     }
 
