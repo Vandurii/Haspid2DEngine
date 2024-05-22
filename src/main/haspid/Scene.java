@@ -42,9 +42,10 @@ public abstract class Scene {
     private static Map<Component, GameObject> componentToAddMap;
     private static Map<GameObject, Vector2d> positionToChageMap = new HashMap<>();
 
-    private static SpriteSheet itemsSheet = AssetPool.getSpriteSheet(itemsConfig);
-    private static SpriteSheet smallFormSheet = AssetPool.getSpriteSheet(smallForm);
-    private static SpriteSheet bigFormSheet = AssetPool.getSpriteSheet(bigForm);
+    public static SpriteSheet itemsSheet = AssetPool.getSpriteSheet(itemsConfig);
+    public static SpriteSheet smallFormSheet = AssetPool.getSpriteSheet(smallFormConfig);
+    public static SpriteSheet bigFormSheet = AssetPool.getSpriteSheet(bigFormConfig);
+    public static SpriteSheet turtleSheet = AssetPool.getSpriteSheet(turtleConfig);
 
     public Scene(){
         this.camera = new Camera(new Vector2d(0, 0));
@@ -279,7 +280,7 @@ public abstract class Scene {
 
     private void loadResources(){
         AssetPool.getShader(defaultShaderPath);
-        AssetPool.getSpriteSheet(smallForm);
+        AssetPool.getSpriteSheet(smallFormConfig);
         AssetPool.getSpriteSheet(decorationAndBlockConfig);
         AssetPool.getSpriteSheet(gizmosConfig);
         AssetPool.getSpriteSheet(itemsConfig);
@@ -411,15 +412,29 @@ public abstract class Scene {
         // goomba
         StateMachine goomba = new StateMachine("walk");
 
-        Animation walk = new Animation("walk", true);
-        walk.addFrame(smallFormSheet.getSprite(14), defaultFrameTime);
-        walk.addFrame(smallFormSheet.getSprite(15), defaultFrameTime);
+        Animation goombaWalk = new Animation("walk", true);
+        goombaWalk.addFrame(smallFormSheet.getSprite(14), defaultFrameTime);
+        goombaWalk.addFrame(smallFormSheet.getSprite(15), defaultFrameTime);
 
-        Animation squashed = new Animation("squashed", true);
-        squashed.addFrame(smallFormSheet.getSprite(16), 0.1f);
+        Animation goombaSquashed = new Animation("squashed", true);
+        goombaSquashed.addFrame(smallFormSheet.getSprite(16), 0.1f);
 
-        goomba.addState(walk, squashed);
+        goomba.addState(goombaWalk, goombaSquashed);
         AssetPool.putStateMachine("goomba", goomba);
+
+        // trutle
+        StateMachine turtle = new StateMachine("walk");
+
+        Animation turtleWalk = new Animation("walk", true);
+        turtleWalk.addFrame(turtleSheet.getSprite(0), defaultFrameTime);
+        turtleWalk.addFrame(turtleSheet.getSprite(1), defaultFrameTime);
+
+        Animation turtleSquashed = new Animation("squashed", true);
+        turtleSquashed.addFrame(turtleSheet.getSprite(2), 0.1f);
+        turtleSquashed.addFrame(turtleSheet.getSprite(3), 0.1f);
+
+        turtle.addState(turtleWalk, turtleSquashed);
+        AssetPool.putStateMachine("turtle", turtle);
     }
 
     public GameObject getGameObjectFromID(int id){

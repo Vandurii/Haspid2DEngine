@@ -7,6 +7,9 @@ import main.haspid.*;
 import main.physics.Physics2D;
 import main.components.physicsComponent.RigidBody;
 import main.physics.RayCastInfo;
+import main.physics.events.Event;
+import main.physics.events.EventSystem;
+import main.physics.events.EventType;
 import main.renderer.DebugDraw;
 import main.util.AssetPool;
 import org.jbox2d.dynamics.contacts.Contact;
@@ -379,6 +382,7 @@ public class PlayerController extends Component implements InactiveInEditor {
             top = true;
         }else if(pos.y < dieStartPosY){
             Window.getInstance().getCurrentScene().removeFromSceneRuntime(getParent());
+            EventSystem.notify(null, new Event(EventType.Reload));
         }
     }
 

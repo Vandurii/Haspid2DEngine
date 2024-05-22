@@ -55,6 +55,7 @@ public class PipeBeh extends Component {
     }
 
     public void travelThroughPipe(PlayerController playerController){
+        if(connectingPipe == null) return;
         AssetPool.getSound(pipe).play();
         Vector2d pos = connectingPipe.getTransform().getPosition();
         Direction dir = connectingPipe.getComponent(PipeBeh.class).getDirection();

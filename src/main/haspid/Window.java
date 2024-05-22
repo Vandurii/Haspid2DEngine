@@ -111,8 +111,8 @@ public class Window implements Observer {
             // Center the window
             glfwSetWindowPos(
                     glfwWindow,
-                    (vidmode.width() - pWidth.get(0)) / 2 + 1750 ,
-                    (vidmode.height() - pHeight.get(0)) / 2 + - 50
+                    (vidmode.width() - pWidth.get(0)) / 2+ 1750 ,
+                    (vidmode.height() - pHeight.get(0)) / 2  - 50
             );
         } // the stack frame is popped automatically
 
@@ -261,7 +261,11 @@ public class Window implements Observer {
                 newScene = new EditorScene();
                 currentClearColor = editorClearColor;
             }
-
+            case Reload -> {
+                currentScene.clear();
+                newScene = new GameScene();
+                currentClearColor = gameClearColor;
+            }
             case SaveLevel -> currentScene.save();
             case LoadLevel -> currentScene.load();
         }

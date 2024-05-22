@@ -25,12 +25,14 @@ public class Configuration {
 
     public static int standardSpriteSize = 16;
     public static String marioImagePath = "assets/images/mario.png";
-    public static SpriteConfig smallForm = new SpriteConfig("assets/images/smallForm.png", standardSpriteSize, standardSpriteSize, 26, 0);
+    public static SpriteConfig smallFormConfig = new SpriteConfig("assets/images/smallForm.png", standardSpriteSize, standardSpriteSize, 26, 0);
     public static SpriteConfig decorationAndBlockConfig = new SpriteConfig("assets/images/decorationsAndBlocks.png", standardSpriteSize, standardSpriteSize, 81, 0);
     public static SpriteConfig gizmosConfig = new SpriteConfig("assets/images/gizmos.png", 24, 48, 3, 0);
     public static SpriteConfig itemsConfig = new SpriteConfig("assets/images/items.png", standardSpriteSize, standardSpriteSize, 33, 0);
-    public static SpriteConfig bigForm = new SpriteConfig("assets/images/bigForm.png", 16, 32, 42, 0);
-    public static SpriteConfig pipes = new SpriteConfig("assets/images/pipes.png", 32, 32, 6, 0);
+    public static SpriteConfig bigFormConfig = new SpriteConfig("assets/images/bigForm.png", 16, 32, 42, 0);
+    public static SpriteConfig pipesConfig = new SpriteConfig("assets/images/pipes.png", 32, 32, 6, 0);
+    public static SpriteConfig turtleConfig = new SpriteConfig("assets/images/turtle.png", 16, 24, 4, 0);// todo
+    public static SpriteConfig iconConfig = new SpriteConfig("assets/images/icons.png", 32, 32, 17, 0);// todo
 
     public static AudioConfig mainTheme = new AudioConfig("assets/sounds/main-theme-overworld.ogg", true);
     public static AudioConfig breakBlock = new AudioConfig("assets/sounds/break_block.ogg", false);
@@ -99,7 +101,7 @@ public class Configuration {
     public static Vector4f colorBlueAlpha = new Vector4f(0, 0, 1, 1);
 
     public static Color editorClearColor = new Color(60, 60, 60, 1);
-    public static Color gameClearColor = new Color(255, 255, 255, 1);
+    public static Color gameClearColor = new Color(92, 148, 255, 1);
     public static Color currentClearColor = editorClearColor;
 
     public static Vector4f imGuiColor = new Vector4f(0.25f, 0.25f, 0.25f, 1);

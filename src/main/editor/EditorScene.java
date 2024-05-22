@@ -65,9 +65,11 @@ public class EditorScene extends Scene {
 
         properties = new ArrayList<>();
         properties.add(AssetPool.getSpriteSheet(itemsConfig));
-        properties.add(AssetPool.getSpriteSheet(smallForm));
+        properties.add(AssetPool.getSpriteSheet(smallFormConfig));
         properties.add(AssetPool.getSpriteSheet(decorationAndBlockConfig));
-        properties.add(AssetPool.getSpriteSheet(pipes));
+        properties.add(AssetPool.getSpriteSheet(pipesConfig));
+        properties.add(AssetPool.getSpriteSheet(turtleConfig));
+        properties.add(AssetPool.getSpriteSheet(iconConfig));
         properties.add(AssetPool.getAllSound());
 
         editorMenuBar = new EditorMenuBar(this);

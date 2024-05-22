@@ -63,31 +63,20 @@ public class PropertiesWindow {
             if (ImGui.imageButton(texID, (float) spriteWidth, (float) spriteHeight, (float) cords[3].x, (float) cords[3].y, (float) cords[1].x, (float) cords[1].y)) {
                 GameObject holdingObject = null;
                 // todo
-                if(index == 3){
-                    if(i == 0){
-                        holdingObject = Prefabs.generateMario(spriteWidth, spriteHeight);
-                    }else if(i == 14) {
-                        holdingObject = Prefabs.generateGoomba(spriteWidth, spriteHeight);
-                    }else{
-                        holdingObject = Prefabs.generateBopObject(sprite, spriteWidth, spriteHeight, ColliderType.Box);
-                    }
-                }else if(index == 2){
-                    if(i == 0) {
-                        holdingObject = Prefabs.generateQuestionBlock(spriteWidth, spriteHeight, Coin);
-                    }else{
-                        holdingObject = Prefabs.generateBopObject(sprite, spriteWidth, spriteHeight, ColliderType.Box);
-                    }
-                }else if(index == 5){
-                    if(i == 0){
-                        holdingObject = Prefabs.generatePipe(sprite, spriteWidth, spriteHeight, Direction.Down);
-                    }else if(i == 1){
-                        holdingObject = Prefabs.generatePipe(sprite, spriteWidth, spriteHeight, Direction.Up);
-                    }else if(i == 2){
-                        holdingObject = Prefabs.generatePipe(sprite, spriteWidth, spriteHeight, Direction.Right);
-                    }else if(i == 3){
-                        holdingObject = Prefabs.generatePipe(sprite, spriteWidth, spriteHeight, Direction.Left);
-                    }else{
-                        holdingObject = Prefabs.generateStaticObject(sprite, spriteWidth, spriteHeight, ColliderType.Box);
+                if(index == 7){
+                    switch (i){
+                        case 0 -> holdingObject = Prefabs.generateMario(spriteWidth / 2, spriteHeight /2);
+                        case 1 -> holdingObject = Prefabs.generateGoomba(spriteWidth / 2, spriteHeight / 2);
+                        case 5 -> holdingObject = Prefabs.generatePipe(sprite, spriteWidth, spriteHeight, Direction.Down);
+                        case 6 -> holdingObject = Prefabs.generatePipe(sprite, spriteWidth, spriteHeight, Direction.Up);
+                        case 7 -> holdingObject = Prefabs.generatePipe(sprite, spriteWidth, spriteHeight, Direction.Right);
+                        case 8 -> holdingObject = Prefabs.generatePipe(sprite, spriteWidth, spriteHeight, Direction.Left);
+                        case 9 -> holdingObject = Prefabs.generateQuestionBlock(spriteWidth / 2, spriteHeight / 2, Coin);
+                        case 11 -> holdingObject = Prefabs.generateMushroom(spriteWidth / 2, spriteHeight / 2);
+                        case 13 -> holdingObject = Prefabs.generateFlower(spriteWidth / 2, spriteHeight / 2);
+                        case 14 -> holdingObject = Prefabs.generateCoin(spriteWidth /2, spriteHeight / 2);
+                        case 15 -> holdingObject = Prefabs.generateTurtle(spriteWidth / 2, spriteHeight / 2 / 10 * 14);
+                        default -> holdingObject = Prefabs.generateBopObject(sprite, spriteWidth / 2, spriteHeight / 2, ColliderType.Box);
                     }
                 }else{
                     holdingObject = Prefabs.generateBopObject(sprite, spriteWidth, spriteHeight, ColliderType.Box);

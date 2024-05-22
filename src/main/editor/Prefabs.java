@@ -19,7 +19,7 @@ import static main.Configuration.*;
 
 public class Prefabs {
     private static SpriteSheet items = AssetPool.getSpriteSheet(itemsConfig);
-    private static SpriteSheet sheet = AssetPool.getSpriteSheet(smallForm);
+    private static SpriteSheet sheet = AssetPool.getSpriteSheet(smallFormConfig);
 
 
     private static GameObject generateObject(double width, double height){
@@ -47,7 +47,7 @@ public class Prefabs {
         if(colliderType == ColliderType.Box) {
             collider = new BoxCollider(halfSize);
         }else if(colliderType == ColliderType.Circle){
-            collider = new CircleCollider(halfSize.x);
+            collider = new CircleCollider(halfSize.y);
         }else if(colliderType == ColliderType.PillBox){
             collider = new PillboxCollider();
         }else{
@@ -119,6 +119,14 @@ public class Prefabs {
         goomba.addComponent(new GoombaBeh());
 
         return goomba;
+    }
+
+    public static GameObject generateTurtle(double width, double height){
+        GameObject turtle = generateDynamicObject(new SpriteRenderer(), width, height, ColliderType.Box);
+        turtle.addComponent(AssetPool.getStateMachine("turtle"));
+        turtle.addComponent(new TurtleBeh());
+
+        return turtle;
     }
 
     public static GameObject generateQuestionBlock(double width, double height, BlockType blockType){

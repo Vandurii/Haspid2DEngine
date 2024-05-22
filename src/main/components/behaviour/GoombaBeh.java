@@ -49,11 +49,12 @@ public class GoombaBeh extends Component {
             }
         }
 
+        TurtleBeh turtleBeh = gameObject.getComponent(TurtleBeh.class);
+        if(turtleBeh != null && turtleBeh.isDie()){
+            Window.getInstance().getCurrentScene().removeFromSceneRuntime(getParent());
+        }
+
         if(playerController != null) return;
         if( Math.abs(contactNormal.x) > minContact) speed *= -1;
-    }
-
-    @Override
-    public void preSolve(GameObject gameObject, Contact contact, Vector2d contactNormal) {
     }
 }
