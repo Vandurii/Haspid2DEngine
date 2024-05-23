@@ -5,6 +5,7 @@ import org.joml.Vector2d;
 import org.joml.Vector2f;
 
 import static main.Configuration.colliderIndex;
+import static main.Configuration.colorRedAlpha;
 
 public class CircleCollider extends Collider {
     private double radius;
@@ -19,6 +20,14 @@ public class CircleCollider extends Collider {
         Vector2d offset = getOffset();
         Vector2d center = new Vector2d(pos.x + offset.x, pos.y + offset.y);
         DebugDraw.drawCircle2D(center, radius, colliderIndex);
+    }
+
+    @Override
+    public CircleCollider copy(){
+        CircleCollider circleCollider = new CircleCollider(radius);
+        circleCollider.setOffset(getOffset());
+
+        return circleCollider;
     }
 
     @Override

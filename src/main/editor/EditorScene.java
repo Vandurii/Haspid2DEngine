@@ -48,7 +48,7 @@ public class EditorScene extends Scene {
 
         gridLines = new GridLines();
         gizmo = new Gizmo(this);
-        sceneHierarchy = new SceneHierarchy();
+        sceneHierarchy = new SceneHierarchy(this);
         mouseControls = new MouseControls(this, mouseListener, gizmo);
         cameraControl = new CameraControl(camera, mouseControls);
         keyControls = new KeyControls(mouseControls, cameraControl, this);
@@ -119,6 +119,10 @@ public class EditorScene extends Scene {
 
     public void addObjectToActiveList(GameObject activeGameObject) {
         activeGameObjectList.add(activeGameObject);
+    }
+
+    public void removeFromActiveList(GameObject gameObject){
+        activeGameObjectList.remove(gameObject);
     }
 
     public void clearActiveObjectList(){

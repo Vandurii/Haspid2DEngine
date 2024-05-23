@@ -41,9 +41,6 @@ public class StateMachine extends Component implements InactiveInEditor {
         }
 
         updateTexture();
-
-        SpriteRenderer objectSpriteRender = getParent().getComponent(SpriteRenderer.class);
-        objectSpriteRender.markToRelocate();
     }
 
     public void updateTexture(){
@@ -54,6 +51,7 @@ public class StateMachine extends Component implements InactiveInEditor {
         SpriteRenderer objectSpriteRender = getParent().getComponent(SpriteRenderer.class);
         objectSpriteRender.setTexture(nextTexture);
         objectSpriteRender.setSpriteCords(nextTexCords);
+        objectSpriteRender.setDirty();
     }
 
     @Override

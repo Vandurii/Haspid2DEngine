@@ -43,6 +43,8 @@ public class Prefabs {
         RigidBody rigidBody = new RigidBody();
 
         Collider collider = null;
+        width -= width / 100;
+        height -= height / 100;
         Vector2d halfSize = new Vector2d(width / 10, height / 10);
         if(colliderType == ColliderType.Box) {
             collider = new BoxCollider(halfSize);
@@ -78,6 +80,7 @@ public class Prefabs {
 
     public static GameObject generateBopObject(SpriteRenderer spriteRenderer, double width, double height, ColliderType colliderType){
         GameObject bopObject = generateStaticObject(spriteRenderer, width, height, colliderType);
+        bopObject.setName("bopObject");
         bopObject.addComponent(new Hitable());
 
         return bopObject;
@@ -109,6 +112,7 @@ public class Prefabs {
         GameObject mario = generateDynamicObject(new SpriteRenderer(), width, height, ColliderType.Box);
         mario.addComponent(AssetPool.getStateMachine("smallMario"));
         mario.addComponent(new PlayerController());
+        mario.setName("mario");
 
         return mario;
     }
@@ -117,6 +121,7 @@ public class Prefabs {
         GameObject goomba = generateDynamicObject(new SpriteRenderer(), width, height, ColliderType.Circle);
         goomba.addComponent(AssetPool.getStateMachine("goomba"));
         goomba.addComponent(new GoombaBeh());
+        goomba.setName("goomba");
 
         return goomba;
     }
@@ -125,6 +130,7 @@ public class Prefabs {
         GameObject turtle = generateDynamicObject(new SpriteRenderer(), width, height, ColliderType.Box);
         turtle.addComponent(AssetPool.getStateMachine("turtle"));
         turtle.addComponent(new TurtleBeh());
+        turtle.setName("turtle");
 
         return turtle;
     }
@@ -133,6 +139,7 @@ public class Prefabs {
         GameObject questionBlock = generateStaticObject(new SpriteRenderer(), width, height, ColliderType.Box);
         questionBlock.addComponent(AssetPool.getStateMachine("questionBlock"));
         questionBlock.addComponent(new QuestionBlockBeh(blockType));
+        questionBlock.setName("questionBlock");
 
         return questionBlock;
     }
@@ -141,6 +148,7 @@ public class Prefabs {
         GameObject coin = generateStaticObject(new SpriteRenderer(), width, height,ColliderType.Circle);
         coin.addComponent(AssetPool.getStateMachine("coin"));
         coin.addComponent(new CoinBeh());
+        coin.setName("coin");
 
         return  coin;
     }
@@ -169,6 +177,7 @@ public class Prefabs {
     public static GameObject generatePipe(SpriteRenderer spriteRenderer, double width, double height, Direction direction){
         GameObject pipe = generateStaticObject(spriteRenderer, width, height, ColliderType.Box);
         pipe.addComponent(new PipeBeh(direction));
+        pipe.setName("pipe");
 
         return pipe;
     }
@@ -178,6 +187,7 @@ public class Prefabs {
         RigidBody rigidBody = flag.getComponent(RigidBody.class);
         rigidBody.setSensor(true);
         flag.addComponent(new FlagBeh());
+        flag.setName("flag");
 
         return flag;
     }
@@ -185,6 +195,7 @@ public class Prefabs {
     public static GameObject generateFireball(SpriteRenderer spriteRenderer, double width, double height, PlayerController playerController){
         GameObject fireball = generateDynamicObject(spriteRenderer, width, height, ColliderType.Circle);
         fireball.addComponent(new FireballBeh(playerController));
+        fireball.setName("fireball");
 
         return fireball;
     }

@@ -54,6 +54,7 @@ public class Configuration {
     public static int numberOfPointsInSquare = 4;
     public static int numberOfPointsIn2Triangles = 6;
     public static int[]  texturesSlots = {0, 1, 2, 3, 4, 5, 6, 7};
+  //  public static int[]  texturesSlots = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
 
 
     public static double skipCamera = 2;
@@ -113,14 +114,14 @@ public class Configuration {
     public static Vector4f imGuiTabActive = new Vector4f(0.25f, 0.25f, 0.25f, 1);
     public static Vector4f imGuiMenuBar = new Vector4f(0.25f, 0.25f, 0.25f, 1);
 
-    public static Vector4f mouseHoveColor = new Vector4f(0.2f,0.8f,1f,1);
+    public static Vector4f mouseHoveColor = new Vector4f(0.2f,0.2f,0.2f,0.0f);
     public static Vector4f mouseRectColor = new Vector4f(0.04f, 0.04f, 0.04f, 0.4f);
 
     public static int gridLinesIndex = 2;
     public static int colliderIndex = 3;
     public static int selectorIndex = 4;
 
-    public static double selectorScale = 1;
+    public static double selectorScale = 0;
 
     public static double pillboxWidth = (objectHalfSize * 2) * 0.85f;
     public static double pillboxHeight = (objectHalfSize * 2) * 1.43f;
@@ -154,7 +155,6 @@ public class Configuration {
 
 // todo scanObject problem | collider box | physics with scale
 // refactor properties window
-// selector scale
 // pillbox collider with scale
 
 

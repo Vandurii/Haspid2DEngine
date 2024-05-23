@@ -128,7 +128,7 @@ public class JImGui {
             ImGui.popStyleColor(3);
             ImGui.sameLine();
 
-            ImGui.dragFloat("##" + name, vecValues, 2f, Integer.MAX_VALUE, Integer.MAX_VALUE, "%1.f");
+            ImGui.dragFloat("##" + name, vecValues, 2f, Integer.MAX_VALUE, Integer.MAX_VALUE, "%.2f");
             ImGui.popItemWidth();
             ImGui.sameLine();
 

@@ -73,6 +73,9 @@ public class ViewPort {
 
         windowWidth = windowSize.x;
         windowHeight = windowSize.y;
+
+        // update scale for Selector
+        selectorScale = 1440 / viewPortWidth;//todo
     }
 
     public float getViewPortStartFromX() {

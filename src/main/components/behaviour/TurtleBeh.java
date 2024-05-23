@@ -41,6 +41,19 @@ public class TurtleBeh extends Component {
     }
 
     @Override
+    public TurtleBeh copy(){
+        TurtleBeh turtleBeh = new TurtleBeh();
+        turtleBeh.setSpeed(speed);
+        turtleBeh.setGravity(gravity);
+        turtleBeh.setMinContact(minContact);
+        turtleBeh.setCoolDown(coolDown);
+        turtleBeh.setResetCollDown(resetCollDown);
+        turtleBeh.setCurrentSpeed(currentSpeed);
+
+        return turtleBeh;
+    }
+
+    @Override
     public void update(float dt) {
         rigidBody.setVelocityX(currentSpeed);
         coolDown -= dt;
@@ -105,4 +118,27 @@ public class TurtleBeh extends Component {
         Window.getInstance().getCurrentScene().removeFromSceneRuntime(getParent());
     }
 
+    public void setSpeed(double speed) {
+        this.speed = speed;
+    }
+
+    public void setGravity(double gravity) {
+        this.gravity = gravity;
+    }
+
+    public void setMinContact(double minContact) {
+        this.minContact = minContact;
+    }
+
+    public void setCoolDown(double coolDown) {
+        this.coolDown = coolDown;
+    }
+
+    public void setResetCollDown(double resetCollDown) {
+        this.resetCollDown = resetCollDown;
+    }
+
+    public void setCurrentSpeed(double currentSpeed) {
+        this.currentSpeed = currentSpeed;
+    }
 }

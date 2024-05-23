@@ -32,6 +32,16 @@ public class GoombaBeh extends Component {
     }
 
     @Override
+    public GoombaBeh copy(){
+        GoombaBeh goombaBeh = new GoombaBeh();
+        goombaBeh.setSpeed(speed);
+        goombaBeh.setGravity(gravity);
+        goombaBeh.setMinContact(minContact);
+
+        return goombaBeh;
+    }
+
+    @Override
     public void update(float dt) {
         rigidBody.setVelocityX(speed);
     }
@@ -67,4 +77,15 @@ public class GoombaBeh extends Component {
         Window.getInstance().getCurrentScene().removeFromSceneRuntime(getParent());
     }
 
+    public void setSpeed(double speed) {
+        this.speed = speed;
+    }
+
+    public void setGravity(double gravity) {
+        this.gravity = gravity;
+    }
+
+    public void setMinContact(double minContact) {
+        this.minContact = minContact;
+    }
 }

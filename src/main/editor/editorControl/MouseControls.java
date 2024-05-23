@@ -3,6 +3,7 @@ package main.editor.editorControl;
 import main.components.Component;
 import main.components.SpriteRenderer;
 import main.editor.EditorMenuBar;
+import main.editor.ViewPort;
 import main.haspid.*;
 import main.renderer.DebugDraw;
 import main.editor.EditorScene;
@@ -286,6 +287,8 @@ public class MouseControls extends Component {
                     height *= -1;
                 }
 
+                System.out.println(startFromX);
+                System.out.println(width);
                 HashSet<Integer> idSet = window.getIdBuffer().readIDFromPixel(startFromX, startFromY, width  + 2, height + 2);
                 for(int id: idSet){
                    GameObject gameObject = editorScene.getGameObjectFromID(id);
@@ -346,8 +349,26 @@ public class MouseControls extends Component {
     }
 
     public void setObjectActive(GameObject active){
-        activeObjectList.add(active);
-        editorScene.addObjectToActiveList(active);
+        if(!activeObjectList.contains(active)) activeObjectList.add(active);
+        if(!editorScene.getActiveGameObjectList().contains(active))editorScene.addObjectToActiveList(active);
+
+        // highLight when there is more then 1 active object
+        if(activeObjectList.size() == 2){
+            highLightObject(activeObjectList);
+        }else if(activeObjectList.size() > 2){
+            highLightObject(active);
+        }
+    }
+
+    public void unselectActiveObject(GameObject gameObject){
+        SpriteRenderer spriteRenderer = gameObject.getComponent(SpriteRenderer.class);
+        if(spriteRenderer != null) spriteRenderer.resetColor();
+        removeFromActiveList(gameObject);
+    }
+
+    public void removeFromActiveList(GameObject gameObject){
+        activeObjectList.remove(gameObject);
+        editorScene.removeFromActiveList(gameObject);
     }
 
     public void setObjectActive(List<GameObject> cloneList){
