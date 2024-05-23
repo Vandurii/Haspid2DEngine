@@ -153,9 +153,7 @@ public class Configuration {
 }
 
 
-// todo scanObject problem | collider box | physics with scale
-// refactor properties window
-// pillbox collider with scale
+
 
 
 

@@ -137,7 +137,7 @@ public class MouseListener {
     public double getWorldX(){
         double xPosViewPort = x - viewPort.getWindowStartFromX();
 
-        double currentX = ((xPosViewPort - viewPort.getViewPortStartFromX()) / viewPort.getViewPortWidth()) * 2f - 1f;
+        double currentX = ((xPosViewPort - viewPort.getViewPortStartFromX()) / viewPort.getViewPortWidth()) * 2 - 1;
         Vector4d vec4 = new Vector4d(currentX, 0 , 0, 1);
         vec4 = vec4.mul(cam.getInverseUProjection()).mul(cam.getInverseUView());
 

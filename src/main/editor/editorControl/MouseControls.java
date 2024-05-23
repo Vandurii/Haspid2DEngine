@@ -1,5 +1,6 @@
 package main.editor.editorControl;
 
+import main.Configuration;
 import main.components.Component;
 import main.components.SpriteRenderer;
 import main.editor.EditorMenuBar;
@@ -24,7 +25,7 @@ public class MouseControls extends Component {
 
     private Gizmo gizmo;
     private double xBuffer, yBuffer;
-    private float debounce = 0.05f;
+    private float debounce = 0.02f;
     private float resetDebounce = debounce;
 
     private boolean draggingWindow;
@@ -94,7 +95,7 @@ public class MouseControls extends Component {
         }
 
         if (mouse.isButtonPressed(GLFW_MOUSE_BUTTON_1) && keyboard.isKeyPressed(GLFW_KEY_P)) {
-            System.out.println(String.format("x: %.1f y:%.1f", mouse.getWorldX(), mouse.getWorldY()));
+            //isSquareOccupied();
         }
 
         controlDebounce -= dt;
@@ -143,8 +144,13 @@ public class MouseControls extends Component {
         Vector2d scale = draggingObject.getTransform().getScale();
         double xPos = (int)(mouse.getWorldX()/ gridSize) * gridSize + scale.x / 2;
         double yPos = (int)(mouse.getWorldY() / gridSize) * gridSize + scale.y / 2;
+
+        // subtract one grid because we start from 0 in this case
+        if(mouse.getWorldY() < 0) yPos -= gridSize;
+        if(mouse.getWorldX() < 0) xPos -= gridSize;
+
         draggingObject.getTransform().setPosition(new Vector2d(xPos, yPos));
-        if(mouse.isButtonPressed(GLFW_MOUSE_BUTTON_1) && debounce < 0){
+        if(mouse.isButtonPressed(GLFW_MOUSE_BUTTON_1) && debounce < 0 && mouse.isCursorInsideViewPort()){
             place();
             debounce = resetDebounce;
         }
@@ -186,8 +192,9 @@ public class MouseControls extends Component {
     }
 
     public void place(){
-        float scan  = window.getIdBuffer().readIDFromPixel((int) mouse.getViewPortX() , (int) mouse.getViewPortY());
-        if((scan == 0 || scan == draggingObject.getGameObjectID())) {
+//        float scan  = window.getIdBuffer().readIDFromPixel((int) mouse.getViewPortX() , (int) mouse.getViewPortY());
+//        if((scan == 0 || scan == draggingObject.getGameObjectID())) {
+        if(!isSquareOccupied(mouse.getViewPortX(), mouse.getViewPortY(), draggingObject.getGameObjectID())){
             GameObject objectClone = new GameObject(draggingObject.getName());
 
             for(Component c: draggingObject.getAllComponent()){
@@ -260,6 +267,30 @@ public class MouseControls extends Component {
         return id;
     }
 
+    public boolean isSquareOccupied(double viewPortX, double viewPortY, int draggingObjectID){
+        int spacing = 2;
+
+        // number of current grids in x axis
+        double currentGridX = uProjectionDimension.x * zoom / Configuration.gridSize;
+        // size of currentXGrid;
+        double gridSizeX = 1440 / currentGridX; // todo delete magic number
+
+        // number of current grids in y axis
+        double currentGridY = uProjectionDimension.y * zoom / Configuration.gridSize;
+        // size of currentYGrid;
+        double gridSizeY = 810 / currentGridY; // todo delete magic number
+
+        // start scan from this x,y position
+        int x = (int)(((int) (viewPortX / gridSizeX)) * gridSizeX);
+        int y = (int)(((int) (viewPortY/ gridSizeY)) * gridSizeY);
+        HashSet<Integer> idSet = window.getIdBuffer().readIDFromPixel(x + spacing, y + spacing, (int)gridSizeX - spacing, (int)gridSizeY - spacing);
+
+        idSet.remove(0);
+        idSet.remove(draggingObjectID);
+
+        return !idSet.isEmpty();
+    }
+
     public void selectorUpdate(){
         if(selector != null) editorScene.removeFromScene(selector);
         if(mouse.isMouseDragging() && !wasDraggedLastFrame && mouse.isButtonPressed(GLFW_MOUSE_BUTTON_2)){
@@ -287,8 +318,6 @@ public class MouseControls extends Component {
                     height *= -1;
                 }
 
-                System.out.println(startFromX);
-                System.out.println(width);
                 HashSet<Integer> idSet = window.getIdBuffer().readIDFromPixel(startFromX, startFromY, width  + 2, height + 2);
                 for(int id: idSet){
                    GameObject gameObject = editorScene.getGameObjectFromID(id);
