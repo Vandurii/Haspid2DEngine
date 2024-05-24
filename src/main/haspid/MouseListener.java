@@ -2,25 +2,25 @@ package main.haspid;
 
 import main.editor.ViewPort;
 import org.joml.Vector2d;
-import org.joml.Vector2f;
 import org.joml.Vector4d;
-import org.joml.Vector4f;
 
 import static main.Configuration.*;
 import static org.lwjgl.glfw.GLFW.*;
 
 public class MouseListener {
 
-    private static MouseListener instance;
-    private static double x, y, scroll;
-    private Vector2d startFrameCursorPos;
-    private Vector2d endFrameCursorPos;
-    private Vector2d startFrameCursorPosMMode;
-    private Vector2d endFrameCursorPosMMode;
-    private static boolean[] buttonPressed;
-    private static boolean isMouseDragged;
-    private static ViewPort viewPort;
     private static Camera cam;
+    private static ViewPort viewPort;
+
+    private static double x, y, scroll;
+    private static boolean isMouseDragged;
+    private static boolean[] buttonPressed;
+    private static MouseListener instance;
+
+    private Vector2d endFrameCursorPos;
+    private Vector2d startFrameCursorPos;
+    private Vector2d endFrameCursorPosMMode;
+    private Vector2d startFrameCursorPosMMode;
 
     private MouseListener(){
         viewPort = ViewPort.getInstance();
@@ -64,12 +64,6 @@ public class MouseListener {
         scroll = (float) yOffset;
     }
 
-    public static MouseListener getInstance(){
-        if(instance == null) instance = new MouseListener();
-
-        return instance;
-    }
-
     public static void resetInstance(){
         instance = new MouseListener();
     }
@@ -111,11 +105,11 @@ public class MouseListener {
     }
 
     public double getViewPortXProjection(){
-        return (getWorldX() - cam.getPosition().x) / zoom;
+        return (getWorldX() - cam.getPosition().x) / currentZoomValue;
     }
 
     public double getViewPortYProjection(){
-        return (getWorldY() - cam.getPosition().y) / zoom;
+        return (getWorldY() - cam.getPosition().y) / currentZoomValue;
     }
 
     public Vector2d getViewPortProjectionPos(){
@@ -176,5 +170,11 @@ public class MouseListener {
 
     public Vector2d getMouseListenerPos(){
         return new Vector2d(getX(), getY());
+    }
+
+    public static MouseListener getInstance(){
+        if(instance == null) instance = new MouseListener();
+
+        return instance;
     }
 }

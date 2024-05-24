@@ -10,13 +10,13 @@ import java.util.List;
 
 public class GameObject {
 
-    private int gameObjectID;
     private String name;
-    private transient Transform transform;
-
-    private boolean isSerializable;
-    private boolean isTriggerable;
+    private int gameObjectID;
     private List<Component> componentList;
+    private transient Transform transform;
+    private transient boolean isTriggerable;
+    private transient boolean isSerializable;
+
     private static int ID_COUNTER;
 
     public GameObject(String name){
@@ -25,6 +25,29 @@ public class GameObject {
         this.gameObjectID = ++ID_COUNTER;
         this.isSerializable = true;
         this.isTriggerable = true;
+    }
+
+    public void start(){
+        for(Component c: componentList){
+            c.start();
+        }
+    }
+
+    public void update(float dt){
+        for(Component component: componentList){
+           if((component instanceof InactiveInEditor) && Window.getInstance().getCurrentScene().isInEditMode()){
+               continue;
+           }
+             component.update(dt);
+        }
+    }
+
+    public void updateDearGui(){
+        if(ImGui.collapsingHeader("Name")) setName();
+
+        for(Component c: componentList){
+            if(ImGui.collapsingHeader(c.getClass().getSimpleName())) c.dearGui();
+        }
     }
 
     public GameObject copy(){
@@ -43,59 +66,28 @@ public class GameObject {
         return clone;
     }
 
-    public void start(){
-        for(Component c: componentList){
-            c.start();
-        }
-    }
-
-    public void update(float dt){
-        for(Component c: componentList){
-           if((c instanceof InactiveInEditor) && Window.getInstance().getCurrentScene().isInEditMode()){
-               continue;
-           }
-             c.update(dt);
-        }
-    }
-
-    public void dearGui(){
-        if(ImGui.collapsingHeader("Name")) setName();
-        for(Component c: componentList){
-            if(ImGui.collapsingHeader(c.getClass().getSimpleName())) c.dearGui();
-        }
-    }
-
-    public void printAllComponents(){
-        System.out.println("All components: ");
-        for(Component c: componentList){
-            System.out.println(c.getClass().getSimpleName());
-        }
-    }
-
     public void addComponent(Component c){
         c.setParent(this);
         componentList.add(c);
     }
 
-    public void destroyComponents(){
-        componentList.clear();
+    public void removeComponent(Component component){
+       boolean removed = componentList.remove(component);
+       if(!removed) throw new IllegalStateException("Object doesn't extend the component: " + component);
     }
 
     public <T> void removeComponent(Class<T> component){
-
         for(int i = 0; i < componentList.size(); i++){
             Component c = componentList.get(i);
             if(component.isAssignableFrom(c.getClass())){
-                System.out.println(componentList.size());
                 componentList.remove(c);
                 return;
             }
         }
     }
 
-    public void removeComponent(Component component){
-        componentList.remove(component);
-      //  System.out.println(componentList.stream().toList() + " : " +  getName() );
+    public void destroyAllComponents(){
+        componentList.clear();
     }
 
     public boolean isSerializable(){

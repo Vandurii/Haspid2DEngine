@@ -7,7 +7,6 @@ public class AudioConfig {
     public AudioConfig(String filePath, boolean isLooping){
         this.filePath = filePath;
         this.isLooping = isLooping;
-
     }
 
     public String getFilePath() {
@@ -25,4 +24,5 @@ public class AudioConfig {
     public void setLooping(boolean looping) {
         isLooping = looping;
     }
+
 }

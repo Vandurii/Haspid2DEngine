@@ -1,17 +1,14 @@
 package main.haspid;
 
-import main.Helper;
 import main.components.Component;
 import main.components.SpriteRenderer;
 import org.joml.Vector2d;
-import org.joml.Vector2f;
 
 public class Transform extends Component {
-    private Vector2d position;
+    private int zIndex;
     private Vector2d scale;
     private double rotation;
-    private int zIndex;
-
+    private Vector2d position;
 
     public Transform(){
         this.position = new Vector2d();
@@ -43,46 +40,7 @@ public class Transform extends Component {
 
     @Override
     public void update(float dt) {
-        if(Helper.isNull(getParent())) throw new IllegalStateException("Parent Object is null.");
-    }
-
-    public Vector2d getPosition() {
-        return position;
-    }
-
-    public void setPosition(Vector2d position) {
-        this.position = position;
-    }
-
-    public void setPosition(double x, double y){
-        this.position = new Vector2d(x, y);
-    }
-
-    public Vector2d getScale() {
-        return scale;
-    }
-
-    public void setScale(Vector2d scale) {
-        this.scale = scale;
-    }
-
-    public double getRotation() {
-        return rotation;
-    }
-
-    public void setRotation(double rotation) {
-        this.rotation = rotation;
-    }
-
-    public int getZIndex(){
-        return zIndex;
-    }
-
-    public void setZIndex(int zIndex){
-        if(getParent() != null && this.zIndex != zIndex) {
-            this.zIndex = zIndex;
-             getParent().getComponent(SpriteRenderer.class).markToRelocate();
-        }
+        if(getParent() == null) throw new IllegalStateException("Parent Object is null.");
     }
 
     @Override
@@ -111,5 +69,44 @@ public class Transform extends Component {
         Transform t = (Transform) o;
 
         return (this.scale.equals(t.getScale()) && this.position.equals(t.getPosition()) && this.rotation == t.rotation && this.zIndex == t.zIndex);
+    }
+
+    public Vector2d getPosition() {
+        return position;
+    }
+
+    public void setPosition(Vector2d position) {
+        this.position = new Vector2d(position.x, position.y);
+    }
+
+    public void setPosition(double x, double y){
+        this.position = new Vector2d(x, y);
+    }
+
+    public Vector2d getScale() {
+        return scale;
+    }
+
+    public void setScale(Vector2d scale) {
+        this.scale = new Vector2d(scale.x, scale.y);
+    }
+
+    public double getRotation() {
+        return rotation;
+    }
+
+    public void setRotation(double rotation) {
+        this.rotation = rotation;
+    }
+
+    public int getZIndex(){
+        return zIndex;
+    }
+
+    public void setZIndex(int zIndex){
+        if(getParent() != null && this.zIndex != zIndex) {
+            this.zIndex = zIndex;
+            getParent().getComponent(SpriteRenderer.class).markToRelocate();
+        }
     }
 }

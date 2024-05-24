@@ -20,12 +20,14 @@ public class MouseControls extends Component {
     private MouseListener mouse;
     private EditorScene editorScene;
     private static GameObject draggingObject;
-    private List<GameObject> activeObjectList;
+    private static List<GameObject> activeObjectList;
 
     private Gizmo gizmo;
     private double xBuffer, yBuffer;
-    private float debounce = 0.02f;
-    private float resetDebounce = debounce;
+
+
+    private double placeObjectCooldown;
+    private double resetPlaceObjectCooldown;
 
     private boolean draggingWindow;
     private Vector2d startDraggingWindow;
@@ -45,6 +47,9 @@ public class MouseControls extends Component {
     private static HashMap<Vector2d, GameObject> objDistanceFromCursorMap;
 
     public MouseControls(EditorScene editorScene, MouseListener mouse, Gizmo gizmo) {
+        this.resetPlaceObjectCooldown = Configuration.placeObjectCooldown;
+        this.placeObjectCooldown = resetPlaceObjectCooldown;
+
         this.gizmo = gizmo;
         this.mouse = mouse;
         this.editorScene = editorScene;
@@ -149,11 +154,11 @@ public class MouseControls extends Component {
         if(mouse.getWorldX() < 0) xPos -= gridSize;
 
         draggingObject.getTransform().setPosition(new Vector2d(xPos, yPos));
-        if(mouse.isButtonPressed(GLFW_MOUSE_BUTTON_1) && debounce < 0 && mouse.isCursorInsideViewPort()){
+        if(mouse.isButtonPressed(GLFW_MOUSE_BUTTON_1) && placeObjectCooldown < 0 && mouse.isCursorInsideViewPort()){
             place();
-            debounce = resetDebounce;
+            placeObjectCooldown = resetPlaceObjectCooldown;
         }
-        debounce -= dt;
+        placeObjectCooldown -= dt;
     }
 
     public void trackMouseMultiple(){
@@ -221,8 +226,8 @@ public class MouseControls extends Component {
         Vector2d scale = transform.getScale();
 
         Vector2d delta = mouse.getDelta();
-        double x  = (delta.x * zoom);
-        double y  = (delta.y * zoom);
+        double x  = (delta.x * currentZoomValue);
+        double y  = (delta.y * currentZoomValue);
         Vector2d value = addToBuffer(x, y);
 
         if(mouse.isCursorInsideViewPort()) {
@@ -250,39 +255,35 @@ public class MouseControls extends Component {
         int y = (int) mouse.getViewPortY();
         int id = (int) window.getIdBuffer().readIDFromPixel(x, y);
 
-        GameObject active = editorScene.getGameObjectFromID(id);
+        GameObject active = editorScene.getObjectByID(id);
         if(active != null && active.isTriggerable()){
 
             if(!multipleMode){
                 unselectActiveObjects();
-                editorScene.clearActiveObjectList();
             }
 
             highLightObject(active);
             if(!activeObjectList.contains(active)) setObjectActive(active);
-            if(!editorScene.getActiveGameObjectList().contains(active)) editorScene.addObjectToActiveList(active); // todo
         }
 
         return id;
     }
 
     public boolean isSquareOccupied(double viewPortX, double viewPortY, int draggingObjectID){
-        int spacing = 2;
-
         // number of current grids in x axis
-        double currentGridX = uProjectionDimension.x * zoom / Configuration.gridSize;
+        double currentGridX = uProjectionDimension.x * currentZoomValue / Configuration.gridSize;
         // size of currentXGrid;
         double gridSizeX = 1440 / currentGridX; // todo delete magic number
 
         // number of current grids in y axis
-        double currentGridY = uProjectionDimension.y * zoom / Configuration.gridSize;
+        double currentGridY = uProjectionDimension.y * currentZoomValue / Configuration.gridSize;
         // size of currentYGrid;
         double gridSizeY = 810 / currentGridY; // todo delete magic number
 
         // start scan from this x,y position
         int x = (int)(((int) (viewPortX / gridSizeX)) * gridSizeX);
         int y = (int)(((int) (viewPortY/ gridSizeY)) * gridSizeY);
-        HashSet<Integer> idSet = window.getIdBuffer().readIDFromPixel(x + spacing, y + spacing, (int)gridSizeX - spacing, (int)gridSizeY - spacing);
+        HashSet<Integer> idSet = window.getIdBuffer().readIDFromPixel(x + pixOffsetByCheckingSquare, y + pixOffsetByCheckingSquare, (int)gridSizeX - pixOffsetByCheckingSquare, (int)gridSizeY - pixOffsetByCheckingSquare);
 
         idSet.remove(0);
         idSet.remove(draggingObjectID);
@@ -319,11 +320,10 @@ public class MouseControls extends Component {
 
                 HashSet<Integer> idSet = window.getIdBuffer().readIDFromPixel(startFromX, startFromY, width  + 2, height + 2);
                 for(int id: idSet){
-                   GameObject gameObject = editorScene.getGameObjectFromID(id);
+                   GameObject gameObject = editorScene.getObjectByID(id);
                    if(gameObject != null) {
                        highLightObject(gameObject);
                        setObjectActive(gameObject);
-                       editorScene.addObjectToActiveList(gameObject);
                    }
                 }
             }
@@ -378,7 +378,6 @@ public class MouseControls extends Component {
 
     public void setObjectActive(GameObject active){
         if(!activeObjectList.contains(active)) activeObjectList.add(active);
-        if(!editorScene.getActiveGameObjectList().contains(active))editorScene.addObjectToActiveList(active);
 
         // highLight when there is more then 1 active object
         if(activeObjectList.size() == 2){
@@ -396,13 +395,11 @@ public class MouseControls extends Component {
 
     public void removeFromActiveList(GameObject gameObject){
         activeObjectList.remove(gameObject);
-        editorScene.removeFromActiveList(gameObject);
     }
 
     public void setObjectActive(List<GameObject> cloneList){
         unselectActiveObjects();
         activeObjectList = cloneList;
-        editorScene.setActiveGameObjectList(cloneList);
         highLightObject(activeObjectList);
     }
 
@@ -417,7 +414,6 @@ public class MouseControls extends Component {
         }
 
         activeObjectList.clear();
-        editorScene.clearActiveObjectList();
     }
 
     public void removeDraggingObject(){
@@ -437,7 +433,7 @@ public class MouseControls extends Component {
         return hasActiveObject() || hasDraggingObject();
     }
 
-    public List<GameObject> getAllActiveObjects() {
+    public static List<GameObject> getAllActiveObjects() {
         return activeObjectList;
     }
 
@@ -447,10 +443,6 @@ public class MouseControls extends Component {
 
     public Gizmo getGizmo() {
         return gizmo;
-    }
-
-    public void setGizmo(Gizmo gizmo) {
-        this.gizmo = gizmo;
     }
 
     public MouseListener getMouseListener(){

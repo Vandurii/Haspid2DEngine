@@ -21,22 +21,15 @@ import org.lwjgl.openal.ALCapabilities;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.system.MemoryStack;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
-import java.nio.Buffer;
 import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
 import java.nio.IntBuffer;
 
 import static main.Configuration.*;
-import static org.lwjgl.BufferUtils.createByteBuffer;
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.openal.ALC10.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.stb.STBImage.stbi_load;
-import static org.lwjgl.stb.STBImage.stbi_set_flip_vertically_on_load;
 import static org.lwjgl.system.MemoryStack.stackPush;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
@@ -44,14 +37,14 @@ public class Window implements Observer {
 
     private static Window instance;
 
-    private static long glfwWindow;
-    private static long audioContext;
-    private static long audioDevice;
-    private static Scene currentScene;
-    private static Scene newScene;
-    private static FrameBuffer frameBuffer;
-    private static IDBuffer idBuffer;
-    private static Renderer renderer;
+    private long glfwWindow;
+    private long audioContext;
+    private long audioDevice;
+    private Scene currentScene;
+    private Scene newScene;
+    private FrameBuffer frameBuffer;
+    private IDBuffer idBuffer;
+    private Renderer renderer;
 
     private Window(){
         EventSystem.addObserver(this);
@@ -63,8 +56,7 @@ public class Window implements Observer {
         init();
         loop();
 
-        //currentScene.save();
-        if(currentScene instanceof EditorScene) currentScene.save();
+        if(currentScene instanceof EditorScene) currentScene.saveSceneObject();
         currentScene.disposeDearGui();
 
         // Free audio context
@@ -102,16 +94,14 @@ public class Window implements Observer {
         IntBuffer width = BufferUtils.createIntBuffer(1);
         IntBuffer height = BufferUtils.createIntBuffer(1);
         IntBuffer channels = BufferUtils.createIntBuffer(1);
-        ByteBuffer imageBuffer = stbi_load(iconPath, width, height, channels, 4);
-
+        ByteBuffer imageByteBuffer = stbi_load(iconPath, width, height, channels, 4);
 
         GLFWImage icon = GLFWImage.malloc();
-        GLFWImage.Buffer imgebf = GLFWImage.malloc(1);
+        GLFWImage.Buffer imageBuffer = GLFWImage.malloc(1);
+        icon.set(width.get(), height.get(), imageByteBuffer);
+        imageBuffer.put(0, icon);
 
-        icon.set(width.get(), height.get(), imageBuffer);
-        imgebf.put(0, icon);
-
-        glfwSetWindowIcon(glfwWindow, imgebf);
+        glfwSetWindowIcon(glfwWindow, imageBuffer);
 
         // Setup a key callback. It will be called every time a key is pressed, repeated or released.
         glfwSetKeyCallback(glfwWindow, KeyListener::keyCallback);
@@ -137,8 +127,8 @@ public class Window implements Observer {
             // Center the window
             glfwSetWindowPos(
                     glfwWindow,
-                    (vidmode.width() - pWidth.get(0)) / 2+ 1750 ,
-                    (vidmode.height() - pHeight.get(0)) / 2  - 50
+                    (vidmode.width() - pWidth.get(0)) / 2 + shiftXAxis ,
+                    (vidmode.height() - pHeight.get(0)) / 2  - shiftYAxis
             );
         } // the stack frame is popped automatically
 
@@ -176,7 +166,7 @@ public class Window implements Observer {
         renderer = Renderer.getInstance();
         frameBuffer = new FrameBuffer(windowWidth, windowHeight);
         idBuffer = new IDBuffer(windowWidth, windowHeight);
-        initScene(new EditorScene());
+        reloadScene(new EditorScene());
     }
 
     private void loop(){
@@ -227,22 +217,40 @@ public class Window implements Observer {
 
             if(newScene != null){
                 currentScene.disposeDearGui();
-                initScene(newScene);
+                reloadScene(newScene);
                 newScene = null;
             }
         }
     }
 
-    public static Window getInstance(){
-        if(instance == null) instance = new Window();
-
-        return instance;
-    }
-
-    private void initScene(Scene scene){
+    private void reloadScene(Scene scene){
         currentScene = scene;
         currentScene.init();
         currentScene.start();
+    }
+
+    @Override
+    public void onNotify(GameObject gameObject, Event event) {
+        switch (event.getEventType()){
+            case GameEngineStart -> {
+                currentScene.destroy();
+                currentScene.saveSceneObject();
+                newScene = new GameScene();
+                currentClearColor = gameClearColor;
+            }
+            case GameEngineStop -> {
+                currentScene.destroy();
+                newScene = new EditorScene();
+                currentClearColor = editorClearColor;
+            }
+            case Reload -> {
+                currentScene.destroy();
+                newScene = new GameScene();
+                currentClearColor = gameClearColor;
+            }
+            case SaveLevel -> currentScene.saveSceneObject();
+            case LoadLevel -> currentScene.loadSceneObject();
+        }
     }
 
     public Scene getCurrentScene(){
@@ -261,10 +269,6 @@ public class Window implements Observer {
         windowHeight = height;
     }
 
-    public void setNewScene(Scene scene){
-        newScene = scene;
-    }
-
     public FrameBuffer getFrameBuffer(){
         return  frameBuffer;
     }
@@ -273,27 +277,9 @@ public class Window implements Observer {
         return idBuffer;
     }
 
-    @Override
-    public void onNotify(GameObject gameObject, Event event) {
-        switch (event.getEventType()){
-            case GameEngineStart -> {
-                currentScene.clear();
-                currentScene.save();
-                newScene = new GameScene();
-                currentClearColor = gameClearColor;
-            }
-            case GameEngineStop -> {
-                currentScene.clear();
-                newScene = new EditorScene();
-                currentClearColor = editorClearColor;
-            }
-            case Reload -> {
-                currentScene.clear();
-                newScene = new GameScene();
-                currentClearColor = gameClearColor;
-            }
-            case SaveLevel -> currentScene.save();
-            case LoadLevel -> currentScene.load();
-        }
+    public static Window getInstance(){
+        if(instance == null) instance = new Window();
+
+        return instance;
     }
 }

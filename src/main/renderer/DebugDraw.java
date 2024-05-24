@@ -6,7 +6,6 @@ import main.haspid.Window;
 import main.util.AssetPool;
 import main.util.Shader;
 import org.joml.Vector2d;
-import org.joml.Vector2f;
 import org.joml.Vector3f;
 
 import java.util.*;
@@ -70,7 +69,7 @@ public class DebugDraw {
     }
 
     public static void draw(){
-        if(ViewPort.getInstance().getViewPortWidth() < minimalWidthForGrid || uProjectionDimension.x * zoom > maximalWidthForGrid) return;
+        if(ViewPort.getInstance().getViewPortWidth() < minimalWidthForGrid || uProjectionDimension.x * currentZoomValue > maximalWidthForGrid) return;
         if(sleep) return;;
 
         setLineWidth();
@@ -104,7 +103,6 @@ public class DebugDraw {
 
         glBindBuffer(GL_ARRAY_BUFFER, VBO);
         glBufferData(GL_ARRAY_BUFFER, vertexArray, GL_DYNAMIC_DRAW);
-        //print(vertexArray);
 
         Camera camera = Window.getInstance().getCurrentScene().getCamera();
         line2DShader.use();
@@ -122,14 +120,6 @@ public class DebugDraw {
         glDisableVertexAttribArray(1);
         glBindVertexArray(0);
         line2DShader.detach();
-    }
-
-    public static void print(float[] array){
-        System.out.println("******************** start ***************************");
-        for(int i = 0; i < array.length; i++){
-            System.out.print(array[i] + " \t");
-            if((i + 1) % 6  == 0) System.out.println();
-        }
     }
 
     public static void drawCircle2D(Vector2d centre, double radius, int zIndex){
@@ -237,7 +227,7 @@ public class DebugDraw {
         sleep = true;
     }
 
-    public static void yield(){
+    public static void activate(){
         clearMap();
         sleep = false;
     }
@@ -246,7 +236,6 @@ public class DebugDraw {
        if(vertexArray != null){
            vertexArray = new float[vertexArray.length];
            clearMap();
-           System.out.println("reset");
        }
     }
 

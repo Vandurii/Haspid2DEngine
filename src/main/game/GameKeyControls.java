@@ -5,6 +5,9 @@ import main.components.SpriteRenderer;
 import main.haspid.Camera;
 import main.haspid.KeyListener;
 import main.haspid.Window;
+import main.physics.events.Event;
+import main.physics.events.EventSystem;
+import main.physics.events.EventType;
 import main.renderer.RenderBatch;
 
 import java.util.Arrays;
@@ -39,6 +42,9 @@ public class GameKeyControls extends Component {
                     }
                     System.out.println();
                 }
+            }else if(keyboard.isKeyPressed(GLFW_KEY_ESCAPE)){
+                EventSystem.notify(null, new Event(EventType.GameEngineStop));
+                glfwRestoreWindow(Window.getInstance().getGlfwWindow());
             }
             keyDebounce = resetDebounce;
         }

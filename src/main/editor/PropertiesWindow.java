@@ -11,6 +11,7 @@ import main.haspid.GameObject;
 import main.util.*;
 import org.joml.Vector2d;
 
+import java.awt.*;
 import java.util.List;
 
 import static main.Configuration.*;
@@ -28,15 +29,11 @@ public class PropertiesWindow {
     }
 
     public void display(){
-        ImGui.pushStyleColor(ImGuiCol.Button, imGuiButtonColor.x, imGuiButtonColor.y, imGuiButtonColor.z, imGuiButtonColor.w);
-        ImGui.pushStyleColor(ImGuiCol.WindowBg, imGuiColor.x, imGuiColor.y, imGuiColor.z, imGuiColor.w);
-        ImGui.pushStyleColor(ImGuiCol.TabUnfocusedActive, imGuiTabInactive.x, imGuiTabInactive.y, imGuiTabInactive.z, imGuiTabInactive.w);
-        ImGui.pushStyleColor(ImGuiCol.TabActive, imGuiTabActive.x, imGuiTabActive.y, imGuiTabActive.z, imGuiTabActive.w);
         ImGui.begin("Properties Window");
         if(ImGui.beginTabBar("Properties Bar")) {
             int i = 1;
             for(Properties tab: tabList){
-                if(ImGui.beginTabItem("<" + i++ + ">")){
+                if(ImGui.beginTabItem(tab.getName())){
                     if(tab instanceof SpriteSheet spriteSheet) {
                         generateButtons(spriteSheet, i);
                     }else if(tab instanceof AudioSheet audioSheet){
@@ -44,10 +41,10 @@ public class PropertiesWindow {
                     }
                     ImGui.endTabItem();
                 }
+                i++;
             }
             ImGui.endTabBar();
         }
-        ImGui.popStyleColor(4);
         ImGui.end();
     }
 
@@ -63,7 +60,7 @@ public class PropertiesWindow {
             if (ImGui.imageButton(texID, (float) spriteWidth, (float) spriteHeight, (float) cords[3].x, (float) cords[3].y, (float) cords[1].x, (float) cords[1].y)) {
                 GameObject holdingObject = Prefabs.generateBopObject(sprite, spriteWidth, spriteHeight, ColliderType.Box);
                 // todo
-                if(index == 7){
+                if(index == 6){
                     switch (i){
                         case 0 -> holdingObject = Prefabs.generateMario(spriteWidth / 2, spriteHeight /2);
                         case 1 -> holdingObject = Prefabs.generateGoomba(spriteWidth / 2, spriteHeight / 2);

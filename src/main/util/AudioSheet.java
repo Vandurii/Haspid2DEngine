@@ -17,4 +17,9 @@ public class AudioSheet implements Properties{
     public List<Sound> getSoundList(){
         return soundList;
     }
+
+    @Override
+    public String getName() {
+        return "Audio";
+    }
 }

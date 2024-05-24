@@ -91,7 +91,7 @@ public class Gizmo extends Component {
     @Override
     public void update(float dt) {
 
-        List<GameObject> gameObjectList = editorScene.getActiveGameObjectList();
+        List<GameObject> gameObjectList = MouseControls.getAllActiveObjects();
         GameObject activeObject = null;
 
          if(gameObjectList.size() == 1){

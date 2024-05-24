@@ -8,8 +8,10 @@ import org.joml.*;
 
 import java.awt.*;
 
+import static main.Configuration.*;
+
 public class JImGui {
-    private static int defaultWidth = 80;
+    private static int defaultWidth = 100;
 
     public static <T> Object drawValue(String label, T type, String hashName){
         return drawValue(label, type ,hashName, 0, defaultWidth);
@@ -20,12 +22,12 @@ public class JImGui {
         ImGui.pushID(label);
 
         ImGui.columns(2);
-        ImGui.setColumnWidth(0, columnWidth);
+     //   ImGui.setColumnWidth(0, columnWidth);
         ImGui.text(label);
         ImGui.nextColumn();
 
         if(type instanceof Vector2f || type instanceof Vector3f || type instanceof Vector4f || type instanceof Vector2d || type instanceof Vector3d || type instanceof Vector4d){
-            ImGui.pushStyleVar(ImGuiStyleVar.ItemSpacing, 0, 0);
+            ImGui.pushStyleVar(ImGuiStyleVar.ItemSpacing, inspectorXSpacing, inspectorYSpacing);
             vec(type, resetValue);
             ImGui.popStyleVar();
         }else if(type instanceof Integer){
@@ -74,33 +76,32 @@ public class JImGui {
 
         float lineHeight = ImGui.getFontSize() + ImGui.getStyle().getFramePaddingY() * 2.0f;
         Vector2f buttonSize = new Vector2f(lineHeight + 3.0f, lineHeight);
-        float widthEach = (ImGui.calcItemWidth() - (buttonSize.x * count)) / count;
 
         for(int i = 0; i < count; i++) {
 
             if (i == 0) {
-                normal = new Color(0.8f, 0.1f, 0.15f, 1.0f);
-                hover = new Color(0.9f, 0.2f, 0.2f, 1.0f);
-                active = new Color(0.8f, 0.1f, 0.15f, 1.0f);
-                name = "X";
+                name = firstButtonName;
+                normal = firstButNormal;
+                hover = firstButHover;
+                active = firstButActive;
             } else if (i == 1) {
-                normal = new Color(0.2f, 0.7f, 0.2f, 1.0f);
-                hover = new Color(0.3f, 0.8f, 0.3f, 1.0f);
-                active = new Color(0.2f, 0.7f, 0.2f, 1.0f);
-                name = "Y";
+                name = secondButtonName;
+                normal = secondButNormal;
+                hover = secondButHover;
+                active = secondButActive;
             } else if(i == 2){
-                name = "Z";
-                normal = new Color(0.1f, 0.25f, 0.8f, 1.0f);
-                hover = new Color(0.2f, 0.35f, 0.9f, 1.0f);
-                active = new Color(0.1f, 0.25f, 0.8f, 1.0f);
+                name = thirdButtonName;
+                normal = thirdButNormal;
+                hover = thirdButHover;
+                active = thirdButActive;
             }else if(i == 3){
-                name = "W";
-                normal = new Color(0.2f, 0.1f, 0.3f, 1.0f);
-                hover = new Color(0.4f, 0.3f, 0.5f, 1.0f);
-                active = new Color(0.2f, 0.1f, 0.3f, 1.0f);
+                name = fourthButtonName;
+                normal = fourthButNormal;
+                hover = fourthButHover;
+                active = fourthButActive;
             }
 
-            ImGui.pushItemWidth(widthEach);
+            ImGui.pushItemWidth(vectorButtonWidth);
 
             ImGui.pushStyleColor(ImGuiCol.Button, normal.getRed(), normal.getGreen(), normal.getBlue(), normal.getAlpha());
             ImGui.pushStyleColor(ImGuiCol.ButtonHovered, hover.getRed(), hover.getGreen(), hover.getBlue(), hover.getAlpha());
@@ -130,7 +131,7 @@ public class JImGui {
 
             ImGui.dragFloat("##" + name, vecValues, 2f, Integer.MAX_VALUE, Integer.MAX_VALUE, "%.2f");
             ImGui.popItemWidth();
-            ImGui.sameLine();
+
 
             if(values instanceof Vector2f || values instanceof Vector3f || values instanceof Vector4f) {
                 setVecF(values, i, vecValues[0]);

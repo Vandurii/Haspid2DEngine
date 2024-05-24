@@ -105,7 +105,6 @@ public class Physics2D {
             PolygonShape shape = new PolygonShape();
             Vector2d halfSize = new Vector2d(boxCollider.getHalfSize());
             Vector2d offset = new Vector2d(boxCollider.getOffset());
-            Vector2d origin = new Vector2d(boxCollider.getOrigin());
             shape.setAsBox((float) halfSize.x, (float) halfSize.y, new Vec2((float) offset.x, (float) offset.y), 0);
 
             rawBody.createFixture(createFixtureDef(shape, rigidBody));

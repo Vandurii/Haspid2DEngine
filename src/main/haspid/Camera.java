@@ -7,25 +7,50 @@ import java.lang.Math;
 import static main.Configuration.*;
 
 public class Camera {
-    private Matrix4f uProjection, uView;
     private Vector2d position;
-    private Matrix4f inverseUProjection, inverseUView;
     private double xBuffer, yBuffer;
+    private Matrix4f uProjection, uView;
+    private Matrix4f inverseUProjection, inverseUView;
 
     public Camera(Vector2d position){
         this.position = position;
-        this.uProjection = new Matrix4f();
         this.uView = new Matrix4f();
-        this.inverseUProjection = new Matrix4f();
+        this.uProjection = new Matrix4f();
         this.inverseUView = new Matrix4f();
+        this.inverseUProjection = new Matrix4f();
+
         adjustProjection();
     }
 
     public void adjustProjection(){
         uProjection.identity();
-        uProjection.ortho(0f, (float) (uProjectionDimension.x * zoom), 0f, (float) (uProjectionDimension.y * zoom), 0f, (float) uProjectionDimension.z);
-
+        uProjection.ortho(0f, (float) (uProjectionDimension.x * currentZoomValue), 0f, (float) (uProjectionDimension.y * currentZoomValue), 0f, (float) uProjectionDimension.z);
         uProjection.invert(inverseUProjection);
+    }
+
+    public void zoom(double value){
+        double val = value * scrollSensitivity * currentZoomValue;
+        if(currentZoomValue - val < minZoomValue || currentZoomValue - val > maxZoomValue) return;
+        currentZoomValue -= val;
+        adjustProjection();
+    }
+
+    public void decreaseZoom(){
+        double defaultZoomVal = 1;
+
+        // decrease or increase zoom value until equalize value
+        if(currentZoomValue > defaultZoomVal){
+            currentZoomValue -= resetCameraZoomSpeed;
+        }else{
+            currentZoomValue += resetCameraZoomSpeed;
+        }
+
+        // if value is close to default then set default value
+        if(Math.abs(Math.abs(currentZoomValue) - defaultZoomVal) < equalizeZoomBy){
+            currentZoomValue = defaultZoomVal;
+        }
+
+        adjustProjection();
     }
 
     public void addToBuffer(double x, double y){
@@ -49,22 +74,6 @@ public class Camera {
 
     public void resetYBuffer(){
         yBuffer = 0;
-    }
-
-    public void zoom(double value){
-        double val = value * scrollSensivity * zoom;
-        if(zoom - val < minZoomValue || zoom - val > maxZoomValue) return;
-        zoom -= val;
-        adjustProjection();
-    }
-
-    public void decreasingZoom(){
-        if(Math.abs(zoom) > 1.2){
-            zoom -= 0.1f;
-        }else{
-            zoom = 1;
-        }
-        adjustProjection();
     }
 
     public void resetPosition(){
@@ -106,7 +115,7 @@ public class Camera {
     }
 
     public void setPositionX(Vector2d position){
-        this.position = position;
+        this.position = new Vector2d(position.x, position.y);
     }
 
     public void setPosition(double x, double y){

@@ -89,4 +89,9 @@ public class Sound implements Properties{
     public String getFilePath(){
         return filePath;
     }
+
+    @Override
+    public String getName() {
+        return "Audio";
+    }
 }

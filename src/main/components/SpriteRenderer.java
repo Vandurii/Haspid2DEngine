@@ -84,7 +84,7 @@ public class SpriteRenderer extends Component {
     }
 
     public void dearGui() {
-        super.dearGui();
+       // super.dearGui();
         float[] imColor = {color.x, color.y, color.z, color.w};
 
         if (ImGui.colorEdit4("color Picker", imColor)) {

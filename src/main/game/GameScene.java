@@ -1,16 +1,12 @@
 package main.game;
 
 import imgui.app.Configuration;
-import main.editor.EditorMenuBar;
 import main.editor.ViewPort;
 import main.haspid.GameObject;
 import main.haspid.ImGuiLayer;
 import main.haspid.Window;
-import main.renderer.DebugDraw;
 import main.renderer.Renderer;
 import main.haspid.Scene;
-
-import static main.Configuration.gameClearColor;
 
 public class GameScene extends Scene {
 
@@ -28,15 +24,13 @@ public class GameScene extends Scene {
         imGuiLayer = new ImGuiLayer(Window.getInstance().getGlfwWindow());
         imGuiLayer.init(new Configuration());
 
-        load();
+        loadSceneObject();
     }
 
     @Override
     public void update(float dt) {
         dearGui();
         gameSceneStuff.update(dt);
-        updateGameObject(dt);
-
         runTimeUpdate(dt);
     }
 
@@ -57,7 +51,7 @@ public class GameScene extends Scene {
     }
 
     @Override
-    public void clear() {
+    public void destroy() {
 
     }
 }

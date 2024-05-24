@@ -1,6 +1,7 @@
 package main.components.physicsComponent;
 
 import main.components.Component;
+import main.editor.InactiveInEditor;
 import main.haspid.GameObject;
 import main.haspid.Transform;
 import main.haspid.Window;
@@ -11,7 +12,7 @@ import org.jbox2d.dynamics.Body;
 import org.joml.Vector2d;
 import org.joml.Vector2f;
 
-public class RigidBody extends Component {
+public class RigidBody extends Component implements InactiveInEditor {
 
     private transient Window window;
     private transient Physics2D physics;
@@ -29,7 +30,7 @@ public class RigidBody extends Component {
     private transient Body rawBody;
     private boolean continuousCollision;
 
-    private boolean updateRotation;
+    private transient boolean updateRotation;
 
     public RigidBody(){
         this.friction = 0.1;

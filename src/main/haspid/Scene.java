@@ -2,7 +2,6 @@ package main.haspid;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import main.Helper;
 import main.components.Component;
 import main.components.SpriteRenderer;
 import main.components.ComponentSerializer;
@@ -13,7 +12,6 @@ import main.physics.Physics2D;
 import main.renderer.Renderer;
 import main.util.AssetPool;
 import main.util.SpriteSheet;
-import main.util.Texture;
 import org.joml.Vector2d;
 
 import java.io.FileWriter;
@@ -35,257 +33,51 @@ public abstract class Scene {
     private Renderer renderer;
     protected Physics2D physics;
     protected boolean editorMode;
-    private static List<GameObject> sceneObjectList;
-    private static List<GameObject> objectToRemoveList;
-    private static List<GameObject> pendingObjectList;
-    private static Map<Component, GameObject> componentToRemoveMap;
-    private static Map<Component, GameObject> componentToAddMap;
-    private static Map<GameObject, Vector2d> positionToChageMap = new HashMap<>();
+    private List<GameObject> sceneObjectList;
+    private List<GameObject> pendingObjectList;
+    private List<GameObject> objectToRemoveList;
+    private Map<Component, GameObject> componentToAddMap;
+    private Map<Component, GameObject> componentToRemoveMap;
+    private Map<GameObject, Vector2d> objectToChangePositionMap;
 
-    public static SpriteSheet itemsSheet = AssetPool.getSpriteSheet(itemsConfig);
-    public static SpriteSheet smallFormSheet = AssetPool.getSpriteSheet(smallFormConfig);
-    public static SpriteSheet bigFormSheet = AssetPool.getSpriteSheet(bigFormConfig);
-    public static SpriteSheet turtleSheet = AssetPool.getSpriteSheet(turtleConfig);
+    public SpriteSheet itemsSheet = AssetPool.getSpriteSheet(itemsConfig);
+    public SpriteSheet smallFormSheet = AssetPool.getSpriteSheet(smallFormConfig);
+    public SpriteSheet bigFormSheet = AssetPool.getSpriteSheet(bigFormConfig);
+    public SpriteSheet turtleSheet = AssetPool.getSpriteSheet(turtleConfig);
 
     public Scene(){
-        this.camera = new Camera(new Vector2d(0, 0));
+        this.physics = new Physics2D();
+        this.renderer = Renderer.getInstance();
+        this.componentToAddMap = new HashMap<>();
         this.sceneObjectList = new ArrayList<>();
-        this.objectToRemoveList = new ArrayList<>();
         this.pendingObjectList = new ArrayList<>();
         this.componentToRemoveMap = new HashMap<>();
-        this.componentToAddMap = new HashMap<>();
-        this.renderer = Renderer.getInstance();
-        this.physics = new Physics2D();
+        this.objectToRemoveList = new ArrayList<>();
+        this.objectToChangePositionMap = new HashMap<>();
+        this.camera = new Camera(new Vector2d(0, 0));
 
         Component.resetCounter();
+        Renderer.resetInstance();
         loadResources();
     }
 
-    public abstract void update(float dt);
-
-    public abstract void init();
-
-    public abstract void disposeDearGui();
-
-    public abstract void clear();
-
-    public abstract void render(float dt, boolean bufferIDMode);
-
-    public void start(){
-        for(GameObject gameObject: sceneObjectList){
-            gameObject.start();
-            renderer.add(gameObject);
-        }
-        isRunning = true;
-    }
-
-    public void addGameObjectToScene(GameObject ...gameObjects){;
-        for(GameObject gameObject: gameObjects) {
-            sceneObjectList.add(gameObject);
-            physics.add(gameObject);
-
-            if (isRunning) {
-                gameObject.start();
-                renderer.add(gameObject);
-            }
-        }
-    }
-
-    public void removeFromScene(GameObject gameObject){
-        if(Helper.isNotNull(gameObject) && Helper.isNotNull(gameObject.getComponent(SpriteRenderer.class))){
-            gameObject.getComponent(SpriteRenderer.class).markToRemove();
-            physics.destroyGameObject(gameObject);
-            sceneObjectList.remove(gameObject);
-        }
-    }
-
-    public void changePositionRuntime(Vector2d pos, GameObject gameObject){
-        positionToChageMap.put(gameObject, pos);
-    }
-
-    public void changePosition(){
-        for(Map.Entry<GameObject, Vector2d> entry: positionToChageMap.entrySet()) {
-            entry.getKey().getTransform().setPosition(entry.getValue());
-            entry.getKey().getComponent(RigidBody.class).setPosition(entry.getValue());
-        }
-
-        positionToChageMap.clear();
-    }
-
-    public void addObjectToSceneRunTime(GameObject gameObject){
-        pendingObjectList.add(gameObject);
-    }
-
-    public void addPendingObject(){
-        for(GameObject gameObject: pendingObjectList){
-            addGameObjectToScene(gameObject);
-        }
-
-        pendingObjectList.clear();
-    }
-
-    public void removeFromSceneRuntime(GameObject gameObject){
-        objectToRemoveList.add(gameObject);
-    }
-
-    public void removeDeadObject(){
-        for(GameObject gameObject: objectToRemoveList){
-            SpriteRenderer spriteRenderer = gameObject.getComponent(SpriteRenderer.class);
-            if(spriteRenderer != null){
-                spriteRenderer.markToRemove();
-            }
-
-            physics.destroyGameObject(gameObject);
-            sceneObjectList.remove(gameObject);
-        }
-
-        objectToRemoveList.clear();
-    }
-
-    public void runTimeUpdate(float dt){
-        removeComponentFromObject();
-        addComponentToObject();
-
-        removeDeadObject();
-        addPendingObject();
-
-        changePosition();
-        physics.update(dt);
-    }
-
-    public void updateGameObject(float dt){
-        for (GameObject go : getSceneObjectList()) {
-           go.update(dt);
-        }
-    }
-
-    public void removeComponentRuntime(GameObject gameObject, Component component){
-        componentToRemoveMap.put(component, gameObject);
-    }
-
-    public void removeComponentFromObject() {
-        for (Map.Entry<Component, GameObject> entry : componentToRemoveMap.entrySet()) {
-            entry.getValue().removeComponent(entry.getKey());
-        }
-        componentToRemoveMap.clear();
-    }
-
-    public void addComponentRuntime(GameObject gameObject, Component component){
-        componentToAddMap.put(component, gameObject);
-    }
-
-    public void addComponentToObject() {
-        for (Map.Entry<Component, GameObject> entry : componentToRemoveMap.entrySet()) {
-            entry.getValue().addComponent(entry.getKey());
-        }
-    }
-
-    public void clearScene(){
-        sceneObjectList.clear();
-        Component.resetCounter();
-        Renderer.resetInstance();
-    }
-    
-    public void save(){
-            Gson gson = new GsonBuilder().
-                    setPrettyPrinting().
-                    registerTypeAdapter(Component.class, new ComponentSerializer()).
-                    registerTypeAdapter(GameObject.class, new GameObjectDeserializer()).
-                    enableComplexMapKeySerialization().
-                    create();
-
-        try {
-            FileWriter fileWriter = new FileWriter(levelPath);
-            ArrayList<GameObject> objectsToSave = new ArrayList<>();
-
-            for(GameObject gameObject: sceneObjectList){
-                if(gameObject.isSerializable()){
-                    objectsToSave.add(gameObject);
-                }
-            }
-
-            String obj = gson.toJson(objectsToSave);
-            fileWriter.write(obj);
-            fileWriter.close();
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-    }
-
-    public void load(){
-        clearScene();
-
-        Gson gson = new GsonBuilder().
-                setPrettyPrinting().
-                registerTypeAdapter(Component.class, new ComponentSerializer()).
-                registerTypeAdapter(GameObject.class, new GameObjectDeserializer()).
-                enableComplexMapKeySerialization().
-                create();
-
-        try{
-            String data = new String(Files.readAllBytes(Paths.get(levelPath)));
-            if(!data.trim().isEmpty() && !data.trim().equals("[]")) {
-                GameObject[] gameObjects = gson.fromJson(data, GameObject[].class);
-                addGameObjectToScene(gameObjects);
-            }
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-    }
-
-    public static void printSceneObjects(){
-        List<GameObject> goList = new ArrayList<>();
-        List<Component> cList = new ArrayList<>();
-        List<SpriteRenderer> sList = new ArrayList<>();
-        List<Texture> tList = new ArrayList<>();
-
-        System.out.println("*********************");
-        System.out.println("Object in Scene");
-        System.out.println("*********************");
-        for(GameObject gameObject: sceneObjectList){
-            if(!goList.contains(gameObject)) goList.add(gameObject);
-            for(Component component: gameObject.getAllComponent()){
-                if(!cList.contains(component)) cList.add(component);
-
-                if(component instanceof SpriteRenderer){
-                    SpriteRenderer spriteRenderer = (SpriteRenderer) component;
-                    if(!sList.contains(spriteRenderer))sList.add(spriteRenderer);
-                    if(!tList.contains(spriteRenderer.getTexture()))tList.add(spriteRenderer.getTexture());
-                }
-            }
-        }
-
-        System.out.println("Objects : " + goList.size());
-        System.out.println("component : " + goList.size());
-        System.out.println("sprites : " + goList.size());
-        System.out.println("textures : " + goList.size());
-        System.out.println("\n\n\n\n\n");
-    }
-
-    public boolean isInEditMode(){
-        return editorMode;
-    }
-
-    public Camera getCamera(){
-        return camera;
-    }
-
-    public List<GameObject> getSceneObjectList(){
-        return sceneObjectList;
-    }
-
-    public Renderer getRenderer(){
-        return renderer;
-    }
-
     private void loadResources(){
+        //===================================
+        //  shader
+        //===================================
         AssetPool.getShader(defaultShaderPath);
+
+        //===================================
+        //  spriteSheet
+        //===================================
         AssetPool.getSpriteSheet(smallFormConfig);
         AssetPool.getSpriteSheet(decorationAndBlockConfig);
         AssetPool.getSpriteSheet(gizmosConfig);
         AssetPool.getSpriteSheet(itemsConfig);
 
-        // todo
+        //===================================
+        //  Sound
+        //===================================
         AssetPool.getSound(mainTheme);
         AssetPool.getSound(breakBlock);
         AssetPool.getSound(bump);
@@ -436,18 +228,198 @@ public abstract class Scene {
         turtle.addState(turtleWalk, turtleSquashed);
         AssetPool.putStateMachine("turtle", turtle);
     }
+    public abstract void init();
 
-    public GameObject getGameObjectFromID(int id){
-        for(GameObject go: sceneObjectList){
-            if(go.getGameObjectID() == id) return go;
+    public abstract void update(float dt);
+
+    public abstract void render(float dt, boolean bufferIDMode);
+
+    public abstract void destroy();
+
+    public abstract void disposeDearGui();
+
+    public void start(){
+        for(GameObject gameObject: sceneObjectList){
+            gameObject.start();
+            renderer.add(gameObject);
+        }
+        isRunning = true;
+    }
+
+    public void runTimeUpdate(float dt){
+        updateGameObject(dt);
+
+        removeComponentFromObject();
+        addComponentToObject();
+
+        removeDeadObject();
+        addPendingObject();
+
+        changePosition();
+        physics.update(dt);
+    }
+
+    public void updateGameObject(float dt){
+        for (GameObject go : getSceneObjectList()) {
+            go.update(dt);
+        }
+    }
+
+    public void addGameObjectToScene(GameObject ...gameObjects){;
+        for(GameObject gameObject: gameObjects) {
+            sceneObjectList.add(gameObject);
+            physics.add(gameObject);
+
+            if (isRunning) {
+                gameObject.start();
+                renderer.add(gameObject);
+            }
+        }
+    }
+
+    public void addObjectToSceneRunTime(GameObject gameObject){
+        pendingObjectList.add(gameObject);
+    }
+
+    private void addPendingObject(){
+        for(GameObject gameObject: pendingObjectList){
+            addGameObjectToScene(gameObject);
+        }
+
+        pendingObjectList.clear();
+    }
+
+    public void addComponentRuntime(GameObject gameObject, Component component){
+        componentToAddMap.put(component, gameObject);
+    }
+
+    private void addComponentToObject() {
+        for (Map.Entry<Component, GameObject> entry : componentToRemoveMap.entrySet()) {
+            entry.getValue().addComponent(entry.getKey());
+        }
+    }
+
+    public void changePositionRuntime(Vector2d pos, GameObject gameObject){
+        objectToChangePositionMap.put(gameObject, pos);
+    }
+
+    private void changePosition(){
+        for(Map.Entry<GameObject, Vector2d> entry: objectToChangePositionMap.entrySet()) {
+            entry.getKey().getTransform().setPosition(entry.getValue());
+            entry.getKey().getComponent(RigidBody.class).setPosition(entry.getValue());
+        }
+
+        objectToChangePositionMap.clear();
+    }
+
+    public void removeFromScene(GameObject gameObject){
+        if(gameObject != null && gameObject.getComponent(SpriteRenderer.class) != null){
+            gameObject.getComponent(SpriteRenderer.class).markToRemove();
+            physics.destroyGameObject(gameObject);
+            sceneObjectList.remove(gameObject);
+        }
+    }
+
+    public void removeFromSceneRuntime(GameObject gameObject){
+        objectToRemoveList.add(gameObject);
+    }
+
+    private void removeDeadObject(){
+        for(GameObject gameObject: objectToRemoveList){
+            SpriteRenderer spriteRenderer = gameObject.getComponent(SpriteRenderer.class);
+            if(spriteRenderer != null){
+                spriteRenderer.markToRemove();
+            }
+
+            physics.destroyGameObject(gameObject);
+            sceneObjectList.remove(gameObject);
+        }
+
+        objectToRemoveList.clear();
+    }
+
+    public void removeComponentRuntime(GameObject gameObject, Component component){
+        componentToRemoveMap.put(component, gameObject);
+    }
+
+    private void removeComponentFromObject() {
+        for (Map.Entry<Component, GameObject> entry : componentToRemoveMap.entrySet()) {
+            entry.getValue().removeComponent(entry.getKey());
+        }
+        componentToRemoveMap.clear();
+    }
+    
+    public void saveSceneObject(){
+
+            Gson gson = new GsonBuilder().
+                    setPrettyPrinting().
+                    registerTypeAdapter(Component.class, new ComponentSerializer()).
+                    registerTypeAdapter(GameObject.class, new GameObjectDeserializer()).
+                    enableComplexMapKeySerialization().
+                    create();
+
+        try {
+            FileWriter fileWriter = new FileWriter(levelPath);
+            ArrayList<GameObject> objectsToSave = new ArrayList<>();
+
+            for(GameObject gameObject: sceneObjectList){
+                if(gameObject.isSerializable()){
+                    objectsToSave.add(gameObject);
+                }
+            }
+
+            System.out.println("enter");
+            String obj = gson.toJson(objectsToSave);
+            System.out.println("after");
+            fileWriter.write(obj);
+            fileWriter.close();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void loadSceneObject(){
+        resetScene();
+
+        Gson gson = new GsonBuilder().
+                setPrettyPrinting().
+                registerTypeAdapter(Component.class, new ComponentSerializer()).
+                registerTypeAdapter(GameObject.class, new GameObjectDeserializer()).
+                enableComplexMapKeySerialization().
+                create();
+
+        try{
+            String data = new String(Files.readAllBytes(Paths.get(levelPath)));
+            if(!data.trim().isEmpty() && !data.trim().equals("[]")) {
+                GameObject[] gameObjects = gson.fromJson(data, GameObject[].class);
+                addGameObjectToScene(gameObjects);
+            }
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void resetScene(){
+        sceneObjectList.clear();
+        Component.resetCounter();
+        Renderer.resetInstance();
+    }
+
+    public boolean isInEditMode(){
+        return editorMode;
+    }
+
+    public GameObject getObjectByID(int id){
+        for(GameObject object: sceneObjectList){
+            if(object.getGameObjectID() == id) return object;
         }
 
         return null;
     }
 
-    public GameObject getGameObjectByName(String name){
-        for(GameObject go: sceneObjectList){
-            if(go.getName().equals(name)) return go;
+    public GameObject getObjectByName(String name){
+        for(GameObject object: sceneObjectList){
+            if(object.getName().equals(name)) return object;
         }
 
         return null;
@@ -455,5 +427,17 @@ public abstract class Scene {
 
     public Physics2D getPhysics(){
         return physics;
+    }
+
+    public Camera getCamera(){
+        return camera;
+    }
+
+    public List<GameObject> getSceneObjectList(){
+        return sceneObjectList;
+    }
+
+    public Renderer getRenderer(){
+        return renderer;
     }
 }

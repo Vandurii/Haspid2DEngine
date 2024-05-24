@@ -2,6 +2,8 @@ package main.components.behaviour;
 
 import main.components.Component;
 import main.components.PlayerController;
+import main.components.physicsComponent.CircleCollider;
+import main.components.physicsComponent.Collider;
 import main.components.physicsComponent.RigidBody;
 import main.components.stateMachine.StateMachine;
 import main.haspid.GameObject;
@@ -16,12 +18,15 @@ public class GoombaBeh extends Component {
     private double speed;
     private double gravity;
     private double minContact;
+    private double corpseTime;
+    private transient boolean die;
     private transient RigidBody rigidBody;
 
     public GoombaBeh(){
         this.speed = 20;
         this.gravity = 100;
         this.minContact = 0.7;
+        this.corpseTime = 1;
     }
 
     @Override
@@ -43,7 +48,11 @@ public class GoombaBeh extends Component {
 
     @Override
     public void update(float dt) {
-        rigidBody.setVelocityX(speed);
+        if(!die) {
+            rigidBody.setVelocityX(speed);
+        }else if((corpseTime -= dt) < 0){
+            destroyCorpse();
+        }
     }
 
     @Override
@@ -74,6 +83,10 @@ public class GoombaBeh extends Component {
     }
 
     public void die(){
+        die = true;
+    }
+
+    public void destroyCorpse(){
         Window.getInstance().getCurrentScene().removeFromSceneRuntime(getParent());
     }
 

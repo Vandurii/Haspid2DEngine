@@ -14,18 +14,17 @@ import main.util.AssetPool;
 import main.util.Properties;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static main.Configuration.*;
 
 public class EditorScene extends Scene {
 
     private Gizmo gizmo;
-    private EditorMenuBar editorMenuBar;
     private GridLines gridLines;
     private ImGuiLayer imGuiLayer;
     private KeyControls keyControls;
     private MouseListener mouseListener;
+    private EditorMenuBar editorMenuBar;
     private MouseControls mouseControls;
     private CameraControl cameraControl;
     private GameObject levelEditorStuff;
@@ -33,7 +32,6 @@ public class EditorScene extends Scene {
     private InspectorWindow inspectorWindow;
     private ArrayList<Properties> properties;
     private PropertiesWindow propertiesWindow;
-    private List<GameObject> activeGameObjectList;
 
     @Override
     public void init() {
@@ -42,9 +40,8 @@ public class EditorScene extends Scene {
         mouseListener = MouseListener.getInstance();
         DebugDraw.resetVertexArray();
 
-        load();
+        loadSceneObject();
         editorMode = true;
-        activeGameObjectList = new ArrayList<>();
 
         gridLines = new GridLines();
         gizmo = new Gizmo(this);
@@ -73,13 +70,13 @@ public class EditorScene extends Scene {
         properties.add(AssetPool.getAllSound());
 
         editorMenuBar = new EditorMenuBar(this);
-        inspectorWindow = new InspectorWindow(mouseControls);
+        inspectorWindow = new InspectorWindow();
         propertiesWindow = new PropertiesWindow(mouseControls, properties);
     }
 
     @Override
     public void update(float dt) {
-        dearGui();
+        updateDearGui();
         levelEditorStuff.update(dt);
         updateGameObject(dt);
     }
@@ -91,7 +88,7 @@ public class EditorScene extends Scene {
         getRenderer().render();
     }
 
-    public void dearGui(){
+    public void updateDearGui(){
         imGuiLayer.startFrame();
 
         editorMenuBar.display();
@@ -103,8 +100,8 @@ public class EditorScene extends Scene {
         imGuiLayer.endFrame();
     }
 
-    public void clear(){
-        zoom = 1;
+    public void destroy(){
+        currentZoomValue = 1;
         mouseControls.unselectActiveObjects();
         mouseControls.removeDraggingObject();
     }
@@ -113,35 +110,11 @@ public class EditorScene extends Scene {
         imGuiLayer.dispose();
     }
 
-    public List<GameObject> getActiveGameObjectList() {
-        return activeGameObjectList;
-    }
-
-    public void addObjectToActiveList(GameObject activeGameObject) {
-        activeGameObjectList.add(activeGameObject);
-    }
-
-    public void removeFromActiveList(GameObject gameObject){
-        activeGameObjectList.remove(gameObject);
-    }
-
-    public void clearActiveObjectList(){
-        activeGameObjectList.clear();
-    }
-
     public MouseControls getMouseControls(){
         return  mouseControls;
     }
 
-    public KeyControls getKeyControls(){
-        return  keyControls;
-    }
-
     public EditorMenuBar getMenuBar(){
         return editorMenuBar;
-    }
-
-    public void setActiveGameObjectList(List<GameObject> activeGameObjectList){
-        this.activeGameObjectList = activeGameObjectList;
     }
 }

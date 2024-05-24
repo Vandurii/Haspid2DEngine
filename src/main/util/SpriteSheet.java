@@ -9,10 +9,12 @@ import java.util.List;
 
 public class SpriteSheet implements Properties{
 
+    private String name;
     private Texture parentTexture;
     private List<SpriteRenderer> spriteList;
 
     protected SpriteSheet(SpriteConfig config){
+        this.name = config.name;
         this.spriteList = new ArrayList<>();
         this.parentTexture = config.texture;
 
@@ -50,5 +52,10 @@ public class SpriteSheet implements Properties{
 
     public int getSize(){
         return spriteList.size();
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 }

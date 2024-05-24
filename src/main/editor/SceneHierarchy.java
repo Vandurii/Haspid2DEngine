@@ -22,24 +22,20 @@ public class SceneHierarchy {
     }
 
     public void display(){
-        ImGui.pushStyleColor(ImGuiCol.WindowBg, imGuiColor.x, imGuiColor.y, imGuiColor.z, imGuiColor.w);
-        ImGui.pushStyleColor(ImGuiCol.FrameBg, imGuiFrameBackground.x, imGuiFrameBackground.y, imGuiFrameBackground.z, imGuiFrameBackground.w);
-        ImGui.pushStyleColor(ImGuiCol.Header, imGuiHeader.x, imGuiHeader.y, imGuiHeader.z, imGuiHeader.w);
-        ImGui.pushStyleColor(ImGuiCol.TabUnfocusedActive, imGuiTabInactive.x, imGuiTabInactive.y, imGuiTabInactive.z, imGuiTabInactive.w);
-        ImGui.pushStyleColor(ImGuiCol.TabActive, imGuiTabActive.x, imGuiTabActive.y, imGuiTabActive.z, imGuiTabActive.w);
         ImGui.begin("Scene Hierarchy");
-        List<GameObject> gameObjectList = editorScene.getSceneObjectList();
+        if(ImGui.collapsingHeader("Objects:")) {
+            List<GameObject> gameObjectList = editorScene.getSceneObjectList();
 
-        for(int i = 0; i < gameObjectList.size(); i++){
-            GameObject gameObject = gameObjectList.get(i);
-            if(!gameObject.isSerializable()) continue;
+            for (int i = 0; i < gameObjectList.size(); i++) {
+                GameObject gameObject = gameObjectList.get(i);
+                if (!gameObject.isSerializable()) continue;
 
-            boolean isTreeNodeOpen = createTreeNode(gameObject, i);
+                boolean isTreeNodeOpen = createTreeNode(gameObject, i);
 
-            if(isTreeNodeOpen) ImGui.treePop();
+                if (isTreeNodeOpen) ImGui.treePop();
+            }
         }
         ImGui.end();
-        ImGui.popStyleColor(5);
     }
 
     public boolean createTreeNode(GameObject gameObject, int index){

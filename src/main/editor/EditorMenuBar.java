@@ -30,7 +30,6 @@ public class EditorMenuBar {
         long glfw = Window.getInstance().getGlfwWindow();
 
         ImGui.pushStyleVar(ImGuiStyleVar.FramePadding, 0, menuBarHeight);
-        ImGui.pushStyleColor(ImGuiCol.MenuBarBg, imGuiMenuBar.x, imGuiMenuBar.y, imGuiMenuBar.z, imGuiTabActive.w);
         ImGui.beginMainMenuBar();
 
         // icon
@@ -46,7 +45,7 @@ public class EditorMenuBar {
             ImGui.endMenu();
         }
 
-        if(ImGui.menuItem("Play")){
+        if(ImGui.menuItem("Run")){
             EventSystem.notify(null, new Event(EventType.GameEngineStart));
             glfwMaximizeWindow(glfw);
         }
@@ -86,7 +85,6 @@ public class EditorMenuBar {
 
         updatePos();
 
-        ImGui.popStyleColor(1);
         ImGui.popStyleVar(1);
         ImGui.endMainMenuBar();
     }

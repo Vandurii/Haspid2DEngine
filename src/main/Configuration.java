@@ -44,14 +44,14 @@ public class Configuration {
     // Sprite Sheet Config
     //=====================
     public static int standardSpriteSize = 16;
-    public static SpriteConfig smallFormConfig = new SpriteConfig(Path.fromImages("smallForm.png"), standardSpriteSize, standardSpriteSize, 26, 0, true);
-    public static SpriteConfig decorationAndBlockConfig = new SpriteConfig(Path.fromImages("decorationsAndBlocks.png"), standardSpriteSize, standardSpriteSize, 81, 0, true);
-    public static SpriteConfig gizmosConfig = new SpriteConfig(Path.fromImages("gizmos.png"), 24, 48, 3, 0, true);
-    public static SpriteConfig itemsConfig = new SpriteConfig(Path.fromImages("items.png"), standardSpriteSize, standardSpriteSize, 34, 0, true);
-    public static SpriteConfig bigFormConfig = new SpriteConfig(Path.fromImages("bigForm.png"), 16, 32, 42, 0, true);
-    public static SpriteConfig pipesConfig = new SpriteConfig(Path.fromImages("pipes.png"), 32, 32, 6, 0, true);
-    public static SpriteConfig turtleConfig = new SpriteConfig(Path.fromImages("turtle.png"), 16, 24, 4, 0, true);// todo
-    public static SpriteConfig iconConfig = new SpriteConfig(Path.fromImages("icons.png"), 32, 32, 16, 0, true);// todo
+    public static SpriteConfig smallFormConfig = new SpriteConfig(Path.fromImages("smallForm.png"), standardSpriteSize, standardSpriteSize, 26, 0, "smallForm", true);
+    public static SpriteConfig decorationAndBlockConfig = new SpriteConfig(Path.fromImages("decorationsAndBlocks.png"), standardSpriteSize, standardSpriteSize, 81, 0, "blocks", true);
+    public static SpriteConfig gizmosConfig = new SpriteConfig(Path.fromImages("gizmos.png"), 24, 48, 3, 0, "gizmo", true);
+    public static SpriteConfig itemsConfig = new SpriteConfig(Path.fromImages("items.png"), standardSpriteSize, standardSpriteSize, 34, 0, "items", true);
+    public static SpriteConfig bigFormConfig = new SpriteConfig(Path.fromImages("bigForm.png"), 16, 32, 42, 0, "bigForm", true);
+    public static SpriteConfig pipesConfig = new SpriteConfig(Path.fromImages("pipes.png"), 32, 32, 6, 0, "pipes", true);
+    public static SpriteConfig turtleConfig = new SpriteConfig(Path.fromImages("turtle.png"), 16, 24, 4, 0, "turtle",true);// todo
+    public static SpriteConfig iconConfig = new SpriteConfig(Path.fromImages("icons.png"), 32, 32, 16, 0, "icons", true);// todo
 
 
 
@@ -99,6 +99,9 @@ public class Configuration {
     public static String windowTitle = "Haspid";
     public static float aspectRatio = (float)windowWidth / (float)windowHeight;
 
+    public static int shiftXAxis = 0;//1750;
+    public static int shiftYAxis = 0;//50;
+
 
 
     //=====================
@@ -118,6 +121,14 @@ public class Configuration {
     //=====================
     public static Color editorClearColor = new Color(60, 60, 60, 1);
     public static double keyDebounceC = 0.1f;
+
+
+
+    //=====================
+    // Mouse Control
+    //=====================
+    public static double placeObjectCooldown = 0.03;
+    public static int pixOffsetByCheckingSquare = 2;
 
 
 
@@ -162,16 +173,18 @@ public class Configuration {
     //=====================
     // Editor Camera
     //=====================
-    public static double skipCamera = 2;
-    public static double cameraSensivity = 8.0;
-    public static double resetCameraSpeed = 0.1f;
-    public static double debounceForCamera = 0.0000032f;
+    public static double equalizeCameraBy = 2;
+    public static double cameraSensitivity = 5;
+    public static double resetCameraPosSpeed = 0.1;
+    public static double resetCameraZoomSpeed = 0.3;
 
-    public static double zoom = 1f;
-    public static double minZoomValue = 0.05f;
-    public static double maxZoomValue = 20f;
 
-    public static double scrollSensivity = 0.1f;
+    public static double currentZoomValue = 1;
+    public static double equalizeZoomBy = 0.1;
+    public static double minZoomValue = 0.05;
+    public static double maxZoomValue = 20;
+
+    public static double scrollSensitivity = 0.1;
 
 
 
@@ -200,7 +213,7 @@ public class Configuration {
     public static int colliderZIndex = 3;
     public static double pillboxWidth = 0;
     public static double pillboxHeight = 0;
-    public static Vector3f colliderColor = new Vector3f(0.0f, 1f, 0.0f);
+    public static Vector3f colliderColor = new Vector3f(1.0f, 1f, 1.0f);
 
 
 
@@ -232,16 +245,68 @@ public class Configuration {
     //******************************************************************************************************************
 
     //=====================
+    // Theme Color
+    //=====================
+    public static float alpha = 1;
+    public static float zeroColVal = 0;
+    public static float firstColVal = 0.15f;
+    public static float secondColVal = 0.10f;
+    public static float thirdColVal = 0.20f;
+    public static float fourthColVal = 0.30f;
+    public static float sixthColVal = 1;
+
+    public static Color white = new Color(0.2f, 0.7f, 0.2f, alpha);
+
+
+
+    //=====================
     // Dear Gui Settings
     //=====================
-    public static Vector4f imGuiColor = new Vector4f(0.25f, 0.25f, 0.25f, 1);
-    public static Vector4f imGuiButtonColor = new Vector4f(0.25f, 0.25f, 0.25f, 1);
-    public static Vector4f imGuiFrameBackground = new Vector4f(0.15f, 0.15f, 0.15f, 1);
-    public static Vector4f imGuiHeader = new Vector4f(0.15f, 0.15f, 0.15f, 1);
-    public static Vector4f imGuiTitleBg = new Vector4f(1f, 0f, 0f, 1);
-    public static Vector4f imGuiTabInactive = new Vector4f(0.15f, 0.15f, 0.15f, 1);
-    public static Vector4f imGuiTabActive = new Vector4f(0.25f, 0.25f, 0.25f, 1);
-    public static Vector4f imGuiMenuBar = new Vector4f(0.25f, 0.25f, 0.25f, 1);
+
+    public static Vector4f imGuiColor = new Vector4f(firstColVal, firstColVal, firstColVal, alpha);
+    public static Vector4f imGuiFrameBackground = new Vector4f(secondColVal, secondColVal, secondColVal, alpha);
+
+    public static Vector4f imGuiButtonColor = new Vector4f(thirdColVal, thirdColVal, thirdColVal, alpha);
+    public static Vector4f imGuiButtonHovColor = new Vector4f(sixthColVal, sixthColVal, sixthColVal, alpha);
+    public static Vector4f imGuiButtonActiveColor = new Vector4f(zeroColVal, zeroColVal, zeroColVal, alpha);
+
+    public static Vector4f imGuiHeader = new Vector4f(secondColVal, secondColVal, secondColVal, alpha);
+    public static Vector4f imGuiHeaderHov = new Vector4f(fourthColVal, fourthColVal, fourthColVal, alpha);
+    public static Vector4f imGuiHeaderActive = new Vector4f(zeroColVal, zeroColVal, zeroColVal, alpha);
+
+    public static Vector4f imGuiTabColor = new Vector4f(fourthColVal, fourthColVal, fourthColVal, alpha);
+    public static Vector4f imGuiTabHovColor = new Vector4f(secondColVal, secondColVal, secondColVal, alpha);
+    public static Vector4f imGuiTabActive = new Vector4f(firstColVal, firstColVal, firstColVal, alpha);
+    public static Vector4f imGuiTabUnfocusedActive = new Vector4f(thirdColVal, thirdColVal, thirdColVal, alpha);
+
+
+
+    //=====================
+    // Inspector
+    //=====================
+    public static int inspectorXSpacing = 3;
+    public static int inspectorYSpacing = 2;
+    public static int vectorButtonWidth = 100;
+
+    public static String firstButtonName = "X";
+    public static Color firstButNormal = new Color(0.8f, 0.1f, 0.15f, 1.0f);
+    public static Color firstButHover = new Color(0.9f, 0.2f, 0.2f, 1.0f);
+    public static Color firstButActive = new Color(0.8f, 0.1f, 0.15f, 1.0f);
+
+    public static String secondButtonName = "Y";
+    public static Color secondButNormal = new Color(0.2f, 0.7f, 0.2f, 1.0f);
+    public static Color secondButHover = new Color(0.3f, 0.8f, 0.3f, 1.0f);
+    public static Color secondButActive = new Color(0.2f, 0.7f, 0.2f, 1.0f);
+
+    public static String thirdButtonName = "Z";
+    public static Color thirdButNormal = new Color(0.1f, 0.25f, 0.8f, 1.0f);
+    public static Color thirdButHover = new Color(0.2f, 0.35f, 0.9f, 1.0f);
+    public static Color thirdButActive = new Color(0.1f, 0.25f, 0.8f, 1.0f);
+
+    public static String fourthButtonName = "W";
+    public static Color fourthButNormal = new Color(0.2f, 0.1f, 0.3f, 1.0f);
+    public static Color fourthButHover = new Color(0.4f, 0.3f, 0.5f, 1.0f);
+    public static Color fourthButActive = new Color(0.2f, 0.1f, 0.3f, 1.0f);
 
 
 
@@ -252,17 +317,17 @@ public class Configuration {
     public static float menuBarButtonSpacing = 2;
     public static float menuBarButtonSize = menuBarHeight * 3;
 
-    public static Color exitNormal = new Color(0.20f, 0.20f, 0.20f, 1f);
-    public static Color exitHover = new Color(0.9f, 0.2f, 0.2f, 1.0f);
-    public static Color exitActive = new Color(0.8f, 0.1f, 0.15f, 1.0f);
+    public static Color exitNormal = new Color(thirdColVal, thirdColVal, thirdColVal, alpha);
+    public static Color exitHover = new Color(0.9f, 0.2f, 0.2f, alpha);
+    public static Color exitActive = new Color(0.8f, 0.1f, 0.15f, alpha);
 
-    public static Color maximizeNormal = new Color(0.20f, 0.20f, 0.20f, 1f);
-    public static Color maximizeHover = new Color(0.8f, 0.8f, 0.8f, 1.0f);
-    public static Color maximizeActive = new Color(0.2f, 0.7f, 0.2f, 1.0f);
+    public static Color maximizeNormal = new Color(thirdColVal, thirdColVal, thirdColVal, alpha);
+    public static Color maximizeHover = new Color(0.8f, 0.8f, 0.8f, alpha);
+    public static Color maximizeActive = white;
 
-    public static Color minimizeNormal = new Color(0.20f, 0.20f, 0.20f, 1f);
-    public static Color minimizeHover = new Color(0.8f, 0.8f, 0.8f, 1.0f);
-    public static Color minimizeActive = new Color(0.2f, 0.7f, 0.2f, 1.0f);
+    public static Color minimizeNormal = new Color(thirdColVal, thirdColVal, thirdColVal, alpha);
+    public static Color minimizeHover = new Color(0.8f, 0.8f, 0.8f, alpha);
+    public static Color minimizeActive = white;
 
     public static int iconScale = 11;
 }

@@ -27,7 +27,7 @@ public class PipeBeh extends Component {
 
     @Override
     public void start(){
-        connectingPipe = Window.getInstance().getCurrentScene().getGameObjectByName(connectingPipeName);
+        connectingPipe = Window.getInstance().getCurrentScene().getObjectByName(connectingPipeName);
     }
 
     public void dearGui(){

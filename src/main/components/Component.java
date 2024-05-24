@@ -7,6 +7,7 @@ import main.haspid.GameObject;
 import org.jbox2d.dynamics.contacts.Contact;
 import org.joml.Vector2d;
 import org.joml.Vector2f;
+import org.joml.Vector4f;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -26,7 +27,7 @@ public abstract class Component {
     public abstract void update(float dt);
 
     public Component copy(){
-        System.out.println("im not made < copy from: " + this.getClass().getSimpleName());
+        System.out.println("im not made : copy from: " + this.getClass().getSimpleName());
         return null;
     };
 
@@ -48,6 +49,10 @@ public abstract class Component {
 
     public void postSolve(GameObject collidingObject, Contact contact, Vector2d hitNormal){
 
+    }
+
+    public void dearGui() {
+        dearGui(null);
     }
 
     public void dearGui(Object object){
@@ -80,11 +85,13 @@ public abstract class Component {
                         f.set(obj, clazz.getEnumConstants()[index.get()]);
                     }
                 }else if(clazz == String.class){
-
+                    //todo
                   //      f.set(obj, JImGui.drawValue("Name: ", name, obj.hashCode() + ""));
 
-                }else{
+                }else if(clazz == Vector2d.class || clazz == Vector4f.class){
                     JImGui.drawValue(name, value, obj.hashCode() + "");
+                }else{
+                    System.out.println("Can't load value form this class: " + clazz);
                 }
 
                 if(isPrivate) f.setAccessible(false);
@@ -92,10 +99,6 @@ public abstract class Component {
                 e.printStackTrace();
             }
         }
-    }
-
-    public void dearGui() {
-        dearGui(null);
     }
 
     public static void resetCounter(){

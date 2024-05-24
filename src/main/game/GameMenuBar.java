@@ -15,7 +15,9 @@ import static org.lwjgl.glfw.GLFW.*;
 public class GameMenuBar {
     public void display(){
         ImGui.pushStyleVar(ImGuiStyleVar.FramePadding, 0, menuBarHeight);
-        ImGui.pushStyleColor(ImGuiCol.MenuBarBg, imGuiMenuBar.x, imGuiMenuBar.y, imGuiMenuBar.z, imGuiTabActive.w);
+        ImGui.pushStyleColor(ImGuiCol.Button, exitNormal.getRed(), exitNormal.getGreen(), exitNormal.getBlue(), exitNormal.getAlpha());
+        ImGui.pushStyleColor(ImGuiCol.ButtonHovered, exitHover.getRed(), exitHover.getGreen(), exitHover.getBlue(), exitHover.getAlpha());
+        ImGui.pushStyleColor(ImGuiCol.ButtonActive, exitActive.getRed(), exitActive.getGreen(), exitActive.getBlue(), exitActive.getAlpha());
         ImGui.beginMainMenuBar();
 
         if (ImGui.menuItem("Editor")) {
@@ -24,16 +26,13 @@ public class GameMenuBar {
         }
 
         long glfw = Window.getInstance().getGlfwWindow();
-        ImGui.pushStyleColor(ImGuiCol.Button, exitNormal.getRed(), exitNormal.getGreen(), exitNormal.getBlue(), exitNormal.getAlpha());
-        ImGui.pushStyleColor(ImGuiCol.ButtonHovered, exitHover.getRed(), exitHover.getGreen(), exitHover.getBlue(), exitHover.getAlpha());
-        ImGui.pushStyleColor(ImGuiCol.ButtonActive, exitActive.getRed(), exitActive.getGreen(), exitActive.getBlue(), exitActive.getAlpha());
+
         ImGui.setCursorPos(ImGui.getWindowSizeX() - (menuBarButtonSize + menuBarButtonSpacing), 0);
         if(ImGui.button("X", menuBarButtonSize, menuBarButtonSize)){
             glfwSetWindowShouldClose(glfw, true);
         }
-        ImGui.popStyleColor(3);
 
-        ImGui.popStyleColor(1);
+        ImGui.popStyleColor(3);
         ImGui.popStyleVar(1);
         ImGui.endMainMenuBar();
     }

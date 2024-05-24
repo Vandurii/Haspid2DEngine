@@ -1,5 +1,8 @@
 package main.components.physicsComponent;
 
+import main.editor.EditorScene;
+import main.editor.InactiveInEditor;
+import main.haspid.Scene;
 import main.haspid.Transform;
 import main.haspid.Window;
 import main.physics.Physics2D;
@@ -10,17 +13,16 @@ import static main.Configuration.colliderZIndex;
 import static main.Configuration.colliderColor;
 
 public class BoxCollider extends Collider {
-    private Vector2d halfSize;
-    private Vector2d origin; // todo why i need it?
     private Vector2d center;
-
-    private transient boolean resetFixtureNextFrame;
+    private Vector2d halfSize;
+    private transient Scene scene;
     private transient Physics2D physics;
+    private transient boolean resetFixtureNextFrame;
 
     public BoxCollider(Vector2d halfSize){
         this.halfSize = halfSize;
-        this.origin = new Vector2d();
         this.center = new Vector2d();
+        this.scene = Window.getInstance().getCurrentScene();
     }
 
     @Override
@@ -40,7 +42,6 @@ public class BoxCollider extends Collider {
     public BoxCollider copy(){
         BoxCollider boxCollider = new BoxCollider(halfSize);
         boxCollider.setOffset(getOffset());
-        boxCollider.setOrigin(origin);
         boxCollider.setCenter(center);
 
         return boxCollider;
@@ -68,14 +69,6 @@ public class BoxCollider extends Collider {
 
     public void setHalfSize(Vector2d halfSize){
         this.halfSize = new Vector2d(halfSize);
-    }
-
-    public Vector2d getOrigin(){
-        return origin;
-    }
-
-    public void setOrigin(Vector2d origin) {
-        this.origin = new Vector2d(origin);
     }
 
     public void setCenter(Vector2d center) {
