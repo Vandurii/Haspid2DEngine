@@ -42,7 +42,7 @@ public class RenderBatch implements Comparable<RenderBatch> {
     private int spriteCount;
     private SpriteRenderer[] spriteListToRender;
 
-    private List<Texture> textureList;
+    private static List<Texture> textureList = new ArrayList<>();
     private int[] uTextures;
 
     private ArrayList<Integer> freeSlots;
@@ -51,7 +51,6 @@ public class RenderBatch implements Comparable<RenderBatch> {
         System.out.println("Created new render batch: zIndex:" + zIndex);
 
         this.zIndex = zIndex;
-        this.textureList = new ArrayList<>();
         this.uTextures = texturesSlots;
         this.initVertexAttribPointer(false);
 
@@ -207,11 +206,36 @@ public class RenderBatch implements Comparable<RenderBatch> {
         if(spriteCount + 1 >= maxBathSize) hasRoom = false;
 
         if(spriteRenderer.hasTexture() ) {
+        //    System.out.println("*** index:" + zIndex + " *** caount: " + textureList.size());
             if(!textureList.contains(spriteRenderer.getTexture())){
+                /////////////
+//                System.out.println("#######################doesn't contain: "  + spriteRenderer.getTexture().getFilePath());
+//
+//                for(Texture texture: textureList){
+//                    if(texture.getFilePath().equals(spriteRenderer.getTexture().getFilePath())){
+//                        System.out.println("doch contain");
+//                        System.out.println("\tthis:");
+//                        System.out.println("\t" + spriteRenderer.getTexture().getFilePath());
+//                        System.out.println("\t" + spriteRenderer.getTexture().getTexID());
+//                        System.out.println("\t" + spriteRenderer.getTexture().getWidth());
+//                        System.out.println("\t" + spriteRenderer.getTexture().getHeight());
+//
+//                        System.out.println();
+//
+//                        System.out.println("\tfromList::");
+//                        System.out.println("\t" + texture.getFilePath());
+//                        System.out.println("\t" + texture.getTexID());
+//                        System.out.println("\t" + texture.getWidth());
+//                        System.out.println("\t" + texture.getHeight());
+//                    }
+//                }
+
+                ////////
                 int id = textureList.size() + 1;
                 spriteRenderer.setSpriteID(id);
                 textureList.add(spriteRenderer.getTexture());
             }else {
+             //   System.out.println("already contain: " + spriteRenderer.getTexture().getFilePath());
                 if(spriteRenderer.isIDDefault()) {
                     for (int i = 0; i < textureList.size(); i++) {
                         Texture texture = textureList.get(i);
@@ -323,6 +347,10 @@ public class RenderBatch implements Comparable<RenderBatch> {
             if(i % pointSizeFloat == 0) System.out.println();
             if(i % squareSizeFloat == 0) System.out.println();
         }
+    }
+
+    public SpriteRenderer[] getSpriteToRender(){
+        return spriteListToRender;
     }
 
     @Override

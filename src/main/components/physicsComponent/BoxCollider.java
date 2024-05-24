@@ -1,15 +1,12 @@
 package main.components.physicsComponent;
 
-import main.editor.JImGui;
 import main.haspid.Transform;
 import main.haspid.Window;
 import main.physics.Physics2D;
 import main.renderer.DebugDraw;
-import org.jbox2d.dynamics.World;
 import org.joml.Vector2d;
-import org.joml.Vector2f;
 
-import static main.Configuration.colliderIndex;
+import static main.Configuration.colliderZIndex;
 import static main.Configuration.colliderColor;
 
 public class BoxCollider extends Collider {
@@ -35,7 +32,7 @@ public class BoxCollider extends Collider {
     public void update(float dt){
         Transform t = getParent().getTransform();
         center = new Vector2d(t.getPosition()).add(getOffset());
-        DebugDraw.drawBoxes2D(colliderIndex, center, new Vector2d(halfSize.x * 2, halfSize.y * 2), t.getRotation(), colliderColor, 1 );
+        DebugDraw.drawBoxes2D(colliderZIndex, center, new Vector2d(halfSize.x * 2, halfSize.y * 2), t.getRotation(), colliderColor, 1 );
 
         if(resetFixtureNextFrame) resetFixture();
     }

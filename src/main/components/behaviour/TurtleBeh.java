@@ -15,7 +15,7 @@ import org.joml.Vector2d;
 import static main.Configuration.*;
 
 public class TurtleBeh extends Component {
-    private boolean die;
+    private transient boolean die;
     private double speed;
     private double gravity;
     private double minContact;
@@ -35,7 +35,6 @@ public class TurtleBeh extends Component {
 
     @Override
     public void start(){
-        AssetPool.getSound(powerUpAppears);
         this.rigidBody = getParent().getComponent(RigidBody.class);
         rigidBody.setGravityScale(gravity);
     }
@@ -59,7 +58,7 @@ public class TurtleBeh extends Component {
         coolDown -= dt;
         Vector2d camPos = Window.getInstance().getCurrentScene().getCamera().getPosition();
 
-        if(getParent().getTransform().getPosition().x < camPos.x || getParent().getTransform().getPosition().x > camPos.x + uProjectionDimension.x){
+        if(die && (getParent().getTransform().getPosition().x < camPos.x || getParent().getTransform().getPosition().x > camPos.x + uProjectionDimension.x)){
             die();
         }
     }

@@ -9,12 +9,14 @@ public class SpriteConfig {
     public int numSprites;
     public int spacing;
     public Texture texture;
+    public boolean flip;
 
-    public SpriteConfig(String filePath, int spriteWidth, int spriteHeight, int numSprites, int spacing) {
+    public SpriteConfig(String filePath, int spriteWidth, int spriteHeight, int numSprites, int spacing, boolean flip) {
         this.filePath = filePath;
         this.spriteWidth = spriteWidth;
         this.spriteHeight = spriteHeight;
         this.numSprites = numSprites;
         this.spacing = spacing;
+        this.flip = flip;
     }
 }

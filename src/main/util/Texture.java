@@ -14,6 +14,7 @@ public class Texture{
     private String filePath;
     private int texID;
     private int width, height;
+    private boolean flip;
 
     public Texture(int width, int height){
         this.filePath = "Generated";
@@ -27,8 +28,9 @@ public class Texture{
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, 0);
     }
 
-    protected Texture(String filePath){
+    protected Texture(String filePath, boolean flip){
         this.filePath = filePath;
+        this.flip = flip;
 
         texID = glGenTextures();
         glBindTexture(GL_TEXTURE_2D, texID);
@@ -43,7 +45,7 @@ public class Texture{
         IntBuffer height = BufferUtils.createIntBuffer(1);
         IntBuffer channels = BufferUtils.createIntBuffer(1);
 
-        stbi_set_flip_vertically_on_load(true);
+        stbi_set_flip_vertically_on_load(flip);
         ByteBuffer image = stbi_load(filePath, width, height, channels, 0);
 
         if(image != null) {
@@ -62,12 +64,26 @@ public class Texture{
         }
     }
 
+    @Override
+    public boolean equals(Object o){
+        if(!(o instanceof Texture)) return false;
+        Texture t = (Texture) o;
+
+        return this.filePath.equals(t.getFilePath()) && this.width == t.getWidth() &&
+                this.height == t.getHeight() && this.texID == t.getTexID();
+
+    }
+
     public void bind(){
         glBindTexture(GL_TEXTURE_2D, texID);
     }
 
     public void unbind(){
         glBindTexture(GL_TEXTURE_2D, 0);
+    }
+
+    public boolean isFlipped(){
+        return flip;
     }
 
     public int getWidth(){

@@ -82,6 +82,10 @@ public class PropertiesWindow {
                     if(i == 6){
                         holdingObject = Prefabs.generateFlag(sprite, 16, spriteHeight);
                     }
+                }else if(index == 4){
+                    if(i > 33){
+                        holdingObject = Prefabs.generateSpriteObject(sprite, spriteWidth, spriteHeight);
+                    }
                 }
                 mouseControls.pickupObject(holdingObject);
             }

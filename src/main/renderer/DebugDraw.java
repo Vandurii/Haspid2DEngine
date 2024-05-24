@@ -31,7 +31,7 @@ public class DebugDraw {
     private static HashMap<Integer, List<Line2D>> lineMap;
 
     private static void start(){
-        maxLines = 5000;
+        maxLines = 50000;
         pointsInLine = 2;
         pointSizeFloat = 6;
         lineMap = new HashMap<>();

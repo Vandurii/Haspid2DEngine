@@ -9,8 +9,10 @@ import main.renderer.Renderer;
 import main.editor.EditorScene;
 import main.game.GameScene;
 import main.util.AssetPool;
+import org.lwjgl.BufferUtils;
 import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
+import org.lwjgl.glfw.GLFWImage;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.openal.AL;
 import org.lwjgl.openal.ALC;
@@ -19,13 +21,22 @@ import org.lwjgl.openal.ALCapabilities;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.system.MemoryStack;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
+import java.nio.Buffer;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.nio.IntBuffer;
 
 import static main.Configuration.*;
+import static org.lwjgl.BufferUtils.createByteBuffer;
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.openal.ALC10.*;
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.stb.STBImage.stbi_load;
+import static org.lwjgl.stb.STBImage.stbi_set_flip_vertically_on_load;
 import static org.lwjgl.system.MemoryStack.stackPush;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
@@ -52,8 +63,8 @@ public class Window implements Observer {
         init();
         loop();
 
-        currentScene.save();
-        //if(currentScene instanceof EditorScene) currentScene.save();
+        //currentScene.save();
+        if(currentScene instanceof EditorScene) currentScene.save();
         currentScene.disposeDearGui();
 
         // Free audio context
@@ -86,6 +97,21 @@ public class Window implements Observer {
         // Create the window
         glfwWindow = glfwCreateWindow(windowWidth, windowHeight, windowTitle, NULL, NULL);
         if(glfwWindow == NULL)  throw new RuntimeException("Failed to create te GLFW window");
+
+        // icon
+        IntBuffer width = BufferUtils.createIntBuffer(1);
+        IntBuffer height = BufferUtils.createIntBuffer(1);
+        IntBuffer channels = BufferUtils.createIntBuffer(1);
+        ByteBuffer imageBuffer = stbi_load(iconPath, width, height, channels, 4);
+
+
+        GLFWImage icon = GLFWImage.malloc();
+        GLFWImage.Buffer imgebf = GLFWImage.malloc(1);
+
+        icon.set(width.get(), height.get(), imageBuffer);
+        imgebf.put(0, icon);
+
+        glfwSetWindowIcon(glfwWindow, imgebf);
 
         // Setup a key callback. It will be called every time a key is pressed, repeated or released.
         glfwSetKeyCallback(glfwWindow, KeyListener::keyCallback);

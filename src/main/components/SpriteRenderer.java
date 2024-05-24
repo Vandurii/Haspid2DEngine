@@ -15,7 +15,7 @@ public class SpriteRenderer extends Component {
     private transient Transform lastTransform;
 
 
-    private int spriteID;
+    private transient int spriteID;
     private Vector4f color;
     private Texture texture;
     private double width, height;

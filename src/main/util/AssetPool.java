@@ -22,9 +22,9 @@ public class AssetPool{
             return shaders.get(resourceName);
     }
 
-    public static Texture getTexture(String resourceName){
+    public static Texture getTexture(String resourceName, boolean flip){
         if(!textures.containsKey(resourceName)){
-            textures.put(resourceName, new Texture(resourceName));
+            textures.put(resourceName, new Texture(resourceName, flip));
         }
 
         return textures.get(resourceName);
@@ -33,7 +33,7 @@ public class AssetPool{
     public static SpriteSheet getSpriteSheet(SpriteConfig config){
         String resourceName = config.filePath;
         if(!spriteSheetList.containsKey(resourceName)){
-            config.texture = getTexture(config.filePath);
+            config.texture = getTexture(config.filePath, config.flip);
             SpriteSheet spriteSheet = new SpriteSheet(config);
             spriteSheetList.put(resourceName, spriteSheet);
         }

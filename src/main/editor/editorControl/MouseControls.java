@@ -4,7 +4,6 @@ import main.Configuration;
 import main.components.Component;
 import main.components.SpriteRenderer;
 import main.editor.EditorMenuBar;
-import main.editor.ViewPort;
 import main.haspid.*;
 import main.renderer.DebugDraw;
 import main.editor.EditorScene;
@@ -131,7 +130,7 @@ public class MouseControls extends Component {
     public void highLightObject(GameObject gameObject){
         SpriteRenderer spriteRenderer = gameObject.getComponent(SpriteRenderer.class);
         spriteRenderer.setHighLight(true);
-        spriteRenderer.setColor(mouseHoveColor);
+        spriteRenderer.setColor(selectorHoverColor);
     }
 
     public void highLightObject(List<GameObject> objectList){
@@ -335,14 +334,14 @@ public class MouseControls extends Component {
             if(startDraggingWMode != null && mouse.isMouseDragging() && mouse.isButtonPressed(GLFW_MOUSE_BUTTON_2)){
                 distance = new Vector2d(endDragging.x - startDraggingWMode.x, endDragging.y - startDraggingWMode.y);
                 center = new Vector2d(startDraggingWMode.x + (distance.x / 2), startDraggingWMode.y + (distance.y / 2));
-                DebugDraw.drawBoxes2D(selectorIndex, center, distance, 0, new Vector3f(0, 0, 0), 1);
+                DebugDraw.drawBoxes2D(selectorZIndex, center, distance, 0, new Vector3f(0, 0, 0), 1);
 
                 if(selector != null) Window.getInstance().getCurrentScene().removeFromScene(selector);
                 selector = new GameObject("Selector");
                 selector.setNonSerializable();
                 selector.addComponent(new Transform(center, distance, 0, -100));
                 selector.setTransformFromItself();
-                selector.addComponent(new SpriteRenderer(mouseRectColor));
+                selector.addComponent(new SpriteRenderer(selectorBorderColor));
                 editorScene.addGameObjectToScene(selector);
             }
         }

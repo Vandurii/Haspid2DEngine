@@ -1,9 +1,11 @@
 package main.editor;
 
 import imgui.ImGui;
+import imgui.ImGuiStyle;
 import imgui.ImVec2;
 import imgui.flag.ImGuiCol;
 import imgui.flag.ImGuiStyleVar;
+import imgui.flag.ImGuiWindowFlags;
 import main.haspid.Window;
 import main.physics.events.EventSystem;
 import main.physics.events.Event;
@@ -31,6 +33,12 @@ public class EditorMenuBar {
         ImGui.pushStyleColor(ImGuiCol.MenuBarBg, imGuiMenuBar.x, imGuiMenuBar.y, imGuiMenuBar.z, imGuiTabActive.w);
         ImGui.beginMainMenuBar();
 
+        // icon
+        Texture icon = AssetPool.getTexture(iconPath, false);
+        int iconID = icon.getTexID();
+        ImGui.image(iconID, (float) icon.getWidth() / iconScale, (float) icon.getHeight() / iconScale);
+
+
         if(ImGui.beginMenu("File")){
             if(ImGui.menuItem("save", "ctrl+s")) EventSystem.notify(null, new Event(EventType.SaveLevel));
             if(ImGui.menuItem("load", "ctrl+l")) EventSystem.notify(null, new Event(EventType.LoadLevel));
@@ -42,15 +50,6 @@ public class EditorMenuBar {
             EventSystem.notify(null, new Event(EventType.GameEngineStart));
             glfwMaximizeWindow(glfw);
         }
-
-        ImGui.pushStyleColor(ImGuiCol.Button, exitNormal.getRed(), exitNormal.getGreen(), exitNormal.getBlue(), exitNormal.getAlpha());
-        ImGui.pushStyleColor(ImGuiCol.ButtonHovered, exitHover.getRed(), exitHover.getGreen(), exitHover.getBlue(), exitHover.getAlpha());
-        ImGui.pushStyleColor(ImGuiCol.ButtonActive, exitActive.getRed(), exitActive.getGreen(), exitActive.getBlue(), exitActive.getAlpha());
-        Texture tex = AssetPool.getTexture( "assets/images/sys/turnOff.png");
-        int texId = tex.getTexID();
-        if(ImGui.imageButton(texId, tex.getWidth() / 2f , tex.getHeight() /2f)){}
-        ImGui.popStyleColor(3);
-
 
         ImGui.pushStyleColor(ImGuiCol.Button, exitNormal.getRed(), exitNormal.getGreen(), exitNormal.getBlue(), exitNormal.getAlpha());
         ImGui.pushStyleColor(ImGuiCol.ButtonHovered, exitHover.getRed(), exitHover.getGreen(), exitHover.getBlue(), exitHover.getAlpha());

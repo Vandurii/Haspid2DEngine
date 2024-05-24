@@ -22,6 +22,9 @@ public class KeyControls extends Component {
     private MouseListener mouseListener;
     private CameraControl cameraControl;
 
+    private double longCoolDown;
+    private double resetLongCollDown;
+
     public KeyControls(MouseControls mouseControls, CameraControl cameraControl, EditorScene editorScene){
         this.editorScene = editorScene;
         this.keyDebounce = keyDebounceC;
@@ -30,6 +33,9 @@ public class KeyControls extends Component {
         this.cameraControl = cameraControl;
         this.keyboard = KeyListener.getInstance();
         this.mouseListener = mouseControls.getMouseListener();
+        this.resetLongCollDown = 2;
+        this.longCoolDown = resetLongCollDown;
+
     }
 
     @Override
@@ -65,7 +71,10 @@ public class KeyControls extends Component {
             }else if(keyboard.isKeyPressed(GLFW_KEY_LEFT)){
                 move(Left);
             }else if(keyboard.isKeyPressed(GLFW_KEY_C)){
-                copyObject();
+                if(longCoolDown < 0) {
+                    copyObject();
+                    longCoolDown = resetLongCollDown;
+                }
             }else if(keyboard.isKeyPressed(GLFW_KEY_Y)){
                 if(!mouseControls.isDistanceMapLoaded()){
                     mouseControls.initObjDistanceFromCursor();
@@ -79,6 +88,7 @@ public class KeyControls extends Component {
              }
 
             keyDebounce = resetDebounce;
+             longCoolDown -= dt;
         }
         keyDebounce -= dt;
     }
