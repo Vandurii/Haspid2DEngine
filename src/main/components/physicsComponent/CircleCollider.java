@@ -1,9 +1,12 @@
 package main.components.physicsComponent;
 
+import main.renderer.DebDraw;
 import main.renderer.DebugDraw;
+import main.renderer.DrawMode;
 import org.joml.Vector2d;
 
-import static main.Configuration.colliderZIndex;
+import static main.Configuration.*;
+import static main.renderer.DrawMode.Dynamic;
 
 public class CircleCollider extends Collider {
     private double radius;
@@ -17,7 +20,7 @@ public class CircleCollider extends Collider {
         Vector2d pos = getParent().getTransform().getPosition();
         Vector2d offset = getOffset();
         Vector2d center = new Vector2d(pos.x + offset.x, pos.y + offset.y);
-        DebugDraw.drawCircle2D(center, radius, colliderZIndex);
+        DebDraw.addCircle(center, radius, debugDefaultColor, colliderID, colliderZIndex, Dynamic);
     }
 
     @Override

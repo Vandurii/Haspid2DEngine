@@ -5,14 +5,19 @@ import main.components.Component;
 import main.components.SpriteRenderer;
 import main.editor.EditorMenuBar;
 import main.haspid.*;
+import main.renderer.DebDraw;
 import main.renderer.DebugDraw;
 import main.editor.EditorScene;
+import main.renderer.DebugDrawEvents;
+import main.renderer.DrawMode;
 import org.joml.Vector2d;
 import org.joml.Vector3f;
 
 import java.util.*;
 
 import static main.Configuration.*;
+import static main.renderer.DebugDrawEvents.*;
+import static main.renderer.DrawMode.Static;
 import static org.lwjgl.glfw.GLFW.*;
 
 public class MouseControls extends Component {
@@ -282,7 +287,7 @@ public class MouseControls extends Component {
 
         // start scan from this x,y position
         int x = (int)(((int) (viewPortX / gridSizeX)) * gridSizeX);
-        int y = (int)(((int) (viewPortY/ gridSizeY)) * gridSizeY);
+        int y = (int)(((int) (viewPortY / gridSizeY)) * gridSizeY);
         HashSet<Integer> idSet = window.getIdBuffer().readIDFromPixel(x + pixOffsetByCheckingSquare, y + pixOffsetByCheckingSquare, (int)gridSizeX - pixOffsetByCheckingSquare, (int)gridSizeY - pixOffsetByCheckingSquare);
 
         idSet.remove(0);
@@ -301,6 +306,7 @@ public class MouseControls extends Component {
             unselectActiveObjects();
         }else if(!mouse.isMouseDragging() && wasDraggedLastFrame){
             selectorActive = false;
+            DebDraw.notify(Disable, selectorID);
             if(distance != null) {
                 int startFromX = (int) startDraggingVMode.x;
                 int startFromY = (int) startDraggingVMode.y;
@@ -334,8 +340,10 @@ public class MouseControls extends Component {
             if(startDraggingWMode != null && mouse.isMouseDragging() && mouse.isButtonPressed(GLFW_MOUSE_BUTTON_2)){
                 distance = new Vector2d(endDragging.x - startDraggingWMode.x, endDragging.y - startDraggingWMode.y);
                 center = new Vector2d(startDraggingWMode.x + (distance.x / 2), startDraggingWMode.y + (distance.y / 2));
-                DebugDraw.drawBoxes2D(selectorZIndex, center, distance, 0, new Vector3f(0, 0, 0), 1);
-
+                DebDraw.notify(Clear, selectorID);
+                DebDraw.notify(Enable, selectorID);
+                DebDraw.addBox(center, distance, 0, new Vector3f(0, 0, 0), selectorID, selectorZIndex, Static);
+                DebDraw.notify(SetDirty, selectorID);
                 if(selector != null) Window.getInstance().getCurrentScene().removeFromScene(selector);
                 selector = new GameObject("Selector");
                 selector.setNonSerializable();

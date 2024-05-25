@@ -99,8 +99,8 @@ public class Configuration {
     public static String windowTitle = "Haspid";
     public static float aspectRatio = (float)windowWidth / (float)windowHeight;
 
-    public static int shiftXAxis = 0;//1750;
-    public static int shiftYAxis = 0;//50;
+    public static int shiftXAxis = 1750;
+    public static int shiftYAxis = 50;
 
 
 
@@ -121,6 +121,14 @@ public class Configuration {
     //=====================
     public static Color editorClearColor = new Color(60, 60, 60, 1);
     public static double keyDebounceC = 0.1f;
+    public static boolean isConsoleEnabled = true;
+    public static double consoleDelay = 5;
+    public static String consoleIntro = "\n" +
+            "\n" +
+            "\n" +
+            "================================\n" +
+            "      *** CONSOLE INFO ***\n" +
+            "================================";
 
 
 
@@ -150,12 +158,27 @@ public class Configuration {
 
 
     //=====================
+    // Debug Draw
+    //=====================
+    public static int maxLineWidth = 2;
+    public static int lineWidthScala = 2;
+    public static int pointsInLine = 2;
+    public static int pointSizeFloat = 6;
+    public static int debugDefaultZIndex = 0;
+    public static String rayCastID = "rayCast";
+    public static int lineSizeFloat = pointsInLine * pointSizeFloat;
+    public static Vector3f debugDefaultColor = new Vector3f(0, 1, 0);
+
+
+
+    //=====================
     // Grid Settings
     //=====================
+    public static String gridID = "grid";
     public static int gridLinesZIndex = 2;
     public static double gridSize = uProjectionDimension.x / 40;;
-    public static double minimalWidthForGrid = gridSize * 12.5;
-    public static double maximalWidthForGrid = gridSize * 140;
+    public static double minimalViewPortWidthForGrid = 400;
+    public static double maximalProjectionWidthForGrid = gridSize * 140;
     public static Vector3f gridLinesColor = new Vector3f(0.2f, 0.2f, 0.2f);
 
 
@@ -163,6 +186,7 @@ public class Configuration {
     //=====================
     // Selector Settings
     //=====================
+    public static String selectorID = "selector";
     public static int selectorZIndex = 4;
     public static double selectorScale = 0;
     public static Vector4f selectorHoverColor = new Vector4f(0.2f,0.2f,0.2f,0.0f);
@@ -213,6 +237,7 @@ public class Configuration {
     public static int colliderZIndex = 3;
     public static double pillboxWidth = 0;
     public static double pillboxHeight = 0;
+    public static String colliderID = "collider";
     public static Vector3f colliderColor = new Vector3f(1.0f, 1f, 1.0f);
 
 

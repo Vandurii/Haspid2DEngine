@@ -368,9 +368,7 @@ public abstract class Scene {
                 }
             }
 
-            System.out.println("enter");
             String obj = gson.toJson(objectsToSave);
-            System.out.println("after");
             fileWriter.write(obj);
             fileWriter.close();
         }catch (IOException e){

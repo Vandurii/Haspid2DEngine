@@ -50,7 +50,7 @@ public class CameraControl extends Component {
                 }
                 if(camera.getPosition().x == 0 && camera.getPosition().y == 0 && currentZoomValue == 1){
                     resetMode = false;
-                    DebugDraw.activate();
+                    //todo DebugDraw.enable();
                 }
             }
         }

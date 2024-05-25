@@ -17,7 +17,10 @@ import static org.lwjgl.opengl.GL30.glBindVertexArray;
 import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 
 public class DebugDraw {
-    private static boolean sleep;
+
+
+
+    private static boolean disabled;
     private static int VAO, VBO;
     private static float[] vertexArray;
     private static int vertexArrayBytes;
@@ -57,22 +60,21 @@ public class DebugDraw {
     private static void beginFrame(){
         if(!started) start();
 
-        for(List<Line2D> lineList: lineMap.values()) {
-            for (int i = 0; i < lineList.size(); ) {
-                if (lineList.get(i).beginFrame() < 0) {
-                    lineList.remove(i);
-                }else{
-                    i++;
-                }
-            }
-        }
+//        for(List<Line2D> lineList: lineMap.values()) {
+//            for (int i = 0; i < lineList.size(); ) {
+//                if (lineList.get(i).beginFrame() < 0) {
+//                    lineList.remove(i);
+//                }else{
+//                    i++;
+//                }
+//            }
+//        }
     }
 
-    public static void draw(){
-        if(ViewPort.getInstance().getViewPortWidth() < minimalWidthForGrid || uProjectionDimension.x * currentZoomValue > maximalWidthForGrid) return;
-        if(sleep) return;;
+    public  void draw(){
+        if(ViewPort.getInstance().getViewPortWidth() < minimalViewPortWidthForGrid || uProjectionDimension.x * currentZoomValue > maximalProjectionWidthForGrid) return;
+        if(disabled) return;;
 
-        setLineWidth();
         beginFrame();
 
         int offset = 0;
@@ -122,41 +124,33 @@ public class DebugDraw {
         line2DShader.detach();
     }
 
-    public static void drawCircle2D(Vector2d centre, double radius, int zIndex){
-        drawCircle2D(centre, radius, colorGreen, zIndex);
+    public  void addLine2D(int zIndex, Vector2d from, Vector2d to){
+        addLine2D(zIndex, from, to, colorRed, 1);
     }
 
-    public static void drawCircle2D(Vector2d centre, double radius, Vector3f color, int zIndex){
-        drawCircle2D(centre, radius, color, 1, zIndex);
+    public  void addLine2D(int zIndex, Vector2d from, Vector2d to, Vector3f color){
+        addLine2D( zIndex, from, to, color, 1);
     }
 
-    public static void drawCircle2D(Vector2d centre, double radius, Vector3f color, int lifeTime, int zIndex){
-        Vector2d[] points = new Vector2d[20];
-        int increment = 360 / points.length;
+    public  void addLine2D( int zIndex, Vector2d from, Vector2d to, Vector3f color, int lifeTime){
+        if(!started) start();
 
-        double currentAngle = 0;
-        for(int i = 0; i < points.length; i++){
-            Vector2d tmp = new Vector2d(0, radius);
-            rotate(tmp, currentAngle, new Vector2d());
-            points[i] = new Vector2d(tmp).add(centre);
+        if(getMapSize() < maxLines){
+            if(!lineMap.containsKey(zIndex)) lineMap.put(zIndex, new ArrayList<>());
 
-            currentAngle += increment;
-            if(i == 0) continue;
-
-            addLine2D(zIndex, points[i - 1], points[i], color, lifeTime);
+         //   lineMap.get(zIndex).add(new Line2D(zIndex, from, to, color, lifeTime));
         }
-        addLine2D(zIndex, points[0], points[points.length - 1], color, lifeTime);
     }
 
-    public static void drawBoxes2D(int zIndex, Vector2d center, Vector2d dimension, double rotation){
+    public  void drawBoxes2D(int zIndex, Vector2d center, Vector2d dimension, double rotation){
         drawBoxes2D(zIndex, center, dimension, rotation, colorGreen);
     }
 
-    public static void drawBoxes2D(int zIndex, Vector2d center, Vector2d dimension, double rotation, Vector3f color){
+    public  void drawBoxes2D(int zIndex, Vector2d center, Vector2d dimension, double rotation, Vector3f color){
         drawBoxes2D(zIndex, center, dimension, rotation, color, 1);
     }
 
-    public static void drawBoxes2D(int zIndex, Vector2d center, Vector2d dimension, double rotation, Vector3f color, int lifeTime){
+    public  void drawBoxes2D(int zIndex, Vector2d center, Vector2d dimension, double rotation, Vector3f color, int lifeTime){
         Vector2d min = new Vector2d(center).add(new Vector2d(dimension.x * 0.5f, dimension.y * 0.5f));
         Vector2d max = new Vector2d(center).sub(new Vector2d(new Vector2d(dimension.x * 0.5f, dimension.y * 0.5f)));
 
@@ -179,25 +173,33 @@ public class DebugDraw {
         addLine2D(zIndex, vertices[3], vertices[0], color,  lifeTime);
     }
 
-    public static void addLine2D(int zIndex, Vector2d from, Vector2d to){
-        addLine2D(zIndex, from, to, colorRed, 1);
+    public  void drawCircle2D(Vector2d centre, double radius, int zIndex){
+        drawCircle2D(centre, radius, colorGreen, zIndex);
     }
 
-    public static void addLine2D(int zIndex, Vector2d from, Vector2d to, Vector3f color){
-        addLine2D( zIndex, from, to, color, 1);
+    public  void drawCircle2D(Vector2d centre, double radius, Vector3f color, int zIndex){
+        drawCircle2D(centre, radius, color, 1, zIndex);
     }
 
-    public static void addLine2D( int zIndex, Vector2d from, Vector2d to, Vector3f color, int lifeTime){
-        if(!started) start();
+    public  void drawCircle2D(Vector2d centre, double radius, Vector3f color, int lifeTime, int zIndex){
+        Vector2d[] points = new Vector2d[20];
+        int increment = 360 / points.length;
 
-        if(getMapSize() < maxLines){
-            if(!lineMap.containsKey(zIndex)) lineMap.put(zIndex, new ArrayList<>());
+        double currentAngle = 0;
+        for(int i = 0; i < points.length; i++){
+            Vector2d tmp = new Vector2d(0, radius);
+            rotate(tmp, currentAngle, new Vector2d());
+            points[i] = new Vector2d(tmp).add(centre);
 
-            lineMap.get(zIndex).add(new Line2D(zIndex, from, to, color, lifeTime));
+            currentAngle += increment;
+            if(i == 0) continue;
+
+            addLine2D(zIndex, points[i - 1], points[i], color, lifeTime);
         }
+        addLine2D(zIndex, points[0], points[points.length - 1], color, lifeTime);
     }
 
-    public static void rotate(Vector2d vec, double angleDeg, Vector2d origin) {
+    public  void rotate(Vector2d vec, double angleDeg, Vector2d origin) {
         double x = vec.x - origin.x;
         double y = vec.y - origin.y;
 
@@ -214,38 +216,31 @@ public class DebugDraw {
         vec.y = yPrime;
     }
 
-    private static void setLineWidth(){
-        float width = 0.8f + ((1920f - ViewPort.getInstance().getViewPortWidth()) / 1920f);
-        glLineWidth((float)Math.pow(width, 3));
-    }
+//    private static void setLineWidth(){
+//        float width = 0.8f + ((1920f - ViewPort.getInstance().getViewPortWidth()) / 1920f);
+//        glLineWidth((float)Math.pow(width, 3));
+//    }
 
-    public static HashMap<Integer, List<Line2D>> getLineMap(){
+    public  HashMap<Integer, List<Line2D>> getLineMap(){
         return lineMap;
     }
 
-    public static void sleep(){
-        sleep = true;
+    public  void disable(){
+        disabled = true;
     }
 
-    public static void activate(){
+    public  void enable(){
         clearMap();
-        sleep = false;
+        disabled = false;
     }
 
-    public static void resetVertexArray(){
-       if(vertexArray != null){
-           vertexArray = new float[vertexArray.length];
-           clearMap();
-       }
-    }
-
-    public static void clearMap(){
+    public  void clearMap(){
         for(List<Line2D> lineList: lineMap.values()) {
             lineList.clear();
         }
     }
 
-    public static int getMapSize(){
+    public  int getMapSize(){
         int size = 0;
         for(List<Line2D> lineList: lineMap.values()) {
             size += lineList.size();

@@ -6,11 +6,16 @@ import main.haspid.Scene;
 import main.haspid.Transform;
 import main.haspid.Window;
 import main.physics.Physics2D;
+import main.renderer.DebDraw;
 import main.renderer.DebugDraw;
+import main.renderer.DrawMode;
+import main.renderer.DynamicLayer;
 import org.joml.Vector2d;
 
-import static main.Configuration.colliderZIndex;
-import static main.Configuration.colliderColor;
+import javax.swing.*;
+
+import static main.Configuration.*;
+import static main.renderer.DrawMode.Dynamic;
 
 public class BoxCollider extends Collider {
     private Vector2d center;
@@ -27,14 +32,15 @@ public class BoxCollider extends Collider {
 
     @Override
     public void start(){
+        Transform t = getParent().getTransform();
         this.physics = Window.getInstance().getCurrentScene().getPhysics();
+        DebDraw.addBox(center, new Vector2d(halfSize.x * 2, halfSize.y * 2), t.getRotation(), colliderColor, colliderID, colliderZIndex, Dynamic);
     }
 
     @Override
     public void update(float dt){
         Transform t = getParent().getTransform();
         center = new Vector2d(t.getPosition()).add(getOffset());
-        DebugDraw.drawBoxes2D(colliderZIndex, center, new Vector2d(halfSize.x * 2, halfSize.y * 2), t.getRotation(), colliderColor, 1 );
 
         if(resetFixtureNextFrame) resetFixture();
     }
@@ -63,6 +69,13 @@ public class BoxCollider extends Collider {
         dearGui(this);
     }
 
+    @Override
+    public boolean equals(Object o){
+        if(!(o instanceof BoxCollider box)) return false;
+
+        return this.center == box.getCenter() && this.halfSize.x == box.halfSize.x && this.halfSize.y == box.halfSize.y;
+    }
+
     public Vector2d getHalfSize(){
         return halfSize;
     }
@@ -73,5 +86,9 @@ public class BoxCollider extends Collider {
 
     public void setCenter(Vector2d center) {
         this.center = new Vector2d(center);
+    }
+
+    public Vector2d getCenter() {
+        return center;
     }
 }

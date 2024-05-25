@@ -1,28 +1,24 @@
 package main.renderer;
 
+import main.components.Component;
 import org.joml.Vector2d;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
-public class Line2D {
-    private int zIndex;
+public class Line2D extends Component {
     private Vector2d to;
-    private int lifeTime;
-    private float stroke;
     private Vector2d from;
     private Vector3f color;
 
-    public Line2D(int zIndex, Vector2d from, Vector2d to, Vector3f color, int lifeTime) {
+    public Line2D( Vector2d from, Vector2d to, Vector3f color) {
         this.from = from;
         this.to = to;
         this.color = color;
-        this.zIndex = zIndex;
-        this.lifeTime = lifeTime;
     }
 
-    public int beginFrame(){
-        lifeTime--;
-        return lifeTime;
+    @Override
+    public void update(float dt) {
+
     }
 
     public Vector2d getFrom() {
@@ -37,19 +33,16 @@ public class Line2D {
         return color;
     }
 
-    public int getLifeTime() {
-        return lifeTime;
+    @Override
+    public boolean equals(Object o){
+        if(!(o instanceof Line2D line)) return false;
+
+        return this.to.x == line.getTo().x && this.to.y == line.getTo().y && this.from.x == line.getFrom().x && this.from.y == line.getFrom().y &&
+                this.color.x == line.getColor().x && this.color.y == line.getColor().y && this.color.z == line.getColor().z;
     }
 
-    public float getStroke() {
-        return stroke;
-    }
-
-    public void setStroke(float stroke) {
-        this.stroke = stroke;
-    }
-
-    public int getzIndex() {
-        return zIndex;
+    @Override
+    public int hashCode(){
+        return to.hashCode() + from.hashCode() + color.hashCode();
     }
 }

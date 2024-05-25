@@ -60,7 +60,7 @@ public class KeyControls extends Component {
             }else if(keyboard.isKeyPressed(GLFW_KEY_DELETE)){
                 removeObject(activeObjectList);
             }else if(keyboard.isKeyPressed(GLFW_KEY_R)){
-                    DebugDraw.sleep();
+                    //DebugDraw.disable(); // todo
                     cameraControl.reset();
             }else if(keyboard.isKeyPressed(GLFW_KEY_UP)){
                 move(Up);

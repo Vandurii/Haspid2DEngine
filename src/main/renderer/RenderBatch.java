@@ -1,9 +1,8 @@
 package main.renderer;
 
+import main.Configuration;
 import main.components.SpriteRenderer;
-import main.haspid.Camera;
-import main.haspid.Transform;
-import main.haspid.Window;
+import main.haspid.*;
 
 import main.util.Attribute;
 import main.util.Shader;
@@ -16,6 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static main.Configuration.*;
+import static main.haspid.Log.LogType.INFO;
 import static org.lwjgl.opengl.GL11.GL_FLOAT;
 import static org.lwjgl.opengl.GL15.*;
 import static org.lwjgl.opengl.GL15.GL_STATIC_DRAW;
@@ -48,7 +48,7 @@ public class RenderBatch implements Comparable<RenderBatch> {
     private ArrayList<Integer> freeSlots;
 
     public RenderBatch(int maxBathSize, int zIndex){
-        System.out.println("Created new render batch: zIndex:" + zIndex);
+        Console.addLog(new Log(INFO, "Created new render batch: zIndex:" + zIndex));
 
         this.zIndex = zIndex;
         this.uTextures = texturesSlots;

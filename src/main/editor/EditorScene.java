@@ -7,7 +7,9 @@ import main.editor.editorControl.KeyControls;
 import main.editor.editorControl.MouseControls;
 import main.haspid.*;
 import main.haspid.Window;
+import main.renderer.DebDraw;
 import main.renderer.DebugDraw;
+import main.renderer.DrawMode;
 import main.renderer.Renderer;
 import main.haspid.Scene;
 import main.util.AssetPool;
@@ -16,6 +18,9 @@ import main.util.Properties;
 import java.util.ArrayList;
 
 import static main.Configuration.*;
+import static main.renderer.DebugDrawEvents.*;
+import static main.renderer.DrawMode.Dynamic;
+import static main.renderer.DrawMode.Static;
 
 public class EditorScene extends Scene {
 
@@ -38,7 +43,6 @@ public class EditorScene extends Scene {
         MouseListener.resetInstance();
         Renderer.resetInstance();
         mouseListener = MouseListener.getInstance();
-        DebugDraw.resetVertexArray();
 
         loadSceneObject();
         editorMode = true;
@@ -51,6 +55,7 @@ public class EditorScene extends Scene {
         keyControls = new KeyControls(mouseControls, cameraControl, this);
 
         levelEditorStuff = new GameObject("LevelEditorStuff");
+        levelEditorStuff.addComponent(Console.getInstance());
         levelEditorStuff.addComponent(gridLines);
         levelEditorStuff.addComponent(mouseControls);
         levelEditorStuff.addComponent(cameraControl);
@@ -81,11 +86,23 @@ public class EditorScene extends Scene {
         updateGameObject(dt);
     }
 
+    int i = 1;
     public void render(float dt, boolean bufferIdMode){
         if(!bufferIdMode){
-            DebugDraw.draw();
+          //  DebugDraw.draw();
+           DebDraw.notify(Draw, gridID);
+           DebDraw.notify(Draw, selectorID);
         }
         getRenderer().render();
+
+
+//        DebDraw.notify(SetDirty, rayCastID);
+//        DebDraw.notify(Draw, rayCastID);
+
+        if(i== 1)DebDraw.notify(SetDirty, colliderID);
+        DebDraw.notify(Draw, colliderID);
+        i++;
+
     }
 
     public void updateDearGui(){
