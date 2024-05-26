@@ -1,6 +1,5 @@
 package main.renderer;
 
-import main.components.physicsComponent.Collider;
 import main.haspid.Console;
 import main.haspid.Log;
 import org.joml.Vector2d;
@@ -53,9 +52,9 @@ public abstract class Layer {
         lineList.add(line);
     }
 
-    public boolean contains(Line2D line2D){
-        return lineList.contains(line2D);
-    }
+//    public boolean contains(Line2D line2D){
+//        return lineList.contains(line2D);
+//    }
 
     public boolean isEnabled(){
         return !disabled;
@@ -77,7 +76,7 @@ public abstract class Layer {
         return ID;
     }
 
-    public Line2D getLine(Vector2d from, Vector2d to){
+    public Line2D findLine(Vector2d from, Vector2d to){
         dirty = true;
         for(Line2D line: lineList){
             if(line.getFrom().x == from.x && line.getFrom().y == from.y && line.getTo().x == to.x && line.getTo().y == to.y){

@@ -2,7 +2,6 @@ package main.editor.editorControl;
 
 import main.components.Component;
 import main.haspid.*;
-import main.renderer.DebugDraw;
 import main.editor.EditorScene;
 
 import java.util.ArrayList;

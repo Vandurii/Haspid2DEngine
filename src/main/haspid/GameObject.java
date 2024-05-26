@@ -12,34 +12,55 @@ public class GameObject {
 
     private String name;
     private int gameObjectID;
+    private transient boolean dirty;
     private List<Component> componentList;
     private transient Transform transform;
     private transient boolean isTriggerable;
     private transient boolean isSerializable;
+    private transient Transform lastTransform;
 
     private static int ID_COUNTER;
 
     public GameObject(String name){
-        this.componentList = new ArrayList<>();
         this.name = name;
-        this.gameObjectID = ++ID_COUNTER;
-        this.isSerializable = true;
+        this.dirty = true;
         this.isTriggerable = true;
+        this.isSerializable = true;
+        this.gameObjectID = ++ID_COUNTER;
+        this.transform = new Transform();
+        this.lastTransform = new Transform();
+        this.componentList = new ArrayList<>();
     }
 
     public void start(){
-        for(Component c: componentList){
-            c.start();
+        // init lastTransform
+        lastTransform = transform.copy();
+
+        // start all component from this object
+        for(Component component: componentList){
+            component.start();
         }
     }
 
     public void update(float dt){
+        // set to dirty if the position has changed
+        if (!lastTransform.equals(transform)) {
+            dirty = true;
+        }
+
+        // update all component from this object
         for(Component component: componentList){
+
+            // skip component if it shouldn't be active in editor mode
            if((component instanceof InactiveInEditor) && Window.getInstance().getCurrentScene().isInEditMode()){
                continue;
            }
              component.update(dt);
         }
+
+        // update last transform
+        transform.copy(lastTransform);
+        dirty = false;
     }
 
     public void updateDearGui(){
@@ -144,5 +165,17 @@ public class GameObject {
 
     public int getIDCounter(){
         return ID_COUNTER;
+    }
+
+    public boolean isDirty(){
+        return  dirty;
+    }
+
+    public void setDirty(boolean dirty){
+        this.dirty = dirty;
+    }
+
+    public Transform getLastTransform(){
+        return lastTransform;
     }
 }

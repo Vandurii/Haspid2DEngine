@@ -1,156 +1,156 @@
 package main.renderer;
 
-import main.editor.ViewPort;
-import main.haspid.Camera;
-import main.haspid.Window;
-import main.util.AssetPool;
-import main.util.Shader;
+import main.haspid.Console;
+import main.haspid.Log;
 import org.joml.Vector2d;
 import org.joml.Vector3f;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static main.Configuration.*;
-import static org.lwjgl.opengl.GL15.*;
-import static org.lwjgl.opengl.GL20.*;
-import static org.lwjgl.opengl.GL30.glBindVertexArray;
-import static org.lwjgl.opengl.GL30.glGenVertexArrays;
+import static main.renderer.DrawMode.Dynamic;
+import static main.renderer.DrawMode.Static;
 
 public class DebugDraw {
 
+    private static List<StaticLayer> staticLayerList = new ArrayList<>();
+    private static List<DynamicLayer> dynamicLayerList = new ArrayList<>();
 
+    public static void notify(DebugDrawEvents eventType, String ID){
+        // select correct list
+        List<? extends Layer> layerList = null;
+        DrawMode drawMode = resolveMode(ID);
+        if(drawMode == Static){
+            layerList = staticLayerList;
+        }else{
+            layerList = dynamicLayerList;
+        }
 
-    private static boolean disabled;
-    private static int VAO, VBO;
-    private static float[] vertexArray;
-    private static int vertexArrayBytes;
-    private static int maxLines;
-    private static boolean started;
-    private static int pointsInLine;
-    private static int pointSizeFloat;
-    private static int lineSizeFloat;
-    private static Shader line2DShader;
-    private static HashMap<Integer, List<Line2D>> lineMap;
+        for(Layer layer: layerList){
+            if(layer.getID().equals(ID)){
+                switch (eventType){
+                    case Clear -> {
+                        layer.clearLineList();
+                    }
+                    case SetDirty -> {
+                        layer.setDirty(true);
+                    }
+                    case Draw -> {
+                        // reload if dirty
+                        if(layer.isDirty()){
+                            layer.reload();
+                        }
 
-    private static void start(){
-        maxLines = 50000;
-        pointsInLine = 2;
-        pointSizeFloat = 6;
-        lineMap = new HashMap<>();
-        lineSizeFloat = pointsInLine * pointSizeFloat;
-        vertexArray = new float[maxLines * lineSizeFloat];
-        vertexArrayBytes = maxLines * lineSizeFloat * Float.BYTES;
-        line2DShader = AssetPool.getShader(line2DShaderPath);
-
-        // Generate VAO
-        VAO = glGenVertexArrays();
-        glBindVertexArray(VAO);
-
-        //Generate VBO
-        VBO = glGenBuffers();
-        glBindBuffer(GL_ARRAY_BUFFER, VBO);
-        glBufferData(GL_ARRAY_BUFFER, vertexArrayBytes, GL_DYNAMIC_DRAW);
-
-        glVertexAttribPointer(0, 3, GL_FLOAT, false, pointSizeFloat * Float.BYTES, 0);
-        glVertexAttribPointer(1, 3, GL_FLOAT, false, pointSizeFloat * Float.BYTES, 3 * Float.BYTES);
-
-        started = true;
-    }
-
-    private static void beginFrame(){
-        if(!started) start();
-
-//        for(List<Line2D> lineList: lineMap.values()) {
-//            for (int i = 0; i < lineList.size(); ) {
-//                if (lineList.get(i).beginFrame() < 0) {
-//                    lineList.remove(i);
-//                }else{
-//                    i++;
-//                }
-//            }
-//        }
-    }
-
-    public  void draw(){
-        if(ViewPort.getInstance().getViewPortWidth() < minimalViewPortWidthForGrid || uProjectionDimension.x * currentZoomValue > maximalProjectionWidthForGrid) return;
-        if(disabled) return;;
-
-        beginFrame();
-
-        int offset = 0;
-        vertexArray = new float[maxLines* lineSizeFloat];
-
-        List<Integer> zIndexList = new ArrayList<>(lineMap.keySet());
-        Collections.sort(zIndexList);
-
-        for(int j = 0; j < zIndexList.size(); j++){
-            List<Line2D> list = lineMap.get(zIndexList.get(j));
-            for(Line2D line: list) {
-                for (int i = 0; i < 2; i++) {
-                    Vector2d position = i == 0 ? line.getFrom() : line.getTo();
-                    Vector3f color = line.getColor();
-
-                    vertexArray[offset + 0] = (float) position.x;
-                    vertexArray[offset + 1] = (float) position.y;
-                    vertexArray[offset + 2] = 0;
-
-                    vertexArray[offset + 3] = color.x;
-                    vertexArray[offset + 4] = color.y;
-                    vertexArray[offset + 5] = color.z;
-
-                    offset += pointSizeFloat;
+                        // draw layer
+                        layer.draw();
+                    }
+                    case Disable ->{
+                        layer.disable();
+                    }
+                    case Enable ->{
+                        layer.enable();
+                    }
                 }
             }
         }
-
-        glBindBuffer(GL_ARRAY_BUFFER, VBO);
-        glBufferData(GL_ARRAY_BUFFER, vertexArray, GL_DYNAMIC_DRAW);
-
-        Camera camera = Window.getInstance().getCurrentScene().getCamera();
-        line2DShader.use();
-        line2DShader.uploadValue("uProjection", camera.getUProjection());
-        line2DShader.uploadValue("uView", camera.getUView());
-
-        glBindVertexArray(VAO);
-
-        glEnableVertexAttribArray(0);
-        glEnableVertexAttribArray(1);
-
-        glDrawArrays(GL_LINES, 0, getMapSize() * lineSizeFloat);// todo
-
-        glDisableVertexAttribArray(0);
-        glDisableVertexAttribArray(1);
-        glBindVertexArray(0);
-        line2DShader.detach();
     }
 
-    public  void addLine2D(int zIndex, Vector2d from, Vector2d to){
-        addLine2D(zIndex, from, to, colorRed, 1);
+    public static boolean request(DebugDrawRequest request, String ID){
+        for(StaticLayer staticLayer: staticLayerList){
+            if(staticLayer.getID().equals(ID)){
+                switch (request){
+                    case IsEnabled ->{
+                        return staticLayer.isEnabled();
+                    }
+                }
+            }
+        }
+        return false;
     }
 
-    public  void addLine2D(int zIndex, Vector2d from, Vector2d to, Vector3f color){
-        addLine2D( zIndex, from, to, color, 1);
+    public static void addLine2D(Vector2d from, Vector2d to, String name, DrawMode drawMode){
+        addLine2D(from, to, debugDefaultColor, name, debugDefaultZIndex, drawMode);
     }
 
-    public  void addLine2D( int zIndex, Vector2d from, Vector2d to, Vector3f color, int lifeTime){
-        if(!started) start();
+    public static void addLine2D(Vector2d from, Vector2d to, String name, int zIndex, DrawMode drawMode){
+        addLine2D(from, to, debugDefaultColor, name, zIndex, drawMode);
+    }
 
-        if(getMapSize() < maxLines){
-            if(!lineMap.containsKey(zIndex)) lineMap.put(zIndex, new ArrayList<>());
+    public static void addLine2D(Vector2d from, Vector2d to, Vector3f color, String name, int zIndex, DrawMode drawMode){
+        Line2D line = new Line2D(from, to, color);
 
-         //   lineMap.get(zIndex).add(new Line2D(zIndex, from, to, color, lifeTime));
+        // select the correct list
+        List<? extends Layer> layerList = null;
+        if(drawMode == Static){
+            layerList = staticLayerList;
+        }else{
+            layerList = dynamicLayerList;
+        }
+
+        // search for layer if you find it then add line to it and return
+        for(Layer layer: layerList){
+            if(layer.getID().equals(name)){
+                if(layer.getzIndex() == zIndex) {
+                    //if line list contain this line then return
+                   // if(layer.contains(line)) return;
+                    layer.addLine(line);
+                }else{
+                    throw new IllegalStateException("Unable to load the line, the z index is wrong");
+                }
+                return;
+            }
+        }
+
+        //i f layer wasn't found then create it and add line to it
+        if(drawMode == Static) {
+            StaticLayer newStaticLayer = new StaticLayer(zIndex, name);
+            newStaticLayer.addLine(line);
+            staticLayerList.add(newStaticLayer);
+        }else{
+            DynamicLayer newDynamicLayer = new DynamicLayer(zIndex, name);
+            newDynamicLayer.init();
+            newDynamicLayer.addLine(line);
+            dynamicLayerList.add(newDynamicLayer);
         }
     }
 
-    public  void drawBoxes2D(int zIndex, Vector2d center, Vector2d dimension, double rotation){
-        drawBoxes2D(zIndex, center, dimension, rotation, colorGreen);
+    public static void addCircle(Vector2d centre, double radius, String destination, DrawMode drawMode){
+        addCircle(centre, radius, debugDefaultColor,  destination, debugDefaultZIndex, drawMode);
     }
 
-    public  void drawBoxes2D(int zIndex, Vector2d center, Vector2d dimension, double rotation, Vector3f color){
-        drawBoxes2D(zIndex, center, dimension, rotation, color, 1);
+    public static void addCircle(Vector2d centre, double radius, String destination, int zIndex, DrawMode drawMode){
+        addCircle(centre, radius, debugDefaultColor, destination, zIndex, drawMode);
     }
 
-    public  void drawBoxes2D(int zIndex, Vector2d center, Vector2d dimension, double rotation, Vector3f color, int lifeTime){
+    public static void addCircle(Vector2d centre, double radius, Vector3f color,String destination, int zIndex, DrawMode drawMode){
+        Vector2d[] points = new Vector2d[20];
+        int increment = 360 / points.length;
+
+        double currentAngle = 0;
+        for(int i = 0; i < points.length; i++){
+            Vector2d tmp = new Vector2d(0, radius);
+            rotate(tmp, currentAngle, new Vector2d());
+            points[i] = new Vector2d(tmp).add(centre);
+
+            currentAngle += increment;
+            if(i == 0) continue;
+
+            addLine2D(points[i - 1], points[i], color, destination, zIndex, drawMode);
+        }
+        addLine2D(points[0], points[points.length - 1], color, destination, zIndex, drawMode);
+    }
+
+    public static void addBox(Vector2d center, Vector2d dimension, double rotation, String destination, DrawMode drawMode){
+        addBox(center, dimension, rotation, debugDefaultColor, destination, debugDefaultZIndex, drawMode);
+    }
+
+    public static void addBox(Vector2d center, Vector2d dimension, double rotation, String destination, int zIndex, DrawMode drawMode){
+        addBox(center, dimension, rotation, debugDefaultColor, destination, zIndex, drawMode);
+    }
+
+    public static void addBox(Vector2d center, Vector2d dimension, double rotation, Vector3f color, String destination, int zIndex, DrawMode drawMode){
+
         Vector2d min = new Vector2d(center).add(new Vector2d(dimension.x * 0.5f, dimension.y * 0.5f));
         Vector2d max = new Vector2d(center).sub(new Vector2d(new Vector2d(dimension.x * 0.5f, dimension.y * 0.5f)));
 
@@ -167,39 +167,91 @@ public class DebugDraw {
             }
         }
 
-        addLine2D(zIndex, vertices[0], vertices[1], color,  lifeTime);
-        addLine2D(zIndex, vertices[1], vertices[2], color,  lifeTime);
-        addLine2D(zIndex, vertices[2], vertices[3], color,  lifeTime);
-        addLine2D(zIndex, vertices[3], vertices[0], color,  lifeTime);
+        addLine2D(vertices[0], vertices[1], color, destination, zIndex, drawMode);
+        addLine2D(vertices[1], vertices[2], color, destination, zIndex, drawMode);
+        addLine2D(vertices[2], vertices[3], color, destination, zIndex, drawMode);
+        addLine2D(vertices[3], vertices[0], color, destination, zIndex, drawMode);
     }
 
-    public  void drawCircle2D(Vector2d centre, double radius, int zIndex){
-        drawCircle2D(centre, radius, colorGreen, zIndex);
-    }
+    public static void getLines(Vector2d center, Vector2d dimension, double rotation, String destination, DrawMode drawMode, Vector2d newCenter, Vector2d newDimension, double newRotation){
 
-    public  void drawCircle2D(Vector2d centre, double radius, Vector3f color, int zIndex){
-        drawCircle2D(centre, radius, color, 1, zIndex);
-    }
+        // calculate vertices for searching line
+        Vector2d[] vertices = calculateVertices(center, dimension, rotation);
+        // calculate vertices for new values
+        Vector2d[] newVertices = calculateVertices(newCenter, newDimension, newRotation);
 
-    public  void drawCircle2D(Vector2d centre, double radius, Vector3f color, int lifeTime, int zIndex){
-        Vector2d[] points = new Vector2d[20];
-        int increment = 360 / points.length;
-
-        double currentAngle = 0;
-        for(int i = 0; i < points.length; i++){
-            Vector2d tmp = new Vector2d(0, radius);
-            rotate(tmp, currentAngle, new Vector2d());
-            points[i] = new Vector2d(tmp).add(centre);
-
-            currentAngle += increment;
-            if(i == 0) continue;
-
-            addLine2D(zIndex, points[i - 1], points[i], color, lifeTime);
+        // select correct type of layer and find searching layer
+        Layer layer = null;
+        List<? extends Layer> layerList = drawMode == Dynamic ? dynamicLayerList : staticLayerList;
+        for(Layer lay: layerList){
+          if(lay.getID().equals(destination)){
+              layer = lay;
+          }
         }
-        addLine2D(zIndex, points[0], points[points.length - 1], color, lifeTime);
+
+        Vector2d from = vertices[0];
+        Vector2d to = vertices[1];
+        Line2D firstLine = layer.findLine(from, to);
+      //  System.out.println(String.format("line: \t from: %.2f  %.2f \t to: %.2f  %.2f", from.x, from.y, to.x, to.y));
+
+        from = vertices[1];
+        to = vertices[2];
+        Line2D secondLine = layer.findLine(from, to);
+        //System.out.println(String.format("line: \t from: %.2f  %.2f \t to: %.2f  %.2f", from.x, from.y, to.x, to.y));
+
+
+        from = vertices[2];
+        to = vertices[3];
+        Line2D thirdLine = layer.findLine(from, to);
+        //System.out.println(String.format("line: \t from: %.2f  %.2f \t to: %.2f  %.2f", from.x, from.y, to.x, to.y));
+
+        from = vertices[3];
+        to = vertices[0];
+        Line2D fourthLine = layer.findLine(from, to);
+        //System.out.println(String.format("line: \t from: %.2f  %.2f \t to: %.2f  %.2f", from.x, from.y, to.x, to.y));
+
+        Vector2d newFrom = newVertices[0];
+        Vector2d newTo = newVertices[1];
+        firstLine.setNewValues(newFrom, newTo);
+        firstLine.setDirty(true);
+
+        newFrom = newVertices[1];
+        newTo = newVertices[2];
+        secondLine.setNewValues(newFrom, newTo);
+        secondLine.setDirty(true);
+
+        newFrom = newVertices[2];
+        newTo = newVertices[3];
+        thirdLine.setNewValues(newFrom, newTo);
+        thirdLine.setDirty(true);
+
+        newFrom = newVertices[3];
+        newTo = newVertices[0];
+        fourthLine.setNewValues(newFrom, newTo);
+        fourthLine.setDirty(true);
     }
 
-    public  void rotate(Vector2d vec, double angleDeg, Vector2d origin) {
+    private static Vector2d[] calculateVertices(Vector2d center, Vector2d dimension, double rotation){
+        Vector2d min = new Vector2d(center).add(new Vector2d(dimension.x * 0.5f, dimension.y * 0.5f));
+        Vector2d max = new Vector2d(center).sub(new Vector2d(new Vector2d(dimension.x * 0.5f, dimension.y * 0.5f)));
+
+        Vector2d[] vertices = {
+                new Vector2d(min.x, min.y),
+                new Vector2d(max.x, min.y),
+                new Vector2d(max.x, max.y),
+                new Vector2d(min.x, max.y)
+        };
+
+        if(rotation > 0){
+            for(Vector2d ver: vertices){
+                rotate(ver, rotation, center);
+            }
+        }
+
+        return vertices;
+    }
+
+    public static void rotate(Vector2d vec, double angleDeg, Vector2d origin) {
         double x = vec.x - origin.x;
         double y = vec.y - origin.y;
 
@@ -216,36 +268,19 @@ public class DebugDraw {
         vec.y = yPrime;
     }
 
-//    private static void setLineWidth(){
-//        float width = 0.8f + ((1920f - ViewPort.getInstance().getViewPortWidth()) / 1920f);
-//        glLineWidth((float)Math.pow(width, 3));
-//    }
+    private static DrawMode resolveMode(String ID){
 
-    public  HashMap<Integer, List<Line2D>> getLineMap(){
-        return lineMap;
-    }
-
-    public  void disable(){
-        disabled = true;
-    }
-
-    public  void enable(){
-        clearMap();
-        disabled = false;
-    }
-
-    public  void clearMap(){
-        for(List<Line2D> lineList: lineMap.values()) {
-            lineList.clear();
-        }
-    }
-
-    public  int getMapSize(){
-        int size = 0;
-        for(List<Line2D> lineList: lineMap.values()) {
-            size += lineList.size();
+        for(Layer layer: staticLayerList){
+            if(layer.getID().equals(ID)) return Static;
         }
 
-        return size;
+        for(Layer layer: dynamicLayerList){
+            if(layer.getID().equals(ID)) return Dynamic;
+        }
+
+        Console.addLog(new Log(Log.LogType.ERROR, "Can't find draw mode for " + ID));
+        return null;
     }
 }
+
+

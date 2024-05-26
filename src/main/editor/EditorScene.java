@@ -7,9 +7,7 @@ import main.editor.editorControl.KeyControls;
 import main.editor.editorControl.MouseControls;
 import main.haspid.*;
 import main.haspid.Window;
-import main.renderer.DebDraw;
 import main.renderer.DebugDraw;
-import main.renderer.DrawMode;
 import main.renderer.Renderer;
 import main.haspid.Scene;
 import main.util.AssetPool;
@@ -19,8 +17,6 @@ import java.util.ArrayList;
 
 import static main.Configuration.*;
 import static main.renderer.DebugDrawEvents.*;
-import static main.renderer.DrawMode.Dynamic;
-import static main.renderer.DrawMode.Static;
 
 public class EditorScene extends Scene {
 
@@ -86,23 +82,18 @@ public class EditorScene extends Scene {
         updateGameObject(dt);
     }
 
-    int i = 1;
     public void render(float dt, boolean bufferIdMode){
         if(!bufferIdMode){
-          //  DebugDraw.draw();
-           DebDraw.notify(Draw, gridID);
-           DebDraw.notify(Draw, selectorID);
+           DebugDraw.notify(Draw, gridID);
+           DebugDraw.notify(Draw, selectorID);
         }
         getRenderer().render();
 
-
+        // todo check rays cast
 //        DebDraw.notify(SetDirty, rayCastID);
 //        DebDraw.notify(Draw, rayCastID);
 
-        if(i== 1)DebDraw.notify(SetDirty, colliderID);
-        DebDraw.notify(Draw, colliderID);
-        i++;
-
+        DebugDraw.notify(Draw, colliderID);
     }
 
     public void updateDearGui(){

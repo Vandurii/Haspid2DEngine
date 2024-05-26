@@ -166,6 +166,7 @@ public class Configuration {
     public static int pointSizeFloat = 6;
     public static int debugDefaultZIndex = 0;
     public static String rayCastID = "rayCast";
+    public static int dynamicLayerInitialBatchSize = 1000;
     public static int lineSizeFloat = pointsInLine * pointSizeFloat;
     public static Vector3f debugDefaultColor = new Vector3f(0, 1, 0);
 

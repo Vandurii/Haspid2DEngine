@@ -3,14 +3,10 @@ package main.editor.editorControl;
 import main.Configuration;
 import main.components.Component;
 import main.components.SpriteRenderer;
-import main.components.physicsComponent.BoxCollider;
 import main.editor.EditorMenuBar;
 import main.haspid.*;
-import main.renderer.DebDraw;
 import main.renderer.DebugDraw;
 import main.editor.EditorScene;
-import main.renderer.DebugDrawEvents;
-import main.renderer.DrawMode;
 import org.joml.Vector2d;
 import org.joml.Vector3f;
 
@@ -18,7 +14,6 @@ import java.util.*;
 
 import static main.Configuration.*;
 import static main.renderer.DebugDrawEvents.*;
-import static main.renderer.DrawMode.Dynamic;
 import static main.renderer.DrawMode.Static;
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -203,8 +198,6 @@ public class MouseControls extends Component {
     }
 
     public void place(){
-//        float scan  = window.getIdBuffer().readIDFromPixel((int) mouse.getViewPortX() , (int) mouse.getViewPortY());
-//        if((scan == 0 || scan == draggingObject.getGameObjectID())) {
         if(!isSquareOccupied(mouse.getViewPortX(), mouse.getViewPortY(), draggingObject.getGameObjectID())){
             GameObject objectClone = new GameObject(draggingObject.getName());
 
@@ -309,7 +302,7 @@ public class MouseControls extends Component {
             unselectActiveObjects();
         }else if(!mouse.isMouseDragging() && wasDraggedLastFrame){
             selectorActive = false;
-            DebDraw.notify(Disable, selectorID);
+            DebugDraw.notify(Disable, selectorID);
             if(distance != null) {
                 int startFromX = (int) startDraggingVMode.x;
                 int startFromY = (int) startDraggingVMode.y;
@@ -343,10 +336,10 @@ public class MouseControls extends Component {
             if(startDraggingWMode != null && mouse.isMouseDragging() && mouse.isButtonPressed(GLFW_MOUSE_BUTTON_2)){
                 distance = new Vector2d(endDragging.x - startDraggingWMode.x, endDragging.y - startDraggingWMode.y);
                 center = new Vector2d(startDraggingWMode.x + (distance.x / 2), startDraggingWMode.y + (distance.y / 2));
-                DebDraw.notify(Clear, selectorID);
-                DebDraw.notify(Enable, selectorID);
-                DebDraw.addBox(center, distance, 0, new Vector3f(0, 0, 0), selectorID, selectorZIndex, Static);
-                DebDraw.notify(SetDirty, selectorID);
+                DebugDraw.notify(Clear, selectorID);
+                DebugDraw.notify(Enable, selectorID);
+                DebugDraw.addBox(center, distance, 0, new Vector3f(0, 0, 0), selectorID, selectorZIndex, Static);
+                DebugDraw.notify(SetDirty, selectorID);
                 if(selector != null) Window.getInstance().getCurrentScene().removeFromScene(selector);
                 selector = new GameObject("Selector");
                 selector.setNonSerializable();

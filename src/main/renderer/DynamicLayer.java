@@ -6,7 +6,6 @@ import main.util.Shader;
 import org.joml.Vector2d;
 import org.joml.Vector3f;
 
-import java.sql.Array;
 import java.util.Arrays;
 
 import static main.Configuration.*;
@@ -27,20 +26,20 @@ public class DynamicLayer extends Layer {
 
     public DynamicLayer(int zIndex, String ID) {
         super(zIndex, ID);
-        this.maxBathSize = 1000;
+        this.maxBathSize = dynamicLayerInitialBatchSize;
         this.lineListToRender = new Line2D[maxBathSize];
         this.vertexArray = new float[maxBathSize * lineSizeFloat];
     }
 
     public void init(){
+        vertexArray = new float[maxBathSize * lineSizeFloat];
         reload();
     }
 
     public void reload(){
-        System.out.println("reloaded");
+        System.out.println("realod");
         Console.addLog(new Log(INFO, "Reload layer: " + ID + " z:" + zIndex));
 
-        vertexArray = new float[maxBathSize * lineSizeFloat];
         int vertexArraySizeInBytes = vertexArray.length * Float.BYTES;
 
         // Generate VAO
@@ -89,73 +88,10 @@ public class DynamicLayer extends Layer {
     public int[] generateIndices(){
         int[] elements = new int[maxBathSize * pointsInLine];
         for(int i = 0; i < (maxBathSize); i++){
-            loadElement(elements, i);
+            elements[i] = i;
         }
 
         return elements;
-    }
-
-    public void loadElement(int[] elements, int index){
-        int startFrom = index * pointsInLine;
-
-        elements[startFrom + 0] = startFrom + 1;
-        elements[startFrom + 1] = startFrom + 0;
-    }
-
-    public void checkIfDirty(){
-        boolean reload = false;
-        for(int i = 0; i < lineCount; i++){
-            if(lineListToRender[i].isDirty()) {
-                Console.addLog(new Log(INFO, "Reloaded line: " + i));
-                reload = true;
-                loadVertex(i);
-            }
-        }
-
-        if(reload) {
-            glBindBuffer(GL_ARRAY_BUFFER, VBO);
-            glBufferSubData(GL_ARRAY_BUFFER, 0, Arrays.copyOfRange(vertexArray, 0, lineCount * lineSizeFloat));
-           // printPoint();
-        }
-    }
-
-    @Override
-    public void addLine(Line2D line){
-        if(lineCount >= lineListToRender.length){
-            Console.addLog(new Log(INFO, "Extend array: size before extend: " + lineListToRender.length));
-            lineListToRender = extendArray(lineListToRender, 20);
-            Console.addLog(new Log(INFO, "Size after extend: " + lineListToRender.length));
-            maxBathSize = lineListToRender.length;
-            reload();
-        }
-
-        lineListToRender[lineCount] = line;
-        lineCount++;
-    }
-
-    public  Line2D[] extendArray(Line2D[] array, int percentage){
-        int minValueToExtends = 10;
-        int capacity = array.length + Math.max((array.length / 100 * percentage), minValueToExtends);
-
-        Line2D[] newArray = new Line2D[capacity];
-        for(int i = 0; i < array.length; i++){
-            newArray[i] = array[i];
-        }
-
-        return newArray;
-    }
-
-    @Override
-    public Line2D getLine(Vector2d from, Vector2d to){
-        for(int i = 0; i < lineListToRender.length; i++){
-            Line2D line = lineListToRender[i];
-            if(line.getFrom().x == from.x && line.getFrom().y == from.y && line.getTo().x == to.x && line.getTo().y == to.y){
-                return line;
-            }
-        }
-
-        Console.addLog(new Log(WARNING, String.format("Can't fine this line: \t from: %.2f  %.2f \t to: %.2f  %.2f", from.x, from.y, to.x, to.y)));
-        return null;
     }
 
     public void draw(){
@@ -186,8 +122,67 @@ public class DynamicLayer extends Layer {
         glDisableVertexAttribArray(0);
         glDisableVertexAttribArray(1);
         glBindVertexArray(0);
-        line2DShader.detach();
-     //   printPoint();
+        line2DShader.detach();;
+    }
+
+    public void checkIfDirty(){
+        boolean reload = false;
+        for(int i = 0; i < lineCount; i++){
+            if(lineListToRender[i].isDirty()) {
+                Console.addLog(new Log(INFO, "Reloaded line: " + i));
+                reload = true;
+                loadVertex(i);
+            }
+        }
+
+        if(reload) {
+            glBindBuffer(GL_ARRAY_BUFFER, VBO);
+            glBufferSubData(GL_ARRAY_BUFFER, 0, Arrays.copyOfRange(vertexArray, 0, lineCount * lineSizeFloat));
+        }
+    }
+
+    public  Line2D[] extendArray(Line2D[] array, int percentage){
+        int minValueToExtends = 10;
+        int capacity = array.length + Math.max((array.length / 100 * percentage), minValueToExtends);
+
+        Line2D[] newArray = new Line2D[capacity];
+        System.arraycopy(array, 0, newArray, 0, array.length);
+
+        return newArray;
+    }
+
+    public void extendVertexArray(){
+        float[] temporary = vertexArray;
+        vertexArray = new float[maxBathSize * lineSizeFloat];
+        System.arraycopy(temporary, 0, vertexArray, 0, temporary.length);
+    }
+
+    @Override
+    public Line2D findLine(Vector2d from, Vector2d to){
+        for(int i = 0; i < lineListToRender.length; i++){
+            Line2D line = lineListToRender[i];
+            if(line.getFrom().x == from.x && line.getFrom().y == from.y && line.getTo().x == to.x && line.getTo().y == to.y){
+                return line;
+            }
+        }
+
+        Console.addLog(new Log(WARNING, String.format("Can't fine this line: \t from: %.2f  %.2f \t to: %.2f  %.2f", from.x, from.y, to.x, to.y)));
+        return null;
+    }
+
+    @Override
+    public void addLine(Line2D line){
+        if(lineCount >= lineListToRender.length){
+            Console.addLog(new Log(INFO, "Extend array: size before extend: " + lineListToRender.length));
+            lineListToRender = extendArray(lineListToRender, 20);
+            Console.addLog(new Log(INFO, "Size after extend: " + lineListToRender.length));
+            maxBathSize = lineListToRender.length;
+            extendVertexArray();
+            reload();
+        }
+
+        lineListToRender[lineCount] = line;
+        lineCount++;
     }
 
     public void printPoint(){
@@ -203,10 +198,5 @@ public class DynamicLayer extends Layer {
             if((i + 1) % pointSizeFloat == 0) System.out.println();
             if((i + 1) % (pointSizeFloat * pointsInLine) == 0) System.out.println();
         }
-
-        //        System.out.println("line***********************************");
-//        for(Line2D line: lineList){
-//            System.out.println(String.format("line %s : \t from: %.2f  %.2f \t to: %.2f  %.2f", ID, line.getFrom().x, line.getFrom().y, line.getTo().x, line.getTo().y));
-//        }
     }
 }

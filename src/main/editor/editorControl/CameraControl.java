@@ -3,7 +3,6 @@ package main.editor.editorControl;
 import main.components.Component;
 import main.haspid.Camera;
 import main.haspid.MouseListener;
-import main.renderer.DebugDraw;
 import org.joml.Vector2d;
 
 import static main.Configuration.*;

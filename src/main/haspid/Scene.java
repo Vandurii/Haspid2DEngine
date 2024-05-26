@@ -409,7 +409,14 @@ public abstract class Scene {
 
     public GameObject getObjectByID(int id){
         for(GameObject object: sceneObjectList){
-            if(object.getGameObjectID() == id) return object;
+            if(object.getGameObjectID() == id){
+                // if object is not triggerable then return null
+                if(!object.isTriggerable()){
+                    break;
+                }
+
+                return object;
+            }
         }
 
         return null;

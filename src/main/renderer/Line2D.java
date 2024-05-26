@@ -2,13 +2,18 @@ package main.renderer;
 
 import main.Configuration;
 import main.components.Component;
+import main.components.physicsComponent.BoxCollider;
 import main.haspid.Console;
 import main.haspid.Log;
+import main.haspid.Transform;
 import org.joml.Vector2d;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
-public class Line2D extends Component {
+import static main.Configuration.colliderID;
+import static main.renderer.DrawMode.Dynamic;
+
+public class Line2D {
     private Vector2d to;
     private Vector2d from;
     private Vector3f color;
@@ -22,10 +27,6 @@ public class Line2D extends Component {
         this.dirty = true;
     }
 
-    @Override
-    public void update(float dt) {
-
-    }
 
     public boolean isDirty(){
         return dirty;
@@ -56,7 +57,7 @@ public class Line2D extends Component {
     }
 
     public void setNewValues(Vector2d from, Vector2d to){
-        Console.addLog(new Log(Log.LogType.INFO, "The line position value has changed: " +ID));
+        Console.addLog(new Log(Log.LogType.INFO, "The line position value has changed: " + ID));
         this.from.x = from.x;
         this.from.y = from.y;
         this.to.x = to.x;

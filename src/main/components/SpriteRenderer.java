@@ -1,25 +1,15 @@
 package main.components;
 
 import imgui.ImGui;
-import main.components.physicsComponent.BoxCollider;
-import main.haspid.Transform;
-import main.renderer.DebDraw;
 import main.util.Texture;
 import org.joml.Vector2d;
-import org.joml.Vector2f;
 import org.joml.Vector4f;
-
-import static main.Configuration.colliderID;
-import static main.renderer.DrawMode.Dynamic;
 
 public class SpriteRenderer extends Component {
     private transient boolean remove;
     private transient boolean isDirty;
     private transient boolean isHighLighted;
     private transient boolean markToRelocate;
-    private transient Transform lastTransform;
-    private transient Vector2d lastHalfSize;
-
 
     private transient int spriteID;
     private Vector4f color;
@@ -78,35 +68,16 @@ public class SpriteRenderer extends Component {
 
     @Override
     public void update(float dt) {
-        if (!lastTransform.equals(getParent().getTransform())) {
+        if(getParent().isDirty()){
             isDirty = true;
-
-            // line
-            BoxCollider  collider = getParent().getComponent(BoxCollider.class);
-            if(collider == null) return;
-
-            Transform newTransform = getParent().getTransform();
-            Vector2d newPosition = newTransform.getPosition();
-            Vector2d newScale = collider.getHalfSize();
-
-            Transform oldTransform = lastTransform;
-            Vector2d oldPosition = oldTransform.getPosition();
-            Vector2d oldScale = lastHalfSize != null ? lastHalfSize : collider.getHalfSize();
-
-            DebDraw.getLines(oldPosition, new Vector2d(oldScale.x * 2, oldScale.y * 2),  oldTransform.getRotation(), colliderID, Dynamic, newPosition, new Vector2d(newScale.x * 2, newScale.y * 2), newTransform.getRotation());
-
-            lastHalfSize = new Vector2d(collider.getHalfSize().x, collider.getHalfSize().y);
-            getParent().getTransform().copy(lastTransform);
         }
     }
 
     @Override
     public void start() {
-        lastTransform = getParent().getTransform().copy();
     }
 
     public void dearGui() {
-       // super.dearGui();
         float[] imColor = {color.x, color.y, color.z, color.w};
 
         if (ImGui.colorEdit4("color Picker", imColor)) {

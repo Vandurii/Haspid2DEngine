@@ -1,6 +1,5 @@
 package main.components;
 
-import main.components.behaviour.FireballBeh;
 import main.components.physicsComponent.BoxCollider;
 import main.components.stateMachine.StateMachine;
 import main.editor.InactiveInEditor;
@@ -12,14 +11,11 @@ import main.physics.RayCastInfo;
 import main.physics.events.Event;
 import main.physics.events.EventSystem;
 import main.physics.events.EventType;
-import main.renderer.DebDraw;
 import main.renderer.DebugDraw;
-import main.renderer.DrawMode;
 import main.util.AssetPool;
 import main.util.SpriteSheet;
 import org.jbox2d.dynamics.contacts.Contact;
 import org.joml.Vector2d;
-import org.joml.Vector3f;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -350,12 +346,12 @@ public class PlayerController extends Component implements InactiveInEditor {
 
         Vector2d beginLeft = new Vector2d(pos.x - minusX, pos.y);
         Vector2d endLeft = new Vector2d(pos.x - minusX, pos.y - minusY);
-        DebDraw.addLine2D(beginLeft, endLeft, debugDefaultColor, rayCastID, debugDefaultZIndex, Static);
+        DebugDraw.addLine2D(beginLeft, endLeft, debugDefaultColor, rayCastID, debugDefaultZIndex, Static);
         RayCastInfo leftSideInfo = physics.rayCastInfo(getParent(), beginLeft, endLeft);
 
         Vector2d beginRight = new Vector2d(pos.x + minusX, pos.y);
         Vector2d endRight = new Vector2d(pos.x + minusX, pos.y - minusY);
-        DebDraw.addLine2D(beginRight, endRight, debugDefaultColor, rayCastID, debugDefaultZIndex, Static);
+        DebugDraw.addLine2D(beginRight, endRight, debugDefaultColor, rayCastID, debugDefaultZIndex, Static);
         RayCastInfo rightSideInfo = physics.rayCastInfo(getParent(), beginRight, endRight);
 
         return onGround = leftSideInfo.isHit() && leftSideInfo.getHitObject() != null || rightSideInfo.isHit() && rightSideInfo.getHitObject() != null;

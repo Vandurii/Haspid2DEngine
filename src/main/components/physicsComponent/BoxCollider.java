@@ -1,18 +1,11 @@
 package main.components.physicsComponent;
 
-import main.editor.EditorScene;
-import main.editor.InactiveInEditor;
 import main.haspid.Scene;
 import main.haspid.Transform;
 import main.haspid.Window;
 import main.physics.Physics2D;
-import main.renderer.DebDraw;
 import main.renderer.DebugDraw;
-import main.renderer.DrawMode;
-import main.renderer.DynamicLayer;
 import org.joml.Vector2d;
-
-import javax.swing.*;
 
 import static main.Configuration.*;
 import static main.renderer.DrawMode.Dynamic;
@@ -22,7 +15,9 @@ public class BoxCollider extends Collider {
     private Vector2d halfSize;
     private transient Scene scene;
     private transient Physics2D physics;
+    private transient Vector2d lastHalfSize;
     private transient boolean resetFixtureNextFrame;
+
 
     public BoxCollider(Vector2d halfSize){
         this.halfSize = halfSize;
@@ -34,13 +29,31 @@ public class BoxCollider extends Collider {
     public void start(){
         Transform t = getParent().getTransform();
         this.physics = Window.getInstance().getCurrentScene().getPhysics();
-        DebDraw.addBox(center, new Vector2d(halfSize.x * 2, halfSize.y * 2), t.getRotation(), colliderColor, colliderID, colliderZIndex, Dynamic);
+        DebugDraw.addBox(center, new Vector2d(halfSize.x * 2, halfSize.y * 2), t.getRotation(), colliderColor, colliderID, colliderZIndex, Dynamic);
     }
 
     @Override
     public void update(float dt){
-        Transform t = getParent().getTransform();
-        center = new Vector2d(t.getPosition()).add(getOffset());
+        Transform newTransform = getParent().getTransform();
+
+        // update the box collider lines positions
+        if(getParent().isDirty()){
+            BoxCollider collider = getParent().getComponent(BoxCollider.class);
+            if(collider == null) return;
+
+            Vector2d newPosition = newTransform.getPosition();
+            Vector2d newScale = collider.getHalfSize();
+
+            Transform oldTransform = getParent().getLastTransform();
+            Vector2d oldPosition = oldTransform.getPosition();
+            Vector2d oldScale = lastHalfSize != null ? lastHalfSize : collider.getHalfSize();
+
+            DebugDraw.getLines(oldPosition, new Vector2d(oldScale.x * 2, oldScale.y * 2),  oldTransform.getRotation(), colliderID, Dynamic, newPosition, new Vector2d(newScale.x * 2, newScale.y * 2), newTransform.getRotation());
+
+            lastHalfSize = new Vector2d(collider.getHalfSize().x, collider.getHalfSize().y);
+        }
+
+        center = new Vector2d(newTransform.getPosition()).add(getOffset());
 
         if(resetFixtureNextFrame) resetFixture();
     }
