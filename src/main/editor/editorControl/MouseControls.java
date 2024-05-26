@@ -3,6 +3,7 @@ package main.editor.editorControl;
 import main.Configuration;
 import main.components.Component;
 import main.components.SpriteRenderer;
+import main.components.physicsComponent.BoxCollider;
 import main.editor.EditorMenuBar;
 import main.haspid.*;
 import main.renderer.DebDraw;
@@ -17,6 +18,7 @@ import java.util.*;
 
 import static main.Configuration.*;
 import static main.renderer.DebugDrawEvents.*;
+import static main.renderer.DrawMode.Dynamic;
 import static main.renderer.DrawMode.Static;
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -292,6 +294,7 @@ public class MouseControls extends Component {
 
         idSet.remove(0);
         idSet.remove(draggingObjectID);
+        idSet.remove(1); /// todo what is id 1?
 
         return !idSet.isEmpty();
     }

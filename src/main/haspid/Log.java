@@ -8,6 +8,7 @@ public class Log {
         INFO,
         WARNING,
         ERROR,
+        DEBUG
     }
 
     public Log(LogType logType, String text){

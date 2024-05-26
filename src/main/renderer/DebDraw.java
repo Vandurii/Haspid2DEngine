@@ -20,6 +20,7 @@ public class DebDraw {
     private static List<DynamicLayer> dynamicLayerList = new ArrayList<>();
 
     public static void notify(DebugDrawEvents eventType, String ID){
+        // select correct list
         List<? extends Layer> layerList = null;
         DrawMode drawMode = resolveMode(ID);
         if(drawMode == Static){
@@ -110,6 +111,7 @@ public class DebDraw {
             staticLayerList.add(newStaticLayer);
         }else{
             DynamicLayer newDynamicLayer = new DynamicLayer(zIndex, name);
+            newDynamicLayer.init();
             newDynamicLayer.addLine(line);
             dynamicLayerList.add(newDynamicLayer);
         }
@@ -173,8 +175,65 @@ public class DebDraw {
         addLine2D(vertices[3], vertices[0], color, destination, zIndex, drawMode);
     }
 
-    public static void getLines(Vector2d center, Vector2d dimension, double rotation, String destination, DrawMode drawMode){
+    public static void getLines(Vector2d center, Vector2d dimension, double rotation, String destination, DrawMode drawMode, Vector2d newCenter, Vector2d newDimension, double newRotation){
 
+        // calculate vertices for searching line
+        Vector2d[] vertices = calculateVertices(center, dimension, rotation);
+        // calculate vertices for new values
+        Vector2d[] newVertices = calculateVertices(newCenter, newDimension, newRotation);
+
+        // select correct type of layer and find searching layer
+        Layer layer = null;
+        List<? extends Layer> layerList = drawMode == Dynamic ? dynamicLayerList : staticLayerList;
+        for(Layer lay: layerList){
+          if(lay.getID().equals(destination)){
+              layer = lay;
+          }
+        }
+
+        Vector2d from = vertices[0];
+        Vector2d to = vertices[1];
+        Line2D firstLine = layer.getLine(from, to);
+      //  System.out.println(String.format("line: \t from: %.2f  %.2f \t to: %.2f  %.2f", from.x, from.y, to.x, to.y));
+
+        from = vertices[1];
+        to = vertices[2];
+        Line2D secondLine = layer.getLine(from, to);
+        //System.out.println(String.format("line: \t from: %.2f  %.2f \t to: %.2f  %.2f", from.x, from.y, to.x, to.y));
+
+
+        from = vertices[2];
+        to = vertices[3];
+        Line2D thirdLine = layer.getLine(from, to);
+        //System.out.println(String.format("line: \t from: %.2f  %.2f \t to: %.2f  %.2f", from.x, from.y, to.x, to.y));
+
+        from = vertices[3];
+        to = vertices[0];
+        Line2D fourthLine = layer.getLine(from, to);
+        //System.out.println(String.format("line: \t from: %.2f  %.2f \t to: %.2f  %.2f", from.x, from.y, to.x, to.y));
+
+        Vector2d newFrom = newVertices[0];
+        Vector2d newTo = newVertices[1];
+        firstLine.setNewValues(newFrom, newTo);
+        firstLine.setDirty(true);
+
+        newFrom = newVertices[1];
+        newTo = newVertices[2];
+        secondLine.setNewValues(newFrom, newTo);
+        secondLine.setDirty(true);
+
+        newFrom = newVertices[2];
+        newTo = newVertices[3];
+        thirdLine.setNewValues(newFrom, newTo);
+        thirdLine.setDirty(true);
+
+        newFrom = newVertices[3];
+        newTo = newVertices[0];
+        fourthLine.setNewValues(newFrom, newTo);
+        fourthLine.setDirty(true);
+    }
+
+    private static Vector2d[] calculateVertices(Vector2d center, Vector2d dimension, double rotation){
         Vector2d min = new Vector2d(center).add(new Vector2d(dimension.x * 0.5f, dimension.y * 0.5f));
         Vector2d max = new Vector2d(center).sub(new Vector2d(new Vector2d(dimension.x * 0.5f, dimension.y * 0.5f)));
 
@@ -191,17 +250,7 @@ public class DebDraw {
             }
         }
 
-        System.out.println(vertices[0] + " : "+ vertices[1]);
-        System.out.println(vertices[1] + " : "+ vertices[2]);
-        System.out.println(vertices[2] + " : "+ vertices[3]);
-        System.out.println(vertices[3] + " : "+ vertices[0]);
-
-//        System.out.println();
-//
-//        addLine2D(vertices[0], vertices[1], color, destination, zIndex, drawMode);
-//        addLine2D(vertices[1], vertices[2], color, destination, zIndex, drawMode);
-//        addLine2D(vertices[2], vertices[3], color, destination, zIndex, drawMode);
-//        addLine2D(vertices[3], vertices[0], color, destination, zIndex, drawMode);
+        return vertices;
     }
 
     public static void rotate(Vector2d vec, double angleDeg, Vector2d origin) {

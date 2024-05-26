@@ -28,7 +28,7 @@ public class StaticLayer extends Layer {
     }
 
     public void reload(){
-        Console.addLog(new Log(INFO, "Layer was reloaded: " + ID + " :" + zIndex));
+        Console.addLog(new Log(INFO, "Reload layer: " + ID + " z:" + zIndex));
 
         int numberOfLines = lineList.size();
         vertexArray = new float[numberOfLines * lineSizeFloat];

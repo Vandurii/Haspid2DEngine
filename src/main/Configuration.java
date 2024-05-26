@@ -121,7 +121,7 @@ public class Configuration {
     //=====================
     public static Color editorClearColor = new Color(60, 60, 60, 1);
     public static double keyDebounceC = 0.1f;
-    public static boolean isConsoleEnabled = true;
+    public static boolean isConsoleEnabled = false;
     public static double consoleDelay = 5;
     public static String consoleIntro = "\n" +
             "\n" +

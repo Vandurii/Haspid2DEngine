@@ -5,6 +5,7 @@ import main.components.Component;
 
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 
 import static main.Configuration.consoleIntro;
 import static main.Configuration.isConsoleEnabled;
@@ -13,12 +14,12 @@ public class Console extends Component {
 
     private static Console instance;
     private static double consoleDelay;
-    private static HashSet<Log> logList;
+    private static LinkedHashSet<Log> logList;
     private static double consoleDelayReset;
 
     private Console(){
         consoleDelayReset = Configuration.consoleDelay;
-        logList = new HashSet<>();
+        logList = new LinkedHashSet<>();
     }
 
     @Override
