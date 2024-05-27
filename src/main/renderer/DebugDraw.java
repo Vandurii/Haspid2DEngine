@@ -210,6 +210,10 @@ public class DebugDraw {
         Line2D fourthLine = layer.findLine(from, to);
         //System.out.println(String.format("line: \t from: %.2f  %.2f \t to: %.2f  %.2f", from.x, from.y, to.x, to.y));
 
+        if(firstLine == null || secondLine == null || thirdLine == null || fourthLine == null) return;
+        Console.addLog(new Log(Log.LogType.WARNING, "Can't find the line: "));
+
+
         Vector2d newFrom = newVertices[0];
         Vector2d newTo = newVertices[1];
         firstLine.setNewValues(newFrom, newTo);

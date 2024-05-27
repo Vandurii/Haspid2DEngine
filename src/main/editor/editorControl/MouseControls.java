@@ -3,7 +3,7 @@ package main.editor.editorControl;
 import main.Configuration;
 import main.components.Component;
 import main.components.SpriteRenderer;
-import main.editor.EditorMenuBar;
+import main.editor.gui.EditorMenuBar;
 import main.haspid.*;
 import main.renderer.DebugDraw;
 import main.editor.EditorScene;
@@ -155,7 +155,13 @@ public class MouseControls extends Component {
         if(mouse.getWorldY() < 0) yPos -= gridSize;
         if(mouse.getWorldX() < 0) xPos -= gridSize;
 
-        draggingObject.getTransform().setPosition(new Vector2d(xPos, yPos));
+        // update pos only if it has changed
+        Vector2d dragPos = draggingObject.getTransform().getPosition();
+        if(dragPos.x != xPos || dragPos.y != yPos) {
+            draggingObject.getTransform().setPosition(new Vector2d(xPos, yPos));
+        }
+
+        // place object if the mouse button is pressed, mouse is inside view port
         if(mouse.isButtonPressed(GLFW_MOUSE_BUTTON_1) && placeObjectCooldown < 0 && mouse.isCursorInsideViewPort()){
             place();
             placeObjectCooldown = resetPlaceObjectCooldown;

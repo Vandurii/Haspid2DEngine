@@ -18,7 +18,6 @@ public class BoxCollider extends Collider {
     private transient Vector2d lastHalfSize;
     private transient boolean resetFixtureNextFrame;
 
-
     public BoxCollider(Vector2d halfSize){
         this.halfSize = halfSize;
         this.center = new Vector2d();
@@ -38,6 +37,7 @@ public class BoxCollider extends Collider {
 
         // update the box collider lines positions
         if(getParent().isDirty()){
+          //  System.out.println("updated boc");
             BoxCollider collider = getParent().getComponent(BoxCollider.class);
             if(collider == null) return;
 

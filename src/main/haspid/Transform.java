@@ -77,6 +77,7 @@ public class Transform extends Component {
 
     public void setPosition(Vector2d position) {
         this.position = new Vector2d(position.x, position.y);
+      //  System.out.println("updated position");
     }
 
     public void setPosition(double x, double y){

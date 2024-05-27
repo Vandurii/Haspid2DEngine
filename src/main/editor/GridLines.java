@@ -1,6 +1,7 @@
 package main.editor;
 
 import main.components.Component;
+import main.editor.gui.ViewPort;
 import main.haspid.Camera;
 import main.haspid.Window;
 import main.renderer.DebugDraw;

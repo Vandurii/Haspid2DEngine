@@ -1,6 +1,6 @@
 package main.haspid;
 
-import main.editor.ViewPort;
+import main.editor.gui.ViewPort;
 import org.joml.Vector2d;
 import org.joml.Vector4d;
 

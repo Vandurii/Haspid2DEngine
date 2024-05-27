@@ -5,6 +5,7 @@ import main.editor.editorControl.CameraControl;
 import main.editor.editorControl.Gizmo;
 import main.editor.editorControl.KeyControls;
 import main.editor.editorControl.MouseControls;
+import main.editor.gui.*;
 import main.haspid.*;
 import main.haspid.Window;
 import main.renderer.DebugDraw;
@@ -33,6 +34,7 @@ public class EditorScene extends Scene {
     private InspectorWindow inspectorWindow;
     private ArrayList<Properties> properties;
     private PropertiesWindow propertiesWindow;
+    private ResourcesManager resourcesManager;
 
     @Override
     public void init() {
@@ -70,8 +72,9 @@ public class EditorScene extends Scene {
         properties.add(AssetPool.getSpriteSheet(iconConfig));
         properties.add(AssetPool.getAllSound());
 
-        editorMenuBar = new EditorMenuBar(this);
         inspectorWindow = new InspectorWindow();
+        editorMenuBar = new EditorMenuBar(this);
+        resourcesManager = new ResourcesManager(this);
         propertiesWindow = new PropertiesWindow(mouseControls, properties);
     }
 
@@ -103,6 +106,7 @@ public class EditorScene extends Scene {
         sceneHierarchy.display();
         inspectorWindow.display();
         propertiesWindow.display();
+        resourcesManager.Display();
         ViewPort.getInstance().display();
 
         imGuiLayer.endFrame();

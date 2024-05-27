@@ -323,6 +323,10 @@ public class RenderBatch implements Comparable<RenderBatch> {
         }
     }
 
+    public int getMaxBathSize(){
+        return maxBathSize;
+    }
+
     public SpriteRenderer[] getSpriteToRender(){
         return spriteListToRender;
     }

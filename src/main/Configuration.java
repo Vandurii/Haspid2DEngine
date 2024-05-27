@@ -99,8 +99,8 @@ public class Configuration {
     public static String windowTitle = "Haspid";
     public static float aspectRatio = (float)windowWidth / (float)windowHeight;
 
-    public static int shiftXAxis = 1750;
-    public static int shiftYAxis = 50;
+    public static int shiftXAxis = 0;//1750;
+    public static int shiftYAxis = 0;//50;
 
 
 
@@ -120,7 +120,8 @@ public class Configuration {
     // Editor Scene Settings
     //=====================
     public static Color editorClearColor = new Color(60, 60, 60, 1);
-    public static double keyDebounceC = 0.1f;
+    public static double keyDebounceC = 0.01f;
+    public static double keyLongCooldown = 0.01;
     public static boolean isConsoleEnabled = false;
     public static double consoleDelay = 5;
     public static String consoleIntro = "\n" +
@@ -166,7 +167,7 @@ public class Configuration {
     public static int pointSizeFloat = 6;
     public static int debugDefaultZIndex = 0;
     public static String rayCastID = "rayCast";
-    public static int dynamicLayerInitialBatchSize = 1000;
+    public static int dynamicLayerInitialBatchSize = 10;
     public static int lineSizeFloat = pointsInLine * pointSizeFloat;
     public static Vector3f debugDefaultColor = new Vector3f(0, 1, 0);
 

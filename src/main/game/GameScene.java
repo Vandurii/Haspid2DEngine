@@ -1,7 +1,7 @@
 package main.game;
 
 import imgui.app.Configuration;
-import main.editor.ViewPort;
+import main.editor.gui.ViewPort;
 import main.haspid.GameObject;
 import main.haspid.ImGuiLayer;
 import main.haspid.Window;

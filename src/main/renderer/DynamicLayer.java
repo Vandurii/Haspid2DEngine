@@ -159,7 +159,7 @@ public class DynamicLayer extends Layer {
 
     @Override
     public Line2D findLine(Vector2d from, Vector2d to){
-        for(int i = 0; i < lineListToRender.length; i++){
+        for(int i = 0; i < lineCount; i++){
             Line2D line = lineListToRender[i];
             if(line.getFrom().x == from.x && line.getFrom().y == from.y && line.getTo().x == to.x && line.getTo().y == to.y){
                 return line;

@@ -1,5 +1,6 @@
 package main.editor.editorControl;
 
+import main.Configuration;
 import main.components.Component;
 import main.haspid.*;
 import main.editor.EditorScene;
@@ -7,8 +8,7 @@ import main.editor.EditorScene;
 import java.util.ArrayList;
 import java.util.List;
 
-import static main.Configuration.gridSize;
-import static main.Configuration.keyDebounceC;
+import static main.Configuration.*;
 import static main.haspid.Direction.*;
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -32,9 +32,8 @@ public class KeyControls extends Component {
         this.cameraControl = cameraControl;
         this.keyboard = KeyListener.getInstance();
         this.mouseListener = mouseControls.getMouseListener();
-        this.resetLongCollDown = 2;
+        this.resetLongCollDown = Configuration.keyLongCooldown;
         this.longCoolDown = resetLongCollDown;
-
     }
 
     @Override
@@ -59,7 +58,6 @@ public class KeyControls extends Component {
             }else if(keyboard.isKeyPressed(GLFW_KEY_DELETE)){
                 removeObject(activeObjectList);
             }else if(keyboard.isKeyPressed(GLFW_KEY_R)){
-                    //DebugDraw.disable(); // todo
                     cameraControl.reset();
             }else if(keyboard.isKeyPressed(GLFW_KEY_UP)){
                 move(Up);
@@ -95,7 +93,7 @@ public class KeyControls extends Component {
     public void move(Direction direction){
         double xAxis = 0;
         double yAxis = 0;
-        double unit = gridSize;
+        double unit = Math.max(gridSize, (gridSize * currentZoomValue));
         switch (direction){
             case Up -> yAxis = -unit;
             case Down -> yAxis = unit;
