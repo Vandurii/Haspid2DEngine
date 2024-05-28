@@ -346,12 +346,12 @@ public class PlayerController extends Component implements InactiveInEditor {
 
         Vector2d beginLeft = new Vector2d(pos.x - minusX, pos.y);
         Vector2d endLeft = new Vector2d(pos.x - minusX, pos.y - minusY);
-        DebugDraw.addLine2D(beginLeft, endLeft, debugDefaultColor, rayCastID, debugDefaultZIndex, Static);
+        DebugDraw.addLine2D(beginLeft, endLeft, debugDefaultColor, rayCastID, debugDefaultZIndex, Static, null);
         RayCastInfo leftSideInfo = physics.rayCastInfo(getParent(), beginLeft, endLeft);
 
         Vector2d beginRight = new Vector2d(pos.x + minusX, pos.y);
         Vector2d endRight = new Vector2d(pos.x + minusX, pos.y - minusY);
-        DebugDraw.addLine2D(beginRight, endRight, debugDefaultColor, rayCastID, debugDefaultZIndex, Static);
+        DebugDraw.addLine2D(beginRight, endRight, debugDefaultColor, rayCastID, debugDefaultZIndex, Static, null);
         RayCastInfo rightSideInfo = physics.rayCastInfo(getParent(), beginRight, endRight);
 
         return onGround = leftSideInfo.isHit() && leftSideInfo.getHitObject() != null || rightSideInfo.isHit() && rightSideInfo.getHitObject() != null;

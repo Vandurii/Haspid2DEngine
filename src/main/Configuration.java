@@ -103,8 +103,8 @@ public class Configuration {
     public static String windowTitle = "Haspid";
     public static float aspectRatio = (float)windowWidth / (float)windowHeight;
 
-    public static int shiftXAxis = 0;//1750;
-    public static int shiftYAxis = 0;//50;
+    public static int shiftXAxis = 1750;
+    public static int shiftYAxis = 50;
 
 
 
@@ -126,7 +126,7 @@ public class Configuration {
     public static Color editorClearColor = new Color(60, 60, 60, 1);
     public static double keyDebounceC = 0.01f;
     public static double keyLongCooldown = 0.01;
-    public static boolean isConsoleEnabled = false;
+    public static boolean isConsoleEnabled = true;
     public static double consoleDelay = 5;
     public static String consoleIntro = "\n" +
             "\n" +

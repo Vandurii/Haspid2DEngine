@@ -5,6 +5,7 @@ import imgui.flag.ImGuiTreeNodeFlags;
 import main.components.SpriteRenderer;
 import main.editor.EditorScene;
 import main.haspid.GameObject;
+import main.haspid.MouseListener;
 import main.renderer.*;
 import main.util.Texture;
 import org.joml.Vector4f;
@@ -36,6 +37,7 @@ public class ResourcesManager {
         if(ImGui.collapsingHeader("System Resources")) {
             displayCPUUsage();
             displayMemoryUsage();
+            displayCursorPos();
         }
 
         int count = editorScene.getSceneObjectList().size();
@@ -114,7 +116,7 @@ public class ResourcesManager {
                         ImGui.text("[null]");
                         continue;
                     }
-                    ImGui.text(String.format("[%s] %s", i, spriteRender.getParent().getName()));
+                    ImGui.text(String.format("[%s] %s", i, spriteRender.getParent().getName() + " : " + spriteRender.getParent()));
                 }
                 ImGui.endCombo();
             }
@@ -156,11 +158,12 @@ public class ResourcesManager {
                         ImGui.text("[null]");
                         continue;
                     }
-                    ImGui.text(String.format("[%s] X:%.1f Y:%.1f - X:%.1f Y:%.1f", i, line.getFrom().x, line.getFrom().y, line.getTo().x, line.getTo().y));
+                    ImGui.text(String.format("[%s] X:%.1f Y:%.1f - X:%.1f Y:%.1f \t %s", i, line.getFrom().x, line.getFrom().y, line.getTo().x, line.getTo().y, line.getParent()));
                 }
                 ImGui.endCombo();
             }
 
+            displayConsoleButton(3, 6, 2);
             displayRenderInfo(dynamicLayer.getzIndex(), dynamicLayer.getMaxBathSize(), dynamicLayer.getLineCount(), dynamicLayer.hasRoom());
             doSpacing(1);
         }
@@ -203,8 +206,9 @@ public class ResourcesManager {
 
     public boolean createTreeNode(GameObject gameObject, int index){
         ImGui.pushID(index);
+        String name = String.format("[ID: %s] %s", gameObject.getGameObjectID(), gameObject.getName());
         boolean treeNodeOpen = ImGui.treeNodeEx(gameObject.getName(),  ImGuiTreeNodeFlags.FramePadding | ImGuiTreeNodeFlags.OpenOnArrow |
-                ImGuiTreeNodeFlags.SpanAvailWidth, gameObject.getName());
+                ImGuiTreeNodeFlags.SpanAvailWidth, name);
         ImGui.popID();
 
         if(ImGui.beginDragDropSource()){
@@ -226,12 +230,39 @@ public class ResourcesManager {
 
     public void resolveIfActive(GameObject gameObject, int index, boolean open){
         if(open){
-            editorScene.getMouseControls().setObjectActive(gameObject);
+          //  editorScene.getMouseControls().setObjectActive(gameObject);
             openNodeMap.put(index, true);
+            ImGui.text(gameObject + "");
+            ImGui.text(gameObject.getGameObjectID() + "");
+            ImGui.text(gameObject.getTransform().getPosition().x + "");
         }else if(openNodeMap.get(index) != null && openNodeMap.get(index)){
             editorScene.getMouseControls().unselectActiveObject(gameObject);
             openNodeMap.put(index, false);
             System.out.println("clear: "  + index);
         }
+    }
+
+    public void displayConsoleButton(int paramLen, int  pointLen, int pointInObj){
+        float[] vertexArray = DebugDraw.getDynamicLayerList().get(0).getVertexArray();
+
+        ImGui.sameLine();
+        if(ImGui.button(">_")){
+            ConsoleWindow.clear();
+
+            for(int i = 0; i < vertexArray.length; i++){
+                ConsoleWindow.collect(String.format("%.1f\t",vertexArray[i]));
+                if((i + 1) % paramLen == 0) ConsoleWindow.collect("\t");
+                if((i + 1) % pointLen == 0) ConsoleWindow.next();
+                if((i + 1) % (pointLen * pointInObj) == 0) ConsoleWindow.space();
+            }
+        }
+    }
+
+    public void displayCursorPos(){
+        double x = MouseListener.getInstance().getWorldX();
+        double y = MouseListener.getInstance().getWorldY();
+
+        displayBulletTitle(String.format("x: %.1f", x), colorLightGreenA);
+        displayBulletTitle(String.format("y: %.1f", y), colorLightGreenA);
     }
 }

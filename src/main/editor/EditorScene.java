@@ -22,15 +22,16 @@ import static main.renderer.DebugDrawEvents.*;
 public class EditorScene extends Scene {
 
     private Gizmo gizmo;
+    private HelpPanel helpPanel;
     private GridLines gridLines;
     private ImGuiLayer imGuiLayer;
     private KeyControls keyControls;
     private MouseListener mouseListener;
     private EditorMenuBar editorMenuBar;
+    private ConsoleWindow consoleWindow;
     private MouseControls mouseControls;
     private CameraControl cameraControl;
     private GameObject levelEditorStuff;
-    private HelpPanel helpPanel;
     private InspectorWindow inspectorWindow;
     private ArrayList<Properties> properties;
     private PropertiesWindow propertiesWindow;
@@ -59,6 +60,7 @@ public class EditorScene extends Scene {
         levelEditorStuff.addComponent(cameraControl);
         levelEditorStuff.addComponent(keyControls);
         levelEditorStuff.addComponent(gizmo);
+      //  addGameObjectToScene(levelEditorStuff);
 
         imGuiLayer = new ImGuiLayer(Window.getInstance().getGlfwWindow());
         imGuiLayer.init(new Configuration());
@@ -72,6 +74,7 @@ public class EditorScene extends Scene {
         properties.add(AssetPool.getSpriteSheet(iconConfig));
         properties.add(AssetPool.getAllSound());
 
+        consoleWindow = new ConsoleWindow();
         inspectorWindow = new InspectorWindow();
         editorMenuBar = new EditorMenuBar(this);
         resourcesManager = new ResourcesManager(this);
@@ -80,6 +83,9 @@ public class EditorScene extends Scene {
 
     @Override
     public void update(float dt) {
+        addComponentToObject();
+        removeComponentFromObject();
+
         updateDearGui();
         levelEditorStuff.update(dt);
         updateGameObject(dt);
@@ -102,8 +108,9 @@ public class EditorScene extends Scene {
     public void updateDearGui(){
         imGuiLayer.startFrame();
 
-        editorMenuBar.display();
         helpPanel.display();
+        consoleWindow.Display();
+        editorMenuBar.display();
         inspectorWindow.display();
         propertiesWindow.display();
         resourcesManager.Display();

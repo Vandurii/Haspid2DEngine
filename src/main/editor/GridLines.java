@@ -52,12 +52,12 @@ public class GridLines extends Component {
 
             // add vertical lines
             for (int i = 0; i < verticalLines; i++) {
-                DebugDraw.addLine2D(new Vector2d(camX + (i * (gridSize)), camY), new Vector2d(camX + (i * gridSize), camY + (uProjectionDimension.y * currentZoomValue)), gridLinesColor, gridID, gridLinesZIndex, Static);
+                DebugDraw.addLine2D(new Vector2d(camX + (i * (gridSize)), camY), new Vector2d(camX + (i * gridSize), camY + (uProjectionDimension.y * currentZoomValue)), gridLinesColor, gridID, gridLinesZIndex, Static, null);
             }
 
             // add horizontal lines
             for (int i = 0; i < horizontalLines; i++) {
-                DebugDraw.addLine2D(new Vector2d(camX,camY + (i * gridSize)), new Vector2d(camX + (uProjectionDimension.x * currentZoomValue), camY + (i * gridSize)), gridLinesColor, gridID, gridLinesZIndex, Static);
+                DebugDraw.addLine2D(new Vector2d(camX,camY + (i * gridSize)), new Vector2d(camX + (uProjectionDimension.x * currentZoomValue), camY + (i * gridSize)), gridLinesColor, gridID, gridLinesZIndex, Static, null);
             }
 
             // save last values

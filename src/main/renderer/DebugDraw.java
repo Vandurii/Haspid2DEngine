@@ -1,7 +1,9 @@
 package main.renderer;
 
 import main.haspid.Console;
+import main.haspid.GameObject;
 import main.haspid.Log;
+import main.haspid.Window;
 import org.joml.Vector2d;
 import org.joml.Vector3f;
 
@@ -51,6 +53,9 @@ public class DebugDraw {
                     case Enable ->{
                         layer.enable();
                     }
+                    case Garbage ->{
+                        layer.garbage();
+                    }
                 }
             }
         }
@@ -69,16 +74,21 @@ public class DebugDraw {
         return false;
     }
 
-    public static void addLine2D(Vector2d from, Vector2d to, String name, DrawMode drawMode){
-        addLine2D(from, to, debugDefaultColor, name, debugDefaultZIndex, drawMode);
+    public static void addLine2D(Vector2d from, Vector2d to, String name, DrawMode drawMode, GameObject parent){
+        addLine2D(from, to, debugDefaultColor, name, debugDefaultZIndex, drawMode, parent);
     }
 
-    public static void addLine2D(Vector2d from, Vector2d to, String name, int zIndex, DrawMode drawMode){
-        addLine2D(from, to, debugDefaultColor, name, zIndex, drawMode);
+    public static void addLine2D(Vector2d from, Vector2d to, String name, int zIndex, DrawMode drawMode, GameObject parent){
+        addLine2D(from, to, debugDefaultColor, name, zIndex, drawMode, parent);
     }
 
-    public static void addLine2D(Vector2d from, Vector2d to, Vector3f color, String name, int zIndex, DrawMode drawMode){
+    public static void addLine2D(Vector2d from, Vector2d to, Vector3f color, String name, int zIndex, DrawMode drawMode, GameObject parent){
         Line2D line = new Line2D(from, to, color);
+
+        // when object is not null add line component to it
+        if(parent != null){
+            Window.getInstance().getCurrentScene().addComponentRuntime(parent, line);
+        }
 
         // select the correct list
         List<? extends Layer> layerList = null;
@@ -115,15 +125,15 @@ public class DebugDraw {
         }
     }
 
-    public static void addCircle(Vector2d centre, double radius, String destination, DrawMode drawMode){
-        addCircle(centre, radius, debugDefaultColor,  destination, debugDefaultZIndex, drawMode);
+    public static void addCircle(Vector2d centre, double radius, String destination, DrawMode drawMode, GameObject parent){
+        addCircle(centre, radius, debugDefaultColor,  destination, debugDefaultZIndex, drawMode, parent);
     }
 
-    public static void addCircle(Vector2d centre, double radius, String destination, int zIndex, DrawMode drawMode){
-        addCircle(centre, radius, debugDefaultColor, destination, zIndex, drawMode);
+    public static void addCircle(Vector2d centre, double radius, String destination, int zIndex, DrawMode drawMode, GameObject parent){
+        addCircle(centre, radius, debugDefaultColor, destination, zIndex, drawMode, parent);
     }
 
-    public static void addCircle(Vector2d centre, double radius, Vector3f color,String destination, int zIndex, DrawMode drawMode){
+    public static void addCircle(Vector2d centre, double radius, Vector3f color,String destination, int zIndex, DrawMode drawMode, GameObject parent){
         Vector2d[] points = new Vector2d[20];
         int increment = 360 / points.length;
 
@@ -136,103 +146,27 @@ public class DebugDraw {
             currentAngle += increment;
             if(i == 0) continue;
 
-            addLine2D(points[i - 1], points[i], color, destination, zIndex, drawMode);
+            addLine2D(points[i - 1], points[i], color, destination, zIndex, drawMode, parent);
         }
-        addLine2D(points[0], points[points.length - 1], color, destination, zIndex, drawMode);
+        addLine2D(points[0], points[points.length - 1], color, destination, zIndex, drawMode, parent);
     }
 
-    public static void addBox(Vector2d center, Vector2d dimension, double rotation, String destination, DrawMode drawMode){
-        addBox(center, dimension, rotation, debugDefaultColor, destination, debugDefaultZIndex, drawMode);
+    public static void addBox(Vector2d center, Vector2d dimension, double rotation, String destination, DrawMode drawMode, GameObject parent){
+        addBox(center, dimension, rotation, debugDefaultColor, destination, debugDefaultZIndex, drawMode, parent);
     }
 
-    public static void addBox(Vector2d center, Vector2d dimension, double rotation, String destination, int zIndex, DrawMode drawMode){
-        addBox(center, dimension, rotation, debugDefaultColor, destination, zIndex, drawMode);
+    public static void addBox(Vector2d center, Vector2d dimension, double rotation, String destination, int zIndex, DrawMode drawMode, GameObject parent){
+        addBox(center, dimension, rotation, debugDefaultColor, destination, zIndex, drawMode, parent);
     }
 
-    public static void addBox(Vector2d center, Vector2d dimension, double rotation, Vector3f color, String destination, int zIndex, DrawMode drawMode){
-
-        Vector2d min = new Vector2d(center).add(new Vector2d(dimension.x * 0.5f, dimension.y * 0.5f));
-        Vector2d max = new Vector2d(center).sub(new Vector2d(new Vector2d(dimension.x * 0.5f, dimension.y * 0.5f)));
-
-        Vector2d[] vertices = {
-                new Vector2d(min.x, min.y),
-                new Vector2d(max.x, min.y),
-                new Vector2d(max.x, max.y),
-                new Vector2d(min.x, max.y)
-        };
-
-        if(rotation > 0){
-            for(Vector2d ver: vertices){
-                rotate(ver, rotation, center);
-            }
-        }
-
-        addLine2D(vertices[0], vertices[1], color, destination, zIndex, drawMode);
-        addLine2D(vertices[1], vertices[2], color, destination, zIndex, drawMode);
-        addLine2D(vertices[2], vertices[3], color, destination, zIndex, drawMode);
-        addLine2D(vertices[3], vertices[0], color, destination, zIndex, drawMode);
-    }
-
-    public static void getLines(Vector2d center, Vector2d dimension, double rotation, String destination, DrawMode drawMode, Vector2d newCenter, Vector2d newDimension, double newRotation){
-
+    public static void addBox(Vector2d center, Vector2d dimension, double rotation, Vector3f color, String destination, int zIndex, DrawMode drawMode, GameObject parent){
         // calculate vertices for searching line
         Vector2d[] vertices = calculateVertices(center, dimension, rotation);
-        // calculate vertices for new values
-        Vector2d[] newVertices = calculateVertices(newCenter, newDimension, newRotation);
 
-        // select correct type of layer and find searching layer
-        Layer layer = null;
-        List<? extends Layer> layerList = drawMode == Dynamic ? dynamicLayerList : staticLayerList;
-        for(Layer lay: layerList){
-          if(lay.getID().equals(destination)){
-              layer = lay;
-          }
-        }
-
-        Vector2d from = vertices[0];
-        Vector2d to = vertices[1];
-        Line2D firstLine = layer.findLine(from, to);
-      //  System.out.println(String.format("line: \t from: %.2f  %.2f \t to: %.2f  %.2f", from.x, from.y, to.x, to.y));
-
-        from = vertices[1];
-        to = vertices[2];
-        Line2D secondLine = layer.findLine(from, to);
-        //System.out.println(String.format("line: \t from: %.2f  %.2f \t to: %.2f  %.2f", from.x, from.y, to.x, to.y));
-
-
-        from = vertices[2];
-        to = vertices[3];
-        Line2D thirdLine = layer.findLine(from, to);
-        //System.out.println(String.format("line: \t from: %.2f  %.2f \t to: %.2f  %.2f", from.x, from.y, to.x, to.y));
-
-        from = vertices[3];
-        to = vertices[0];
-        Line2D fourthLine = layer.findLine(from, to);
-        //System.out.println(String.format("line: \t from: %.2f  %.2f \t to: %.2f  %.2f", from.x, from.y, to.x, to.y));
-
-        if(firstLine == null || secondLine == null || thirdLine == null || fourthLine == null) return;
-        Console.addLog(new Log(Log.LogType.WARNING, "Can't find the line: "));
-
-
-        Vector2d newFrom = newVertices[0];
-        Vector2d newTo = newVertices[1];
-        firstLine.setNewValues(newFrom, newTo);
-        firstLine.setDirty(true);
-
-        newFrom = newVertices[1];
-        newTo = newVertices[2];
-        secondLine.setNewValues(newFrom, newTo);
-        secondLine.setDirty(true);
-
-        newFrom = newVertices[2];
-        newTo = newVertices[3];
-        thirdLine.setNewValues(newFrom, newTo);
-        thirdLine.setDirty(true);
-
-        newFrom = newVertices[3];
-        newTo = newVertices[0];
-        fourthLine.setNewValues(newFrom, newTo);
-        fourthLine.setDirty(true);
+        addLine2D(vertices[0], vertices[1], color, destination, zIndex, drawMode, parent);
+        addLine2D(vertices[1], vertices[2], color, destination, zIndex, drawMode, parent);
+        addLine2D(vertices[2], vertices[3], color, destination, zIndex, drawMode, parent);
+        addLine2D(vertices[3], vertices[0], color, destination, zIndex, drawMode, parent);
     }
 
     private static Vector2d[] calculateVertices(Vector2d center, Vector2d dimension, double rotation){
@@ -281,6 +215,7 @@ public class DebugDraw {
         for(Layer layer: dynamicLayerList){
             if(layer.getID().equals(ID)) return Dynamic;
         }
+
 
         Console.addLog(new Log(Log.LogType.ERROR, "Can't find draw mode for " + ID));
         return null;

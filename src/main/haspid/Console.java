@@ -2,24 +2,23 @@ package main.haspid;
 
 import main.Configuration;
 import main.components.Component;
+import main.editor.gui.ConsoleWindow;
 
 
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 
-import static main.Configuration.consoleIntro;
-import static main.Configuration.isConsoleEnabled;
+import static main.Configuration.*;
 
 public class Console extends Component {
 
     private static Console instance;
     private static double consoleDelay;
-    private static LinkedHashSet<Log> logList;
+    private static LinkedHashSet<Log> logList = new LinkedHashSet<>();
     private static double consoleDelayReset;
 
     private Console(){
         consoleDelayReset = Configuration.consoleDelay;
-        logList = new LinkedHashSet<>();
     }
 
     @Override
@@ -29,9 +28,11 @@ public class Console extends Component {
         if(logList.isEmpty()) return;
 
         if(isConsoleEnabled && consoleDelay < 0){
-            System.out.println(consoleIntro);
+            ConsoleWindow.setInfo(consoleIntro);
+      //      System.out.println(consoleIntro);
             for(Log log: logList){
-                System.out.println(log.logType + ": " + log.text);
+                ConsoleWindow.setInfo(log.logType + ":" + log.text);
+              //  System.out.println(log.logType + ": " + log.text);
             }
 
             logList.clear();
@@ -48,4 +49,5 @@ public class Console extends Component {
 
         return instance;
     }
+
 }

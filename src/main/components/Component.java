@@ -63,7 +63,10 @@ public abstract class Component {
         for(Field f: fields){
             try {
                 boolean isTransient = Modifier.isTransient(f.getModifiers());
+                boolean isStatic = Modifier.isStatic(f.getModifiers());
                 if(isTransient) continue;
+                if(isStatic) continue;
+
                 boolean isPrivate = Modifier.isPrivate(f.getModifiers());
                 if(isPrivate) f.setAccessible(true);
 

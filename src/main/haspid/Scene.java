@@ -9,6 +9,9 @@ import main.components.physicsComponent.RigidBody;
 import main.components.stateMachine.Animation;
 import main.components.stateMachine.StateMachine;
 import main.physics.Physics2D;
+import main.renderer.DebugDraw;
+import main.renderer.DebugDrawEvents;
+import main.renderer.Line2D;
 import main.renderer.Renderer;
 import main.util.AssetPool;
 import main.util.SpriteSheet;
@@ -24,6 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 import static main.Configuration.*;
+import static main.haspid.Log.LogType.INFO;
 import static org.lwjgl.opengl.GL11.glGetIntegerv;
 
 public abstract class Scene {
@@ -290,13 +294,22 @@ public abstract class Scene {
     }
 
     public void addComponentRuntime(GameObject gameObject, Component component){
+        Console.addLog(new Log(INFO, "addComponentRuntime:: " + component.getClass().getSimpleName()));
         componentToAddMap.put(component, gameObject);
     }
 
-    private void addComponentToObject() {
-        for (Map.Entry<Component, GameObject> entry : componentToRemoveMap.entrySet()) {
+    protected void addComponentToObject() {
+
+        if(!componentToAddMap.isEmpty()){
+        Console.addLog(new Log(INFO, "addComponentToObject:: " + componentToAddMap.size()));
+        }
+
+        for (Map.Entry<Component, GameObject> entry : componentToAddMap.entrySet()) {
             entry.getValue().addComponent(entry.getKey());
         }
+
+        // Clear list after all component are added.
+        componentToAddMap.clear();
     }
 
     public void changePositionRuntime(Vector2d pos, GameObject gameObject){
@@ -317,6 +330,15 @@ public abstract class Scene {
             gameObject.getComponent(SpriteRenderer.class).markToRemove();
             physics.destroyGameObject(gameObject);
             sceneObjectList.remove(gameObject);
+
+            List<Line2D> lineList = gameObject.getAllCompThisType(Line2D.class);
+            if(!lineList.isEmpty()) {
+                for (Line2D line : lineList) {
+                    line.markToRemove(true);
+                }
+
+                DebugDraw.notify(DebugDrawEvents.Garbage, colliderID);
+            }
         }
     }
 
@@ -342,15 +364,15 @@ public abstract class Scene {
         componentToRemoveMap.put(component, gameObject);
     }
 
-    private void removeComponentFromObject() {
+    protected void removeComponentFromObject() {
         for (Map.Entry<Component, GameObject> entry : componentToRemoveMap.entrySet()) {
             entry.getValue().removeComponent(entry.getKey());
+            Console.addLog(new Log(INFO, "RemoveComponentFromObject:: " + entry.getKey().getClass().getSimpleName()));
         }
         componentToRemoveMap.clear();
     }
     
     public void saveSceneObject(){
-
             Gson gson = new GsonBuilder().
                     setPrettyPrinting().
                     registerTypeAdapter(Component.class, new ComponentSerializer()).

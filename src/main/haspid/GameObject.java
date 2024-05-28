@@ -1,6 +1,7 @@
 package main.haspid;
 
 import imgui.ImGui;
+import main.Configuration;
 import main.editor.InactiveInEditor;
 import main.editor.JImGui;
 import main.components.Component;
@@ -88,6 +89,7 @@ public class GameObject {
     }
 
     public void addComponent(Component c){
+        Console.addLog(new Log(Log.LogType.INFO, "Added component: " + c.getClass().getSimpleName() + " to: " + getName()));
         c.setParent(this);
         componentList.add(c);
     }
@@ -125,6 +127,19 @@ public class GameObject {
         }
 
         return null;
+    }
+
+    public <T extends Component> List<T> getAllCompThisType(Class<T> component){
+        List<T> compList = new ArrayList<>();
+
+        for(Component c: componentList){
+            if(component.isAssignableFrom(c.getClass())){
+                compList.add(component.cast(c));
+            }
+        }
+
+        Console.addLog(new Log(Log.LogType.INFO, "getAllComponentThisType:: got " + compList.size()));
+        return compList;
     }
 
     public List<Component> getAllComponent(){

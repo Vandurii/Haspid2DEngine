@@ -5,9 +5,14 @@ import main.haspid.Transform;
 import main.haspid.Window;
 import main.physics.Physics2D;
 import main.renderer.DebugDraw;
+import main.renderer.DebugDrawEvents;
+import main.renderer.Line2D;
 import org.joml.Vector2d;
 
+import java.util.List;
+
 import static main.Configuration.*;
+import static main.renderer.DebugDrawEvents.Garbage;
 import static main.renderer.DrawMode.Dynamic;
 
 public class BoxCollider extends Collider {
@@ -15,7 +20,6 @@ public class BoxCollider extends Collider {
     private Vector2d halfSize;
     private transient Scene scene;
     private transient Physics2D physics;
-    private transient Vector2d lastHalfSize;
     private transient boolean resetFixtureNextFrame;
 
     public BoxCollider(Vector2d halfSize){
@@ -26,34 +30,24 @@ public class BoxCollider extends Collider {
 
     @Override
     public void start(){
-        Transform t = getParent().getTransform();
         this.physics = Window.getInstance().getCurrentScene().getPhysics();
-        DebugDraw.addBox(center, new Vector2d(halfSize.x * 2, halfSize.y * 2), t.getRotation(), colliderColor, colliderID, colliderZIndex, Dynamic);
     }
 
     @Override
     public void update(float dt){
         Transform newTransform = getParent().getTransform();
-
-        // update the box collider lines positions
-        if(getParent().isDirty()){
-          //  System.out.println("updated boc");
-            BoxCollider collider = getParent().getComponent(BoxCollider.class);
-            if(collider == null) return;
-
-            Vector2d newPosition = newTransform.getPosition();
-            Vector2d newScale = collider.getHalfSize();
-
-            Transform oldTransform = getParent().getLastTransform();
-            Vector2d oldPosition = oldTransform.getPosition();
-            Vector2d oldScale = lastHalfSize != null ? lastHalfSize : collider.getHalfSize();
-
-            DebugDraw.getLines(oldPosition, new Vector2d(oldScale.x * 2, oldScale.y * 2),  oldTransform.getRotation(), colliderID, Dynamic, newPosition, new Vector2d(newScale.x * 2, newScale.y * 2), newTransform.getRotation());
-
-            lastHalfSize = new Vector2d(collider.getHalfSize().x, collider.getHalfSize().y);
-        }
-
         center = new Vector2d(newTransform.getPosition()).add(getOffset());
+
+        if(getParent().isDirty()){
+            List<Line2D> lineList = getParent().getAllCompThisType(Line2D.class);
+            for(Line2D line: lineList){
+                line.markToRemove(true);
+                Window.getInstance().getCurrentScene().removeComponentRuntime(getParent(), line);
+            }
+
+            DebugDraw.notify(Garbage, colliderID);
+            DebugDraw.addBox(center, new Vector2d(halfSize.x * 2, halfSize.y * 2), newTransform.getRotation(), colliderColor, colliderID, colliderZIndex, Dynamic, getParent());
+        }
 
         if(resetFixtureNextFrame) resetFixture();
     }

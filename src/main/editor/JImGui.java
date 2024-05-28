@@ -11,18 +11,15 @@ import java.awt.*;
 import static main.Configuration.*;
 
 public class JImGui {
-    private static int defaultWidth = 100;
-
     public static <T> Object drawValue(String label, T type, String hashName){
-        return drawValue(label, type ,hashName, 0, defaultWidth);
+        return drawValue(label, type ,hashName, 0);
     }
 
-    public static <T> Object drawValue(String label, T type, String hashName, float resetValue, float columnWidth){
+    public static <T> Object drawValue(String label, T type, String hashName, float resetValue){
         String name = "##" + hashName + label;
         ImGui.pushID(label);
 
         ImGui.columns(2);
-     //   ImGui.setColumnWidth(0, columnWidth);
         ImGui.text(label);
         ImGui.nextColumn();
 

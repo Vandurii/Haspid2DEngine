@@ -93,7 +93,7 @@ public class KeyControls extends Component {
     public void move(Direction direction){
         double xAxis = 0;
         double yAxis = 0;
-        double unit = Math.max(gridSize, (gridSize * currentZoomValue));
+        double unit = Math.max(gridSize, (gridSize * (int)currentZoomValue));
         switch (direction){
             case Up -> yAxis = -unit;
             case Down -> yAxis = unit;

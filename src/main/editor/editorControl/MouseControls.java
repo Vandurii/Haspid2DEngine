@@ -212,11 +212,13 @@ public class MouseControls extends Component {
                 if(compClone != null) objectClone.addComponent(compClone);
             }
             objectClone.setTransformFromItself();
+            objectClone.getTransform().increaseZIndex();
 
-            draggingObject.getTransform().increaseZIndex();
-            draggingObject = objectClone;
+            // todo
+           //draggingObject.getTransform().increaseZIndex();
+           //draggingObject = objectClone;
 
-            editorScene.addGameObjectToScene(draggingObject);
+            editorScene.addGameObjectToScene(objectClone);
         }
     }
 
@@ -344,7 +346,7 @@ public class MouseControls extends Component {
                 center = new Vector2d(startDraggingWMode.x + (distance.x / 2), startDraggingWMode.y + (distance.y / 2));
                 DebugDraw.notify(Clear, selectorID);
                 DebugDraw.notify(Enable, selectorID);
-                DebugDraw.addBox(center, distance, 0, new Vector3f(0, 0, 0), selectorID, selectorZIndex, Static);
+                DebugDraw.addBox(center, distance, 0, new Vector3f(0, 0, 0), selectorID, selectorZIndex, Static, null);
                 DebugDraw.notify(SetDirty, selectorID);
                 if(selector != null) Window.getInstance().getCurrentScene().removeFromScene(selector);
                 selector = new GameObject("Selector");

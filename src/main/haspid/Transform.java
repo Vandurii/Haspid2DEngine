@@ -38,6 +38,9 @@ public class Transform extends Component {
         this.zIndex = zIndex;
     }
 
+//    @Override
+//    public void dearGui(){}
+
     @Override
     public void update(float dt) {
         if(getParent() == null) throw new IllegalStateException("Parent Object is null.");

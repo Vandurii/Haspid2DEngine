@@ -5,7 +5,9 @@ import main.util.AssetPool;
 import main.util.Shader;
 import org.joml.Vector2d;
 import org.joml.Vector3f;
+import org.lwjgl.opengl.ARBBaseInstance;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import static main.Configuration.*;
@@ -23,9 +25,11 @@ public class DynamicLayer extends Layer {
     private int lineCount;
     private int maxBathSize;
     private Line2D lineListToRender[];
+    private ArrayList<Integer> freeSlots;
 
     public DynamicLayer(int zIndex, String ID) {
         super(zIndex, ID);
+        this.freeSlots = new ArrayList<>();
         this.maxBathSize = dynamicLayerInitialBatchSize;
         this.lineListToRender = new Line2D[maxBathSize];
         this.vertexArray = new float[maxBathSize * lineSizeFloat];
@@ -37,7 +41,6 @@ public class DynamicLayer extends Layer {
     }
 
     public void reload(){
-        System.out.println("realod");
         Console.addLog(new Log(INFO, "Reload layer: " + ID + " z:" + zIndex));
 
         int vertexArraySizeInBytes = vertexArray.length * Float.BYTES;
@@ -63,6 +66,15 @@ public class DynamicLayer extends Layer {
         setDirty(false);
     }
 
+    public int[] generateIndices(){
+        int[] elements = new int[maxBathSize * pointsInLine];
+        for(int i = 0; i < (maxBathSize * pointsInLine); i++){
+            elements[i] = i;
+        }
+
+        return elements;
+    }
+
     public void loadVertex(int index){
         Line2D line = lineListToRender[index];
         int offset = index * pointSizeFloat * pointsInLine;
@@ -85,16 +97,26 @@ public class DynamicLayer extends Layer {
         line.setDirty(false);
     }
 
-    public int[] generateIndices(){
-        int[] elements = new int[maxBathSize * pointsInLine];
-        for(int i = 0; i < (maxBathSize); i++){
-            elements[i] = i;
-        }
+    public void clearVertexSlot(int index){
+        // collect free slots, they will be reuse
+        freeSlots.add(index);
 
-        return elements;
+        int offset = index * pointSizeFloat * pointsInLine;
+
+        for (int i = 0; i < 2; i++) {
+            vertexArray[offset + 0] = 0;
+            vertexArray[offset + 1] = 0;
+            vertexArray[offset + 2] = 0;
+
+            vertexArray[offset + 3] = 0;
+            vertexArray[offset + 4] = 0;
+            vertexArray[offset + 5] = 0;
+
+            offset += pointSizeFloat;
+        }
     }
 
-    public void draw(){
+    public void draw(){;
         checkIfDirty();
 
         if(disabled){
@@ -128,13 +150,20 @@ public class DynamicLayer extends Layer {
     public void checkIfDirty(){
         boolean reload = false;
         for(int i = 0; i < lineCount; i++){
-            if(lineListToRender[i].isDirty()) {
+            // get line skip if it is null
+            Line2D line = lineListToRender[i];
+            if(line == null) continue;;
+
+            // reload data from this object if it has changed
+            if(line.isDirty()) {
                 Console.addLog(new Log(INFO, "Reloaded line: " + i));
                 reload = true;
                 loadVertex(i);
             }
         }
 
+        // Reload buffer if at least one line has changed.
+        // Make new array (new array is lineCount length) and reload buffer
         if(reload) {
             glBindBuffer(GL_ARRAY_BUFFER, VBO);
             glBufferSubData(GL_ARRAY_BUFFER, 0, Arrays.copyOfRange(vertexArray, 0, lineCount * lineSizeFloat));
@@ -158,19 +187,6 @@ public class DynamicLayer extends Layer {
     }
 
     @Override
-    public Line2D findLine(Vector2d from, Vector2d to){
-        for(int i = 0; i < lineCount; i++){
-            Line2D line = lineListToRender[i];
-            if(line.getFrom().x == from.x && line.getFrom().y == from.y && line.getTo().x == to.x && line.getTo().y == to.y){
-                return line;
-            }
-        }
-
-        Console.addLog(new Log(WARNING, String.format("Can't fine this line: \t from: %.2f  %.2f \t to: %.2f  %.2f", from.x, from.y, to.x, to.y)));
-        return null;
-    }
-
-    @Override
     public void addLine(Line2D line){
         if(lineCount >= lineListToRender.length){
             Console.addLog(new Log(INFO, "Extend array: size before extend: " + lineListToRender.length));
@@ -181,8 +197,39 @@ public class DynamicLayer extends Layer {
             reload();
         }
 
-        lineListToRender[lineCount] = line;
-        lineCount++;
+        if(freeSlots.isEmpty()) {
+            lineListToRender[lineCount] = line;
+            lineCount++;
+        }else{
+            // reuse free slots, fill the hole
+            int index = freeSlots.get(0);
+            lineListToRender[index] = line;
+
+            // remove this, because is not longer free
+            freeSlots.remove(0);
+
+            Console.addLog(new Log(INFO, "Reused slot: " + index));
+        }
+    }
+
+    public void garbage(){
+        boolean found = false;
+        for(int i = 0; i < lineCount; i++){
+            Line2D line = lineListToRender[i];
+            if(line == null) continue;
+            if(line.isMarkedToRemove()){
+                found = true;
+                lineListToRender[i] = null;
+                clearVertexSlot(i);
+            }
+        }
+
+        // Reload buffer if at least one line has changed.
+        // Make new array (new array is lineCount length) and reload buffer
+        if(found) {
+            glBindBuffer(GL_ARRAY_BUFFER, VBO);
+            glBufferSubData(GL_ARRAY_BUFFER, 0, Arrays.copyOfRange(vertexArray, 0, lineCount * lineSizeFloat));
+        }
     }
 
     public boolean hasRoom(){
@@ -190,7 +237,8 @@ public class DynamicLayer extends Layer {
     }
 
     public int getLineCount(){
-        return lineCount;
+        // subtract free slots because they will be reused
+        return lineCount - freeSlots.size();
     }
 
     public int getMaxBathSize(){
@@ -201,18 +249,11 @@ public class DynamicLayer extends Layer {
         return lineListToRender;
     }
 
-    public void printPoint(){
-        if(vertexArray == null){
-            Console.addLog(new Log(WARNING, "Can't print values because vetex array is null: " + ID));
-            return;
-        }
+    public float[] getVertexArray(){
+        return vertexArray;
+    }
 
-        System.out.println("Start *********************************************************");
-        for(int i = 0; i < vertexArray.length; i++){
-            System.out.print(String.format("%.1f\t\t",vertexArray[i]));
-            if((i + 1) % 3 == 0) System.out.print("\t");
-            if((i + 1) % pointSizeFloat == 0) System.out.println();
-            if((i + 1) % (pointSizeFloat * pointsInLine) == 0) System.out.println();
-        }
+    public int getFreeSlots(){
+        return freeSlots.size();
     }
 }
