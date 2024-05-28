@@ -87,4 +87,8 @@ public abstract class Layer {
         Console.addLog(new Log(WARNING, String.format("Can't fine this line: \t from: %.2f  %.2f \t to: %.2f  %.2f", from.x, from.y, to.x, to.y)));
         return null;
     }
+
+    public List<Line2D> getLine(){
+        return lineList;
+    }
 }

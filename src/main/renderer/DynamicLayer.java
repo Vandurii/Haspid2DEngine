@@ -185,6 +185,22 @@ public class DynamicLayer extends Layer {
         lineCount++;
     }
 
+    public boolean hasRoom(){
+        return lineCount + 1 <= maxBathSize;
+    }
+
+    public int getLineCount(){
+        return lineCount;
+    }
+
+    public int getMaxBathSize(){
+        return maxBathSize;
+    }
+
+    public Line2D[] getLineListToRender(){
+        return lineListToRender;
+    }
+
     public void printPoint(){
         if(vertexArray == null){
             Console.addLog(new Log(WARNING, "Can't print values because vetex array is null: " + ID));

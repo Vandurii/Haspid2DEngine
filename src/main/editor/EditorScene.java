@@ -30,7 +30,7 @@ public class EditorScene extends Scene {
     private MouseControls mouseControls;
     private CameraControl cameraControl;
     private GameObject levelEditorStuff;
-    private SceneHierarchy sceneHierarchy;
+    private HelpPanel helpPanel;
     private InspectorWindow inspectorWindow;
     private ArrayList<Properties> properties;
     private PropertiesWindow propertiesWindow;
@@ -47,7 +47,7 @@ public class EditorScene extends Scene {
 
         gridLines = new GridLines();
         gizmo = new Gizmo(this);
-        sceneHierarchy = new SceneHierarchy(this);
+        helpPanel = new HelpPanel(this);
         mouseControls = new MouseControls(this, mouseListener, gizmo);
         cameraControl = new CameraControl(camera, mouseControls);
         keyControls = new KeyControls(mouseControls, cameraControl, this);
@@ -103,7 +103,7 @@ public class EditorScene extends Scene {
         imGuiLayer.startFrame();
 
         editorMenuBar.display();
-        sceneHierarchy.display();
+        helpPanel.display();
         inspectorWindow.display();
         propertiesWindow.display();
         resourcesManager.Display();

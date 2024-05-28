@@ -285,6 +285,14 @@ public class DebugDraw {
         Console.addLog(new Log(Log.LogType.ERROR, "Can't find draw mode for " + ID));
         return null;
     }
+
+    public static List<StaticLayer> getStaticLayerList(){
+        return staticLayerList;
+    }
+
+    public static List<DynamicLayer> getDynamicLayerList(){
+        return dynamicLayerList;
+    }
 }
 
 

@@ -81,11 +81,15 @@ public class Configuration {
     public static Vector3f colorRed = new Vector3f(1, 0, 0);
     public static Vector3f colorGreen = new Vector3f(0, 1, 0);
     public static Vector3f colorBlue = new Vector3f(0, 0, 1);
-    public static Vector4f colorRedAlpha = new Vector4f(1, 0, 0, 1);
-    public static Vector4f colorGreenAlpha = new Vector4f(0, 1, 0, 1);
-    public static Vector4f colorBlueAlpha = new Vector4f(0, 0, 1, 1);
 
-
+    public static Vector4f colorRedA = new Vector4f(1, 0, 0, 1);
+    public static Vector4f colorLightRedA = new Vector4f(1f, 0.5f, 0.5f, 1f);
+    public static Vector4f colorGreenA = new Vector4f(0, 1, 0, 1);
+    public static Vector4f colorLightGreenA = new Vector4f(0.6f, 0.85f, 0.5f, 1f);
+    public static Vector4f colorBlueA = new Vector4f(0, 0, 1, 1);
+    public static Vector4f colorCyanA = new Vector4f(0f, 0.9f, 0.9f, 1f);
+    public static Vector4f colorGreyA = new Vector4f(0.7f, 0.7f, 0.7f, 1f);
+    public static Vector4f colorOrangeA = new Vector4f(0.9f, 0.7f, 0.1f, 1f);
 
     //******************************************************************************************************************
     //                                         === Window && Projection ===
@@ -203,7 +207,6 @@ public class Configuration {
     public static double cameraSensitivity = 5;
     public static double resetCameraPosSpeed = 0.1;
     public static double resetCameraZoomSpeed = 0.3;
-
 
     public static double currentZoomValue = 1;
     public static double equalizeZoomBy = 0.1;

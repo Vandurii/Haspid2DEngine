@@ -3,7 +3,6 @@
     <output-path>$PROJECT_DIR$/out/artifacts/Haspid2DEngine_jar</output-path>
     <root id="archive" name="Haspid2DEngine.jar">
       <element id="module-output" name="Haspid2DEngine" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/libs/gson-2.10.1.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/libs/imgui-app-1.86.11-all.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/libs/imgui-app-1.86.11.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/libs/imgui-binding-1.86.11.jar" path-in-jar="/" />
@@ -23,6 +22,7 @@
       <element id="extracted-dir" path="$PROJECT_DIR$/libs/lwjgl-stb-natives-windows.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/libs/lwjgl-stb.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/libs/lwjgl.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libs/gson-2.10.1.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/libs/jbox2d-library.jar" path-in-jar="/" />
     </root>
   </artifact>
