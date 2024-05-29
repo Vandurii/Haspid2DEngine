@@ -24,14 +24,14 @@ public class GameScene extends Scene {
         imGuiLayer = new ImGuiLayer(Window.getInstance().getGlfwWindow());
         imGuiLayer.init(new Configuration());
 
-        loadSceneObject();
+        loadSceneFromFile();
     }
 
     @Override
     public void update(float dt) {
-        dearGui();
         gameSceneStuff.update(dt);
-        runTimeUpdate(dt);
+        sceneUpdate(dt);
+        dearGui();
     }
 
     @Override

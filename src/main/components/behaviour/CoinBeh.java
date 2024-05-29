@@ -19,7 +19,7 @@ public class CoinBeh extends Component {
     }
 
     @Override
-    public void start(){
+    public void init(){
         maxPosY = getParent().getTransform().getPosition().y + distance;
         AssetPool.getSound(coin).play();
     }
@@ -32,7 +32,7 @@ public class CoinBeh extends Component {
             pos.y += dt * speed;
             t.getScale().x -= (0.5f * dt) % -1;
         }else{
-            Window.getInstance().getCurrentScene().removeFromSceneRuntime(getParent());
+            Window.getInstance().getCurrentScene().removeFromSceneSafe(getParent());
         }
     }
 }

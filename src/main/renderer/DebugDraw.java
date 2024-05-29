@@ -84,10 +84,11 @@ public class DebugDraw {
 
     public static void addLine2D(Vector2d from, Vector2d to, Vector3f color, String name, int zIndex, DrawMode drawMode, GameObject parent){
         Line2D line = new Line2D(from, to, color);
+      ///  line.setParent(parent); // todo
 
         // when object is not null add line component to it
         if(parent != null){
-            Window.getInstance().getCurrentScene().addComponentRuntime(parent, line);
+            Window.getInstance().getCurrentScene().addComponentSafe(parent, line);
         }
 
         // select the correct list
@@ -160,7 +161,8 @@ public class DebugDraw {
     }
 
     public static void addBox(Vector2d center, Vector2d dimension, double rotation, Vector3f color, String destination, int zIndex, DrawMode drawMode, GameObject parent){
-        // calculate vertices for searching line
+
+       // calculate vertices for searching line
         Vector2d[] vertices = calculateVertices(center, dimension, rotation);
 
         addLine2D(vertices[0], vertices[1], color, destination, zIndex, drawMode, parent);
@@ -215,7 +217,6 @@ public class DebugDraw {
         for(Layer layer: dynamicLayerList){
             if(layer.getID().equals(ID)) return Dynamic;
         }
-
 
         Console.addLog(new Log(Log.LogType.ERROR, "Can't find draw mode for " + ID));
         return null;

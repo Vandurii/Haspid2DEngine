@@ -56,7 +56,7 @@ public class Window implements Observer {
         init();
         loop();
 
-        if(currentScene instanceof EditorScene) currentScene.saveSceneObject();
+        if(currentScene instanceof EditorScene) currentScene.saveSceneToFile();
         currentScene.disposeDearGui();
 
         // Free audio context
@@ -174,6 +174,8 @@ public class Window implements Observer {
 
         // Run the rendering loop until the user has attempted to close the window.
         while(!glfwWindowShouldClose(glfwWindow)){
+            Console.addLog(new Log(Log.LogType.INFO, "Start Frame: "));
+
             // Poll for window events. The key callback above wil only be invoked during this call
             glfwPollEvents();
 
@@ -220,13 +222,15 @@ public class Window implements Observer {
                 reloadScene(newScene);
                 newScene = null;
             }
+
+            System.out.println("\n\n\n");
+            Console.addLog(new Log(Log.LogType.INFO, "End Frame: "));
         }
     }
 
     private void reloadScene(Scene scene){
         currentScene = scene;
         currentScene.init();
-        currentScene.start();
     }
 
     @Override
@@ -234,7 +238,7 @@ public class Window implements Observer {
         switch (event.getEventType()){
             case GameEngineStart -> {
                 currentScene.destroy();
-                currentScene.saveSceneObject();
+                currentScene.saveSceneToFile();
                 newScene = new GameScene();
                 currentClearColor = gameClearColor;
             }
@@ -248,8 +252,8 @@ public class Window implements Observer {
                 newScene = new GameScene();
                 currentClearColor = gameClearColor;
             }
-            case SaveLevel -> currentScene.saveSceneObject();
-            case LoadLevel -> currentScene.loadSceneObject();
+            case SaveLevel -> currentScene.saveSceneToFile();
+            case LoadLevel -> currentScene.loadSceneFromFile();
         }
     }
 

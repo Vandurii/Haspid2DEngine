@@ -2,8 +2,6 @@ package main.components.behaviour;
 
 import main.components.Component;
 import main.components.PlayerController;
-import main.components.physicsComponent.CircleCollider;
-import main.components.physicsComponent.Collider;
 import main.components.physicsComponent.RigidBody;
 import main.components.stateMachine.StateMachine;
 import main.haspid.GameObject;
@@ -30,7 +28,7 @@ public class GoombaBeh extends Component {
     }
 
     @Override
-    public void start(){
+    public void init(){
         AssetPool.getSound(powerUpAppears);
         this.rigidBody = getParent().getComponent(RigidBody.class);
         rigidBody.setGravityScale(gravity);
@@ -87,7 +85,7 @@ public class GoombaBeh extends Component {
     }
 
     public void destroyCorpse(){
-        Window.getInstance().getCurrentScene().removeFromSceneRuntime(getParent());
+        Window.getInstance().getCurrentScene().removeFromSceneSafe(getParent());
     }
 
     public void setSpeed(double speed) {

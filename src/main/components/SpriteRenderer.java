@@ -74,7 +74,7 @@ public class SpriteRenderer extends Component {
     }
 
     @Override
-    public void start() {
+    public void init() {
     }
 
     public void dearGui() {

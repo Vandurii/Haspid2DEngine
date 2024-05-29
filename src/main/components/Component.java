@@ -3,10 +3,11 @@ package main.components;
 import imgui.ImGui;
 import imgui.type.ImInt;
 import main.editor.JImGui;
+import main.haspid.Console;
 import main.haspid.GameObject;
+import main.haspid.Log;
 import org.jbox2d.dynamics.contacts.Contact;
 import org.joml.Vector2d;
-import org.joml.Vector2f;
 import org.joml.Vector4f;
 
 import java.lang.reflect.Field;
@@ -22,12 +23,12 @@ public abstract class Component {
         componentID = ++ID_COUNTER;
     }
 
-    public void start(){}
+    public void init(){}
 
     public abstract void update(float dt);
 
     public Component copy(){
-        System.out.println("im not made : copy from: " + this.getClass().getSimpleName());
+        Console.addLog(new Log(Log.LogType.INFO, "Im not implemented: " + getClass().getSimpleName()));
         return null;
     };
 

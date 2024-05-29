@@ -6,7 +6,6 @@ import main.components.physicsComponent.BoxCollider;
 import main.components.physicsComponent.RigidBody;
 import main.components.stateMachine.StateMachine;
 import main.haspid.GameObject;
-import main.haspid.Transform;
 import main.haspid.Window;
 import main.util.AssetPool;
 import org.jbox2d.dynamics.contacts.Contact;
@@ -34,7 +33,7 @@ public class TurtleBeh extends Component {
     }
 
     @Override
-    public void start(){
+    public void init(){
         this.rigidBody = getParent().getComponent(RigidBody.class);
         rigidBody.setGravityScale(gravity);
     }
@@ -114,7 +113,7 @@ public class TurtleBeh extends Component {
     }
 
     public void die(){
-        Window.getInstance().getCurrentScene().removeFromSceneRuntime(getParent());
+        Window.getInstance().getCurrentScene().removeFromSceneSafe(getParent());
     }
 
     public void setSpeed(double speed) {

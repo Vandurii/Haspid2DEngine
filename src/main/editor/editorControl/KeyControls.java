@@ -13,7 +13,7 @@ import static main.haspid.Direction.*;
 import static org.lwjgl.glfw.GLFW.*;
 
 public class KeyControls extends Component {
-    private double keyDebounce;
+    private double shortCooldown;
     private KeyListener keyboard;
     private double resetDebounce;
     private EditorScene editorScene;
@@ -26,8 +26,8 @@ public class KeyControls extends Component {
 
     public KeyControls(MouseControls mouseControls, CameraControl cameraControl, EditorScene editorScene){
         this.editorScene = editorScene;
-        this.keyDebounce = keyDebounceC;
-        this.resetDebounce = keyDebounce;
+        this.shortCooldown = keyShortCooldown;
+        this.resetDebounce = shortCooldown;
         this.mouseControls = mouseControls;
         this.cameraControl = cameraControl;
         this.keyboard = KeyListener.getInstance();
@@ -41,7 +41,7 @@ public class KeyControls extends Component {
         List<GameObject> activeObjectList = mouseControls.getAllActiveObjects();
         Gizmo gizmo = mouseControls.getGizmo();
 
-        if(keyDebounce < 0) {
+        if(shortCooldown < 0) {
 
             if (keyboard.isKeyPressed(GLFW_KEY_ESCAPE)) {
                 if(mouseControls.getDraggingObject() != null){
@@ -84,16 +84,17 @@ public class KeyControls extends Component {
                  mouseControls.resetObjDistanceFromCursor();
              }
 
-            keyDebounce = resetDebounce;
+            shortCooldown = resetDebounce;
              longCoolDown -= dt;
         }
-        keyDebounce -= dt;
+        shortCooldown -= dt;
     }
 
     public void move(Direction direction){
         double xAxis = 0;
         double yAxis = 0;
         double unit = Math.max(gridSize, (gridSize * (int)currentZoomValue));
+        System.out.println(unit);
         switch (direction){
             case Up -> yAxis = -unit;
             case Down -> yAxis = unit;
@@ -112,7 +113,7 @@ public class KeyControls extends Component {
 
         for(GameObject gameObject: activeObjects){
             GameObject copy = gameObject.copy();
-            editorScene.addGameObjectToScene(copy);
+            editorScene.addObjectToSceneSafe(copy);
             cloneList.add(copy);
         }
 
@@ -121,7 +122,7 @@ public class KeyControls extends Component {
 
     public void removeObject(List<GameObject> activeObject){
         for(GameObject active: activeObject) {
-            editorScene.removeFromScene(active);
+            editorScene.removeFromSceneSafe(active);
         }
         mouseControls.unselectActiveObjects();
     }

@@ -1,7 +1,5 @@
 package main.components;
 
-import main.components.Component;
-import main.components.PlayerController;
 import main.haspid.GameObject;
 import main.haspid.Window;
 import main.util.AssetPool;
@@ -25,7 +23,7 @@ public class Hitable extends Component {
     }
 
     @Override
-    public void start(){
+    public void init(){
         this.startPosY = getParent().getTransform().getPosition().y;
         this.maxPosY = startPosY + distance;
     }
@@ -53,7 +51,7 @@ public class Hitable extends Component {
                 }
             }else if(playerController != null){
                 AssetPool.getSound(breakBlock).play();;
-                Window.getInstance().getCurrentScene().removeFromSceneRuntime(getParent());
+                Window.getInstance().getCurrentScene().removeFromSceneSafe(getParent());
             }
         }
     }

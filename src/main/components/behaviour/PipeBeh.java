@@ -26,7 +26,7 @@ public class PipeBeh extends Component {
     }
 
     @Override
-    public void start(){
+    public void init(){
         connectingPipe = Window.getInstance().getCurrentScene().getObjectByName(connectingPipeName);
     }
 

@@ -21,10 +21,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static main.Configuration.*;
 import static main.haspid.Log.LogType.INFO;
@@ -33,16 +30,15 @@ import static org.lwjgl.opengl.GL11.glGetIntegerv;
 public abstract class Scene {
 
     protected Camera camera;
-    private boolean isRunning;
     private Renderer renderer;
     protected Physics2D physics;
     protected boolean editorMode;
     private List<GameObject> sceneObjectList;
-    private List<GameObject> pendingObjectList;
-    private List<GameObject> objectToRemoveList;
-    private Map<Component, GameObject> componentToAddMap;
-    private Map<Component, GameObject> componentToRemoveMap;
-    private Map<GameObject, Vector2d> objectToChangePositionMap;
+    private List<GameObject> addObjectQueue;
+    private List<GameObject> removeObjectQueue;
+    private Map<Component, GameObject> addComponentQueue;
+    private Map<Component, GameObject> removeComponentQueue;
+    private Map<GameObject, Vector2d> objectChangePosQueue;
 
     public SpriteSheet itemsSheet = AssetPool.getSpriteSheet(itemsConfig);
     public SpriteSheet smallFormSheet = AssetPool.getSpriteSheet(smallFormConfig);
@@ -52,12 +48,12 @@ public abstract class Scene {
     public Scene(){
         this.physics = new Physics2D();
         this.renderer = Renderer.getInstance();
-        this.componentToAddMap = new HashMap<>();
+        this.addComponentQueue = new HashMap<>();
         this.sceneObjectList = new ArrayList<>();
-        this.pendingObjectList = new ArrayList<>();
-        this.componentToRemoveMap = new HashMap<>();
-        this.objectToRemoveList = new ArrayList<>();
-        this.objectToChangePositionMap = new HashMap<>();
+        this.addObjectQueue = new ArrayList<>();
+        this.removeComponentQueue = new HashMap<>();
+        this.removeObjectQueue = new ArrayList<>();
+        this.objectChangePosQueue = new HashMap<>();
         this.camera = new Camera(new Vector2d(0, 0));
 
         Component.resetCounter();
@@ -242,137 +238,126 @@ public abstract class Scene {
 
     public abstract void disposeDearGui();
 
-    public void start(){
-        for(GameObject gameObject: sceneObjectList){
-            gameObject.start();
-            renderer.add(gameObject);
-        }
-        isRunning = true;
-    }
-
-    public void runTimeUpdate(float dt){
+    public void sceneUpdate(float dt){
         updateGameObject(dt);
+        changePosition();
 
         removeComponentFromObject();
         addComponentToObject();
 
         removeDeadObject();
-        addPendingObject();
+        addGameObjectToScene();
 
-        changePosition();
         physics.update(dt);
     }
 
-    public void updateGameObject(float dt){
+    // safe method
+    public void changePositionSafe(Vector2d pos, GameObject gameObject){
+        objectChangePosQueue.put(gameObject, pos);
+    }
+
+    public void removeComponentSafe(GameObject gameObject, Component component){
+        removeComponentQueue.put(component, gameObject);
+    }
+
+    public void addComponentSafe(GameObject gameObject, Component component){
+        addComponentQueue.put(component, gameObject);
+    }
+
+    public void removeFromSceneSafe(GameObject gameObject){
+        removeObjectQueue.add(gameObject);
+    }
+
+    public void addObjectToSceneSafe(GameObject ...gameObjects){
+        Collections.addAll(addObjectQueue, gameObjects);
+    }
+
+    private void updateGameObject(float dt){
         for (GameObject go : getSceneObjectList()) {
             go.update(dt);
         }
     }
 
-    public void addGameObjectToScene(GameObject ...gameObjects){;
-        for(GameObject gameObject: gameObjects) {
-            sceneObjectList.add(gameObject);
-            physics.add(gameObject);
-
-            if (isRunning) {
-                gameObject.start();
-                renderer.add(gameObject);
-            }
-        }
-    }
-
-    public void addObjectToSceneRunTime(GameObject gameObject){
-        pendingObjectList.add(gameObject);
-    }
-
-    private void addPendingObject(){
-        for(GameObject gameObject: pendingObjectList){
-            addGameObjectToScene(gameObject);
-        }
-
-        pendingObjectList.clear();
-    }
-
-    public void addComponentRuntime(GameObject gameObject, Component component){
-        Console.addLog(new Log(INFO, "addComponentRuntime:: " + component.getClass().getSimpleName()));
-        componentToAddMap.put(component, gameObject);
-    }
-
-    protected void addComponentToObject() {
-
-        if(!componentToAddMap.isEmpty()){
-        Console.addLog(new Log(INFO, "addComponentToObject:: " + componentToAddMap.size()));
-        }
-
-        for (Map.Entry<Component, GameObject> entry : componentToAddMap.entrySet()) {
-            entry.getValue().addComponent(entry.getKey());
-        }
-
-        // Clear list after all component are added.
-        componentToAddMap.clear();
-    }
-
-    public void changePositionRuntime(Vector2d pos, GameObject gameObject){
-        objectToChangePositionMap.put(gameObject, pos);
-    }
-
     private void changePosition(){
-        for(Map.Entry<GameObject, Vector2d> entry: objectToChangePositionMap.entrySet()) {
+        Console.addLog(new Log(INFO, String.format("%s object in queue.", objectChangePosQueue.size())));
+        for(Map.Entry<GameObject, Vector2d> entry: objectChangePosQueue.entrySet()) {
+            // set new value here and in box2D
             entry.getKey().getTransform().setPosition(entry.getValue());
             entry.getKey().getComponent(RigidBody.class).setPosition(entry.getValue());
         }
 
-        objectToChangePositionMap.clear();
+        objectChangePosQueue.clear();
     }
 
-    public void removeFromScene(GameObject gameObject){
-        if(gameObject != null && gameObject.getComponent(SpriteRenderer.class) != null){
-            gameObject.getComponent(SpriteRenderer.class).markToRemove();
-            physics.destroyGameObject(gameObject);
-            sceneObjectList.remove(gameObject);
+    private void removeComponentFromObject() {
+        Console.addLog(new Log(INFO, String.format("%s in queue.", removeComponentQueue.size())));
+        for (Map.Entry<Component, GameObject> entry : removeComponentQueue.entrySet()) {
+            Component c = entry.getKey();
+            GameObject go = entry.getValue();
+            go.removeComponent(c);
 
+            Console.addLog(new Log(INFO, String.format("Deleted: %s from %s ID:%s", c, go, go.getGameObjectID())));
+        }
+        removeComponentQueue.clear();
+    }
+
+    private void addComponentToObject() {
+        Console.addLog(new Log(INFO, String.format("%s component in queue.", addComponentQueue.size())));
+
+        for (Map.Entry<Component, GameObject> entry : addComponentQueue.entrySet()) {
+            entry.getValue().addComponent(entry.getKey());
+        }
+
+        // Clear queue
+        addComponentQueue.clear();
+    }
+
+    private void removeDeadObject(){
+        Console.addLog(new Log(INFO, String.format("%s object in queue.", removeObjectQueue.size())));
+        for(GameObject gameObject: removeObjectQueue){
+            SpriteRenderer spriteRenderer = gameObject.getComponent(SpriteRenderer.class);
+
+            // remove sprite data from render
+            if(spriteRenderer != null){
+                spriteRenderer.markToRemove();
+            }
+
+            // remove collider line data from render
             List<Line2D> lineList = gameObject.getAllCompThisType(Line2D.class);
             if(!lineList.isEmpty()) {
                 for (Line2D line : lineList) {
                     line.markToRemove(true);
                 }
-
+                // refresh line render after
                 DebugDraw.notify(DebugDrawEvents.Garbage, colliderID);
             }
-        }
-    }
 
-    public void removeFromSceneRuntime(GameObject gameObject){
-        objectToRemoveList.add(gameObject);
-    }
-
-    private void removeDeadObject(){
-        for(GameObject gameObject: objectToRemoveList){
-            SpriteRenderer spriteRenderer = gameObject.getComponent(SpriteRenderer.class);
-            if(spriteRenderer != null){
-                spriteRenderer.markToRemove();
-            }
-
+            // remove object date from physic engine
             physics.destroyGameObject(gameObject);
+
+            // remove object form scene list
             sceneObjectList.remove(gameObject);
         }
 
-        objectToRemoveList.clear();
+        removeObjectQueue.clear();
     }
 
-    public void removeComponentRuntime(GameObject gameObject, Component component){
-        componentToRemoveMap.put(component, gameObject);
-    }
+    private void addGameObjectToScene(){
+        Console.addLog(new Log(INFO, String.format("%s object in queue.", addObjectQueue.size())));
 
-    protected void removeComponentFromObject() {
-        for (Map.Entry<Component, GameObject> entry : componentToRemoveMap.entrySet()) {
-            entry.getValue().removeComponent(entry.getKey());
-            Console.addLog(new Log(INFO, "RemoveComponentFromObject:: " + entry.getKey().getClass().getSimpleName()));
+        for(GameObject gameObject: addObjectQueue) {
+            sceneObjectList.add(gameObject);
+            physics.add(gameObject);
+
+            // init it and add to Render
+            gameObject.init();
+            renderer.add(gameObject);
         }
-        componentToRemoveMap.clear();
+
+        addObjectQueue.clear();
     }
-    
-    public void saveSceneObject(){
+
+    public void saveSceneToFile(){
             Gson gson = new GsonBuilder().
                     setPrettyPrinting().
                     registerTypeAdapter(Component.class, new ComponentSerializer()).
@@ -398,7 +383,7 @@ public abstract class Scene {
         }
     }
 
-    public void loadSceneObject(){
+    public void loadSceneFromFile(){
         resetScene();
 
         Gson gson = new GsonBuilder().
@@ -412,7 +397,7 @@ public abstract class Scene {
             String data = new String(Files.readAllBytes(Paths.get(levelPath)));
             if(!data.trim().isEmpty() && !data.trim().equals("[]")) {
                 GameObject[] gameObjects = gson.fromJson(data, GameObject[].class);
-                addGameObjectToScene(gameObjects);
+                addObjectToSceneSafe(gameObjects);
             }
         }catch (IOException e){
             e.printStackTrace();
@@ -433,9 +418,7 @@ public abstract class Scene {
         for(GameObject object: sceneObjectList){
             if(object.getGameObjectID() == id){
                 // if object is not triggerable then return null
-                if(!object.isTriggerable()){
-                    break;
-                }
+                if(!object.isTriggerable()) break;
 
                 return object;
             }

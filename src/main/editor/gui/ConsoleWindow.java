@@ -5,7 +5,7 @@ import imgui.ImGui;
 import java.util.ArrayList;
 import java.util.List;
 
-import static main.Configuration.colorLightGreenA;
+import static main.Configuration.*;
 
 public class ConsoleWindow {
     private static List<String> textList = new ArrayList<>();
@@ -14,12 +14,13 @@ public class ConsoleWindow {
     public void Display(){
         ImGui.begin("Console");
 
-        for(String str: textList){
-            ImGui.bullet();
-            ImGui.sameLine();
-            ImGui.textColored(colorLightGreenA.x, colorLightGreenA.y, colorLightGreenA.z, colorLightGreenA.w, str);
+        if(!textList.isEmpty()) {
+            for (String str : textList) {
+                ImGui.bullet();
+                ImGui.sameLine();
+                ImGui.textColored(colorGreyA.x, colorGreyA.y, colorGreyA.z, colorGreyA.w, str);
+            }
         }
-
         ImGui.end();
     }
 
@@ -43,4 +44,5 @@ public class ConsoleWindow {
     public static void space(){
         setInfo("\n");
     }
+
 }

@@ -93,7 +93,6 @@ public class DynamicLayer extends Layer {
 
             offset += pointSizeFloat;
         }
-
         line.setDirty(false);
     }
 

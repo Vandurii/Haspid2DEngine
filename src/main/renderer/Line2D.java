@@ -2,6 +2,7 @@ package main.renderer;
 
 import main.components.Component;
 
+import main.haspid.GameObject;
 import org.joml.Vector2d;
 import org.joml.Vector3f;
 
@@ -13,8 +14,9 @@ public class Line2D extends Component{
     private transient int ID;
     private transient boolean dirty;
     private transient boolean remove;
+    private transient boolean after;
 
-    public Line2D( Vector2d from, Vector2d to, Vector3f color) {
+    public Line2D(Vector2d from, Vector2d to, Vector3f color) {
         this.from = from;
         this.to = to;
         this.color = color;
@@ -25,6 +27,8 @@ public class Line2D extends Component{
 
     @Override
     public void update(float dt) {
+        if(getParent() == null) throw new IllegalStateException("parent can't be null");
+
         if(getParent().isDirty()){
             dirty = true;
         }
@@ -78,5 +82,13 @@ public class Line2D extends Component{
 
     public int getID() {
         return ID;
+    }
+
+    public void setAfter(boolean after){
+        this.after = after;
+    }
+
+    public boolean isAfter(){
+        return  after;
     }
 }

@@ -124,7 +124,7 @@ public class Configuration {
     // Editor Scene Settings
     //=====================
     public static Color editorClearColor = new Color(60, 60, 60, 1);
-    public static double keyDebounceC = 0.01f;
+    public static double keyShortCooldown = 0.07f;
     public static double keyLongCooldown = 0.01;
     public static boolean isConsoleEnabled = true;
     public static double consoleDelay = 5;
@@ -171,7 +171,7 @@ public class Configuration {
     public static int pointSizeFloat = 6;
     public static int debugDefaultZIndex = 0;
     public static String rayCastID = "rayCast";
-    public static int dynamicLayerInitialBatchSize = 10;
+    public static int dynamicLayerInitialBatchSize = 1000;
     public static int lineSizeFloat = pointsInLine * pointSizeFloat;
     public static Vector3f debugDefaultColor = new Vector3f(0, 1, 0);
 

@@ -2,7 +2,6 @@ package main.game;
 
 import main.components.Component;
 import main.components.SpriteRenderer;
-import main.haspid.Camera;
 import main.haspid.KeyListener;
 import main.haspid.Window;
 import main.physics.events.Event;
@@ -10,10 +9,9 @@ import main.physics.events.EventSystem;
 import main.physics.events.EventType;
 import main.renderer.RenderBatch;
 
-import java.util.Arrays;
 import java.util.List;
 
-import static main.Configuration.keyDebounceC;
+import static main.Configuration.keyShortCooldown;
 import static org.lwjgl.glfw.GLFW.*;
 
 public class GameKeyControls extends Component {
@@ -23,7 +21,7 @@ public class GameKeyControls extends Component {
     private double resetDebounce;
 
     public GameKeyControls(){
-        this.keyDebounce = keyDebounceC;
+        this.keyDebounce = keyShortCooldown;
         this.resetDebounce = keyDebounce;
         this.keyboard = KeyListener.getInstance();
     }

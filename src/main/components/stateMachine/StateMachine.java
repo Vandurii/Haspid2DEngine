@@ -23,7 +23,7 @@ public class StateMachine extends Component implements InactiveInEditor {
     }
 
     @Override
-    public void start(){
+    public void init(){
         currentAnimation = findAnimation(nextAnimation);
         updateTexture();
     }

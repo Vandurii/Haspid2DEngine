@@ -25,7 +25,7 @@ public class FireballBeh extends Component {
     }
 
     @Override
-    public void start(){
+    public void init(){
         this.rigidBody = getParent().getComponent(RigidBody.class);
         rigidBody.setGravityScale(gravity);
 
@@ -44,7 +44,7 @@ public class FireballBeh extends Component {
 
     public void destroy(){
         playerController.removeFireball(getParent());
-        Window.getInstance().getCurrentScene().removeFromSceneRuntime(getParent());
+        Window.getInstance().getCurrentScene().removeFromSceneSafe(getParent());
     }
 
     @Override

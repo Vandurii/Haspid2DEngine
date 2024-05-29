@@ -19,10 +19,12 @@ public class GridLines extends Component {
 
     private transient Camera camera;
     private transient ViewPort viewPort;
+    private transient EditorScene editorScene;
 
-    public GridLines(){
-        this.camera = Window.getInstance().getCurrentScene().getCamera();
+    public GridLines(EditorScene editorScene){
+        this.editorScene = editorScene;
         this.viewPort = ViewPort.getInstance();
+        this.camera = Window.getInstance().getCurrentScene().getCamera();
     }
 
     @Override
@@ -52,12 +54,12 @@ public class GridLines extends Component {
 
             // add vertical lines
             for (int i = 0; i < verticalLines; i++) {
-                DebugDraw.addLine2D(new Vector2d(camX + (i * (gridSize)), camY), new Vector2d(camX + (i * gridSize), camY + (uProjectionDimension.y * currentZoomValue)), gridLinesColor, gridID, gridLinesZIndex, Static, null);
+                DebugDraw.addLine2D(new Vector2d(camX + (i * (gridSize)), camY), new Vector2d(camX + (i * gridSize), camY + (uProjectionDimension.y * currentZoomValue)), gridLinesColor, gridID, gridLinesZIndex, Static, getParent());
             }
 
             // add horizontal lines
             for (int i = 0; i < horizontalLines; i++) {
-                DebugDraw.addLine2D(new Vector2d(camX,camY + (i * gridSize)), new Vector2d(camX + (uProjectionDimension.x * currentZoomValue), camY + (i * gridSize)), gridLinesColor, gridID, gridLinesZIndex, Static, null);
+                DebugDraw.addLine2D(new Vector2d(camX,camY + (i * gridSize)), new Vector2d(camX + (uProjectionDimension.x * currentZoomValue), camY + (i * gridSize)), gridLinesColor, gridID, gridLinesZIndex, Static, getParent());
             }
 
             // save last values

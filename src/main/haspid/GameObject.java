@@ -1,7 +1,6 @@
 package main.haspid;
 
 import imgui.ImGui;
-import main.Configuration;
 import main.editor.InactiveInEditor;
 import main.editor.JImGui;
 import main.components.Component;
@@ -33,13 +32,15 @@ public class GameObject {
         this.componentList = new ArrayList<>();
     }
 
-    public void start(){
+    public void init(){
+        Console.addLog(new Log(Log.LogType.INFO, String.format("%s ID: %s", this, this.gameObjectID )));
+
         // init lastTransform
         lastTransform = transform.copy();
 
         // start all component from this object
         for(Component component: componentList){
-            component.start();
+            component.init();
         }
     }
 
@@ -95,6 +96,9 @@ public class GameObject {
     }
 
     public void removeComponent(Component component){
+
+   //     System.out.println("");
+
        boolean removed = componentList.remove(component);
        if(!removed) throw new IllegalStateException("Object doesn't extend the component: " + component);
     }

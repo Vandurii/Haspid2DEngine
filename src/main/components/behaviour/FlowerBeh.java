@@ -13,7 +13,7 @@ import static main.Configuration.powerUpAppears;
 public class FlowerBeh extends Component {
 
     @Override
-    public void start(){
+    public void init(){
         AssetPool.getSound(powerUpAppears).play();
     }
 
@@ -27,7 +27,7 @@ public class FlowerBeh extends Component {
         if(playerController != null){
 
             playerController.powerUP();
-            Window.getInstance().getCurrentScene().removeFromSceneRuntime(getParent());
+            Window.getInstance().getCurrentScene().removeFromSceneSafe(getParent());
         }
     }
 }

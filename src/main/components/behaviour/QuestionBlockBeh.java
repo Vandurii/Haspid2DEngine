@@ -2,16 +2,10 @@ package main.components.behaviour;
 
 import main.components.PlayerController;
 import main.components.Hitable;
-import main.components.SpriteRenderer;
-import main.components.physicsComponent.ColliderType;
-import main.components.stateMachine.Animation;
 import main.components.stateMachine.StateMachine;
 import main.editor.Prefabs;
 import main.haspid.GameObject;
-import main.haspid.Scene;
 import main.haspid.Window;
-import main.util.AssetPool;
-import main.util.SpriteSheet;
 import org.joml.Vector2d;
 import main.components.PlayerController.PlayerState;
 
@@ -34,7 +28,7 @@ public class QuestionBlockBeh extends Hitable {
     }
 
     @Override
-    public void start(){
+    public void init(){
         this.stateMachine = getParent().getComponent(StateMachine.class);
     }
 
@@ -67,7 +61,7 @@ public class QuestionBlockBeh extends Hitable {
     public void doCoin(){
         GameObject coin = Prefabs.generateCoin(standardSpriteSize, standardSpriteSize);
         coin.getTransform().getPosition().set(getParent().getTransform().getPosition());
-        Window.getInstance().getCurrentScene().addObjectToSceneRunTime(coin);
+        Window.getInstance().getCurrentScene().addObjectToSceneSafe(coin);
     }
 
     public void doPowerUp(){
@@ -86,13 +80,13 @@ public class QuestionBlockBeh extends Hitable {
         GameObject flower = Prefabs.generateFlower(standardSpriteSize, standardSpriteSize);
         Vector2d pos = getParent().getTransform().getPosition();
         flower.getTransform().setPosition(pos.x, pos.y + objectHalfSize * 2);
-        Window.getInstance().getCurrentScene().addObjectToSceneRunTime(flower);
+        Window.getInstance().getCurrentScene().addObjectToSceneSafe(flower);
     }
 
     public void spawnMushroom(){
         GameObject mushroom = Prefabs.generateMushroom(standardSpriteSize, standardSpriteSize);
         Vector2d pos = getParent().getTransform().getPosition();
         mushroom.getTransform().setPosition(pos.x, pos.y + objectHalfSize * 2);
-        Window.getInstance().getCurrentScene().addObjectToSceneRunTime(mushroom);
+        Window.getInstance().getCurrentScene().addObjectToSceneSafe(mushroom);
     }
 }

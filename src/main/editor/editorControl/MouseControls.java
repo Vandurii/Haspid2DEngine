@@ -27,7 +27,6 @@ public class MouseControls extends Component {
     private Gizmo gizmo;
     private double xBuffer, yBuffer;
 
-
     private double placeObjectCooldown;
     private double resetPlaceObjectCooldown;
 
@@ -218,12 +217,12 @@ public class MouseControls extends Component {
            //draggingObject.getTransform().increaseZIndex();
            //draggingObject = objectClone;
 
-            editorScene.addGameObjectToScene(objectClone);
+            editorScene.addObjectToSceneSafe(objectClone);
         }
     }
 
     public void pickupObject(GameObject holdingObject){
-        editorScene.addGameObjectToScene(holdingObject);
+        editorScene.addObjectToSceneSafe(holdingObject);
         draggingObject = holdingObject;
     }
 
@@ -301,7 +300,7 @@ public class MouseControls extends Component {
     }
 
     public void selectorUpdate(){
-        if(selector != null) editorScene.removeFromScene(selector);
+        if(selector != null) editorScene.removeFromSceneSafe(selector);
         if(mouse.isMouseDragging() && !wasDraggedLastFrame && mouse.isButtonPressed(GLFW_MOUSE_BUTTON_2)){
             selectorActive = true;
             startDraggingWMode = mouse.getWorld();
@@ -346,15 +345,15 @@ public class MouseControls extends Component {
                 center = new Vector2d(startDraggingWMode.x + (distance.x / 2), startDraggingWMode.y + (distance.y / 2));
                 DebugDraw.notify(Clear, selectorID);
                 DebugDraw.notify(Enable, selectorID);
-                DebugDraw.addBox(center, distance, 0, new Vector3f(0, 0, 0), selectorID, selectorZIndex, Static, null);
+                DebugDraw.addBox(center, distance, 0, new Vector3f(0, 0, 0), selectorID, selectorZIndex, Static, getParent());
                 DebugDraw.notify(SetDirty, selectorID);
-                if(selector != null) Window.getInstance().getCurrentScene().removeFromScene(selector);
+                if(selector != null) Window.getInstance().getCurrentScene().removeFromSceneSafe(selector);
                 selector = new GameObject("Selector");
                 selector.setNonSerializable();
                 selector.addComponent(new Transform(center, distance, 0, -100));
                 selector.setTransformFromItself();
                 selector.addComponent(new SpriteRenderer(selectorBorderColor));
-                editorScene.addGameObjectToScene(selector);
+                editorScene.addObjectToSceneSafe(selector);
             }
         }
 
@@ -429,8 +428,9 @@ public class MouseControls extends Component {
     }
 
     public void removeDraggingObject(){
-        editorScene.removeFromScene(draggingObject);
+        editorScene.removeFromSceneSafe(draggingObject);
         draggingObject = null;
+        unselectActiveObjects();
     }
 
     public boolean hasDraggingObject(){

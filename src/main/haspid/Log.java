@@ -33,6 +33,10 @@ public class Log {
         return text;
     }
 
+    public void setText(String text){
+        this.text = text;
+    }
+
     @Override
     public int hashCode(){
         return text.hashCode() + logType.hashCode();

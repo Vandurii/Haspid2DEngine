@@ -2,6 +2,7 @@
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
+level.txt
 
 ### Eclipse ###
 .apt_generated

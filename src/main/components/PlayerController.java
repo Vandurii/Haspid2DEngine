@@ -146,7 +146,7 @@ public class PlayerController extends Component implements InactiveInEditor {
     }
 
     @Override
-    public void start(){
+    public void init(){
         rigidBody = getParent().getComponent(RigidBody.class);
         stateMachine = getParent().getComponent(StateMachine.class);
         if(rigidBody != null) {
@@ -215,7 +215,7 @@ public class PlayerController extends Component implements InactiveInEditor {
         fireBall.getTransform().setPosition(pos.x + offset, pos.y + gridSize / 10);
 
         fireballList.add(fireBall);
-        Window.getInstance().getCurrentScene().addObjectToSceneRunTime(fireBall);
+        Window.getInstance().getCurrentScene().addObjectToSceneSafe(fireBall);
     }
 
     public void removeFireball(GameObject fireball){
@@ -378,7 +378,7 @@ public class PlayerController extends Component implements InactiveInEditor {
     public void powerUP(){
         if(playerState == PlayerState.fire) return;
         AssetPool.getSound(powerUp).play();
-        Window.getInstance().getCurrentScene().removeComponentRuntime(getParent(), stateMachine);
+        Window.getInstance().getCurrentScene().removeComponentSafe(getParent(), stateMachine);
 
         if(playerState == PlayerState.small){
             Vector2d scale = getParent().getTransform().getScale();
@@ -397,7 +397,7 @@ public class PlayerController extends Component implements InactiveInEditor {
     }
 
     public void powerDown(){
-        Window.getInstance().getCurrentScene().removeComponentRuntime(getParent(), stateMachine);
+        Window.getInstance().getCurrentScene().removeComponentSafe(getParent(), stateMachine);
         if(playerState == PlayerState.fire){
             playerState = PlayerState.big;
             stateMachine = AssetPool.getStateMachine("bigMario");
@@ -443,7 +443,7 @@ public class PlayerController extends Component implements InactiveInEditor {
             rigidBody.setVelocity(new Vector2d(0, -dieVelocity));
             top = true;
         }else if(pos.y < dieStartPosY){
-            Window.getInstance().getCurrentScene().removeFromSceneRuntime(getParent());
+            Window.getInstance().getCurrentScene().removeFromSceneSafe(getParent());
             EventSystem.notify(null, new Event(EventType.Reload));
         }
     }
@@ -484,7 +484,7 @@ public class PlayerController extends Component implements InactiveInEditor {
     }
 
     public void setPosition(Vector2d position){
-        Window.getInstance().getCurrentScene().changePositionRuntime(position, getParent());
+        Window.getInstance().getCurrentScene().changePositionSafe(position, getParent());
     }
 
     public double getStartVelYM() {

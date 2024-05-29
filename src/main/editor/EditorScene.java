@@ -43,10 +43,10 @@ public class EditorScene extends Scene {
         Renderer.resetInstance();
         mouseListener = MouseListener.getInstance();
 
-        loadSceneObject();
+        loadSceneFromFile();
         editorMode = true;
 
-        gridLines = new GridLines();
+        gridLines = new GridLines(this);
         gizmo = new Gizmo(this);
         helpPanel = new HelpPanel(this);
         mouseControls = new MouseControls(this, mouseListener, gizmo);
@@ -83,12 +83,9 @@ public class EditorScene extends Scene {
 
     @Override
     public void update(float dt) {
-        addComponentToObject();
-        removeComponentFromObject();
-
-        updateDearGui();
         levelEditorStuff.update(dt);
-        updateGameObject(dt);
+        sceneUpdate(dt);
+        updateDearGui();
     }
 
     public void render(float dt, boolean bufferIdMode){

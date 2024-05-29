@@ -1,1 +1,2015 @@
-[]
+[
+  {
+    "name": "bopObject",
+    "gameObjectID": 5,
+    "componentList": [
+      {
+        "Type": "main.haspid.Transform",
+        "Properties": {
+          "zIndex": 1,
+          "scale": {
+            "x": 3.2,
+            "y": 3.2
+          },
+          "rotation": 0.0,
+          "position": {
+            "x": 23.999999999999996,
+            "y": 36.800000000000004
+          },
+          "componentID": 159
+        }
+      },
+      {
+        "Type": "main.components.SpriteRenderer",
+        "Properties": {
+          "color": {
+            "x": 0.2,
+            "y": 0.2,
+            "z": 0.2,
+            "w": 0.0
+          },
+          "texture": {
+            "filePath": "assets/images/items.png",
+            "texID": 3,
+            "width": 112,
+            "height": 80,
+            "flip": true
+          },
+          "width": 16.0,
+          "height": 16.0,
+          "texCords": [
+            {
+              "x": 0.4285714626312256,
+              "y": 0.800000011920929
+            },
+            {
+              "x": 0.4285714626312256,
+              "y": 0.6000000238418579
+            },
+            {
+              "x": 0.2857142984867096,
+              "y": 0.6000000238418579
+            },
+            {
+              "x": 0.2857142984867096,
+              "y": 0.800000011920929
+            }
+          ],
+          "componentID": 160
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.RigidBody",
+        "Properties": {
+          "mass": 0.0,
+          "friction": 0.1,
+          "isSensor": false,
+          "velocity": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "bodyType": "Static",
+          "gravityScale": 1.0,
+          "linearDamping": 0.9,
+          "angularDamping": 0.8,
+          "angularVelocity": 0.0,
+          "fixedRotation": false,
+          "continuousCollision": true,
+          "componentID": 161
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.BoxCollider",
+        "Properties": {
+          "center": {
+            "x": 23.999999999999996,
+            "y": 36.800000000000004
+          },
+          "halfSize": {
+            "x": 1.584,
+            "y": 1.584
+          },
+          "offset": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "componentID": 162
+        }
+      },
+      {
+        "Type": "main.components.Hitable",
+        "Properties": {
+          "speed": 3.0,
+          "distance": 0.4,
+          "componentID": 163
+        }
+      },
+      {
+        "Type": "main.renderer.Line2D",
+        "Properties": {
+          "to": {
+            "x": 22.415999999999997,
+            "y": 35.216
+          },
+          "from": {
+            "x": 22.415999999999997,
+            "y": 38.38400000000001
+          },
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "componentID": 4236
+        }
+      },
+      {
+        "Type": "main.renderer.Line2D",
+        "Properties": {
+          "to": {
+            "x": 25.583999999999996,
+            "y": 35.216
+          },
+          "from": {
+            "x": 22.415999999999997,
+            "y": 35.216
+          },
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "componentID": 4237
+        }
+      },
+      {
+        "Type": "main.renderer.Line2D",
+        "Properties": {
+          "to": {
+            "x": 25.583999999999996,
+            "y": 38.38400000000001
+          },
+          "from": {
+            "x": 25.583999999999996,
+            "y": 35.216
+          },
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "componentID": 4238
+        }
+      },
+      {
+        "Type": "main.renderer.Line2D",
+        "Properties": {
+          "to": {
+            "x": 22.415999999999997,
+            "y": 38.38400000000001
+          },
+          "from": {
+            "x": 25.583999999999996,
+            "y": 38.38400000000001
+          },
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "componentID": 4235
+        }
+      }
+    ]
+  },
+  {
+    "name": "bopObject",
+    "gameObjectID": 6,
+    "componentList": [
+      {
+        "Type": "main.haspid.Transform",
+        "Properties": {
+          "zIndex": 1,
+          "scale": {
+            "x": 3.2,
+            "y": 3.2
+          },
+          "rotation": 0.0,
+          "position": {
+            "x": 49.59999999999998,
+            "y": 14.399999999999999
+          },
+          "componentID": 179
+        }
+      },
+      {
+        "Type": "main.components.SpriteRenderer",
+        "Properties": {
+          "color": {
+            "x": 0.2,
+            "y": 0.2,
+            "z": 0.2,
+            "w": 0.0
+          },
+          "texture": {
+            "filePath": "assets/images/items.png",
+            "texID": 3,
+            "width": 112,
+            "height": 80,
+            "flip": true
+          },
+          "width": 16.0,
+          "height": 16.0,
+          "texCords": [
+            {
+              "x": 0.4285714626312256,
+              "y": 0.800000011920929
+            },
+            {
+              "x": 0.4285714626312256,
+              "y": 0.6000000238418579
+            },
+            {
+              "x": 0.2857142984867096,
+              "y": 0.6000000238418579
+            },
+            {
+              "x": 0.2857142984867096,
+              "y": 0.800000011920929
+            }
+          ],
+          "componentID": 180
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.RigidBody",
+        "Properties": {
+          "mass": 0.0,
+          "friction": 0.1,
+          "isSensor": false,
+          "velocity": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "bodyType": "Static",
+          "gravityScale": 1.0,
+          "linearDamping": 0.9,
+          "angularDamping": 0.8,
+          "angularVelocity": 0.0,
+          "fixedRotation": false,
+          "continuousCollision": true,
+          "componentID": 181
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.BoxCollider",
+        "Properties": {
+          "center": {
+            "x": 49.59999999999998,
+            "y": 14.399999999999999
+          },
+          "halfSize": {
+            "x": 1.584,
+            "y": 1.584
+          },
+          "offset": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "componentID": 182
+        }
+      },
+      {
+        "Type": "main.components.Hitable",
+        "Properties": {
+          "speed": 3.0,
+          "distance": 0.4,
+          "componentID": 183
+        }
+      },
+      {
+        "Type": "main.renderer.Line2D",
+        "Properties": {
+          "to": {
+            "x": 48.01599999999998,
+            "y": 15.983999999999998
+          },
+          "from": {
+            "x": 51.18399999999998,
+            "y": 15.983999999999998
+          },
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "componentID": 4239
+        }
+      },
+      {
+        "Type": "main.renderer.Line2D",
+        "Properties": {
+          "to": {
+            "x": 51.18399999999998,
+            "y": 15.983999999999998
+          },
+          "from": {
+            "x": 51.18399999999998,
+            "y": 12.815999999999999
+          },
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "componentID": 4242
+        }
+      },
+      {
+        "Type": "main.renderer.Line2D",
+        "Properties": {
+          "to": {
+            "x": 51.18399999999998,
+            "y": 12.815999999999999
+          },
+          "from": {
+            "x": 48.01599999999998,
+            "y": 12.815999999999999
+          },
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "componentID": 4241
+        }
+      },
+      {
+        "Type": "main.renderer.Line2D",
+        "Properties": {
+          "to": {
+            "x": 48.01599999999998,
+            "y": 12.815999999999999
+          },
+          "from": {
+            "x": 48.01599999999998,
+            "y": 15.983999999999998
+          },
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "componentID": 4240
+        }
+      }
+    ]
+  },
+  {
+    "name": "bopObject",
+    "gameObjectID": 7,
+    "componentList": [
+      {
+        "Type": "main.haspid.Transform",
+        "Properties": {
+          "zIndex": 1,
+          "scale": {
+            "x": 3.2,
+            "y": 3.2
+          },
+          "rotation": 0.0,
+          "position": {
+            "x": 49.59999999999998,
+            "y": 17.599999999999998
+          },
+          "componentID": 199
+        }
+      },
+      {
+        "Type": "main.components.SpriteRenderer",
+        "Properties": {
+          "color": {
+            "x": 0.2,
+            "y": 0.2,
+            "z": 0.2,
+            "w": 0.0
+          },
+          "texture": {
+            "filePath": "assets/images/items.png",
+            "texID": 3,
+            "width": 112,
+            "height": 80,
+            "flip": true
+          },
+          "width": 16.0,
+          "height": 16.0,
+          "texCords": [
+            {
+              "x": 0.4285714626312256,
+              "y": 0.800000011920929
+            },
+            {
+              "x": 0.4285714626312256,
+              "y": 0.6000000238418579
+            },
+            {
+              "x": 0.2857142984867096,
+              "y": 0.6000000238418579
+            },
+            {
+              "x": 0.2857142984867096,
+              "y": 0.800000011920929
+            }
+          ],
+          "componentID": 200
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.RigidBody",
+        "Properties": {
+          "mass": 0.0,
+          "friction": 0.1,
+          "isSensor": false,
+          "velocity": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "bodyType": "Static",
+          "gravityScale": 1.0,
+          "linearDamping": 0.9,
+          "angularDamping": 0.8,
+          "angularVelocity": 0.0,
+          "fixedRotation": false,
+          "continuousCollision": true,
+          "componentID": 201
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.BoxCollider",
+        "Properties": {
+          "center": {
+            "x": 49.59999999999998,
+            "y": 17.599999999999998
+          },
+          "halfSize": {
+            "x": 1.584,
+            "y": 1.584
+          },
+          "offset": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "componentID": 202
+        }
+      },
+      {
+        "Type": "main.components.Hitable",
+        "Properties": {
+          "speed": 3.0,
+          "distance": 0.4,
+          "componentID": 203
+        }
+      },
+      {
+        "Type": "main.renderer.Line2D",
+        "Properties": {
+          "to": {
+            "x": 51.18399999999998,
+            "y": 16.016
+          },
+          "from": {
+            "x": 48.01599999999998,
+            "y": 16.016
+          },
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "componentID": 4245
+        }
+      },
+      {
+        "Type": "main.renderer.Line2D",
+        "Properties": {
+          "to": {
+            "x": 48.01599999999998,
+            "y": 16.016
+          },
+          "from": {
+            "x": 48.01599999999998,
+            "y": 19.183999999999997
+          },
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "componentID": 4244
+        }
+      },
+      {
+        "Type": "main.renderer.Line2D",
+        "Properties": {
+          "to": {
+            "x": 48.01599999999998,
+            "y": 19.183999999999997
+          },
+          "from": {
+            "x": 51.18399999999998,
+            "y": 19.183999999999997
+          },
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "componentID": 4243
+        }
+      },
+      {
+        "Type": "main.renderer.Line2D",
+        "Properties": {
+          "to": {
+            "x": 51.18399999999998,
+            "y": 19.183999999999997
+          },
+          "from": {
+            "x": 51.18399999999998,
+            "y": 16.016
+          },
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "componentID": 4246
+        }
+      }
+    ]
+  },
+  {
+    "name": "bopObject",
+    "gameObjectID": 8,
+    "componentList": [
+      {
+        "Type": "main.haspid.Transform",
+        "Properties": {
+          "zIndex": 1,
+          "scale": {
+            "x": 3.2,
+            "y": 3.2
+          },
+          "rotation": 0.0,
+          "position": {
+            "x": 49.59999999999998,
+            "y": 20.799999999999997
+          },
+          "componentID": 215
+        }
+      },
+      {
+        "Type": "main.components.SpriteRenderer",
+        "Properties": {
+          "color": {
+            "x": 0.2,
+            "y": 0.2,
+            "z": 0.2,
+            "w": 0.0
+          },
+          "texture": {
+            "filePath": "assets/images/items.png",
+            "texID": 3,
+            "width": 112,
+            "height": 80,
+            "flip": true
+          },
+          "width": 16.0,
+          "height": 16.0,
+          "texCords": [
+            {
+              "x": 0.4285714626312256,
+              "y": 0.800000011920929
+            },
+            {
+              "x": 0.4285714626312256,
+              "y": 0.6000000238418579
+            },
+            {
+              "x": 0.2857142984867096,
+              "y": 0.6000000238418579
+            },
+            {
+              "x": 0.2857142984867096,
+              "y": 0.800000011920929
+            }
+          ],
+          "componentID": 216
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.RigidBody",
+        "Properties": {
+          "mass": 0.0,
+          "friction": 0.1,
+          "isSensor": false,
+          "velocity": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "bodyType": "Static",
+          "gravityScale": 1.0,
+          "linearDamping": 0.9,
+          "angularDamping": 0.8,
+          "angularVelocity": 0.0,
+          "fixedRotation": false,
+          "continuousCollision": true,
+          "componentID": 217
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.BoxCollider",
+        "Properties": {
+          "center": {
+            "x": 49.59999999999998,
+            "y": 20.799999999999997
+          },
+          "halfSize": {
+            "x": 1.584,
+            "y": 1.584
+          },
+          "offset": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "componentID": 218
+        }
+      },
+      {
+        "Type": "main.components.Hitable",
+        "Properties": {
+          "speed": 3.0,
+          "distance": 0.4,
+          "componentID": 219
+        }
+      },
+      {
+        "Type": "main.renderer.Line2D",
+        "Properties": {
+          "to": {
+            "x": 51.18399999999998,
+            "y": 22.383999999999997
+          },
+          "from": {
+            "x": 51.18399999999998,
+            "y": 19.215999999999998
+          },
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "componentID": 4250
+        }
+      },
+      {
+        "Type": "main.renderer.Line2D",
+        "Properties": {
+          "to": {
+            "x": 51.18399999999998,
+            "y": 19.215999999999998
+          },
+          "from": {
+            "x": 48.01599999999998,
+            "y": 19.215999999999998
+          },
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "componentID": 4249
+        }
+      },
+      {
+        "Type": "main.renderer.Line2D",
+        "Properties": {
+          "to": {
+            "x": 48.01599999999998,
+            "y": 22.383999999999997
+          },
+          "from": {
+            "x": 51.18399999999998,
+            "y": 22.383999999999997
+          },
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "componentID": 4247
+        }
+      },
+      {
+        "Type": "main.renderer.Line2D",
+        "Properties": {
+          "to": {
+            "x": 48.01599999999998,
+            "y": 19.215999999999998
+          },
+          "from": {
+            "x": 48.01599999999998,
+            "y": 22.383999999999997
+          },
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "componentID": 4248
+        }
+      }
+    ]
+  },
+  {
+    "name": "bopObject",
+    "gameObjectID": 9,
+    "componentList": [
+      {
+        "Type": "main.haspid.Transform",
+        "Properties": {
+          "zIndex": 1,
+          "scale": {
+            "x": 3.2,
+            "y": 3.2
+          },
+          "rotation": 0.0,
+          "position": {
+            "x": 46.39999999999998,
+            "y": 24.0
+          },
+          "componentID": 231
+        }
+      },
+      {
+        "Type": "main.components.SpriteRenderer",
+        "Properties": {
+          "color": {
+            "x": 0.2,
+            "y": 0.2,
+            "z": 0.2,
+            "w": 0.0
+          },
+          "texture": {
+            "filePath": "assets/images/items.png",
+            "texID": 3,
+            "width": 112,
+            "height": 80,
+            "flip": true
+          },
+          "width": 16.0,
+          "height": 16.0,
+          "texCords": [
+            {
+              "x": 0.4285714626312256,
+              "y": 0.800000011920929
+            },
+            {
+              "x": 0.4285714626312256,
+              "y": 0.6000000238418579
+            },
+            {
+              "x": 0.2857142984867096,
+              "y": 0.6000000238418579
+            },
+            {
+              "x": 0.2857142984867096,
+              "y": 0.800000011920929
+            }
+          ],
+          "componentID": 232
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.RigidBody",
+        "Properties": {
+          "mass": 0.0,
+          "friction": 0.1,
+          "isSensor": false,
+          "velocity": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "bodyType": "Static",
+          "gravityScale": 1.0,
+          "linearDamping": 0.9,
+          "angularDamping": 0.8,
+          "angularVelocity": 0.0,
+          "fixedRotation": false,
+          "continuousCollision": true,
+          "componentID": 233
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.BoxCollider",
+        "Properties": {
+          "center": {
+            "x": 46.39999999999998,
+            "y": 24.0
+          },
+          "halfSize": {
+            "x": 1.584,
+            "y": 1.584
+          },
+          "offset": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "componentID": 234
+        }
+      },
+      {
+        "Type": "main.components.Hitable",
+        "Properties": {
+          "speed": 3.0,
+          "distance": 0.4,
+          "componentID": 235
+        }
+      },
+      {
+        "Type": "main.renderer.Line2D",
+        "Properties": {
+          "to": {
+            "x": 44.815999999999974,
+            "y": 22.416
+          },
+          "from": {
+            "x": 44.815999999999974,
+            "y": 25.584
+          },
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "componentID": 4252
+        }
+      },
+      {
+        "Type": "main.renderer.Line2D",
+        "Properties": {
+          "to": {
+            "x": 47.98399999999998,
+            "y": 25.584
+          },
+          "from": {
+            "x": 47.98399999999998,
+            "y": 22.416
+          },
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "componentID": 4254
+        }
+      },
+      {
+        "Type": "main.renderer.Line2D",
+        "Properties": {
+          "to": {
+            "x": 47.98399999999998,
+            "y": 22.416
+          },
+          "from": {
+            "x": 44.815999999999974,
+            "y": 22.416
+          },
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "componentID": 4253
+        }
+      },
+      {
+        "Type": "main.renderer.Line2D",
+        "Properties": {
+          "to": {
+            "x": 44.815999999999974,
+            "y": 25.584
+          },
+          "from": {
+            "x": 47.98399999999998,
+            "y": 25.584
+          },
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "componentID": 4251
+        }
+      }
+    ]
+  },
+  {
+    "name": "bopObject",
+    "gameObjectID": 10,
+    "componentList": [
+      {
+        "Type": "main.haspid.Transform",
+        "Properties": {
+          "zIndex": 1,
+          "scale": {
+            "x": 3.2,
+            "y": 3.2
+          },
+          "rotation": 0.0,
+          "position": {
+            "x": 46.39999999999998,
+            "y": 30.400000000000002
+          },
+          "componentID": 247
+        }
+      },
+      {
+        "Type": "main.components.SpriteRenderer",
+        "Properties": {
+          "color": {
+            "x": 0.2,
+            "y": 0.2,
+            "z": 0.2,
+            "w": 0.0
+          },
+          "texture": {
+            "filePath": "assets/images/items.png",
+            "texID": 3,
+            "width": 112,
+            "height": 80,
+            "flip": true
+          },
+          "width": 16.0,
+          "height": 16.0,
+          "texCords": [
+            {
+              "x": 0.4285714626312256,
+              "y": 0.800000011920929
+            },
+            {
+              "x": 0.4285714626312256,
+              "y": 0.6000000238418579
+            },
+            {
+              "x": 0.2857142984867096,
+              "y": 0.6000000238418579
+            },
+            {
+              "x": 0.2857142984867096,
+              "y": 0.800000011920929
+            }
+          ],
+          "componentID": 248
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.RigidBody",
+        "Properties": {
+          "mass": 0.0,
+          "friction": 0.1,
+          "isSensor": false,
+          "velocity": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "bodyType": "Static",
+          "gravityScale": 1.0,
+          "linearDamping": 0.9,
+          "angularDamping": 0.8,
+          "angularVelocity": 0.0,
+          "fixedRotation": false,
+          "continuousCollision": true,
+          "componentID": 249
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.BoxCollider",
+        "Properties": {
+          "center": {
+            "x": 46.39999999999998,
+            "y": 30.400000000000002
+          },
+          "halfSize": {
+            "x": 1.584,
+            "y": 1.584
+          },
+          "offset": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "componentID": 250
+        }
+      },
+      {
+        "Type": "main.components.Hitable",
+        "Properties": {
+          "speed": 3.0,
+          "distance": 0.4,
+          "componentID": 251
+        }
+      },
+      {
+        "Type": "main.renderer.Line2D",
+        "Properties": {
+          "to": {
+            "x": 44.815999999999974,
+            "y": 31.984
+          },
+          "from": {
+            "x": 47.98399999999998,
+            "y": 31.984
+          },
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "componentID": 4255
+        }
+      },
+      {
+        "Type": "main.renderer.Line2D",
+        "Properties": {
+          "to": {
+            "x": 47.98399999999998,
+            "y": 28.816000000000003
+          },
+          "from": {
+            "x": 44.815999999999974,
+            "y": 28.816000000000003
+          },
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "componentID": 4257
+        }
+      },
+      {
+        "Type": "main.renderer.Line2D",
+        "Properties": {
+          "to": {
+            "x": 47.98399999999998,
+            "y": 31.984
+          },
+          "from": {
+            "x": 47.98399999999998,
+            "y": 28.816000000000003
+          },
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "componentID": 4258
+        }
+      },
+      {
+        "Type": "main.renderer.Line2D",
+        "Properties": {
+          "to": {
+            "x": 44.815999999999974,
+            "y": 28.816000000000003
+          },
+          "from": {
+            "x": 44.815999999999974,
+            "y": 31.984
+          },
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "componentID": 4256
+        }
+      }
+    ]
+  },
+  {
+    "name": "bopObject",
+    "gameObjectID": 11,
+    "componentList": [
+      {
+        "Type": "main.haspid.Transform",
+        "Properties": {
+          "zIndex": 1,
+          "scale": {
+            "x": 3.2,
+            "y": 3.2
+          },
+          "rotation": 0.0,
+          "position": {
+            "x": 43.19999999999999,
+            "y": 40.00000000000001
+          },
+          "componentID": 267
+        }
+      },
+      {
+        "Type": "main.components.SpriteRenderer",
+        "Properties": {
+          "color": {
+            "x": 0.2,
+            "y": 0.2,
+            "z": 0.2,
+            "w": 0.0
+          },
+          "texture": {
+            "filePath": "assets/images/items.png",
+            "texID": 3,
+            "width": 112,
+            "height": 80,
+            "flip": true
+          },
+          "width": 16.0,
+          "height": 16.0,
+          "texCords": [
+            {
+              "x": 0.4285714626312256,
+              "y": 0.800000011920929
+            },
+            {
+              "x": 0.4285714626312256,
+              "y": 0.6000000238418579
+            },
+            {
+              "x": 0.2857142984867096,
+              "y": 0.6000000238418579
+            },
+            {
+              "x": 0.2857142984867096,
+              "y": 0.800000011920929
+            }
+          ],
+          "componentID": 268
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.RigidBody",
+        "Properties": {
+          "mass": 0.0,
+          "friction": 0.1,
+          "isSensor": false,
+          "velocity": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "bodyType": "Static",
+          "gravityScale": 1.0,
+          "linearDamping": 0.9,
+          "angularDamping": 0.8,
+          "angularVelocity": 0.0,
+          "fixedRotation": false,
+          "continuousCollision": true,
+          "componentID": 269
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.BoxCollider",
+        "Properties": {
+          "center": {
+            "x": 43.19999999999999,
+            "y": 40.00000000000001
+          },
+          "halfSize": {
+            "x": 1.584,
+            "y": 1.584
+          },
+          "offset": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "componentID": 270
+        }
+      },
+      {
+        "Type": "main.components.Hitable",
+        "Properties": {
+          "speed": 3.0,
+          "distance": 0.4,
+          "componentID": 271
+        }
+      },
+      {
+        "Type": "main.renderer.Line2D",
+        "Properties": {
+          "to": {
+            "x": 44.78399999999999,
+            "y": 38.416000000000004
+          },
+          "from": {
+            "x": 41.615999999999985,
+            "y": 38.416000000000004
+          },
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "componentID": 4261
+        }
+      },
+      {
+        "Type": "main.renderer.Line2D",
+        "Properties": {
+          "to": {
+            "x": 41.615999999999985,
+            "y": 38.416000000000004
+          },
+          "from": {
+            "x": 41.615999999999985,
+            "y": 41.58400000000001
+          },
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "componentID": 4260
+        }
+      },
+      {
+        "Type": "main.renderer.Line2D",
+        "Properties": {
+          "to": {
+            "x": 44.78399999999999,
+            "y": 41.58400000000001
+          },
+          "from": {
+            "x": 44.78399999999999,
+            "y": 38.416000000000004
+          },
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "componentID": 4262
+        }
+      },
+      {
+        "Type": "main.renderer.Line2D",
+        "Properties": {
+          "to": {
+            "x": 41.615999999999985,
+            "y": 41.58400000000001
+          },
+          "from": {
+            "x": 44.78399999999999,
+            "y": 41.58400000000001
+          },
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "componentID": 4259
+        }
+      }
+    ]
+  },
+  {
+    "name": "bopObject",
+    "gameObjectID": 12,
+    "componentList": [
+      {
+        "Type": "main.haspid.Transform",
+        "Properties": {
+          "zIndex": 1,
+          "scale": {
+            "x": 3.2,
+            "y": 3.2
+          },
+          "rotation": 0.0,
+          "position": {
+            "x": 39.999999999999986,
+            "y": 43.20000000000001
+          },
+          "componentID": 287
+        }
+      },
+      {
+        "Type": "main.components.SpriteRenderer",
+        "Properties": {
+          "color": {
+            "x": 0.2,
+            "y": 0.2,
+            "z": 0.2,
+            "w": 0.0
+          },
+          "texture": {
+            "filePath": "assets/images/items.png",
+            "texID": 3,
+            "width": 112,
+            "height": 80,
+            "flip": true
+          },
+          "width": 16.0,
+          "height": 16.0,
+          "texCords": [
+            {
+              "x": 0.4285714626312256,
+              "y": 0.800000011920929
+            },
+            {
+              "x": 0.4285714626312256,
+              "y": 0.6000000238418579
+            },
+            {
+              "x": 0.2857142984867096,
+              "y": 0.6000000238418579
+            },
+            {
+              "x": 0.2857142984867096,
+              "y": 0.800000011920929
+            }
+          ],
+          "componentID": 288
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.RigidBody",
+        "Properties": {
+          "mass": 0.0,
+          "friction": 0.1,
+          "isSensor": false,
+          "velocity": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "bodyType": "Static",
+          "gravityScale": 1.0,
+          "linearDamping": 0.9,
+          "angularDamping": 0.8,
+          "angularVelocity": 0.0,
+          "fixedRotation": false,
+          "continuousCollision": true,
+          "componentID": 289
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.BoxCollider",
+        "Properties": {
+          "center": {
+            "x": 39.999999999999986,
+            "y": 43.20000000000001
+          },
+          "halfSize": {
+            "x": 1.584,
+            "y": 1.584
+          },
+          "offset": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "componentID": 290
+        }
+      },
+      {
+        "Type": "main.components.Hitable",
+        "Properties": {
+          "speed": 3.0,
+          "distance": 0.4,
+          "componentID": 291
+        }
+      },
+      {
+        "Type": "main.renderer.Line2D",
+        "Properties": {
+          "to": {
+            "x": 38.41599999999998,
+            "y": 44.78400000000001
+          },
+          "from": {
+            "x": 41.58399999999999,
+            "y": 44.78400000000001
+          },
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "componentID": 4263
+        }
+      },
+      {
+        "Type": "main.renderer.Line2D",
+        "Properties": {
+          "to": {
+            "x": 38.41599999999998,
+            "y": 41.61600000000001
+          },
+          "from": {
+            "x": 38.41599999999998,
+            "y": 44.78400000000001
+          },
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "componentID": 4264
+        }
+      },
+      {
+        "Type": "main.renderer.Line2D",
+        "Properties": {
+          "to": {
+            "x": 41.58399999999999,
+            "y": 44.78400000000001
+          },
+          "from": {
+            "x": 41.58399999999999,
+            "y": 41.61600000000001
+          },
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "componentID": 4266
+        }
+      },
+      {
+        "Type": "main.renderer.Line2D",
+        "Properties": {
+          "to": {
+            "x": 41.58399999999999,
+            "y": 41.61600000000001
+          },
+          "from": {
+            "x": 38.41599999999998,
+            "y": 41.61600000000001
+          },
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "componentID": 4265
+        }
+      }
+    ]
+  },
+  {
+    "name": "bopObject",
+    "gameObjectID": 13,
+    "componentList": [
+      {
+        "Type": "main.haspid.Transform",
+        "Properties": {
+          "zIndex": 1,
+          "scale": {
+            "x": 3.2,
+            "y": 3.2
+          },
+          "rotation": 0.0,
+          "position": {
+            "x": 39.999999999999986,
+            "y": 46.40000000000001
+          },
+          "componentID": 307
+        }
+      },
+      {
+        "Type": "main.components.SpriteRenderer",
+        "Properties": {
+          "color": {
+            "x": 0.2,
+            "y": 0.2,
+            "z": 0.2,
+            "w": 0.0
+          },
+          "texture": {
+            "filePath": "assets/images/items.png",
+            "texID": 3,
+            "width": 112,
+            "height": 80,
+            "flip": true
+          },
+          "width": 16.0,
+          "height": 16.0,
+          "texCords": [
+            {
+              "x": 0.4285714626312256,
+              "y": 0.800000011920929
+            },
+            {
+              "x": 0.4285714626312256,
+              "y": 0.6000000238418579
+            },
+            {
+              "x": 0.2857142984867096,
+              "y": 0.6000000238418579
+            },
+            {
+              "x": 0.2857142984867096,
+              "y": 0.800000011920929
+            }
+          ],
+          "componentID": 308
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.RigidBody",
+        "Properties": {
+          "mass": 0.0,
+          "friction": 0.1,
+          "isSensor": false,
+          "velocity": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "bodyType": "Static",
+          "gravityScale": 1.0,
+          "linearDamping": 0.9,
+          "angularDamping": 0.8,
+          "angularVelocity": 0.0,
+          "fixedRotation": false,
+          "continuousCollision": true,
+          "componentID": 309
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.BoxCollider",
+        "Properties": {
+          "center": {
+            "x": 39.999999999999986,
+            "y": 46.40000000000001
+          },
+          "halfSize": {
+            "x": 1.584,
+            "y": 1.584
+          },
+          "offset": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "componentID": 310
+        }
+      },
+      {
+        "Type": "main.components.Hitable",
+        "Properties": {
+          "speed": 3.0,
+          "distance": 0.4,
+          "componentID": 311
+        }
+      },
+      {
+        "Type": "main.renderer.Line2D",
+        "Properties": {
+          "to": {
+            "x": 41.58399999999999,
+            "y": 44.81600000000001
+          },
+          "from": {
+            "x": 38.41599999999998,
+            "y": 44.81600000000001
+          },
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "componentID": 4269
+        }
+      },
+      {
+        "Type": "main.renderer.Line2D",
+        "Properties": {
+          "to": {
+            "x": 41.58399999999999,
+            "y": 47.984000000000016
+          },
+          "from": {
+            "x": 41.58399999999999,
+            "y": 44.81600000000001
+          },
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "componentID": 4270
+        }
+      },
+      {
+        "Type": "main.renderer.Line2D",
+        "Properties": {
+          "to": {
+            "x": 38.41599999999998,
+            "y": 47.984000000000016
+          },
+          "from": {
+            "x": 41.58399999999999,
+            "y": 47.984000000000016
+          },
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "componentID": 4267
+        }
+      },
+      {
+        "Type": "main.renderer.Line2D",
+        "Properties": {
+          "to": {
+            "x": 38.41599999999998,
+            "y": 44.81600000000001
+          },
+          "from": {
+            "x": 38.41599999999998,
+            "y": 47.984000000000016
+          },
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "componentID": 4268
+        }
+      }
+    ]
+  },
+  {
+    "name": "bopObject",
+    "gameObjectID": 14,
+    "componentList": [
+      {
+        "Type": "main.haspid.Transform",
+        "Properties": {
+          "zIndex": 1,
+          "scale": {
+            "x": 3.2,
+            "y": 3.2
+          },
+          "rotation": 0.0,
+          "position": {
+            "x": 36.79999999999998,
+            "y": 49.600000000000016
+          },
+          "componentID": 323
+        }
+      },
+      {
+        "Type": "main.components.SpriteRenderer",
+        "Properties": {
+          "color": {
+            "x": 0.2,
+            "y": 0.2,
+            "z": 0.2,
+            "w": 0.0
+          },
+          "texture": {
+            "filePath": "assets/images/items.png",
+            "texID": 3,
+            "width": 112,
+            "height": 80,
+            "flip": true
+          },
+          "width": 16.0,
+          "height": 16.0,
+          "texCords": [
+            {
+              "x": 0.4285714626312256,
+              "y": 0.800000011920929
+            },
+            {
+              "x": 0.4285714626312256,
+              "y": 0.6000000238418579
+            },
+            {
+              "x": 0.2857142984867096,
+              "y": 0.6000000238418579
+            },
+            {
+              "x": 0.2857142984867096,
+              "y": 0.800000011920929
+            }
+          ],
+          "componentID": 324
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.RigidBody",
+        "Properties": {
+          "mass": 0.0,
+          "friction": 0.1,
+          "isSensor": false,
+          "velocity": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "bodyType": "Static",
+          "gravityScale": 1.0,
+          "linearDamping": 0.9,
+          "angularDamping": 0.8,
+          "angularVelocity": 0.0,
+          "fixedRotation": false,
+          "continuousCollision": true,
+          "componentID": 325
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.BoxCollider",
+        "Properties": {
+          "center": {
+            "x": 36.79999999999998,
+            "y": 49.600000000000016
+          },
+          "halfSize": {
+            "x": 1.584,
+            "y": 1.584
+          },
+          "offset": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "componentID": 326
+        }
+      },
+      {
+        "Type": "main.components.Hitable",
+        "Properties": {
+          "speed": 3.0,
+          "distance": 0.4,
+          "componentID": 327
+        }
+      },
+      {
+        "Type": "main.renderer.Line2D",
+        "Properties": {
+          "to": {
+            "x": 35.21599999999998,
+            "y": 48.01600000000001
+          },
+          "from": {
+            "x": 35.21599999999998,
+            "y": 51.18400000000002
+          },
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "componentID": 4272
+        }
+      },
+      {
+        "Type": "main.renderer.Line2D",
+        "Properties": {
+          "to": {
+            "x": 38.383999999999986,
+            "y": 48.01600000000001
+          },
+          "from": {
+            "x": 35.21599999999998,
+            "y": 48.01600000000001
+          },
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "componentID": 4273
+        }
+      },
+      {
+        "Type": "main.renderer.Line2D",
+        "Properties": {
+          "to": {
+            "x": 38.383999999999986,
+            "y": 51.18400000000002
+          },
+          "from": {
+            "x": 38.383999999999986,
+            "y": 48.01600000000001
+          },
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "componentID": 4274
+        }
+      },
+      {
+        "Type": "main.renderer.Line2D",
+        "Properties": {
+          "to": {
+            "x": 35.21599999999998,
+            "y": 51.18400000000002
+          },
+          "from": {
+            "x": 38.383999999999986,
+            "y": 51.18400000000002
+          },
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "componentID": 4271
+        }
+      }
+    ]
+  },
+  {
+    "name": "bopObject",
+    "gameObjectID": 15,
+    "componentList": [
+      {
+        "Type": "main.haspid.Transform",
+        "Properties": {
+          "zIndex": 1,
+          "scale": {
+            "x": 3.2,
+            "y": 3.2
+          },
+          "rotation": 0.0,
+          "position": {
+            "x": 36.79999999999998,
+            "y": 52.80000000000002
+          },
+          "componentID": 343
+        }
+      },
+      {
+        "Type": "main.components.SpriteRenderer",
+        "Properties": {
+          "color": {
+            "x": 0.2,
+            "y": 0.2,
+            "z": 0.2,
+            "w": 0.0
+          },
+          "texture": {
+            "filePath": "assets/images/items.png",
+            "texID": 3,
+            "width": 112,
+            "height": 80,
+            "flip": true
+          },
+          "width": 16.0,
+          "height": 16.0,
+          "texCords": [
+            {
+              "x": 0.4285714626312256,
+              "y": 0.800000011920929
+            },
+            {
+              "x": 0.4285714626312256,
+              "y": 0.6000000238418579
+            },
+            {
+              "x": 0.2857142984867096,
+              "y": 0.6000000238418579
+            },
+            {
+              "x": 0.2857142984867096,
+              "y": 0.800000011920929
+            }
+          ],
+          "componentID": 344
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.RigidBody",
+        "Properties": {
+          "mass": 0.0,
+          "friction": 0.1,
+          "isSensor": false,
+          "velocity": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "bodyType": "Static",
+          "gravityScale": 1.0,
+          "linearDamping": 0.9,
+          "angularDamping": 0.8,
+          "angularVelocity": 0.0,
+          "fixedRotation": false,
+          "continuousCollision": true,
+          "componentID": 345
+        }
+      },
+      {
+        "Type": "main.components.physicsComponent.BoxCollider",
+        "Properties": {
+          "center": {
+            "x": 36.79999999999998,
+            "y": 52.80000000000002
+          },
+          "halfSize": {
+            "x": 1.584,
+            "y": 1.584
+          },
+          "offset": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "componentID": 346
+        }
+      },
+      {
+        "Type": "main.components.Hitable",
+        "Properties": {
+          "speed": 3.0,
+          "distance": 0.4,
+          "componentID": 347
+        }
+      },
+      {
+        "Type": "main.renderer.Line2D",
+        "Properties": {
+          "to": {
+            "x": 38.383999999999986,
+            "y": 54.38400000000002
+          },
+          "from": {
+            "x": 38.383999999999986,
+            "y": 51.216000000000015
+          },
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "componentID": 4278
+        }
+      },
+      {
+        "Type": "main.renderer.Line2D",
+        "Properties": {
+          "to": {
+            "x": 35.21599999999998,
+            "y": 54.38400000000002
+          },
+          "from": {
+            "x": 38.383999999999986,
+            "y": 54.38400000000002
+          },
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "componentID": 4275
+        }
+      },
+      {
+        "Type": "main.renderer.Line2D",
+        "Properties": {
+          "to": {
+            "x": 35.21599999999998,
+            "y": 51.216000000000015
+          },
+          "from": {
+            "x": 35.21599999999998,
+            "y": 54.38400000000002
+          },
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "componentID": 4276
+        }
+      },
+      {
+        "Type": "main.renderer.Line2D",
+        "Properties": {
+          "to": {
+            "x": 38.383999999999986,
+            "y": 51.216000000000015
+          },
+          "from": {
+            "x": 35.21599999999998,
+            "y": 51.216000000000015
+          },
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "componentID": 4277
+        }
+      }
+    ]
+  }
+]

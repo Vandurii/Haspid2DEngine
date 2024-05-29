@@ -59,7 +59,7 @@ public class Gizmo extends Component {
         this.yAxisBody.setNonSerializable();
         this.yAxisBody.setNonTriggerable();
 
-        editorScene.addGameObjectToScene(xAxisBody, yAxisBody);
+        editorScene.addObjectToSceneSafe(xAxisBody, yAxisBody);
     }
 
     public void create(){
@@ -69,13 +69,13 @@ public class Gizmo extends Component {
         xAxisSpriteRender = new SpriteRenderer(template.getTexture(), template.getWidth(), template.getHeight(), template.getSpriteCords());
         xAxisSpriteRender.setColor(gizmoColor);
         xAxisBody.addComponent(xAxisSpriteRender);
-        xAxisSpriteRender.start();
+        xAxisSpriteRender.init();
         Renderer.getInstance().add(xAxisSpriteRender);
 
         yAxisSpriteRender = new SpriteRenderer(template.getTexture(), template.getWidth(), template.getHeight(), template.getSpriteCords());
         yAxisSpriteRender.setColor(gizmoColor);
         yAxisBody.addComponent(yAxisSpriteRender);
-        yAxisSpriteRender.start();
+        yAxisSpriteRender.init();
         Renderer.getInstance().add(yAxisSpriteRender);
     }
 

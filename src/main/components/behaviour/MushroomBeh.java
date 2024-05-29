@@ -1,6 +1,5 @@
 package main.components.behaviour;
 
-import main.Configuration;
 import main.components.Component;
 import main.components.PlayerController;
 import main.components.physicsComponent.RigidBody;
@@ -26,7 +25,7 @@ public class MushroomBeh extends Component {
     }
 
     @Override
-    public void start(){
+    public void init(){
         AssetPool.getSound(powerUpAppears);
         this.rigidBody = getParent().getComponent(RigidBody.class);
         rigidBody.setGravityScale(gravity);
@@ -50,7 +49,7 @@ public class MushroomBeh extends Component {
 
             if(!used){
                 playerController.powerUP();
-                Window.getInstance().getCurrentScene().removeFromSceneRuntime(getParent());
+                Window.getInstance().getCurrentScene().removeFromSceneSafe(getParent());
                 used = true;
             }
         }

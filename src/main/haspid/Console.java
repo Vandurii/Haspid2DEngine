@@ -14,8 +14,8 @@ public class Console extends Component {
 
     private static Console instance;
     private static double consoleDelay;
-    private static LinkedHashSet<Log> logList = new LinkedHashSet<>();
     private static double consoleDelayReset;
+    private static LinkedHashSet<Log> logList = new LinkedHashSet<>();
 
     private Console(){
         consoleDelayReset = Configuration.consoleDelay;
@@ -41,6 +41,12 @@ public class Console extends Component {
     }
 
     public static void addLog(Log log){
+        final StackTraceElement[] ste = Thread.currentThread().getStackTrace();
+        String method = ste[2].getMethodName();
+        String clazz = ste[2].getClassName();
+        clazz = clazz.substring(clazz.lastIndexOf(".") + 1);
+
+        log.setText(String.format("%s::%s::%s", clazz, method, log.getText()));
         logList.add(log);
     }
 
@@ -49,5 +55,4 @@ public class Console extends Component {
 
         return instance;
     }
-
 }

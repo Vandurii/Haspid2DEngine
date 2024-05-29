@@ -5,7 +5,6 @@ import main.haspid.Transform;
 import main.haspid.Window;
 import main.physics.Physics2D;
 import main.renderer.DebugDraw;
-import main.renderer.DebugDrawEvents;
 import main.renderer.Line2D;
 import org.joml.Vector2d;
 
@@ -29,7 +28,7 @@ public class BoxCollider extends Collider {
     }
 
     @Override
-    public void start(){
+    public void init(){
         this.physics = Window.getInstance().getCurrentScene().getPhysics();
     }
 
@@ -40,9 +39,10 @@ public class BoxCollider extends Collider {
 
         if(getParent().isDirty()){
             List<Line2D> lineList = getParent().getAllCompThisType(Line2D.class);
+
             for(Line2D line: lineList){
                 line.markToRemove(true);
-                Window.getInstance().getCurrentScene().removeComponentRuntime(getParent(), line);
+                Window.getInstance().getCurrentScene().removeComponentSafe(getParent(), line);
             }
 
             DebugDraw.notify(Garbage, colliderID);
