@@ -7,16 +7,20 @@ import main.editor.EditorScene;
 import main.haspid.GameObject;
 import main.haspid.MouseListener;
 import main.renderer.*;
+import main.util.AssetPool;
 import main.util.Texture;
 import org.joml.Vector4f;
 
 import java.lang.management.*;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import com.sun.management.OperatingSystemMXBean;
 
 import static main.Configuration.*;
+import static org.lwjgl.glfw.GLFW.glfwGetTime;
 
 public class ResourcesManager {
     private Renderer renderer;
@@ -53,6 +57,7 @@ public class ResourcesManager {
 
         if(ImGui.collapsingHeader("Resources")) {
             displayAssets();
+            displayStateMachine();
         }
 
         ImGui.end();
@@ -61,7 +66,7 @@ public class ResourcesManager {
     public void displayCPUUsage(){
         OperatingSystemMXBean osBean = ManagementFactory.getPlatformMXBean(OperatingSystemMXBean.class);
 
-        displayParamText("CPU:", String.format("%.1f", (osBean.getCpuLoad() * 100)), colorGreyA, colorLightGreenA);
+        displayParamBulletText("CPU:", String.format("%.1f", (osBean.getCpuLoad() * 100)), colorGreyA, colorLightGreenA);
         ImGui.sameLine();
         ImGui.textColored(colorLightGreenA.x, colorLightGreenA.y, colorLightGreenA.z, colorLightGreenA.w, "%%");
         doSpacing(1);
@@ -74,14 +79,14 @@ public class ResourcesManager {
         double used = (double)memoryMXBean.getHeapMemoryUsage().getUsed() / megaByte;
         double commited = (double)memoryMXBean.getHeapMemoryUsage().getCommitted() / megaByte;
 
-        displayParamText("Heap Memory:", String.format("%.0f MB", used), colorGreyA, colorLightGreenA);
-        displayParamText("Commited Memory:", String.format("%.0f MB", commited), colorGreyA, colorLightGreenA);
+        displayParamBulletText("Heap Memory:", String.format("%.0f MB", used), colorGreyA, colorLightGreenA);
+        displayParamBulletText("Commited Memory:", String.format("%.0f MB", commited), colorGreyA, colorLightGreenA);
         doSpacing(1);
     }
 
     public void displaySceneObjects(){
         List<GameObject> gameObjectList = editorScene.getSceneObjectList();
-        displayParamText("Object in Scene:", String.format("[%s]", editorScene.getSceneObjectList().size()), colorGreyA, colorLightGreenA);
+        displayParamBulletText("Object in Scene:", String.format("[%s]", editorScene.getSceneObjectList().size()), colorGreyA, colorLightGreenA);
 
         for (int i = 0; i < gameObjectList.size(); i++) {
             GameObject gameObject = gameObjectList.get(i);
@@ -104,25 +109,12 @@ public class ResourcesManager {
         }
     }
 
-    public void displayRenders(){
-        List<RenderBatch> renderBatchList = renderer.getRenderBatchList();
+    public void displayStateMachine(){
+        displayBulletTitle("State machine: ", colorGreyA);
+        Set<String> stateList = AssetPool.getAllStatesMachines();
 
-        for(int i = 0; i < renderBatchList.size(); i++){
-            RenderBatch renderBatch = renderBatchList.get(i);
-            displayBulletTitle("Renderer:" + renderBatch.getzIndex(), colorGreyA);
-            if(ImGui.beginCombo("##" + renderBatch, "show details")){
-                for(SpriteRenderer spriteRender: renderBatch.getSpriteToRender()){
-                    if(spriteRender == null){
-                        ImGui.text("[null]");
-                        continue;
-                    }
-                    ImGui.text(String.format("[%s] %s", i, spriteRender.getParent().getName() + " : " + spriteRender.getParent()));
-                }
-                ImGui.endCombo();
-            }
-
-            displayRenderInfo(renderBatch.getzIndex(), renderBatch.getMaxBathSize(), renderBatch.getSpriteCount(), renderBatch.hasRoom());
-            doSpacing(1);
+        for(String state: stateList){
+            ImGui.text("\t" + state);
         }
     }
 
@@ -130,18 +122,19 @@ public class ResourcesManager {
         List<StaticLayer> staticLayerList = DebugDraw.getStaticLayerList();
 
         for(StaticLayer staticLayer: staticLayerList){
-            displayBulletTitle(staticLayer.getID(), colorGreyA);
-
             if(ImGui.beginCombo("##" + staticLayer, "show details")){
-                for(int i = 0; i < staticLayer.getLine().size(); i++){
-                    Line2D line = staticLayer.getLine().get(i);
+                for(int i = 0; i < staticLayer.getLineList().size(); i++){
+                    Line2D line = staticLayer.getLineList().get(i);
                     ImGui.text(String.format("[%s] X:%.1f Y:%.1f - X:%.1f Y:%.1f", i, line.getFrom().x, line.getFrom().y, line.getTo().x, line.getTo().y));
                 }
                 ImGui.endCombo();
             }
 
+            displayBulletTitle(staticLayer.getID(), colorGreyA);
+            displayConsoleButton(3, 6, 2, staticLayer.getVertexArray());
+            displayParamText("\tUpdate Time:", String.format("  %.0fs", glfwGetTime() - staticLayer.getResizeTime()), colorLightGreenA);
             ImGui.text(String.format("\tIndex:\t\t %s", staticLayer.getzIndex()));
-            ImGui.text(String.format("\tCount:\t\t %s", staticLayer.getLine().size()));
+            ImGui.text(String.format("\tCount:\t\t %s", staticLayer.getLineList().size()));
             doSpacing(1);
         }
     }
@@ -150,7 +143,6 @@ public class ResourcesManager {
         List<DynamicLayer> dynamicLayerList = DebugDraw.getDynamicLayerList();
 
         for(DynamicLayer dynamicLayer: dynamicLayerList){
-            displayBulletTitle(dynamicLayer.getID(), colorGreyA);
             if(ImGui.beginCombo("##" + dynamicLayer, "show details")){
                 for(int i = 0; i < dynamicLayer.getLineListToRender().length; i++){
                     Line2D line = dynamicLayer.getLineListToRender()[i];
@@ -162,17 +154,49 @@ public class ResourcesManager {
                 }
                 ImGui.endCombo();
             }
+            displayBulletTitle(dynamicLayer.getID(), colorGreyA);
 
-            displayConsoleButton(3, 6, 2);
-            displayRenderInfo(dynamicLayer.getzIndex(), dynamicLayer.getMaxBathSize(), dynamicLayer.getLineCount(), dynamicLayer.hasRoom());
+            displayConsoleButton(3, 6, 2, dynamicLayer.getVertexArray());
+            displayTime(dynamicLayer.getResizeTime(), dynamicLayer.getUpdateTime(), colorLightGreenA);
+            displayRenderInfo(dynamicLayer.getzIndex(), -1, dynamicLayer.getMaxBathSize(), dynamicLayer.getLineCount(), dynamicLayer.hasRoom());
             doSpacing(1);
         }
     }
 
-    public void displayParamText(String firstText, String secondText, Vector4f firstColor, Vector4f secondColor){
+    public void displayRenders(){
+        List<RenderBatch> renderBatchList = renderer.getRenderBatchList();
+
+        for(int i = 0; i < renderBatchList.size(); i++){
+            RenderBatch renderBatch = renderBatchList.get(i);
+            if(ImGui.beginCombo("##" + renderBatch, "show details")){
+                for(SpriteRenderer spriteRender: renderBatch.getSpriteToRender()){
+                    if(spriteRender == null){
+                        ImGui.text("[null]");
+                        continue;
+                    }
+                    ImGui.text(String.format("[%s] %s", i, spriteRender.getParent().getName() + " : " + spriteRender.getParent()));
+                }
+                ImGui.endCombo();
+            }
+
+            displayBulletTitle("Renderer:" + renderBatch.getzIndex(), colorGreyA);
+            displayConsoleButton(0, renderBatch.getPointSizeFloat(), 4, renderBatch.getVertexArray());
+            displayTime(renderBatch.getResizeTime(), renderBatch.getUpdateTime(), colorLightGreenA);
+            displayRenderInfo(renderBatch.getzIndex(), renderBatch.getMaxBathSize(), renderBatch.getCurrentCapacity(), renderBatch.getSpriteCount(), renderBatch.hasRoom());
+            doSpacing(1);
+        }
+    }
+
+    public void displayParamBulletText(String firstText, String secondText, Vector4f firstColor, Vector4f secondColor){
         displayBulletTitle(firstText, firstColor);
         ImGui.sameLine();
         ImGui.textColored(secondColor.x, secondColor.y, secondColor.z, secondColor.w, secondText);
+    }
+
+    public void displayParamText(String firstText, String secondText, Vector4f firstColor){
+        ImGui.text(firstText);
+        ImGui.sameLine();
+        ImGui.textColored(firstColor.x, firstColor.y, firstColor.z, firstColor.w, secondText);
     }
 
     public void displayBulletTitle(String title, Vector4f titleColor){
@@ -181,14 +205,15 @@ public class ResourcesManager {
         ImGui.textColored(titleColor.x, titleColor.y, titleColor.z, titleColor.w, title);
     }
 
-    public void displayRenderInfo(int zIndex, int maxSize, int count, boolean hasRoom){
+    public void displayRenderInfo(int zIndex, int maxSize, int currentCapacity, int count, boolean hasRoom){
         ImGui.text("\tFilled in:\t");
         ImGui.sameLine();
-        ImGui.textColored(colorLightGreenA.x, colorLightGreenA.y, colorLightGreenA.z, colorLightGreenA.w, String.format("%.1f", (100.0 / ((double)maxSize / count))));
+        ImGui.textColored(colorLightGreenA.x, colorLightGreenA.y, colorLightGreenA.z, colorLightGreenA.w, String.format("%.1f", (100.0 / ((double)currentCapacity / count))));
         ImGui.sameLine();
         ImGui.textColored(colorLightGreenA.x, colorLightGreenA.y, colorLightGreenA.z, colorLightGreenA.w, "%%");
         ImGui.text(String.format("\tIndex:\t\t %s", zIndex));
-        ImGui.text(String.format("\tCapacity: \t %s", maxSize));
+        ImGui.text(String.format("\tLimit:\t\t %s", maxSize > 0 ? maxSize : "No limit"));
+        ImGui.text(String.format("\tCapacity: \t %s", currentCapacity));
         ImGui.text(String.format("\tLoaded:   \t %s", count));
         if(!hasRoom){
             ImGui.sameLine();
@@ -242,20 +267,28 @@ public class ResourcesManager {
         }
     }
 
-    public void displayConsoleButton(int paramLen, int  pointLen, int pointInObj){
-        float[] vertexArray = DebugDraw.getDynamicLayerList().get(0).getVertexArray();
-
+    public void displayConsoleButton(int paramLen, int  pointLen, int pointInObj, float[] vertexArray){
         ImGui.sameLine();
+        ImGui.pushID(Arrays.hashCode(vertexArray));
         if(ImGui.button(">_")){
+            System.out.println("print");
             ConsoleWindow.clear();
 
             for(int i = 0; i < vertexArray.length; i++){
                 ConsoleWindow.collect(String.format("%.1f\t",vertexArray[i]));
-                if((i + 1) % paramLen == 0) ConsoleWindow.collect("\t");
+                if(paramLen != 0) {
+                    if ((i + 1) % paramLen == 0) ConsoleWindow.collect("\t");
+                }
                 if((i + 1) % pointLen == 0) ConsoleWindow.next();
                 if((i + 1) % (pointLen * pointInObj) == 0) ConsoleWindow.space();
             }
         }
+        ImGui.popID();
+    }
+
+    public void displayTime(double resizeTime, double updateTime, Vector4f color){
+        displayParamText("\tResize Time:", String.format("  %.0fs", glfwGetTime() - resizeTime), color);
+        displayParamText("\tUpdate Time:", String.format("  %.0fs", glfwGetTime() - updateTime), color);
     }
 
     public void displayCursorPos(){

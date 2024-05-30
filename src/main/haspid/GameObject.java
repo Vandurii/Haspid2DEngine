@@ -1,9 +1,12 @@
 package main.haspid;
 
 import imgui.ImGui;
+import main.components.SpriteRenderer;
 import main.editor.InactiveInEditor;
 import main.editor.JImGui;
 import main.components.Component;
+import main.util.Texture;
+import org.joml.Vector2d;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +51,7 @@ public class GameObject {
         // set to dirty if the position has changed
         if (!lastTransform.equals(transform)) {
             dirty = true;
+            transform.copyTo(lastTransform);
         }
 
         // update all component from this object
@@ -60,8 +64,6 @@ public class GameObject {
              component.update(dt);
         }
 
-        // update last transform
-        transform.copy(lastTransform);
         dirty = false;
     }
 
@@ -96,9 +98,6 @@ public class GameObject {
     }
 
     public void removeComponent(Component component){
-
-   //     System.out.println("");
-
        boolean removed = componentList.remove(component);
        if(!removed) throw new IllegalStateException("Object doesn't extend the component: " + component);
     }
@@ -196,5 +195,15 @@ public class GameObject {
 
     public Transform getLastTransform(){
         return lastTransform;
+    }
+
+    public void setSprite(SpriteRenderer spriteRenderer){
+        Texture newTexture = spriteRenderer.getTexture();
+        Vector2d[] newTexCords = spriteRenderer.getSpriteCords();
+
+        SpriteRenderer spriteRender = getComponent(SpriteRenderer.class);
+        spriteRender.setTexture(newTexture);
+        spriteRender.setSpriteCords(newTexCords);
+        spriteRender.setDirty();
     }
 }

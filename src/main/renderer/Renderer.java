@@ -2,7 +2,6 @@ package main.renderer;
 
 import main.components.SpriteRenderer;
 import main.haspid.GameObject;
-import main.haspid.MouseListener;
 import main.haspid.Transform;
 import main.util.AssetPool;
 import main.util.Shader;
@@ -57,7 +56,7 @@ public class Renderer {
 
         if(!added){
             RenderBatch newRenderBatch = new RenderBatch(maxBatchSize, transform.getZIndex());
-            newRenderBatch.start();
+            newRenderBatch.init();
             newRenderBatch.addSprite(spriteRenderer);
             rendererBatchList.add(newRenderBatch);
             Collections.sort(rendererBatchList);

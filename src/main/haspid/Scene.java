@@ -6,13 +6,10 @@ import main.components.Component;
 import main.components.SpriteRenderer;
 import main.components.ComponentSerializer;
 import main.components.physicsComponent.RigidBody;
-import main.components.stateMachine.Animation;
+import main.components.stateMachine.Frame;
 import main.components.stateMachine.StateMachine;
 import main.physics.Physics2D;
-import main.renderer.DebugDraw;
-import main.renderer.DebugDrawEvents;
-import main.renderer.Line2D;
-import main.renderer.Renderer;
+import main.renderer.*;
 import main.util.AssetPool;
 import main.util.SpriteSheet;
 import org.joml.Vector2d;
@@ -25,7 +22,6 @@ import java.util.*;
 
 import static main.Configuration.*;
 import static main.haspid.Log.LogType.INFO;
-import static org.lwjgl.opengl.GL11.glGetIntegerv;
 
 public abstract class Scene {
 
@@ -61,6 +57,16 @@ public abstract class Scene {
         loadResources();
     }
 
+    public List<Frame> loadFrame(double frameTime, SpriteSheet spriteSheet, int ...index){
+        List<Frame> frameList = new ArrayList<>();
+
+        for(int i: index){
+            frameList.add(new Frame(spriteSheet.getSprite(i), frameTime));
+        }
+
+        return frameList;
+    }
+
     private void loadResources(){
         //===================================
         //  shader
@@ -92,142 +98,8 @@ public abstract class Scene {
         AssetPool.getSound(stomp);
         AssetPool.getSound(kick);
         AssetPool.getSound(invincible);
-
-        //===================================
-        //  State Machine
-        //===================================
-        double defaultFrameTime = 0.23;
-
-
-        // small Mario
-        StateMachine smallMario = new StateMachine("idle");
-
-        Animation run = new Animation("run", true);
-        run.addFrame(smallFormSheet.getSprite(0), defaultFrameTime);
-        run.addFrame(smallFormSheet.getSprite(2), defaultFrameTime);
-        run.addFrame(smallFormSheet.getSprite(3), defaultFrameTime);
-        run.addFrame(smallFormSheet.getSprite(2), defaultFrameTime);
-
-        Animation switchDirection = new Animation("switch", false);
-        switchDirection.addFrame(smallFormSheet.getSprite(4), 0.2);
-
-        Animation idle  = new Animation("idle", true);
-        idle.addFrame(smallFormSheet.getSprite(0), 1);
-
-        Animation jump = new Animation("jump", true);
-        jump.addFrame(smallFormSheet.getSprite(5), 0.1);
-
-        smallMario.addState(idle, switchDirection, run, jump);
-        AssetPool.putStateMachine("smallMario", smallMario);
-
-
-        // big Mario
-        StateMachine bigMario = new StateMachine("idle");
-
-        Animation bigRun = new Animation("run", true);
-        bigRun.addFrame(bigFormSheet.getSprite(0), defaultFrameTime);
-        bigRun.addFrame(bigFormSheet.getSprite(1), defaultFrameTime);
-        bigRun.addFrame(bigFormSheet.getSprite(2), defaultFrameTime);
-        bigRun.addFrame(bigFormSheet.getSprite(3), defaultFrameTime);
-        bigRun.addFrame(bigFormSheet.getSprite(2), defaultFrameTime);
-        bigRun.addFrame(bigFormSheet.getSprite(1), defaultFrameTime);
-
-        Animation bigSwitchDirection = new Animation("switch", false);
-        bigSwitchDirection.addFrame(bigFormSheet.getSprite(4), 0.1f);
-
-        Animation bigIdle = new Animation("idle", true);
-        bigIdle.addFrame(bigFormSheet.getSprite(0), 0.1f);
-
-        Animation bigJump = new Animation("jump", true);
-        bigJump.addFrame(bigFormSheet.getSprite(5), 0.1f);
-
-        bigMario.addState(bigRun, bigIdle, bigJump, bigSwitchDirection);
-        AssetPool.putStateMachine("bigMario", bigMario);
-
-
-        // fire Mario
-        StateMachine fireMario = new StateMachine("idle");
-
-        Animation fireRun = new Animation("run", true);
-        fireRun.addFrame(bigFormSheet.getSprite(21), defaultFrameTime);
-        fireRun.addFrame(bigFormSheet.getSprite(22), defaultFrameTime);
-        fireRun.addFrame(bigFormSheet.getSprite(23), defaultFrameTime);
-        fireRun.addFrame(bigFormSheet.getSprite(24), defaultFrameTime);
-        fireRun.addFrame(bigFormSheet.getSprite(23), defaultFrameTime);
-        fireRun.addFrame(bigFormSheet.getSprite(22), defaultFrameTime);
-
-        Animation fireSwitchDirection = new Animation("switch", false);
-        fireSwitchDirection.addFrame(bigFormSheet.getSprite(25), 0.1f);
-
-        Animation fireIdle = new Animation("idle", true);
-        fireIdle.addFrame(bigFormSheet.getSprite(21), 0.1f);
-
-        Animation fireJump = new Animation("jump", true);
-        fireJump.addFrame(bigFormSheet.getSprite(26), 0.1f);
-
-        fireMario.addState(fireRun, fireIdle, fireJump, fireSwitchDirection);
-        AssetPool.putStateMachine("fireMario", fireMario);
-
-        // die Mario
-        StateMachine dieMario = new StateMachine("die");
-        Animation die = new Animation("die", true);
-        die.addFrame(smallFormSheet.getSprite(6), 0.1);
-        dieMario.addState(die);
-        AssetPool.putStateMachine("dieMario", dieMario);
-
-
-        // question block
-        StateMachine questionBlock = new StateMachine("active");
-
-        Animation active = new Animation("active", true);
-        active.addFrame(itemsSheet.getSprite(0), 0.57f);
-        active.addFrame(itemsSheet.getSprite(1), 0.23f);
-        active.addFrame(itemsSheet.getSprite(2), 0.23f);
-
-        Animation inactive = new Animation("inactive", true);
-        inactive.addFrame(itemsSheet.getSprite(3), 0.1);
-
-        questionBlock.addState(active, inactive);
-        AssetPool.putStateMachine("questionBlock", questionBlock);
-
-
-        // coin flip
-        StateMachine coin = new StateMachine("coin");
-        Animation coinFlip = new Animation("coin", true);
-        coinFlip.addFrame(itemsSheet.getSprite(7), 0.57f);
-        coinFlip.addFrame(itemsSheet.getSprite(8), defaultFrameTime);
-        coinFlip.addFrame(itemsSheet.getSprite(9), defaultFrameTime);
-        coin.addState(coinFlip);
-        AssetPool.putStateMachine("coin", coin);
-
-
-        // goomba
-        StateMachine goomba = new StateMachine("walk");
-
-        Animation goombaWalk = new Animation("walk", true);
-        goombaWalk.addFrame(smallFormSheet.getSprite(14), defaultFrameTime);
-        goombaWalk.addFrame(smallFormSheet.getSprite(15), defaultFrameTime);
-
-        Animation goombaSquashed = new Animation("squashed", true);
-        goombaSquashed.addFrame(smallFormSheet.getSprite(16), 0.1f);
-
-        goomba.addState(goombaWalk, goombaSquashed);
-        AssetPool.putStateMachine("goomba", goomba);
-
-        // trutle
-        StateMachine turtle = new StateMachine("walk");
-
-        Animation turtleWalk = new Animation("walk", true);
-        turtleWalk.addFrame(turtleSheet.getSprite(0), defaultFrameTime);
-        turtleWalk.addFrame(turtleSheet.getSprite(1), defaultFrameTime);
-
-        Animation turtleSquashed = new Animation("squashed", true);
-        turtleSquashed.addFrame(turtleSheet.getSprite(2), 0.1f);
-        turtleSquashed.addFrame(turtleSheet.getSprite(3), 0.1f);
-
-        turtle.addState(turtleWalk, turtleSquashed);
-        AssetPool.putStateMachine("turtle", turtle);
     }
+
     public abstract void init();
 
     public abstract void update(float dt);
@@ -272,6 +144,10 @@ public abstract class Scene {
         Collections.addAll(addObjectQueue, gameObjects);
     }
 
+    public void removeFromSceneUnsafe(GameObject gameObject){
+        sceneObjectList.remove(gameObject);
+    }
+
     private void updateGameObject(float dt){
         for (GameObject go : getSceneObjectList()) {
             go.update(dt);
@@ -294,6 +170,11 @@ public abstract class Scene {
         for (Map.Entry<Component, GameObject> entry : removeComponentQueue.entrySet()) {
             Component c = entry.getKey();
             GameObject go = entry.getValue();
+
+            // remove it from render if it implement Drawable interface
+            if(c instanceof Drawable){
+                ((Drawable) c ).setDirty(true);
+            }
             go.removeComponent(c);
 
             Console.addLog(new Log(INFO, String.format("Deleted: %s from %s ID:%s", c, go, go.getGameObjectID())));
@@ -328,8 +209,6 @@ public abstract class Scene {
                 for (Line2D line : lineList) {
                     line.markToRemove(true);
                 }
-                // refresh line render after
-                DebugDraw.notify(DebugDrawEvents.Garbage, colliderID);
             }
 
             // remove object date from physic engine
@@ -357,11 +236,49 @@ public abstract class Scene {
         addObjectQueue.clear();
     }
 
+    public void saveStateMachine(String path, List<StateMachine> stateMachineList){
+        Gson gson = new GsonBuilder().
+                registerTypeAdapter(Component.class, new ComponentSerializer()).
+                enableComplexMapKeySerialization().
+                create();
+
+        try {
+            FileWriter fileWriter = new FileWriter(path);
+
+            String obj = gson.toJson(stateMachineList);
+            fileWriter.write(obj);
+            fileWriter.close();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public StateMachine loadStateMachine(String path, String name){
+        Gson gson = new GsonBuilder().
+                registerTypeAdapter(Component.class, new ComponentSerializer()).
+                registerTypeAdapter(GameObject.class, new GameObjectDeserializer()).
+                create();
+
+        try{
+            String data = new String(Files.readAllBytes(Paths.get(path)));
+            if(!data.trim().isEmpty() && !data.trim().equals("[]")) {
+                StateMachine[] stateMachines = gson.fromJson(data, StateMachine[].class);
+
+                for(StateMachine stateMachine: stateMachines){
+                    if(stateMachine.getName().equals(name)) return stateMachine;
+                }
+
+            }
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     public void saveSceneToFile(){
             Gson gson = new GsonBuilder().
-                    setPrettyPrinting().
                     registerTypeAdapter(Component.class, new ComponentSerializer()).
-                    registerTypeAdapter(GameObject.class, new GameObjectDeserializer()).
                     enableComplexMapKeySerialization().
                     create();
 
@@ -387,10 +304,8 @@ public abstract class Scene {
         resetScene();
 
         Gson gson = new GsonBuilder().
-                setPrettyPrinting().
                 registerTypeAdapter(Component.class, new ComponentSerializer()).
                 registerTypeAdapter(GameObject.class, new GameObjectDeserializer()).
-                enableComplexMapKeySerialization().
                 create();
 
         try{

@@ -3,34 +3,29 @@ package main.components.physicsComponent;
 import main.haspid.Scene;
 import main.haspid.Transform;
 import main.haspid.Window;
-import main.physics.Physics2D;
 import main.renderer.DebugDraw;
+import main.renderer.DebugDrawEvents;
 import main.renderer.Line2D;
 import org.joml.Vector2d;
 
+import java.util.HashSet;
 import java.util.List;
 
 import static main.Configuration.*;
-import static main.renderer.DebugDrawEvents.Garbage;
 import static main.renderer.DrawMode.Dynamic;
 
 public class BoxCollider extends Collider {
     private Vector2d center;
     private Vector2d halfSize;
-    private transient Scene scene;
-    private transient Physics2D physics;
-    private transient boolean resetFixtureNextFrame;
+
+
 
     public BoxCollider(Vector2d halfSize){
         this.halfSize = halfSize;
         this.center = new Vector2d();
-        this.scene = Window.getInstance().getCurrentScene();
     }
 
-    @Override
-    public void init(){
-        this.physics = Window.getInstance().getCurrentScene().getPhysics();
-    }
+
 
     @Override
     public void update(float dt){
@@ -42,10 +37,9 @@ public class BoxCollider extends Collider {
 
             for(Line2D line: lineList){
                 line.markToRemove(true);
-                Window.getInstance().getCurrentScene().removeComponentSafe(getParent(), line);
+                scene.removeComponentSafe(getParent(), line);
             }
 
-            DebugDraw.notify(Garbage, colliderID);
             DebugDraw.addBox(center, new Vector2d(halfSize.x * 2, halfSize.y * 2), newTransform.getRotation(), colliderColor, colliderID, colliderZIndex, Dynamic, getParent());
         }
 
@@ -58,16 +52,6 @@ public class BoxCollider extends Collider {
         boxCollider.setCenter(center);
 
         return boxCollider;
-    }
-
-    public void resetFixture(){
-        if(physics.isLocked()){
-            resetFixtureNextFrame = true;
-        }else{
-            resetFixtureNextFrame = false;
-            RigidBody rigidBody = getParent().getComponent(RigidBody.class);
-            if(rigidBody != null) physics.resetCollider(rigidBody, this);
-        }
     }
 
     @Override

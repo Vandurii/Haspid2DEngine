@@ -41,7 +41,7 @@ public class DebugDraw {
                     case Draw -> {
                         // reload if dirty
                         if(layer.isDirty()){
-                            layer.reload();
+                            layer.resize();
                         }
 
                         // draw layer
@@ -52,9 +52,6 @@ public class DebugDraw {
                     }
                     case Enable ->{
                         layer.enable();
-                    }
-                    case Garbage ->{
-                        layer.garbage();
                     }
                 }
             }
@@ -117,11 +114,12 @@ public class DebugDraw {
         if(drawMode == Static) {
             StaticLayer newStaticLayer = new StaticLayer(zIndex, name);
             newStaticLayer.addLine(line);
+            newStaticLayer.init();
             staticLayerList.add(newStaticLayer);
         }else{
             DynamicLayer newDynamicLayer = new DynamicLayer(zIndex, name);
-            newDynamicLayer.init();
             newDynamicLayer.addLine(line);
+            newDynamicLayer.init();
             dynamicLayerList.add(newDynamicLayer);
         }
     }
@@ -228,6 +226,11 @@ public class DebugDraw {
 
     public static List<DynamicLayer> getDynamicLayerList(){
         return dynamicLayerList;
+    }
+
+    public static void reset(){
+        staticLayerList = new ArrayList<>();
+        dynamicLayerList = new ArrayList<>();
     }
 }
 

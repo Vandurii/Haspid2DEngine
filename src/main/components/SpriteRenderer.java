@@ -1,11 +1,12 @@
 package main.components;
 
 import imgui.ImGui;
+import main.renderer.Drawable;
 import main.util.Texture;
 import org.joml.Vector2d;
 import org.joml.Vector4f;
 
-public class SpriteRenderer extends Component {
+public class SpriteRenderer extends Component implements Drawable {
     private transient boolean remove;
     private transient boolean isDirty;
     private transient boolean isHighLighted;
@@ -195,5 +196,10 @@ public class SpriteRenderer extends Component {
 
     public void setHighLight(boolean value){
         isHighLighted = value;
+    }
+
+    @Override
+    public void setDirty(boolean dirty) {
+        this.isDirty = dirty;
     }
 }

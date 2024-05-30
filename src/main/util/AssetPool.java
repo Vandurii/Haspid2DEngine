@@ -1,16 +1,21 @@
 package main.util;
 
 import main.components.stateMachine.StateMachine;
+import main.haspid.Window;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
+import static main.Configuration.stateMachinePath;
 
 public class AssetPool{
     private static Map<String, Shader> shaders = new HashMap<>();
-    private static Map<String, Texture> textures = new HashMap<>();
-    private static Map<String, SpriteSheet> spriteSheetList = new HashMap<>();
     private static Map<String, Sound> soundList = new HashMap<>();
+    private static Map<String, Texture> textures = new HashMap<>();
     private static Map<String, StateMachine> stateMachineMap = new HashMap<>();
+    private static Map<String, SpriteSheet> spriteSheetList = new HashMap<>();
 
     public static Shader getShader(String resourceName){
         if(!shaders.containsKey(resourceName)){
@@ -62,11 +67,17 @@ public class AssetPool{
     }
 
     public static StateMachine getStateMachine(String name){
+        if(!stateMachineMap.containsKey(name)){
+            StateMachine stateMachine = Window.getInstance().getCurrentScene().loadStateMachine(stateMachinePath, name);
+            stateMachine.init();
+            stateMachineMap.put(stateMachine.getName(), stateMachine);
+        }
+
         return stateMachineMap.get(name);
     }
 
-    public static void putStateMachine(String name, StateMachine stateMachine){
-        stateMachineMap.put(name, stateMachine);
+    public static Set<String> getAllStatesMachines(){
+        return stateMachineMap.keySet();
     }
 
     public static void printResourcesInAssetPool(){

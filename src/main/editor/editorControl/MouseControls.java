@@ -14,6 +14,7 @@ import java.util.*;
 
 import static main.Configuration.*;
 import static main.renderer.DebugDrawEvents.*;
+import static main.renderer.DrawMode.Dynamic;
 import static main.renderer.DrawMode.Static;
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -310,6 +311,7 @@ public class MouseControls extends Component {
         }else if(!mouse.isMouseDragging() && wasDraggedLastFrame){
             selectorActive = false;
             DebugDraw.notify(Disable, selectorID);
+            DebugDraw.notify(Clear, selectorID);
             if(distance != null) {
                 int startFromX = (int) startDraggingVMode.x;
                 int startFromY = (int) startDraggingVMode.y;
@@ -344,13 +346,13 @@ public class MouseControls extends Component {
                 distance = new Vector2d(endDragging.x - startDraggingWMode.x, endDragging.y - startDraggingWMode.y);
                 center = new Vector2d(startDraggingWMode.x + (distance.x / 2), startDraggingWMode.y + (distance.y / 2));
                 DebugDraw.notify(Clear, selectorID);
+                DebugDraw.addBox(center, distance, 0, new Vector3f(0, 0, 0), selectorID, selectorZIndex, Dynamic, getParent());
                 DebugDraw.notify(Enable, selectorID);
-                DebugDraw.addBox(center, distance, 0, new Vector3f(0, 0, 0), selectorID, selectorZIndex, Static, getParent());
-                DebugDraw.notify(SetDirty, selectorID);
                 if(selector != null) Window.getInstance().getCurrentScene().removeFromSceneSafe(selector);
                 selector = new GameObject("Selector");
                 selector.setNonSerializable();
-                selector.addComponent(new Transform(center, distance, 0, -100));
+                selector.setNonTriggerable();
+                selector.addComponent(new Transform(center, distance, 0, selectorRecZIndex));
                 selector.setTransformFromItself();
                 selector.addComponent(new SpriteRenderer(selectorBorderColor));
                 editorScene.addObjectToSceneSafe(selector);
@@ -429,8 +431,10 @@ public class MouseControls extends Component {
 
     public void removeDraggingObject(){
         editorScene.removeFromSceneSafe(draggingObject);
+
+        // instant remove from object list, otherwise it will be selected als active object
+        editorScene.removeFromSceneUnsafe(draggingObject);
         draggingObject = null;
-        unselectActiveObjects();
     }
 
     public boolean hasDraggingObject(){

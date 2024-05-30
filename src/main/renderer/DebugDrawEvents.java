@@ -6,5 +6,4 @@ public enum DebugDrawEvents {
     Draw,
     Disable,
     Enable,
-    Garbage
 }

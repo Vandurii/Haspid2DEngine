@@ -41,13 +41,13 @@ public class Console extends Component {
     }
 
     public static void addLog(Log log){
-        final StackTraceElement[] ste = Thread.currentThread().getStackTrace();
-        String method = ste[2].getMethodName();
-        String clazz = ste[2].getClassName();
-        clazz = clazz.substring(clazz.lastIndexOf(".") + 1);
-
-        log.setText(String.format("%s::%s::%s", clazz, method, log.getText()));
-        logList.add(log);
+//        final StackTraceElement[] ste = Thread.currentThread().getStackTrace();
+//        String method = ste[2].getMethodName();
+//        String clazz = ste[2].getClassName();
+//        clazz = clazz.substring(clazz.lastIndexOf(".") + 1);
+//
+//        log.setText(String.format("%s::%s::%s", clazz, method, log.getText()));
+//        logList.add(log);
     }
 
     public static Console getInstance(){

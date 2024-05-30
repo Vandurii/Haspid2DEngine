@@ -223,7 +223,6 @@ public class Window implements Observer {
                 newScene = null;
             }
 
-            System.out.println("\n\n\n");
             Console.addLog(new Log(Log.LogType.INFO, "End Frame: "));
         }
     }

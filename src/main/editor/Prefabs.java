@@ -15,6 +15,8 @@ import main.util.AssetPool;
 import main.util.SpriteSheet;
 import org.joml.Vector2d;
 
+import java.util.List;
+
 import static main.Configuration.*;
 
 public class Prefabs {
@@ -43,8 +45,8 @@ public class Prefabs {
         RigidBody rigidBody = new RigidBody();
 
         Collider collider = null;
-        width -= width / 100;
-        height -= height / 100;
+        width -= width / 10;
+        height -= height / 10;
         Vector2d halfSize = new Vector2d(width / 10, height / 10);
         if(colliderType == ColliderType.Box) {
             collider = new BoxCollider(halfSize);
@@ -86,23 +88,17 @@ public class Prefabs {
         return bopObject;
     }
 
-    public static GameObject generateDynamicAnimatedObject(double width, double height, ColliderType colliderType, Animation ...animations){
+    public static GameObject generateDynamicAnimatedObject(double width, double height, ColliderType colliderType, List<Animation> animationList, String name){
         GameObject dynamicAnimatedObject = generateDynamicObject(new SpriteRenderer(), width, height, colliderType);
-        StateMachine stateMachine = new StateMachine(animations[0].getTitle());
-        for(Animation animation: animations){
-            stateMachine.addState(animation);
-        }
+        StateMachine stateMachine = new StateMachine(animationList.get(0).getTitle(), name, animationList);
         dynamicAnimatedObject.addComponent(stateMachine);
 
         return  dynamicAnimatedObject;
     }
 
-    public static GameObject generateStaticAnimatedObject(double width, double height, ColliderType colliderType, Animation ...animations){
+    public static GameObject generateStaticAnimatedObject(double width, double height, ColliderType colliderType, List<Animation> animationList, String name){
         GameObject staticAnimatedObject = generateStaticObject(new SpriteRenderer(), width, height, colliderType);
-        StateMachine stateMachine = new StateMachine(animations[0].getTitle());
-        for(Animation animation: animations){
-            stateMachine.addState(animation);
-        }
+        StateMachine stateMachine = new StateMachine(animationList.get(0).getTitle(), name, animationList);
         staticAnimatedObject.addComponent(stateMachine);
 
         return  staticAnimatedObject;

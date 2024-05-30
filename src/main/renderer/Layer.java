@@ -1,40 +1,38 @@
 package main.renderer;
 
-import main.haspid.Console;
-import main.haspid.Log;
-import org.joml.Vector2d;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import static main.Configuration.*;
-import static main.haspid.Log.LogType.WARNING;
 import static org.lwjgl.opengl.GL11.glLineWidth;
 
 public abstract class Layer {
+    int VAO;
+    private String ID;
+    private int zIndex;
+    private boolean dirty;
+    private boolean disabled;
+    protected double resizeTime;
+    protected double updateTime;
+    protected float[] vertexArray;
+
 
     public Layer(int zIndex, String ID){
         this.ID = ID;
         this.zIndex = zIndex;
-        this.lineList = new ArrayList<>();
     }
 
-    int VAO;
-    protected int zIndex;
-    protected String ID;
-    float[] vertexArray;
-    protected boolean dirty;
-    protected boolean disabled;
-    protected List<Line2D> lineList;
-
-    public abstract void reload();
+    public abstract void resize();
 
     public abstract void draw();
 
-    public void garbage(){};
+    public abstract void clearLineList();
+
+    public abstract void addLine(Line2D line);
 
     public void calculateLineWidth(){
+        // grid can't be larger the maxWidth
         float width = (float) Math.min(currentZoomValue * lineWidthScala, maxLineWidth);
+
+        // grid can't be taller then 1
+        width = Math.max(1, width);
         glLineWidth(width);
     }
 
@@ -46,20 +44,12 @@ public abstract class Layer {
         disabled = false;
     }
 
-    public void clearLineList(){
-        lineList.clear();
-    }
-
-    public void addLine(Line2D line){
-        lineList.add(line);
+    public boolean isDirty() {
+        return dirty;
     }
 
     public boolean isEnabled(){
         return !disabled;
-    }
-
-    public boolean isDirty() {
-        return dirty;
     }
 
     public void setDirty(boolean dirty) {
@@ -74,7 +64,15 @@ public abstract class Layer {
         return ID;
     }
 
-    public List<Line2D> getLine(){
-        return lineList;
+    public double getResizeTime() {
+        return resizeTime;
+    }
+
+    public double getUpdateTime() {
+        return updateTime;
+    }
+
+    public float[] getVertexArray(){
+        return vertexArray;
     }
 }

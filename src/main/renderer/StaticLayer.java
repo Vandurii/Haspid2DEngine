@@ -14,6 +14,7 @@ import java.util.List;
 
 import static main.Configuration.*;
 import static main.haspid.Log.LogType.INFO;
+import static org.lwjgl.glfw.GLFW.glfwGetTime;
 import static org.lwjgl.opengl.GL11.GL_FLOAT;
 import static org.lwjgl.opengl.GL15.*;
 import static org.lwjgl.opengl.GL20.*;
@@ -23,18 +24,40 @@ import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 
 public class StaticLayer extends Layer {
 
+    int VBO;
+    private List<Line2D> lineList;
+
     public StaticLayer(int zIndex, String ID) {
         super(zIndex, ID);
+        this.lineList = new ArrayList<>();
     }
 
-    public void reload(){
-        Console.addLog(new Log(INFO, "Reload layer: " + ID + " z:" + zIndex));
+    public  void init(){
+        int numberOfLines = getLineList().size();
+        int sizeBytes = numberOfLines * lineSizeFloat * Float.BYTES;
 
-        int numberOfLines = lineList.size();
+        // Generate VAO
+        VAO = glGenVertexArrays();
+        glBindVertexArray(VAO);
+
+       //Generate VBO
+        VBO = glGenBuffers();
+        glBindBuffer(GL_ARRAY_BUFFER, VBO);
+        glBufferData(GL_ARRAY_BUFFER, sizeBytes, GL_STATIC_DRAW);
+
+        glVertexAttribPointer(0, 3, GL_FLOAT, false, pointSizeFloat * Float.BYTES, 0);
+        glVertexAttribPointer(1, 3, GL_FLOAT, false, pointSizeFloat * Float.BYTES, 3 * Float.BYTES);
+    }
+
+    public void resize(){
+        resizeTime = glfwGetTime();
+        Console.addLog(new Log(INFO, "Reload layer: " + getID() + " z:" + getzIndex()));
+
+        int numberOfLines = getLineList().size();
         vertexArray = new float[numberOfLines * lineSizeFloat];
 
         int offset = 0;
-        for(Line2D line: lineList) {
+        for(Line2D line: getLineList()) {
             for (int i = 0; i < 2; i++) {
                 Vector2d position = i == 0 ? line.getFrom() : line.getTo();
                 Vector3f color = line.getColor();
@@ -51,32 +74,24 @@ public class StaticLayer extends Layer {
             }
         }
 
-        // Generate VAO
-         VAO = glGenVertexArrays();
-        glBindVertexArray(VAO);
-
-        //Generate VBO
-        int VBO = glGenBuffers();
         glBindBuffer(GL_ARRAY_BUFFER, VBO);
         glBufferData(GL_ARRAY_BUFFER, vertexArray, GL_STATIC_DRAW);
-
-        glVertexAttribPointer(0, 3, GL_FLOAT, false, pointSizeFloat * Float.BYTES, 0);
-        glVertexAttribPointer(1, 3, GL_FLOAT, false, pointSizeFloat * Float.BYTES, 3 * Float.BYTES);
 
         setDirty(false);
     }
 
     public void draw(){
-        if(disabled){
-            Console.addLog(new Log(INFO, "Can't draw because layer in Disabled: "  + ID + " :" + zIndex));
+        if(!isEnabled()){
+            Console.addLog(new Log(INFO, "Can't draw because layer is Disabled: "  + getID() + " :" + getzIndex()));
             return;
         }
 
+        // set grid width
         calculateLineWidth();
 
         glBindVertexArray(VAO);
 
-        int numberOfLines = lineList.size();
+        int numberOfLines = getLineList().size();
         Shader line2DShader = AssetPool.getShader(line2DShaderPath);
         Camera camera = Window.getInstance().getCurrentScene().getCamera();
 
@@ -95,14 +110,15 @@ public class StaticLayer extends Layer {
         line2DShader.detach();
     }
 
-    public void printPoint(){
-        System.out.println("Start");
-        for(int i = 0; i < vertexArray.length; i++){
-            System.out.print(String.format("%.1f\t\t",vertexArray[i]));
-            if((i + 1) % 3 == 0) System.out.print("\t");
-            if((i + 1) % pointSizeFloat == 0) System.out.println();
-            if((i + 1) % (pointSizeFloat * pointsInLine) == 0) System.out.println();
-        }
+    public void clearLineList(){
+        lineList.clear();
     }
 
+    public void addLine(Line2D line) {
+        lineList.add(line);
+    }
+
+    public List<Line2D> getLineList(){
+        return lineList;
+    }
 }

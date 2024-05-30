@@ -1,7 +1,12 @@
 package main.components.physicsComponent;
 
+import main.haspid.Transform;
+import main.haspid.Window;
 import main.renderer.DebugDraw;
+import main.renderer.Line2D;
 import org.joml.Vector2d;
+
+import java.util.List;
 
 import static main.Configuration.*;
 import static main.renderer.DrawMode.Dynamic;
@@ -18,7 +23,18 @@ public class CircleCollider extends Collider {
         Vector2d pos = getParent().getTransform().getPosition();
         Vector2d offset = getOffset();
         Vector2d center = new Vector2d(pos.x + offset.x, pos.y + offset.y);
-        DebugDraw.addCircle(center, radius, debugDefaultColor, colliderID, colliderZIndex, Dynamic, null);
+
+        if(getParent().isDirty()){
+            List<Line2D> lineList = getParent().getAllCompThisType(Line2D.class);
+
+            for(Line2D line: lineList){
+                Window.getInstance().getCurrentScene().removeComponentSafe(getParent(), line);
+            }
+
+            DebugDraw.addCircle(center, radius, colliderColor, colliderID, colliderZIndex, Dynamic, getParent());
+        }
+
+        if(resetFixtureNextFrame) resetFixture();
     }
 
     @Override

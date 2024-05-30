@@ -1,61 +1,82 @@
 package main.components.stateMachine;
 
 import main.components.Component;
-import main.components.SpriteRenderer;
-import main.editor.InactiveInEditor;
 import main.editor.JImGui;
-import main.util.Texture;
-import org.joml.Vector2d;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class StateMachine extends Component implements InactiveInEditor {
+public class StateMachine extends Component  {
+    private String name;
+    private String defaultAnimationTitle;
     private List<Animation> animationList;
-    private String nextAnimation;
-    private String defaultAnimation;
+    private transient String currentAnimationTitle;
     private transient Animation currentAnimation;
 
-    public StateMachine(String defaultAnimation){
-        this.animationList = new ArrayList<>();
-        this.defaultAnimation = defaultAnimation;
-        this.nextAnimation = defaultAnimation;
+    public StateMachine(String name, String defaultAnimationTitle, List<Animation> animationList){
+        this.name = name;
+        this.animationList = animationList;
+        this.defaultAnimationTitle = defaultAnimationTitle;
+        this.currentAnimationTitle = defaultAnimationTitle;
+        this.currentAnimation = findAnimation(defaultAnimationTitle);
     }
 
     @Override
     public void init(){
-        currentAnimation = findAnimation(nextAnimation);
-        updateTexture();
+        // Set texture here because update loop doesn't work in edit mode.
+        currentAnimationTitle = defaultAnimationTitle;
+        currentAnimation = findAnimation(currentAnimationTitle);
+        if(getParent() != null) {
+            getParent().setSprite(currentAnimation.getCurrentFrame().getSpriteRenderer());
+        }
     }
 
     @Override
     public void update(float dt) {
-        currentAnimation = findAnimation(nextAnimation);
+        // get current animation and ubpdate it
+        currentAnimation = findAnimation(currentAnimationTitle);
         currentAnimation.update(dt);
 
-        SpriteRenderer nextSpriteRender = currentAnimation.getCurrentSpriteRender();
+        // set new sprite to the object
+        getParent().setSprite(currentAnimation.getCurrentFrame().getSpriteRenderer());
 
-        if(nextSpriteRender == null){
-            currentAnimation = findAnimation(defaultAnimation);
-            nextAnimation = defaultAnimation;
+        // if the animation shouldn't loop switch it to default after is used
+        if(!currentAnimation.doesLoop() && currentAnimation.isUsed()){
+            currentAnimation.setUsed(false);
+            currentAnimationTitle = defaultAnimationTitle;
         }
-
-        updateTexture();
     }
 
-    public void updateTexture(){
-        SpriteRenderer nextSpriteRender = currentAnimation.getCurrentSpriteRender();
-        Texture nextTexture = nextSpriteRender.getTexture();
-        Vector2d[] nextTexCords = nextSpriteRender.getSpriteCords();
+    public Animation findAnimation(String title){
+        for(Animation animation: animationList){
+            if(animation.getTitle().equals(title)) return animation;
+        }
 
-        SpriteRenderer objectSpriteRender = getParent().getComponent(SpriteRenderer.class);
-        objectSpriteRender.setTexture(nextTexture);
-        objectSpriteRender.setSpriteCords(nextTexCords);
-        objectSpriteRender.setDirty();
+        return  null;
+    }
+
+    public void switchAnimation(String title){
+        this.currentAnimationTitle = title;
+    }
+
+    @Override
+    public Component copy() {
+        List<Animation> animList = new ArrayList<>();
+        for(Animation animation: animationList){
+            animList.add(animation.copy());
+        }
+
+        return new StateMachine(name, defaultAnimationTitle, animationList);
     }
 
     @Override
     public void dearGui(){
+        String title = (String) JImGui.drawValue("Default", defaultAnimationTitle, this.hashCode() + "");
+        if(findAnimation(title) != null) {
+            defaultAnimationTitle = title;
+            currentAnimationTitle = title;
+        }
+
         for(Animation animation: animationList){
             animation.setTitle((String)JImGui.drawValue("State:", animation.getTitle(), this.hashCode() + ""));
 
@@ -66,44 +87,11 @@ public class StateMachine extends Component implements InactiveInEditor {
         }
     }
 
-    @Override
-    public Component copy() {
-        StateMachine stateMachine = new StateMachine(defaultAnimation);
-        for(Animation animation: animationList){
-            stateMachine.addState(animation.copy());
-        }
-
-        return stateMachine;
-    }
-
-    public void addState(Animation ...animations){
-        for(Animation animation: animations){
-            animationList.add(animation);
-        }
-    }
-
-    public Animation findAnimation(String title){
-
-        for(Animation animation: animationList){
-            if(animation.getTitle().equals(title)) return animation;
-        }
-
-        return null;
-    }
-
-    public void switchAnimation(String title){
-        this.nextAnimation = title;
-    }
-
     public String getNextAnimationTitle(){
-        return nextAnimation;
+        return currentAnimationTitle;
     }
 
-    public String getDefaultAnimation() {
-        return defaultAnimation;
-    }
-
-    public void setDefaultAnimation(String defaultAnimation) {
-        this.defaultAnimation = defaultAnimation;
+    public String getName(){
+        return  name;
     }
 }

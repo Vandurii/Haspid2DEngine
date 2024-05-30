@@ -2,11 +2,10 @@ package main.renderer;
 
 import main.components.Component;
 
-import main.haspid.GameObject;
 import org.joml.Vector2d;
 import org.joml.Vector3f;
 
-public class Line2D extends Component{
+public class Line2D extends Component implements Drawable{
     private Vector2d to;
     private Vector2d from;
     private Vector3f color;
@@ -14,7 +13,6 @@ public class Line2D extends Component{
     private transient int ID;
     private transient boolean dirty;
     private transient boolean remove;
-    private transient boolean after;
 
     public Line2D(Vector2d from, Vector2d to, Vector3f color) {
         this.from = from;
@@ -34,11 +32,6 @@ public class Line2D extends Component{
         }
     }
 
-//    @Override
-//    public Line2D copy(){
-//        return new Line2D(new Vector2d(from.x, from.y), new Vector2d(to.x, to.y), new Vector3f(color.x, color.y, color.z));
-//    }
-
     @Override
     public boolean equals(Object o){
         if(!(o instanceof Line2D line)) return false;
@@ -54,6 +47,7 @@ public class Line2D extends Component{
 
     public void markToRemove(boolean remove){
         this.remove = remove;
+        this.dirty = true;
     }
 
     public boolean isDirty(){
@@ -82,13 +76,5 @@ public class Line2D extends Component{
 
     public int getID() {
         return ID;
-    }
-
-    public void setAfter(boolean after){
-        this.after = after;
-    }
-
-    public boolean isAfter(){
-        return  after;
     }
 }

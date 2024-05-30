@@ -103,7 +103,7 @@ public class PlayerController extends Component implements InactiveInEditor {
         // friction
         this.thresholdLS = 0.4;
         this.frictionLS = 0.5;
-        this.startVelYLS = -1;
+        this.startVelYLS = -10;
         this.speedScalarLS = 1.1;
 
         this.velocity = new Vector2d();
@@ -172,7 +172,7 @@ public class PlayerController extends Component implements InactiveInEditor {
             hurt(dt);
         }
 
-        if(playerState == PlayerState.fire){
+        if(playerState == PlayerState.small){
             if(((fireballCollDown -= dt) < 0) && keyboard.isKeyPressed(GLFW_KEY_E)){
                 spawnFireball();
                 fireballCollDown = fireballResetCoolDown;

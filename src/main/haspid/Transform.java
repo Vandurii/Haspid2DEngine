@@ -38,9 +38,6 @@ public class Transform extends Component {
         this.zIndex = zIndex;
     }
 
-//    @Override
-//    public void dearGui(){}
-
     @Override
     public void update(float dt) {
         if(getParent() == null) throw new IllegalStateException("Parent Object is null.");
@@ -54,7 +51,7 @@ public class Transform extends Component {
         return t;
     }
 
-    public void copy(Transform to){
+    public void copyTo(Transform to){
         to.position.set(new Vector2d(this.position));
         to.scale.set(new Vector2d(this.scale));
         to.setRotation(rotation);

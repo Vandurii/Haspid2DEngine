@@ -20,6 +20,7 @@ public class Configuration {
     public static String shaderPrefix = "assets/shaders/";
     public static String soundsPrefix = "assets/sounds/";
     public static String levelPath = "level.txt";
+    public static String stateMachinePath = "animation.txt";
 
 
 
@@ -126,7 +127,7 @@ public class Configuration {
     public static Color editorClearColor = new Color(60, 60, 60, 1);
     public static double keyShortCooldown = 0.07f;
     public static double keyLongCooldown = 0.01;
-    public static boolean isConsoleEnabled = true;
+    public static boolean isConsoleEnabled = false;
     public static double consoleDelay = 5;
     public static String consoleIntro = "\n" +
             "\n" +
@@ -171,7 +172,9 @@ public class Configuration {
     public static int pointSizeFloat = 6;
     public static int debugDefaultZIndex = 0;
     public static String rayCastID = "rayCast";
-    public static int dynamicLayerInitialBatchSize = 1000;
+    public static int minArrayValueToExtend = 10;
+    public static int percentageValByExtend = 30;
+    public static int dynamicLayerInitialBatchSize = 10;
     public static int lineSizeFloat = pointsInLine * pointSizeFloat;
     public static Vector3f debugDefaultColor = new Vector3f(0, 1, 0);
 
@@ -194,6 +197,7 @@ public class Configuration {
     //=====================
     public static String selectorID = "selector";
     public static int selectorZIndex = 4;
+    public static int selectorRecZIndex = 0;
     public static double selectorScale = 0;
     public static Vector4f selectorHoverColor = new Vector4f(0.2f,0.2f,0.2f,0.0f);
     public static Vector4f selectorBorderColor = new Vector4f(0.04f, 0.04f, 0.04f, 0.4f);
@@ -251,6 +255,7 @@ public class Configuration {
     // Rendering Settings
     //=====================
     public static int batchSize = 10000;
+    public static int startBatchSize = 10;
     public static int numberOfPointsInSquare = 4;
     public static int numberOfPointsIn2Triangles = 6;
     public static int[]  texturesSlots = {0, 1, 2, 3, 4, 5, 6, 7};

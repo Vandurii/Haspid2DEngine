@@ -1,6 +1,5 @@
 package main.renderer;
 
-import main.Configuration;
 import main.components.SpriteRenderer;
 import main.haspid.*;
 
@@ -16,6 +15,7 @@ import java.util.List;
 
 import static main.Configuration.*;
 import static main.haspid.Log.LogType.INFO;
+import static org.lwjgl.glfw.GLFW.glfwGetTime;
 import static org.lwjgl.opengl.GL11.GL_FLOAT;
 import static org.lwjgl.opengl.GL15.*;
 import static org.lwjgl.opengl.GL15.GL_STATIC_DRAW;
@@ -31,8 +31,9 @@ public class RenderBatch implements Comparable<RenderBatch> {
     private int pointsIn2Triangles;
 
     private int zIndex;
-    private int VAO, VBO;
     private int maxBathSize;
+    private int VAO, VBO, EBO;
+    private int currentBathSize;
     private ArrayList<Attribute> attributes;
 
     private float[] vertexArray;
@@ -41,6 +42,9 @@ public class RenderBatch implements Comparable<RenderBatch> {
     private boolean hasRoom;
     private int spriteCount;
     private SpriteRenderer[] spriteListToRender;
+
+    private double resizeTime;
+    private double updateTime;
 
     private static List<Texture> textureList = new ArrayList<>();
     private int[] uTextures;
@@ -56,18 +60,19 @@ public class RenderBatch implements Comparable<RenderBatch> {
 
         this.hasRoom = true;
         this.maxBathSize = maxBathSize;
-        this.spriteListToRender = new SpriteRenderer[maxBathSize];
+        this.currentBathSize = startBatchSize;
+        this.spriteListToRender = new SpriteRenderer[currentBathSize];
 
         this.pointsInSquare = numberOfPointsInSquare;
         this.pointsIn2Triangles = numberOfPointsIn2Triangles;
         this.squareSizeFloat = pointsInSquare * pointSizeFloat;
-        this.vertexArray = new float[maxBathSize * squareSizeFloat];
+        this.vertexArray = new float[currentBathSize * squareSizeFloat];
         this.vertexArrayBytes = vertexArray.length * Float.BYTES;
 
         this.freeSlots = new ArrayList<>();
     }
 
-    public void start(){
+    public void init(){
         // Generate VAO
         VAO = glGenVertexArrays();
         glBindVertexArray(VAO);
@@ -77,13 +82,23 @@ public class RenderBatch implements Comparable<RenderBatch> {
         glBindBuffer(GL_ARRAY_BUFFER, VBO);
         glBufferData(GL_ARRAY_BUFFER, vertexArrayBytes, GL_DYNAMIC_DRAW);
 
+        initVertexAttribPointer(true);
+
         //Generate EBO
-        int EBO = glGenBuffers();
+        EBO = glGenBuffers();
+        resize();
+    }
+
+    public void resize(){
+        resizeTime = glfwGetTime();
+        this.vertexArrayBytes = vertexArray.length * Float.BYTES;
+
+        glBindBuffer(GL_ARRAY_BUFFER, VBO);
+        glBufferData(GL_ARRAY_BUFFER, vertexArrayBytes, GL_DYNAMIC_DRAW);
+
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
         int[] elementArray = generateIndices();
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, elementArray, GL_STATIC_DRAW);
-
-        initVertexAttribPointer(true);
     }
 
     public void initVertexAttribPointer(boolean init){
@@ -110,8 +125,8 @@ public class RenderBatch implements Comparable<RenderBatch> {
     }
 
     public int[] generateIndices(){
-        int[] elements = new int[maxBathSize * pointsIn2Triangles];
-        for(int i = 0; i < maxBathSize; i++){
+        int[] elements = new int[currentBathSize * pointsIn2Triangles];
+        for(int i = 0; i < currentBathSize; i++){
             loadElement(elements, i);
         }
 
@@ -130,7 +145,7 @@ public class RenderBatch implements Comparable<RenderBatch> {
         elements[startFrom + 5] = offset + 1;
     }
 
-    public void loadVertexArray(int index){
+    public void loadDataToVertex(int index){
         SpriteRenderer spriteRenderer = spriteListToRender[index];
         Transform transform = spriteRenderer.getParent().getTransform();
 
@@ -195,6 +210,13 @@ public class RenderBatch implements Comparable<RenderBatch> {
     }
 
     public void addSprite(SpriteRenderer spriteRenderer){
+        if(spriteCount >= spriteListToRender.length){
+            spriteListToRender = extendArray(spriteListToRender, percentageValByExtend);
+            currentBathSize = spriteListToRender.length;
+            extendVertexArray();
+            resize();
+        }
+
         int index = spriteCount;
         boolean usedFreeSlots = false;
         if(!freeSlots.isEmpty()) {
@@ -222,8 +244,23 @@ public class RenderBatch implements Comparable<RenderBatch> {
             }
         }
 
-        loadVertexArray(index);
+        loadDataToVertex(index);
        if(!usedFreeSlots) spriteCount++;
+    }
+
+    public  SpriteRenderer[] extendArray(SpriteRenderer[] array, int percentage){
+        int capacity = array.length + Math.max((array.length / 100 * percentage), 200);
+
+        SpriteRenderer[] newArray = new SpriteRenderer[capacity];
+        System.arraycopy(array, 0, newArray, 0, array.length);
+
+        return newArray;
+    }
+
+    public void extendVertexArray(){
+        float[] temporary = vertexArray;
+        vertexArray = new float[currentBathSize * squareSizeFloat];
+        System.arraycopy(temporary, 0, vertexArray, 0, temporary.length);
     }
 
     public void render(){
@@ -253,13 +290,14 @@ public class RenderBatch implements Comparable<RenderBatch> {
         for(int i = 0; i < spriteCount; i++){
             SpriteRenderer spriteRenderer = spriteListToRender[i];
             if(spriteRenderer != null && (spriteRenderer.isDirty() || spriteRenderer.isMarkedToRemove())){
-                loadVertexArray(i);
+                loadDataToVertex(i);
                 spriteRenderer.setClean();
                 reload = true;
             }
         }
 
         if(reload){
+            updateTime = glfwGetTime();
             glBindBuffer(GL_ARRAY_BUFFER, VBO);
             glBufferSubData(GL_ARRAY_BUFFER, 0, Arrays.copyOfRange(vertexArray, 0, spriteCount * squareSizeFloat));
         }
@@ -290,16 +328,17 @@ public class RenderBatch implements Comparable<RenderBatch> {
         }
     }
 
+    @Override
+    public int compareTo(RenderBatch o) {
+        return Integer.compare(this.zIndex, o.zIndex);
+    }
+
     public int getzIndex(){
         return zIndex;
     }
 
     public int getSpriteCount(){
         return  spriteCount;
-    }
-
-    public List<Integer> getFreeSlots(){
-        return freeSlots;
     }
 
     public boolean hasRoom(){
@@ -314,29 +353,35 @@ public class RenderBatch implements Comparable<RenderBatch> {
         return textureList.size() < 7;
     }
 
-    public void printPointsValues(){
-        System.out.println("**** " + spriteCount + " **** [" + zIndex + "]");
-        for(int i = 1; i < ((spriteCount + 1) * pointSizeFloat * pointsInSquare) + 1; i++){
-            System.out.printf("%.2f \t", vertexArray[i - 1]);
-            if(i % pointSizeFloat == 0) System.out.println();
-            if(i % squareSizeFloat == 0) System.out.println();
-        }
-    }
-
     public int getMaxBathSize(){
         return maxBathSize;
+    }
+
+    public int getCurrentCapacity(){
+        return currentBathSize;
     }
 
     public SpriteRenderer[] getSpriteToRender(){
         return spriteListToRender;
     }
 
-    @Override
-    public int compareTo(RenderBatch o) {
-        return Integer.compare(this.zIndex, o.zIndex);
-    }
-
     public List<Texture> getTextureList(){
         return  textureList;
+    }
+
+    public double getResizeTime(){
+        return resizeTime;
+    }
+
+    public double getUpdateTime(){
+        return updateTime;
+    }
+
+    public int getPointSizeFloat(){
+        return pointSizeFloat;
+    }
+
+    public float[] getVertexArray(){
+        return vertexArray;
     }
 }

@@ -94,7 +94,6 @@ public class KeyControls extends Component {
         double xAxis = 0;
         double yAxis = 0;
         double unit = Math.max(gridSize, (gridSize * (int)currentZoomValue));
-        System.out.println(unit);
         switch (direction){
             case Up -> yAxis = -unit;
             case Down -> yAxis = unit;

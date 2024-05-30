@@ -5,14 +5,13 @@ import main.util.AssetPool;
 import main.util.Shader;
 import org.joml.Vector2d;
 import org.joml.Vector3f;
-import org.lwjgl.opengl.ARBBaseInstance;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import static main.Configuration.*;
 import static main.haspid.Log.LogType.INFO;
-import static main.haspid.Log.LogType.WARNING;
+import static org.lwjgl.glfw.GLFW.glfwGetTime;
 import static org.lwjgl.opengl.GL11.GL_FLOAT;
 import static org.lwjgl.opengl.GL15.*;
 import static org.lwjgl.opengl.GL20.*;
@@ -25,6 +24,7 @@ public class DynamicLayer extends Layer {
     private int lineCount;
     private int maxBathSize;
     private Line2D lineListToRender[];
+    private int vertexArraySizeInBytes;
     private ArrayList<Integer> freeSlots;
 
     public DynamicLayer(int zIndex, String ID) {
@@ -37,13 +37,8 @@ public class DynamicLayer extends Layer {
 
     public void init(){
         vertexArray = new float[maxBathSize * lineSizeFloat];
-        reload();
-    }
 
-    public void reload(){
-        Console.addLog(new Log(INFO, "Reload layer: " + ID + " z:" + zIndex));
-
-        int vertexArraySizeInBytes = vertexArray.length * Float.BYTES;
+        vertexArraySizeInBytes = vertexArray.length * Float.BYTES;
 
         // Generate VAO
         VAO = glGenVertexArrays();
@@ -54,30 +49,25 @@ public class DynamicLayer extends Layer {
         glBindBuffer(GL_ARRAY_BUFFER, VBO);
         glBufferData(GL_ARRAY_BUFFER, vertexArraySizeInBytes, GL_DYNAMIC_DRAW);
 
-        //Generate EBO
-        int EBO = glGenBuffers();
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-        int[] elementArray = generateIndices();
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, elementArray, GL_STATIC_DRAW);
-
         glVertexAttribPointer(0, 3, GL_FLOAT, false, pointSizeFloat * Float.BYTES, 0);
         glVertexAttribPointer(1, 3, GL_FLOAT, false, pointSizeFloat * Float.BYTES, 3 * Float.BYTES);
+    }
+
+    public void resize(){
+        resizeTime = glfwGetTime();
+        Console.addLog(new Log(INFO, "Reload layer: " + getID() + " z:" + getzIndex()));
+
+        vertexArraySizeInBytes = vertexArray.length * Float.BYTES;
+
+        glBindBuffer(GL_ARRAY_BUFFER, VBO);
+        glBufferData(GL_ARRAY_BUFFER, vertexArraySizeInBytes, GL_DYNAMIC_DRAW);
 
         setDirty(false);
     }
 
-    public int[] generateIndices(){
-        int[] elements = new int[maxBathSize * pointsInLine];
-        for(int i = 0; i < (maxBathSize * pointsInLine); i++){
-            elements[i] = i;
-        }
-
-        return elements;
-    }
-
-    public void loadVertex(int index){
+    public void loadDataToVertex(int index){
         Line2D line = lineListToRender[index];
-        int offset = index * pointSizeFloat * pointsInLine;
+        int offset = index * lineSizeFloat;
 
         for (int i = 0; i < 2; i++) {
             Vector2d position = i == 0 ? line.getFrom() : line.getTo();
@@ -96,30 +86,21 @@ public class DynamicLayer extends Layer {
         line.setDirty(false);
     }
 
-    public void clearVertexSlot(int index){
+    public void deleteDataFromVertex(int index){
         // collect free slots, they will be reuse
         freeSlots.add(index);
+        int offset = index * lineSizeFloat;
 
-        int offset = index * pointSizeFloat * pointsInLine;
-
-        for (int i = 0; i < 2; i++) {
-            vertexArray[offset + 0] = 0;
-            vertexArray[offset + 1] = 0;
-            vertexArray[offset + 2] = 0;
-
-            vertexArray[offset + 3] = 0;
-            vertexArray[offset + 4] = 0;
-            vertexArray[offset + 5] = 0;
-
-            offset += pointSizeFloat;
+        for(int i = 0; i < lineSizeFloat; i++){
+            vertexArray[offset + i] = 0;
         }
     }
 
     public void draw(){;
         checkIfDirty();
 
-        if(disabled){
-            Console.addLog(new Log(INFO, "Can't draw because layer in Disabled: "  + ID + " :" + zIndex));
+        if(!isEnabled()){
+            Console.addLog(new Log(INFO, "Can't draw because layer in Disabled: "  + getID() + " :" + getzIndex()));
             return;
         }
 
@@ -138,7 +119,7 @@ public class DynamicLayer extends Layer {
         glEnableVertexAttribArray(0);
         glEnableVertexAttribArray(1);
 
-        glDrawElements(GL_LINES, maxBathSize  * pointsInLine, GL_UNSIGNED_INT, 0);
+        glDrawArrays(GL_LINES, 0, lineCount * pointsInLine);
 
         glDisableVertexAttribArray(0);
         glDisableVertexAttribArray(1);
@@ -155,23 +136,30 @@ public class DynamicLayer extends Layer {
 
             // reload data from this object if it has changed
             if(line.isDirty()) {
-                Console.addLog(new Log(INFO, "Reloaded line: " + i));
                 reload = true;
-                loadVertex(i);
+                Console.addLog(new Log(INFO, line.getID() + ""));
+                loadDataToVertex(i);
+            }
+
+            // remove data if this object should be removed
+            if(line.isMarkedToRemove()){
+                reload = true;
+                lineListToRender[i] = null;
+                deleteDataFromVertex(i);
             }
         }
 
         // Reload buffer if at least one line has changed.
         // Make new array (new array is lineCount length) and reload buffer
         if(reload) {
+            updateTime = glfwGetTime();
             glBindBuffer(GL_ARRAY_BUFFER, VBO);
             glBufferSubData(GL_ARRAY_BUFFER, 0, Arrays.copyOfRange(vertexArray, 0, lineCount * lineSizeFloat));
         }
     }
 
     public  Line2D[] extendArray(Line2D[] array, int percentage){
-        int minValueToExtends = 10;
-        int capacity = array.length + Math.max((array.length / 100 * percentage), minValueToExtends);
+        int capacity = array.length + Math.max((array.length / 100 * percentage), minArrayValueToExtend);
 
         Line2D[] newArray = new Line2D[capacity];
         System.arraycopy(array, 0, newArray, 0, array.length);
@@ -189,11 +177,11 @@ public class DynamicLayer extends Layer {
     public void addLine(Line2D line){
         if(lineCount >= lineListToRender.length){
             Console.addLog(new Log(INFO, "Extend array: size before extend: " + lineListToRender.length));
-            lineListToRender = extendArray(lineListToRender, 20);
+            lineListToRender = extendArray(lineListToRender, percentageValByExtend);
             Console.addLog(new Log(INFO, "Size after extend: " + lineListToRender.length));
             maxBathSize = lineListToRender.length;
             extendVertexArray();
-            reload();
+            resize();
         }
 
         if(freeSlots.isEmpty()) {
@@ -211,24 +199,11 @@ public class DynamicLayer extends Layer {
         }
     }
 
-    public void garbage(){
-        boolean found = false;
-        for(int i = 0; i < lineCount; i++){
-            Line2D line = lineListToRender[i];
-            if(line == null) continue;
-            if(line.isMarkedToRemove()){
-                found = true;
-                lineListToRender[i] = null;
-                clearVertexSlot(i);
-            }
-        }
-
-        // Reload buffer if at least one line has changed.
-        // Make new array (new array is lineCount length) and reload buffer
-        if(found) {
-            glBindBuffer(GL_ARRAY_BUFFER, VBO);
-            glBufferSubData(GL_ARRAY_BUFFER, 0, Arrays.copyOfRange(vertexArray, 0, lineCount * lineSizeFloat));
-        }
+    @Override
+    public void clearLineList() {
+        lineListToRender = new Line2D[maxBathSize];
+        vertexArray = new float[maxBathSize * lineSizeFloat];
+        lineCount = 0;
     }
 
     public boolean hasRoom(){
@@ -246,13 +221,5 @@ public class DynamicLayer extends Layer {
 
     public Line2D[] getLineListToRender(){
         return lineListToRender;
-    }
-
-    public float[] getVertexArray(){
-        return vertexArray;
-    }
-
-    public int getFreeSlots(){
-        return freeSlots.size();
     }
 }

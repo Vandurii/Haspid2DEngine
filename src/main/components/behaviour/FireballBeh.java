@@ -2,6 +2,7 @@ package main.components.behaviour;
 
 import main.components.Component;
 import main.components.PlayerController;
+import main.components.SpriteRenderer;
 import main.components.physicsComponent.RigidBody;
 import main.haspid.GameObject;
 import main.haspid.Window;
@@ -17,7 +18,7 @@ public class FireballBeh extends Component {
     private RigidBody rigidBody;
 
     public FireballBeh(PlayerController playerController){
-        this.speed = 50;
+        this.speed = 100;
         this.gravity = 1;
         this.minContact = 0.4;
         this.fireBallLifeTime = 1;
@@ -33,7 +34,6 @@ public class FireballBeh extends Component {
         speed = scale.x > 0 ? speed : -speed;
         rigidBody.setVelocityX(speed);
     }
-
 
     @Override
     public void update(float dt) {

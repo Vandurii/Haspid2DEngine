@@ -22,6 +22,7 @@ import static main.renderer.DebugDrawEvents.*;
 public class EditorScene extends Scene {
 
     private Gizmo gizmo;
+    private Creator creator;
     private HelpPanel helpPanel;
     private GridLines gridLines;
     private ImGuiLayer imGuiLayer;
@@ -42,6 +43,7 @@ public class EditorScene extends Scene {
         MouseListener.resetInstance();
         Renderer.resetInstance();
         mouseListener = MouseListener.getInstance();
+        DebugDraw.reset();
 
         loadSceneFromFile();
         editorMode = true;
@@ -74,6 +76,7 @@ public class EditorScene extends Scene {
         properties.add(AssetPool.getSpriteSheet(iconConfig));
         properties.add(AssetPool.getAllSound());
 
+        creator = new Creator(this);
         consoleWindow = new ConsoleWindow();
         inspectorWindow = new InspectorWindow();
         editorMenuBar = new EditorMenuBar(this);
@@ -105,6 +108,7 @@ public class EditorScene extends Scene {
     public void updateDearGui(){
         imGuiLayer.startFrame();
 
+        creator.display();
         helpPanel.display();
         consoleWindow.Display();
         editorMenuBar.display();
