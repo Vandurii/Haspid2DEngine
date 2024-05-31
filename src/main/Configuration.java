@@ -29,6 +29,17 @@ public class Configuration {
     //=====================
     public static String iconPath = Path.fromSys("haspidIcon.png");
     public static String marioImagePath = Path.fromImages("mario.png");
+    public static String folderImagePath = Path.fromSys("folder.png");
+    public static String imageImagePath = Path.fromSys("image.png");
+    public static String documentImagePath = Path.fromSys("document.png");
+    public static String backwardsImagePath = Path.fromSys("backwards.png");
+    public static String acceptImagePath = Path.fromSys("accept.png");
+    public static String closeImagePath = Path.fromSys("close.png");
+    public static String settingsImagePath = Path.fromSys("settings.png");
+    public static String addImagePath = Path.fromSys("add.png");
+    public static String removeImagePath = Path.fromSys("remove.png");
+    public static String addDocImagePath = Path.fromSys("addDoc.png");
+    public static String removeDocImagePath = Path.fromSys("removeDoc.png");
 
 
 
@@ -104,8 +115,8 @@ public class Configuration {
     public static String windowTitle = "Haspid";
     public static float aspectRatio = (float)windowWidth / (float)windowHeight;
 
-    public static int shiftXAxis = 1750;
-    public static int shiftYAxis = 50;
+    public static int shiftXAxis = 0;//1750;
+    public static int shiftYAxis = 0;//50;
 
 
 

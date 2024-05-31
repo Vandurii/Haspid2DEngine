@@ -26,41 +26,45 @@ public class ResourcesManager {
     private Renderer renderer;
     private EditorScene editorScene;
 
+    private boolean display;
     private String payloadDragDropType = "SceneHierarchy";
     private HashMap<Integer, Boolean> openNodeMap;
 
     public ResourcesManager(EditorScene editorScene){
+        this.display = true;
         this.editorScene = editorScene;
         this.openNodeMap = new HashMap<>();
         this.renderer = Renderer.getInstance();
     }
 
     public void Display(){
-        ImGui.begin("Resources Manager");
+        if(display) {
+            ImGui.begin("Resources Manager");
 
-        if(ImGui.collapsingHeader("System Resources")) {
-            displayCPUUsage();
-            displayMemoryUsage();
-            displayCursorPos();
+            if (ImGui.collapsingHeader("System Resources")) {
+                displayCPUUsage();
+                displayMemoryUsage();
+                displayCursorPos();
+            }
+
+            int count = editorScene.getSceneObjectList().size();
+            if (ImGui.collapsingHeader("Objects " + count)) {
+                displaySceneObjects();
+            }
+
+            if (ImGui.collapsingHeader("Renderers")) {
+                displayRenders();
+                displayStaticLines();
+                displayDynamicLines();
+            }
+
+            if (ImGui.collapsingHeader("Resources")) {
+                displayAssets();
+                displayStateMachine();
+            }
+
+            ImGui.end();
         }
-
-        int count = editorScene.getSceneObjectList().size();
-        if(ImGui.collapsingHeader("Objects " + count)){
-            displaySceneObjects();
-        }
-
-        if(ImGui.collapsingHeader("Renderers")) {
-            displayRenders();
-            displayStaticLines();
-            displayDynamicLines();
-        }
-
-        if(ImGui.collapsingHeader("Resources")) {
-            displayAssets();
-            displayStateMachine();
-        }
-
-        ImGui.end();
     }
 
     public void displayCPUUsage(){
@@ -297,5 +301,13 @@ public class ResourcesManager {
 
         displayBulletTitle(String.format("x: %.1f", x), colorLightGreenA);
         displayBulletTitle(String.format("y: %.1f", y), colorLightGreenA);
+    }
+
+    public void setDisplay(boolean display){
+        this.display = display;
+    }
+
+    public boolean shouldDisplay(){
+        return  display;
     }
 }

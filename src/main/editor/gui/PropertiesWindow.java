@@ -3,8 +3,10 @@ package main.editor.gui;
 import imgui.ImGui;
 import imgui.ImVec2;
 import imgui.flag.ImGuiCol;
+import imgui.flag.ImGuiStyleVar;
 import main.components.SpriteRenderer;
 import main.components.physicsComponent.ColliderType;
+import main.editor.EditorScene;
 import main.editor.Prefabs;
 import main.editor.editorControl.MouseControls;
 import main.haspid.Direction;
@@ -21,19 +23,54 @@ import static main.components.behaviour.QuestionBlockBeh.BlockType.Coin;
 
 public class PropertiesWindow {
 
-    private MouseControls mouseControls;
-    private List<Properties> tabList;
+    private boolean deleteMode;
 
-    public PropertiesWindow(MouseControls mouseControls, List<Properties> tabList){
-        this.mouseControls = mouseControls;
+    private float yPadding;
+    private float buttonSize;
+    private float itemYPadding;
+    private float itemXPadding;
+    private float buttonSpacing;
+
+    private EditorScene editorScene;
+    private List<Properties> tabList;
+    private MouseControls mouseControls;
+
+    public PropertiesWindow(EditorScene editorScene, MouseControls mouseControls, List<Properties> tabList){
+        this.yPadding = 5;
+        this.buttonSize = 20;
+        this.itemYPadding = 10;
+        this.itemXPadding = 5;
+        this.buttonSpacing = 13;
         this.tabList = tabList;
+        this.editorScene = editorScene;
+        this.mouseControls = mouseControls;
     }
 
     public void display(){
         ImGui.begin("Properties Window");
+
+        // add Button
+        Texture tex = AssetPool.getTexture(removeImagePath, false);
+        ImGui.setCursorPos(ImGui.getContentRegionAvailX() - buttonSize, yPadding);
+        if(ImGui.imageButton(tex.getTexID(), buttonSize, buttonSize)){
+            deleteMode = true;
+        }
+
+        // add Button
+        tex = AssetPool.getTexture(addImagePath, false);
+        ImGui.setCursorPos(ImGui.getContentRegionAvailX() - buttonSpacing - (buttonSize * 2), yPadding);
+        if(ImGui.imageButton(tex.getTexID(), buttonSize, buttonSize)){
+            editorScene.displayFileBrowser(true);
+        }
+
         if(ImGui.beginTabBar("Properties Bar")) {
             int i = 1;
             for(Properties tab: tabList){
+                if(deleteMode){
+                    editorScene.removePropertiesSafe(tab);
+                    deleteMode = false;
+                }
+
                 if(ImGui.beginTabItem(tab.getName())){
                     if(tab instanceof SpriteSheet spriteSheet) {
                         generateButtons(spriteSheet, i);
@@ -46,6 +83,7 @@ public class PropertiesWindow {
             }
             ImGui.endTabBar();
         }
+
         ImGui.end();
     }
 
@@ -131,4 +169,5 @@ public class PropertiesWindow {
 
         return nextButton < window;
     }
+
 }

@@ -8,20 +8,24 @@ import java.util.List;
 import static main.Configuration.*;
 
 public class ConsoleWindow {
-    private static List<String> textList = new ArrayList<>();
+
+    private boolean display;
     private static String temporary = "";
+    private static List<String> textList = new ArrayList<>();
 
     public void Display(){
-        ImGui.begin("Console");
+        if(display) {
+            ImGui.begin("Console");
 
-        if(!textList.isEmpty()) {
-            for (String str : textList) {
-                ImGui.bullet();
-                ImGui.sameLine();
-                ImGui.textColored(colorGreyA.x, colorGreyA.y, colorGreyA.z, colorGreyA.w, str);
+            if (!textList.isEmpty()) {
+                for (String str : textList) {
+                    ImGui.bullet();
+                    ImGui.sameLine();
+                    ImGui.textColored(colorGreyA.x, colorGreyA.y, colorGreyA.z, colorGreyA.w, str);
+                }
             }
+            ImGui.end();
         }
-        ImGui.end();
     }
 
     public static void setInfo(String text){
@@ -45,4 +49,7 @@ public class ConsoleWindow {
         setInfo("\n");
     }
 
+    public void setDisplay(boolean display){
+        this.display = display;
+    }
 }

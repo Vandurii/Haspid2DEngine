@@ -11,10 +11,6 @@ import main.haspid.Window;
 import main.renderer.DebugDraw;
 import main.renderer.Renderer;
 import main.haspid.Scene;
-import main.util.AssetPool;
-import main.util.Properties;
-
-import java.util.ArrayList;
 
 import static main.Configuration.*;
 import static main.renderer.DebugDrawEvents.*;
@@ -23,9 +19,11 @@ public class EditorScene extends Scene {
 
     private Gizmo gizmo;
     private Creator creator;
+    private Settings settings;
     private HelpPanel helpPanel;
     private GridLines gridLines;
     private ImGuiLayer imGuiLayer;
+    private FileBrowser fileBrowser;
     private KeyControls keyControls;
     private MouseListener mouseListener;
     private EditorMenuBar editorMenuBar;
@@ -34,7 +32,6 @@ public class EditorScene extends Scene {
     private CameraControl cameraControl;
     private GameObject levelEditorStuff;
     private InspectorWindow inspectorWindow;
-    private ArrayList<Properties> properties;
     private PropertiesWindow propertiesWindow;
     private ResourcesManager resourcesManager;
 
@@ -62,26 +59,18 @@ public class EditorScene extends Scene {
         levelEditorStuff.addComponent(cameraControl);
         levelEditorStuff.addComponent(keyControls);
         levelEditorStuff.addComponent(gizmo);
-      //  addGameObjectToScene(levelEditorStuff);
 
         imGuiLayer = new ImGuiLayer(Window.getInstance().getGlfwWindow());
         imGuiLayer.init(new Configuration());
 
-        properties = new ArrayList<>();
-        properties.add(AssetPool.getSpriteSheet(itemsConfig));
-        properties.add(AssetPool.getSpriteSheet(smallFormConfig));
-        properties.add(AssetPool.getSpriteSheet(decorationAndBlockConfig));
-        properties.add(AssetPool.getSpriteSheet(pipesConfig));
-        properties.add(AssetPool.getSpriteSheet(turtleConfig));
-        properties.add(AssetPool.getSpriteSheet(iconConfig));
-        properties.add(AssetPool.getAllSound());
-
-        creator = new Creator(this);
+        fileBrowser = new FileBrowser();
         consoleWindow = new ConsoleWindow();
+        creator = new Creator(this);
         inspectorWindow = new InspectorWindow();
         editorMenuBar = new EditorMenuBar(this);
         resourcesManager = new ResourcesManager(this);
-        propertiesWindow = new PropertiesWindow(mouseControls, properties);
+        propertiesWindow = new PropertiesWindow(this, mouseControls, getProperties());
+        settings = new Settings(this);
     }
 
     @Override
@@ -115,6 +104,8 @@ public class EditorScene extends Scene {
         inspectorWindow.display();
         propertiesWindow.display();
         resourcesManager.Display();
+        settings.display();
+        fileBrowser.display();
         ViewPort.getInstance().display();
 
         imGuiLayer.endFrame();
@@ -136,5 +127,25 @@ public class EditorScene extends Scene {
 
     public EditorMenuBar getMenuBar(){
         return editorMenuBar;
+    }
+
+    public void displayFileBrowser(boolean display){
+        fileBrowser.setDisplay(display);
+    }
+
+    public void displaySettings(boolean display){
+        settings.setDisplay(display);
+    }
+
+    public void displayConsole(boolean display){
+        consoleWindow.setDisplay(display);
+    }
+
+    public void displayResources(boolean display){
+        resourcesManager.setDisplay(display);
+    }
+
+    public boolean shouldResourceDisplay(){
+        return resourcesManager.shouldDisplay();
     }
 }

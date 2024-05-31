@@ -101,12 +101,13 @@ public class Creator {
         //===============
         ImGui.bulletText("Frame List:");
 
-        for (int i = 0; i < frameList.size(); i++) {
+        int idOffset = 0;
+        for (int i = 0; i < frameList.size(); i++, idOffset++) {
             SpriteRenderer sprite = frameList.get(i).getSpriteRenderer();
             int texID = sprite.getTexID();
             Vector2d[] cords = sprite.getSpriteCords();
 
-            ImGui.pushID(i);
+            ImGui.pushID(i + idOffset);
             if (ImGui.imageButton(texID, (float) spriteImageSize, (float) spriteImageSize, (float) cords[3].x, (float) cords[3].y, (float) cords[1].x, (float) cords[1].y)) {
                 frameList.remove(frameList.get(i));
                 ImGui.popID();
@@ -180,7 +181,7 @@ public class Creator {
             int texID = sprite.getTexID();
             Vector2d[] cords = sprite.getSpriteCords();
 
-            ImGui.pushID(i);
+            ImGui.pushID(i + idOffset);
             if (ImGui.imageButton(texID, (float) miniImageSize, (float) miniImageSize, (float) cords[3].x, (float) cords[3].y, (float) cords[1].x, (float) cords[1].y)) {
                 index = i;
             }

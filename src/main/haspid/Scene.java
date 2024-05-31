@@ -11,6 +11,7 @@ import main.components.stateMachine.StateMachine;
 import main.physics.Physics2D;
 import main.renderer.*;
 import main.util.AssetPool;
+import main.util.Properties;
 import main.util.SpriteSheet;
 import org.joml.Vector2d;
 
@@ -32,6 +33,8 @@ public abstract class Scene {
     private List<GameObject> sceneObjectList;
     private List<GameObject> addObjectQueue;
     private List<GameObject> removeObjectQueue;
+    private ArrayList<Properties> propertiesList;
+    private List<Properties> removePropertiesQueue;
     private Map<Component, GameObject> addComponentQueue;
     private Map<Component, GameObject> removeComponentQueue;
     private Map<GameObject, Vector2d> objectChangePosQueue;
@@ -43,6 +46,7 @@ public abstract class Scene {
 
     public Scene(){
         this.physics = new Physics2D();
+        this.propertiesList = new ArrayList<>();
         this.renderer = Renderer.getInstance();
         this.addComponentQueue = new HashMap<>();
         this.sceneObjectList = new ArrayList<>();
@@ -50,6 +54,7 @@ public abstract class Scene {
         this.removeComponentQueue = new HashMap<>();
         this.removeObjectQueue = new ArrayList<>();
         this.objectChangePosQueue = new HashMap<>();
+        this.removePropertiesQueue = new ArrayList<>();
         this.camera = new Camera(new Vector2d(0, 0));
 
         Component.resetCounter();
@@ -98,6 +103,18 @@ public abstract class Scene {
         AssetPool.getSound(stomp);
         AssetPool.getSound(kick);
         AssetPool.getSound(invincible);
+
+        //===================================
+        //  Properties
+        //===================================
+        propertiesList.add(AssetPool.getSpriteSheet(itemsConfig));
+        propertiesList.add(AssetPool.getSpriteSheet(smallFormConfig));
+        propertiesList.add(AssetPool.getSpriteSheet(decorationAndBlockConfig));
+        propertiesList.add(AssetPool.getSpriteSheet(pipesConfig));
+        propertiesList.add(AssetPool.getSpriteSheet(turtleConfig));
+        propertiesList.add(AssetPool.getSpriteSheet(iconConfig));
+        propertiesList.add(AssetPool.getAllSound());
+
     }
 
     public abstract void init();
@@ -119,6 +136,8 @@ public abstract class Scene {
 
         removeDeadObject();
         addGameObjectToScene();
+
+        removeProperties();
 
         physics.update(dt);
     }
@@ -146,6 +165,10 @@ public abstract class Scene {
 
     public void removeFromSceneUnsafe(GameObject gameObject){
         sceneObjectList.remove(gameObject);
+    }
+
+    public void removePropertiesSafe(Properties properties){
+        removePropertiesQueue.add(properties);
     }
 
     private void updateGameObject(float dt){
@@ -234,6 +257,14 @@ public abstract class Scene {
         }
 
         addObjectQueue.clear();
+    }
+
+    private void removeProperties(){
+        for(Properties prop: removePropertiesQueue){
+            propertiesList.remove(prop);
+        }
+
+        removePropertiesQueue.clear();
     }
 
     public void saveStateMachine(String path, List<StateMachine> stateMachineList){
@@ -364,5 +395,9 @@ public abstract class Scene {
 
     public Renderer getRenderer(){
         return renderer;
+    }
+
+    public List<Properties> getProperties(){
+        return  propertiesList;
     }
 }
