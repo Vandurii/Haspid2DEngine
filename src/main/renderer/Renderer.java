@@ -75,6 +75,24 @@ public class Renderer {
         spriteRenderersToRelocate.clear();
     }
 
+    public void skipLayer(int zIndex, boolean skip){
+        for(RenderBatch rBatch: rendererBatchList){
+            if(rBatch.getzIndex() == zIndex){
+                rBatch.setSkip(skip);
+            }
+        }
+    }
+
+    public void renderLayer(int zIndex){
+        for(RenderBatch rBatch: rendererBatchList){
+            if(rBatch.getzIndex() == zIndex){
+                rBatch.setSkip(false);
+                rBatch.render();
+            }
+        }
+    }
+
+
     public void replaceShader(Shader shader){
         currentShader  = shader;
     }

@@ -31,8 +31,8 @@ public abstract class Layer {
         // grid can't be larger the maxWidth
         float width = (float) Math.min(currentZoomValue * lineWidthScala, maxLineWidth);
 
-        // grid can't be taller then 1
-        width = Math.max(1, width);
+        // grid can't be taller then minWidth
+        width = Math.max(minLineWidth, width);
         glLineWidth(width);
     }
 

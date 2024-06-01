@@ -19,9 +19,16 @@ public class Configuration {
     public static String systemPrefix = imagesPrefix + "sys/";
     public static String shaderPrefix = "assets/shaders/";
     public static String soundsPrefix = "assets/sounds/";
-    public static String levelPath = "level.txt";
-    public static String stateMachinePath = "animation.txt";
+    public static String dataPrefix = "data/";
 
+
+    //=====================
+    // Paths
+    //=====================
+    public static String levelPath = Path.fromData("level.txt");
+    public static String stateMachinePath = Path.fromData("animation.txt");
+    public static String spriteConfigPath = Path.fromData("spriteConfig.txt");
+    public static String resourcePath = Path.fromData("res.txt");
 
 
     //=====================
@@ -40,7 +47,7 @@ public class Configuration {
     public static String removeImagePath = Path.fromSys("remove.png");
     public static String addDocImagePath = Path.fromSys("addDoc.png");
     public static String removeDocImagePath = Path.fromSys("removeDoc.png");
-
+    public static String listImagePath = Path.fromSys("list.png");
 
 
     //=====================
@@ -115,8 +122,8 @@ public class Configuration {
     public static String windowTitle = "Haspid";
     public static float aspectRatio = (float)windowWidth / (float)windowHeight;
 
-    public static int shiftXAxis = 0;//1750;
-    public static int shiftYAxis = 0;//50;
+    public static int shiftXAxis = 1750;
+    public static int shiftYAxis = 50;
 
 
 
@@ -160,9 +167,12 @@ public class Configuration {
     //=====================
     // Gizmo Settings
     //=====================
-    public static Vector4f hoverGizmoColor = new Vector4f(0f, 0.5f, 0f, 1f);
-    public static Vector4f gizmoColor = new Vector4f(0.0f, .0f, 0.0f, 1f);
+    public static int gizmoZIndex = 20;
+    public static int gizmoStartToolIndex = 1;
+
     public static Vector2d gizmoScale = new Vector2d(3.0, 6.0);
+    public static Vector4f gizmoColor = new Vector4f(0.0f, .0f, 0.0f, 1f);
+    public static Vector4f hoverGizmoColor = new Vector4f(0f, 0.5f, 0f, 1f);
 
     public static double xGizmoXAxis = 1.0;
     public static double xGizmoYAxis = -0.9;
@@ -177,7 +187,8 @@ public class Configuration {
     //=====================
     // Debug Draw
     //=====================
-    public static int maxLineWidth = 2;
+    public static float maxLineWidth = 2;
+    public static float minLineWidth = 1.5f;
     public static int lineWidthScala = 2;
     public static int pointsInLine = 2;
     public static int pointSizeFloat = 6;
@@ -269,8 +280,15 @@ public class Configuration {
     public static int startBatchSize = 10;
     public static int numberOfPointsInSquare = 4;
     public static int numberOfPointsIn2Triangles = 6;
+    public static Vector4f defaultSpriteColor = new Vector4f(1 ,1,1, 1);
+    public static String defaultTexturePath = Path.fromImages("redAlpha.png");
     public static int[]  texturesSlots = {0, 1, 2, 3, 4, 5, 6, 7};
-
+    public static Vector2d[] defaultSpriteCords = new Vector2d[]{
+            new Vector2d(1, 1),
+            new Vector2d(1, 0),
+            new Vector2d(0, 0),
+            new Vector2d(0, 1)
+    };
 
 
     //******************************************************************************************************************

@@ -6,17 +6,18 @@ import main.components.Component;
 import main.components.SpriteRenderer;
 import main.components.ComponentSerializer;
 import main.components.physicsComponent.RigidBody;
+import main.components.stateMachine.Animation;
 import main.components.stateMachine.Frame;
 import main.components.stateMachine.StateMachine;
 import main.physics.Physics2D;
 import main.renderer.*;
-import main.util.AssetPool;
+import main.util.*;
 import main.util.Properties;
-import main.util.SpriteSheet;
 import org.joml.Vector2d;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
@@ -26,6 +27,7 @@ import static main.haspid.Log.LogType.INFO;
 
 public abstract class Scene {
 
+    private Gson gson;
     protected Camera camera;
     private Renderer renderer;
     protected Physics2D physics;
@@ -39,10 +41,6 @@ public abstract class Scene {
     private Map<Component, GameObject> removeComponentQueue;
     private Map<GameObject, Vector2d> objectChangePosQueue;
 
-    public SpriteSheet itemsSheet = AssetPool.getSpriteSheet(itemsConfig);
-    public SpriteSheet smallFormSheet = AssetPool.getSpriteSheet(smallFormConfig);
-    public SpriteSheet bigFormSheet = AssetPool.getSpriteSheet(bigFormConfig);
-    public SpriteSheet turtleSheet = AssetPool.getSpriteSheet(turtleConfig);
 
     public Scene(){
         this.physics = new Physics2D();
@@ -56,6 +54,12 @@ public abstract class Scene {
         this.objectChangePosQueue = new HashMap<>();
         this.removePropertiesQueue = new ArrayList<>();
         this.camera = new Camera(new Vector2d(0, 0));
+
+         this.gson = new GsonBuilder().
+                registerTypeAdapter(Component.class, new ComponentSerializer()).
+                registerTypeAdapter(GameObject.class, new GameObjectDeserializer()).
+                enableComplexMapKeySerialization().
+                create();
 
         Component.resetCounter();
         Renderer.resetInstance();
@@ -73,18 +77,134 @@ public abstract class Scene {
     }
 
     private void loadResources(){
+        //  State Machine
+        //===================================
+        List<Frame> frameList;
+        List<Animation> animList;
+        double defaultFrameTime = 0.23;
+
+        ArrayList<StateMachine> stateMachines = new ArrayList<>();
+        SpriteSheet smallFormSheet = AssetPool.getSpriteSheet(smallFormConfig);
+        SpriteSheet bigFormSheet = AssetPool.getSpriteSheet(bigFormConfig);
+        SpriteSheet itemsSheet = AssetPool.getSpriteSheet(itemsConfig);
+        SpriteSheet turtleSheet = AssetPool.getSpriteSheet(turtleConfig);
+
+        // small Mario
+        frameList = loadFrame(defaultFrameTime, smallFormSheet, 0, 2, 3, 2);
+        Animation run = new Animation("run", true, frameList);
+
+        frameList = loadFrame(0.2, smallFormSheet, 4);
+        Animation switchDirection = new Animation("switch", false, frameList);
+
+        frameList = loadFrame(1, smallFormSheet, 0);
+        Animation idle  = new Animation("idle", true, frameList);
+
+        frameList = loadFrame(0.1, smallFormSheet, 5);
+        Animation jump = new Animation("jump", true, frameList);
+
+        animList = Arrays.asList(run, switchDirection, idle, jump);
+        StateMachine smallMario = new StateMachine("smallMario", "idle", animList);
+        stateMachines.add(smallMario);
+
+
+        // big Mario
+        frameList = loadFrame(defaultFrameTime, bigFormSheet, 0, 1, 2, 3, 2, 1);
+        Animation bigRun = new Animation("run", true, frameList);
+
+        frameList = loadFrame(0.1, bigFormSheet, 4);
+        Animation bigSwitchDirection = new Animation("switch", false, frameList);
+
+        frameList = loadFrame(0.1, bigFormSheet, 0);
+        Animation bigIdle = new Animation("idle", true, frameList);
+
+        frameList = loadFrame(0.1, bigFormSheet, 5);
+        Animation bigJump = new Animation("jump", true, frameList);
+
+        animList = Arrays.asList(bigRun, bigIdle, bigJump, bigSwitchDirection);
+        StateMachine bigMario = new StateMachine("bigMario", "idle", animList);
+        stateMachines.add(bigMario);
+
+
+        // fire Mario
+        frameList = loadFrame(defaultFrameTime, bigFormSheet, 21, 22, 23, 24, 23, 22);
+        Animation fireRun = new Animation("run", true, frameList);
+
+        frameList = loadFrame(0.1, bigFormSheet, 25);
+        Animation fireSwitchDirection = new Animation("switch", false, frameList);
+
+        frameList = loadFrame(0.1, bigFormSheet, 21);
+        Animation fireIdle = new Animation("idle", true, frameList);
+
+        frameList = loadFrame(0.1, bigFormSheet, 26);
+        Animation fireJump = new Animation("jump", true, frameList);
+
+        animList = Arrays.asList(fireRun, fireIdle, fireJump, fireSwitchDirection);
+        StateMachine fireMario = new StateMachine("fireMario", "idle", animList);
+        stateMachines.add(fireMario);
+
+
+        // die Mario
+        frameList = loadFrame(0.1, smallFormSheet, 6);
+        Animation die = new Animation("die", true, frameList);
+
+        animList = Arrays.asList(die);
+        StateMachine dieMario = new StateMachine("dieMario", "die", animList);
+        stateMachines.add(dieMario);
+
+
+        // question block
+        frameList = loadFrame(0.57, itemsSheet, 0);
+        frameList.add(new Frame(itemsSheet.getSprite(1), 0.23));
+        frameList.add(new Frame(itemsSheet.getSprite(2), 0.23));
+        Animation active = new Animation("active", true, frameList);
+
+        frameList = loadFrame(0.1, itemsSheet, 3);
+        Animation inactive = new Animation("inactive", true, frameList);
+
+        animList = Arrays.asList(active, inactive);
+        StateMachine questionBlock = new StateMachine("questionBlock","active", animList);
+        stateMachines.add(questionBlock);
+
+
+        // coin flip
+        frameList = loadFrame(0.57, itemsSheet, 7);
+        frameList.add(new Frame(itemsSheet.getSprite(8), defaultFrameTime));
+        frameList.add(new Frame(itemsSheet.getSprite(9), defaultFrameTime));
+        Animation coinFlip = new Animation("coin", true, frameList);
+
+        animList = Arrays.asList(coinFlip);
+        StateMachine coin = new StateMachine("coin","coin", animList);
+        stateMachines.add(coin);
+
+
+        // goomba
+        frameList = loadFrame(defaultFrameTime, smallFormSheet, 14, 15);
+        Animation goombaWalk = new Animation("walk", true, frameList);
+
+        frameList = loadFrame(0.1, smallFormSheet, 16);
+        Animation goombaSquashed = new Animation("squashed", true, frameList);
+
+        animList = Arrays.asList(goombaWalk, goombaSquashed);
+        StateMachine goomba = new StateMachine("goomba","walk", animList);
+        stateMachines.add(goomba);
+
+        // trutle
+        frameList = loadFrame(defaultFrameTime, turtleSheet, 0, 1);
+        Animation turtleWalk = new Animation("walk", true, frameList);
+
+        frameList = loadFrame(0.1, turtleSheet, 2, 3);
+        Animation turtleSquashed = new Animation("squashed", true, frameList);
+
+        animList = Arrays.asList(turtleWalk, turtleSquashed);
+        StateMachine turtle = new StateMachine("turtle","walk", animList);
+        stateMachines.add(turtle);
+
+       // saveResources(stateMachinePath, stateMachines.toArray());
+
         //===================================
         //  shader
         //===================================
         AssetPool.getShader(defaultShaderPath);
-
-        //===================================
-        //  spriteSheet
-        //===================================
-        AssetPool.getSpriteSheet(smallFormConfig);
-        AssetPool.getSpriteSheet(decorationAndBlockConfig);
-        AssetPool.getSpriteSheet(gizmosConfig);
-        AssetPool.getSpriteSheet(itemsConfig);
 
         //===================================
         //  Sound
@@ -92,7 +212,7 @@ public abstract class Scene {
         AssetPool.getSound(mainTheme);
         AssetPool.getSound(breakBlock);
         AssetPool.getSound(bump);
-        AssetPool.getSound(coin);
+       // AssetPool.getSound(coin);
         AssetPool.getSound(gameOver);
         AssetPool.getSound(jumpSmall);
         AssetPool.getSound(marioDie);
@@ -107,14 +227,14 @@ public abstract class Scene {
         //===================================
         //  Properties
         //===================================
-        propertiesList.add(AssetPool.getSpriteSheet(itemsConfig));
-        propertiesList.add(AssetPool.getSpriteSheet(smallFormConfig));
-        propertiesList.add(AssetPool.getSpriteSheet(decorationAndBlockConfig));
-        propertiesList.add(AssetPool.getSpriteSheet(pipesConfig));
-        propertiesList.add(AssetPool.getSpriteSheet(turtleConfig));
-        propertiesList.add(AssetPool.getSpriteSheet(iconConfig));
-        propertiesList.add(AssetPool.getAllSound());
 
+        SpriteConfig[] configList = gsonReader(resourcePath, SpriteConfig[].class);
+
+        for(SpriteConfig config: configList){
+            propertiesList.add(AssetPool.getSpriteSheet(config));
+        }
+
+      //  propertiesList.add(AssetPool.getAllSound());
     }
 
     public abstract void init();
@@ -160,6 +280,7 @@ public abstract class Scene {
     }
 
     public void addObjectToSceneSafe(GameObject ...gameObjects){
+        if(gameObjects == null) return;
         Collections.addAll(addObjectQueue, gameObjects);
     }
 
@@ -267,16 +388,35 @@ public abstract class Scene {
         removePropertiesQueue.clear();
     }
 
-    public void saveStateMachine(String path, List<StateMachine> stateMachineList){
-        Gson gson = new GsonBuilder().
-                registerTypeAdapter(Component.class, new ComponentSerializer()).
-                enableComplexMapKeySerialization().
-                create();
+    public <T> void saveResources(String path, T[] resource){
+       T[] array = (T[]) gsonReader(path, resource.getClass());
 
+       if(array != null) {
+           T[] concatenateArray = (T[]) Array.newInstance(array.getClass().getComponentType(), (array.length + resource.length));
+           System.arraycopy(array, 0, concatenateArray, 0, array.length);
+           System.arraycopy(resource, 0, concatenateArray, array.length, resource.length);
+
+           System.out.println(Arrays.toString(concatenateArray) + "<<");
+           gsonWriter(path, concatenateArray, false);
+       }else{
+           gsonWriter(path, resource, false);
+       }
+    }
+
+    public <T extends Writable> T loadResources(String path, Class<T[]> resource, String name){
+        T[] array = gsonReader(path, resource);
+
+        for(T t: array){
+            if(t.getName().equals(name)) return t;
+        }
+
+        return null;
+    }
+
+    public <T> void gsonWriter(String path, T[] objectsToSave, boolean append){
         try {
-            FileWriter fileWriter = new FileWriter(path);
-
-            String obj = gson.toJson(stateMachineList);
+            FileWriter fileWriter = new FileWriter(path, append);
+            String obj = gson.toJson(objectsToSave);
             fileWriter.write(obj);
             fileWriter.close();
         }catch (IOException e){
@@ -284,21 +424,12 @@ public abstract class Scene {
         }
     }
 
-    public StateMachine loadStateMachine(String path, String name){
-        Gson gson = new GsonBuilder().
-                registerTypeAdapter(Component.class, new ComponentSerializer()).
-                registerTypeAdapter(GameObject.class, new GameObjectDeserializer()).
-                create();
-
+    public <T> T gsonReader(String path, Class<T> type){
         try{
             String data = new String(Files.readAllBytes(Paths.get(path)));
             if(!data.trim().isEmpty() && !data.trim().equals("[]")) {
-                StateMachine[] stateMachines = gson.fromJson(data, StateMachine[].class);
 
-                for(StateMachine stateMachine: stateMachines){
-                    if(stateMachine.getName().equals(name)) return stateMachine;
-                }
-
+                return gson.fromJson(data, type);
             }
         }catch (IOException e){
             e.printStackTrace();
@@ -308,46 +439,24 @@ public abstract class Scene {
     }
 
     public void saveSceneToFile(){
-            Gson gson = new GsonBuilder().
-                    registerTypeAdapter(Component.class, new ComponentSerializer()).
-                    enableComplexMapKeySerialization().
-                    create();
+        ArrayList<GameObject> list = new ArrayList<>();
 
-        try {
-            FileWriter fileWriter = new FileWriter(levelPath);
-            ArrayList<GameObject> objectsToSave = new ArrayList<>();
-
-            for(GameObject gameObject: sceneObjectList){
-                if(gameObject.isSerializable()){
-                    objectsToSave.add(gameObject);
-                }
+        for(GameObject gameObject: sceneObjectList){
+            if(gameObject.isSerializable()){
+                list.add(gameObject);
             }
-
-            String obj = gson.toJson(objectsToSave);
-            fileWriter.write(obj);
-            fileWriter.close();
-        }catch (IOException e){
-            e.printStackTrace();
         }
+
+        GameObject[] objectsToSave = (list.toArray(new GameObject[0]));
+
+        gsonWriter(levelPath, objectsToSave, false);
     }
 
     public void loadSceneFromFile(){
         resetScene();
 
-        Gson gson = new GsonBuilder().
-                registerTypeAdapter(Component.class, new ComponentSerializer()).
-                registerTypeAdapter(GameObject.class, new GameObjectDeserializer()).
-                create();
-
-        try{
-            String data = new String(Files.readAllBytes(Paths.get(levelPath)));
-            if(!data.trim().isEmpty() && !data.trim().equals("[]")) {
-                GameObject[] gameObjects = gson.fromJson(data, GameObject[].class);
-                addObjectToSceneSafe(gameObjects);
-            }
-        }catch (IOException e){
-            e.printStackTrace();
-        }
+        GameObject[] gameObjects = gsonReader(levelPath, GameObject[].class);
+        addObjectToSceneSafe(gameObjects);
     }
 
     public void resetScene(){
@@ -399,5 +508,19 @@ public abstract class Scene {
 
     public List<Properties> getProperties(){
         return  propertiesList;
+    }
+
+    public SpriteSheet getProperties(String name){
+        for(Properties prop: propertiesList){
+            if(prop.getName().equals(name)){
+                if(prop instanceof SpriteSheet){
+                    return (SpriteSheet) prop;
+                }else{
+                    throw new IllegalStateException();
+                }
+            }
+        }
+
+        return null;
     }
 }

@@ -1,10 +1,14 @@
 package main.components;
 
 import imgui.ImGui;
+import main.editor.JImGui;
 import main.renderer.Drawable;
+import main.util.AssetPool;
 import main.util.Texture;
 import org.joml.Vector2d;
 import org.joml.Vector4f;
+
+import static main.Configuration.*;
 
 public class SpriteRenderer extends Component implements Drawable {
     private transient boolean remove;
@@ -12,50 +16,34 @@ public class SpriteRenderer extends Component implements Drawable {
     private transient boolean isHighLighted;
     private transient boolean markToRelocate;
 
-    private transient int spriteID;
     private Vector4f color;
-    private Texture texture;
-    private double width, height;
+    private boolean flipped;
+    private String texturePath;
     private Vector2d[] texCords;
+    private double width, height;
+    private transient int spriteID;
+    private transient Texture texture;
+    private transient  Vector4f originalColor;
 
     public SpriteRenderer() {
         this.isDirty = true;
-        this.color = new Vector4f(1, 1, 1, 1);
-        this.texCords = new Vector2d[]{
-                new Vector2d(1, 1),
-                new Vector2d(1, 0),
-                new Vector2d(0, 0),
-                new Vector2d(0, 1)
-        };
+        this.color = defaultSpriteColor;
+        this.texCords = defaultSpriteCords;
     }
 
     public SpriteRenderer(Vector4f color) {
         this.isDirty = true;
         this.color = color;
-        this.texCords = new Vector2d[]{
-                new Vector2d(1, 1),
-                new Vector2d(1, 0),
-                new Vector2d(0, 0),
-                new Vector2d(0, 1)
-        };
+        this.texCords = defaultSpriteCords;
     }
 
     public SpriteRenderer(Texture texture) {
         this.isDirty = true;
         this.texture = texture;
-        this.color = new Vector4f(1, 1, 1, 1);
-        this.texCords = new Vector2d[]{
-                new Vector2d(1, 1),
-                new Vector2d(1, 0),
-                new Vector2d(0, 0),
-                new Vector2d(0, 1)
-        };
-    }
-
-    public SpriteRenderer(Vector4f color, Vector2d[] texCords) {
-        this.isDirty = true;
-        this.color = color;
-        this.texCords = texCords;
+        this.flipped = texture.isFlipped();
+        this.texturePath = texture.getFilePath();
+        this.color = defaultSpriteColor;
+        this.texCords = defaultSpriteCords;
     }
 
     public SpriteRenderer(Texture texture, double width, double height, Vector2d[] texCords) {
@@ -63,8 +51,10 @@ public class SpriteRenderer extends Component implements Drawable {
         this.width = width;
         this.height = height;
         this.texture = texture;
-        this.color = new Vector4f(1, 1, 1, 1);
         this.texCords = texCords;
+        this.color = defaultSpriteColor;
+        this.flipped = texture.isFlipped();
+        this.texturePath = texture.getFilePath();
     }
 
     @Override
@@ -75,26 +65,26 @@ public class SpriteRenderer extends Component implements Drawable {
     }
 
     @Override
-    public void init() {
+    public SpriteRenderer copy(){
+        Texture tex = texture != null ? texture : AssetPool.getTexture(texturePath, flipped);
+
+        return new SpriteRenderer(tex, width, height, getSpriteCords());
+    }
+
+    public void resetColor(){
+        isHighLighted = false;
+        setColor(originalColor);
     }
 
     public void dearGui() {
+        spriteID = (int) JImGui.drawValue("Texture Slot ID:", spriteID, this.hashCode() + "");
+
         float[] imColor = {color.x, color.y, color.z, color.w};
 
         if (ImGui.colorEdit4("color Picker", imColor)) {
             color.set(imColor);
             isDirty = true;
         }
-    }
-
-    @Override
-    public SpriteRenderer copy(){
-        return new SpriteRenderer(texture, width, height, getSpriteCords());
-    }
-
-    public void resetColor(){
-        isHighLighted = false;
-        setColor(new Vector4f(1, 1, 1, 1));
     }
 
     public boolean isDirty() {
@@ -122,7 +112,7 @@ public class SpriteRenderer extends Component implements Drawable {
         markToRelocate = true;
     }
 
-    public void unmarkToRemove() {
+    public void unMarkToRemove() {
         remove = false;
     }
 
@@ -167,7 +157,12 @@ public class SpriteRenderer extends Component implements Drawable {
     }
 
     public Texture getTexture() {
-        return texture;
+        if(texture == null){
+            String path = texturePath != null ? texturePath : defaultTexturePath;
+            return AssetPool.getTexture(path, flipped);
+        }else {
+            return texture;
+        }
     }
 
     public int getSpriteID() {
@@ -194,12 +189,24 @@ public class SpriteRenderer extends Component implements Drawable {
         return height;
     }
 
-    public void setHighLight(boolean value){
-        isHighLighted = value;
+    public void setHighLight(boolean isHighLighted){
+        if(isHighLighted) {
+            originalColor = new Vector4f(color.x, color.y, color.z, color.w);
+        }
+
+        this.isHighLighted = isHighLighted;
     }
 
     @Override
     public void setDirty(boolean dirty) {
         this.isDirty = dirty;
+    }
+
+    public boolean isFlipped(){
+        return flipped;
+    }
+
+    public String getTexPath(){
+        return texturePath;
     }
 }

@@ -4,6 +4,8 @@ import main.Configuration;
 import main.components.Component;
 import main.haspid.*;
 import main.editor.EditorScene;
+import main.renderer.RenderBatch;
+import main.util.Texture;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,11 +52,11 @@ public class KeyControls extends Component {
                    mouseControls.unselectActiveObjects();
                 }
             }else if(keyboard.isKeyPressed(GLFW_KEY_1)){
-                gizmo.setGizmoIndex(0);
+                gizmo.setGizmoToolIndex(0);
             }else if(keyboard.isKeyPressed(GLFW_KEY_2)){
-                gizmo.setGizmoIndex(1);
+                gizmo.setGizmoToolIndex(1);
             }else if(keyboard.isKeyPressed(GLFW_KEY_3)){
-                gizmo.setGizmoIndex(2);
+                gizmo.setGizmoToolIndex(2);
             }else if(keyboard.isKeyPressed(GLFW_KEY_DELETE)){
                 removeObject(activeObjectList);
             }else if(keyboard.isKeyPressed(GLFW_KEY_R)){
@@ -77,6 +79,11 @@ public class KeyControls extends Component {
                     mouseControls.initObjDistanceFromCursor();
                 }
                 mouseControls.trackMouseMultiple();
+            }else if(keyboard.isKeyPressed(GLFW_KEY_6)){
+                System.out.println("*** start ***");
+                for(Texture t: RenderBatch.getTextureList()){
+                    System.out.println(t.getFilePath());
+                }
             }
 
             ///todo

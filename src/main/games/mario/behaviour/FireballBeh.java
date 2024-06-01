@@ -1,8 +1,7 @@
-package main.components.behaviour;
+package main.games.mario.behaviour;
 
 import main.components.Component;
 import main.components.PlayerController;
-import main.components.SpriteRenderer;
 import main.components.physicsComponent.RigidBody;
 import main.haspid.GameObject;
 import main.haspid.Window;

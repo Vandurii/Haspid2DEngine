@@ -99,11 +99,6 @@ public class DynamicLayer extends Layer {
     public void draw(){;
         checkIfDirty();
 
-        if(!isEnabled()){
-            Console.addLog(new Log(INFO, "Can't draw because layer in Disabled: "  + getID() + " :" + getzIndex()));
-            return;
-        }
-
         //  set the grid width
         calculateLineWidth();
 

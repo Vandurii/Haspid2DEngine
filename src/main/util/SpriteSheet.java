@@ -54,6 +54,10 @@ public class SpriteSheet implements Properties{
         return spriteList.size();
     }
 
+    public Texture getParentTexture(){
+        return parentTexture;
+    }
+
     @Override
     public String getName() {
         return name;

@@ -1,14 +1,15 @@
 package main.editor;
 
 import main.components.*;
-import main.components.behaviour.*;
+import main.games.mario.behaviour.*;
 import main.components.Hitable;
 import main.components.physicsComponent.*;
 import main.components.stateMachine.Animation;
 import main.components.stateMachine.StateMachine;
+import main.games.mario.behaviour.CoinBeh;
 import main.haspid.Direction;
 import main.haspid.GameObject;
-import main.components.behaviour.QuestionBlockBeh.BlockType;
+import main.games.mario.behaviour.QuestionBlockBeh.BlockType;
 import main.haspid.Transform;
 import main.physics.BodyType;
 import main.util.AssetPool;
@@ -105,8 +106,9 @@ public class Prefabs {
     }
 
     public static GameObject generateMario(double width, double height){
-        GameObject mario = generateDynamicObject(new SpriteRenderer(), width, height, ColliderType.Box);
-        mario.addComponent(AssetPool.getStateMachine("smallMario"));
+        GameObject mario = generateDynamicObject(new SpriteRenderer(AssetPool.getTexture(defaultTexturePath, true)), width, height, ColliderType.Box);
+        StateMachine stateMachine = AssetPool.getStateMachine("smallMario");
+        mario.addComponent(stateMachine);
         mario.addComponent(new PlayerController());
         mario.setName("mario");
 

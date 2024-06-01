@@ -12,7 +12,7 @@ import static org.lwjgl.stb.STBImage.*;
 
 public class Texture{
     private String filePath;
-    private int texID;
+    private transient int texID;
     private int width, height;
     private boolean flip;
 
@@ -70,7 +70,7 @@ public class Texture{
         Texture t = (Texture) o;
 
         return this.filePath.equals(t.getFilePath()) && this.width == t.getWidth() &&
-                this.height == t.getHeight() && this.texID == t.getTexID();
+                this.height == t.getHeight();
 
     }
 

@@ -3,10 +3,7 @@ package main.util;
 import main.components.stateMachine.StateMachine;
 import main.haspid.Window;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import static main.Configuration.stateMachinePath;
 
@@ -68,7 +65,7 @@ public class AssetPool{
 
     public static StateMachine getStateMachine(String name){
         if(!stateMachineMap.containsKey(name)){
-            StateMachine stateMachine = Window.getInstance().getCurrentScene().loadStateMachine(stateMachinePath, name);
+            StateMachine stateMachine = Window.getInstance().getCurrentScene().loadResources(stateMachinePath, StateMachine[].class, name);
             stateMachine.init();
             stateMachineMap.put(stateMachine.getName(), stateMachine);
         }
@@ -80,20 +77,7 @@ public class AssetPool{
         return stateMachineMap.keySet();
     }
 
-    public static void printResourcesInAssetPool(){
-        System.out.println("*********************");
-        System.out.println("RESOURCES IN ASSETPOOL");
-        System.out.println("*********************");
-        System.out.println("Total: " + (shaders.size() + textures.size() + spriteSheetList.size()));
-        System.out.println("Shaders: " + shaders.size());
-        System.out.print(shaders.keySet());
-        System.out.println();
-        System.out.println("Textures: " + textures.size());
-        System.out.print(textures.keySet());
-        System.out.println();
-        System.out.println("SpriteSheets: " + spriteSheetList.size());
-        System.out.print(spriteSheetList.keySet());
-        System.out.println("\n");
+    public static Collection<SpriteSheet> getAllSpriteSheet(){
+        return spriteSheetList.values();
     }
-
 }

@@ -1,12 +1,15 @@
 package main.components.stateMachine;
 
 import main.components.Component;
+import main.components.SpriteRenderer;
 import main.editor.JImGui;
+import main.haspid.Writable;
+import main.renderer.RenderBatch;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class StateMachine extends Component  {
+public class StateMachine extends Component implements Writable {
     private String name;
     private String defaultAnimationTitle;
     private List<Animation> animationList;
@@ -33,7 +36,7 @@ public class StateMachine extends Component  {
 
     @Override
     public void update(float dt) {
-        // get current animation and ubpdate it
+        // get current animation and update it
         currentAnimation = findAnimation(currentAnimationTitle);
         currentAnimation.update(dt);
 
@@ -78,11 +81,16 @@ public class StateMachine extends Component  {
         }
 
         for(Animation animation: animationList){
-            animation.setTitle((String)JImGui.drawValue("State:", animation.getTitle(), this.hashCode() + ""));
+            String hash = this.hashCode() + animation.getTitle();
+            animation.setTitle((String)JImGui.drawValue("State:", animation.getTitle(), hash));
 
             int index = 0;
             for(Frame frame: animation.getFrameList()){
-                frame.setFrameTime((float)JImGui.drawValue("Frame " + index++ + ": ", frame.getFrameTime(), this.hashCode() + animation.getTitle()));
+                hash += frame.hashCode();
+                SpriteRenderer sprite = frame.getSpriteRenderer();
+                int ID = (int) JImGui.drawValue("Slot", sprite.getSpriteID(), hash);
+                sprite.setSpriteID(ID);
+                frame.setFrameTime((float)JImGui.drawValue("Frame " + index++ + ": ", frame.getFrameTime(), hash));
             }
         }
     }
@@ -91,6 +99,7 @@ public class StateMachine extends Component  {
         return currentAnimationTitle;
     }
 
+    @Override
     public String getName(){
         return  name;
     }

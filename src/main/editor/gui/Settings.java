@@ -7,6 +7,7 @@ public class Settings {
 
     private boolean console;
     private boolean resourcesMonitor;
+    private boolean grid;
 
 
     private boolean display;
@@ -17,6 +18,7 @@ public class Settings {
         this.display = false;
 
         this.resourcesMonitor = editorScene.shouldResourceDisplay();
+        this.grid = editorScene.shouldGridDisplay();
     }
 
     public void display(){
@@ -36,6 +38,11 @@ public class Settings {
                 editorScene.displayResources(resourcesMonitor);
             }
 
+            if(ImGui.checkbox("Show Grid", grid)){
+                grid = !grid;
+                System.out.println(grid);
+                editorScene.displayGrid(grid);
+            }
 
             ImGui.end();
         }

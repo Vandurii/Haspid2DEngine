@@ -25,6 +25,8 @@ import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 
 public class RenderBatch implements Comparable<RenderBatch> {
 
+    private boolean skip;
+
     private int pointSizeFloat;
     private int pointsInSquare;
     private int squareSizeFloat;
@@ -154,7 +156,7 @@ public class RenderBatch implements Comparable<RenderBatch> {
                 int offset = index * squareSizeFloat;
                 vertexArray[offset + i] = 0;
             }
-            spriteRenderer.unmarkToRemove();
+            spriteRenderer.unMarkToRemove();
             spriteListToRender[index] = null;
 
            if(spriteRenderer.isMarkToRelocate()){
@@ -264,25 +266,27 @@ public class RenderBatch implements Comparable<RenderBatch> {
     }
 
     public void render(){
-        Camera camera = Window.getInstance().getCurrentScene().getCamera();
-        Shader shader = Renderer.getInstance().getShader();
-        reloadIfDirty();
+        if(!skip) {
+            Camera camera = Window.getInstance().getCurrentScene().getCamera();
+            Shader shader = Renderer.getInstance().getShader();
+            reloadIfDirty();
 
-        shader.use();
-        shader.uploadValue("uProjection", camera.getUProjection());
-        shader.uploadValue("uView", camera.getUView());
-        shader.uploadValue("uTextures", uTextures);
+            shader.use();
+            shader.uploadValue("uProjection", camera.getUProjection());
+            shader.uploadValue("uView", camera.getUView());
+            shader.uploadValue("uTextures", uTextures);
 
-        activeAndBindTextures();
-        glBindVertexArray(VAO);
-        enableAttribArrays();
+            activeAndBindTextures();
+            glBindVertexArray(VAO);
+            enableAttribArrays();
 
-        glDrawElements(GL_TRIANGLES, spriteCount * pointsIn2Triangles, GL_UNSIGNED_INT, 0);
+            glDrawElements(GL_TRIANGLES, spriteCount * pointsIn2Triangles, GL_UNSIGNED_INT, 0);
 
-        unbindTextures();
-        disableAttribArrays();
-        glBindVertexArray(0);
-        shader.detach();
+            unbindTextures();
+            disableAttribArrays();
+            glBindVertexArray(0);
+            shader.detach();
+        }
     }
 
     public void reloadIfDirty(){
@@ -365,7 +369,7 @@ public class RenderBatch implements Comparable<RenderBatch> {
         return spriteListToRender;
     }
 
-    public List<Texture> getTextureList(){
+    public static List<Texture> getTextureList(){
         return  textureList;
     }
 
@@ -383,5 +387,9 @@ public class RenderBatch implements Comparable<RenderBatch> {
 
     public float[] getVertexArray(){
         return vertexArray;
+    }
+
+    public void setSkip(boolean skip){
+        this.skip = skip;
     }
 }

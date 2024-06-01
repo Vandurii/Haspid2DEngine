@@ -1,12 +1,10 @@
-package main.components.behaviour;
+package main.games.mario.behaviour;
 
-import main.Configuration;
 import main.components.Component;
 import main.components.PlayerController;
 import main.components.physicsComponent.RigidBody;
 import main.haspid.GameObject;
 import main.util.AssetPool;
-import org.jbox2d.dynamics.ContactManager;
 import org.jbox2d.dynamics.contacts.Contact;
 import org.joml.Vector2d;
 

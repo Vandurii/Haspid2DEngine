@@ -43,8 +43,7 @@ public class JImGui {
             ImGui.dragFloat(name, valArr, 0.1f);
             pop();
             return valArr[0];
-        }else if(type instanceof String){
-            String str  = (String) type;
+        }else if(type instanceof String str){
             ImString outString = new ImString(str, 256);
             ImGui.inputText(name, outString);
             pop();

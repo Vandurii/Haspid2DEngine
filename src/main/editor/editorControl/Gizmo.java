@@ -5,7 +5,6 @@ import main.components.SpriteRenderer;
 import main.haspid.*;
 import main.renderer.Renderer;
 import main.editor.EditorScene;
-import main.util.AssetPool;
 import main.util.SpriteSheet;
 import org.joml.Vector2d;
 
@@ -15,7 +14,7 @@ import static main.Configuration.*;
 
 public class Gizmo extends Component {
 
-    private int gizmoIndex;
+    private int gizmoToolIndex;
     private MouseListener mouse;
     private GameObject lastActiveObject;
     private SpriteSheet gimzosSheet;
@@ -37,7 +36,6 @@ public class Gizmo extends Component {
 
     public Gizmo(EditorScene editorScene){
 
-        this.gizmoIndex = 1;
         this.xAxisXPadding = xGizmoXAxis;
         this.xAxisYPadding = xGizmoYAxis;
         this.yAxisXPadding = yGizmoXAxis;
@@ -45,16 +43,17 @@ public class Gizmo extends Component {
         this.editorScene = editorScene;
         this.mouse = MouseListener.getInstance();
         this.keyboard = KeyListener.getInstance();
-        this.gimzosSheet = AssetPool.getSpriteSheet(gizmosConfig);
+        this.gizmoToolIndex = gizmoStartToolIndex;
+        this.gimzosSheet = editorScene.getProperties("gizmo");
 
         this.xAxisBody = new GameObject("gizmoXAxis");
-        this.xAxisBody.addComponent(new Transform(new Vector2d(), gizmoScale, xGizmoRotation, 20));
+        this.xAxisBody.addComponent(new Transform(new Vector2d(), gizmoScale, xGizmoRotation, gizmoZIndex));
         this.xAxisBody.setTransformFromItself();
         this.xAxisBody.setNonSerializable();
         this.xAxisBody.setNonTriggerable();
 
         this.yAxisBody = new GameObject("gizmoYAxis");
-        this.yAxisBody.addComponent(new Transform(new Vector2d(), gizmoScale, yGizmoRotation, 20));
+        this.yAxisBody.addComponent(new Transform(new Vector2d(), gizmoScale, yGizmoRotation, gizmoZIndex));
         this.yAxisBody.setTransformFromItself();
         this.yAxisBody.setNonSerializable();
         this.yAxisBody.setNonTriggerable();
@@ -64,7 +63,7 @@ public class Gizmo extends Component {
 
     public void create(){
         active = true;
-        SpriteRenderer template = gimzosSheet.getSprite(gizmoIndex);
+        SpriteRenderer template = gimzosSheet.getSprite(gizmoToolIndex);
 
         xAxisSpriteRender = new SpriteRenderer(template.getTexture(), template.getWidth(), template.getHeight(), template.getSpriteCords());
         xAxisSpriteRender.setColor(gizmoColor);
@@ -164,13 +163,13 @@ public class Gizmo extends Component {
         return active;
     }
 
-    public void setGizmoIndex(int index){
-        this.gizmoIndex = index;
+    public void setGizmoToolIndex(int index){
+        this.gizmoToolIndex = index;
         destroy();
         create();
     }
 
-    public int getGizmoIndex(){
-        return gizmoIndex;
+    public int getGizmoToolIndex(){
+        return gizmoToolIndex;
     }
 }

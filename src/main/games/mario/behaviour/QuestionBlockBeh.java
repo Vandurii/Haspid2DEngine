@@ -1,4 +1,4 @@
-package main.components.behaviour;
+package main.games.mario.behaviour;
 
 import main.components.PlayerController;
 import main.components.Hitable;

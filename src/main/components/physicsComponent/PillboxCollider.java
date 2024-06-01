@@ -54,6 +54,16 @@ public class PillboxCollider extends Collider {
     }
 
     @Override
+    public void updateColliderLines() {
+
+    }
+
+    @Override
+    public boolean resize() {
+        return false;
+    }
+
+    @Override
     public void dearGui(){
         super.dearGui();
         float w = (float)JImGui.drawValue("width", width, this.hashCode() + "");

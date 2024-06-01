@@ -63,7 +63,7 @@ public class EditorScene extends Scene {
         imGuiLayer = new ImGuiLayer(Window.getInstance().getGlfwWindow());
         imGuiLayer.init(new Configuration());
 
-        fileBrowser = new FileBrowser();
+        fileBrowser = new FileBrowser(this);
         consoleWindow = new ConsoleWindow();
         creator = new Creator(this);
         inspectorWindow = new InspectorWindow();
@@ -81,17 +81,23 @@ public class EditorScene extends Scene {
     }
 
     public void render(float dt, boolean bufferIdMode){
+        // render grid and selector
         if(!bufferIdMode){
            DebugDraw.notify(Draw, gridID);
            DebugDraw.notify(Draw, selectorID);
         }
+
+        // don't draw gizmo because it will be draw on the top
+        getRenderer().skipLayer(gizmoZIndex, true);
+
+        // draw scene objects
         getRenderer().render();
 
-        // todo check rays cast
-//        DebDraw.notify(SetDirty, rayCastID);
-//        DebDraw.notify(Draw, rayCastID);
-
+        // draw collider lines
         DebugDraw.notify(Draw, colliderID);
+
+        // draw gizmos on the top of everything
+        getRenderer().renderLayer(gizmoZIndex);
     }
 
     public void updateDearGui(){
@@ -145,7 +151,15 @@ public class EditorScene extends Scene {
         resourcesManager.setDisplay(display);
     }
 
+    public void displayGrid(boolean display){
+        gridLines.setDisplay(display);
+    }
+
     public boolean shouldResourceDisplay(){
         return resourcesManager.shouldDisplay();
+    }
+
+    public boolean shouldGridDisplay(){
+        return gridLines.shouldDisplay();
     }
 }

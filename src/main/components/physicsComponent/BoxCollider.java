@@ -1,15 +1,8 @@
 package main.components.physicsComponent;
 
-import main.haspid.Scene;
 import main.haspid.Transform;
-import main.haspid.Window;
 import main.renderer.DebugDraw;
-import main.renderer.DebugDrawEvents;
-import main.renderer.Line2D;
 import org.joml.Vector2d;
-
-import java.util.HashSet;
-import java.util.List;
 
 import static main.Configuration.*;
 import static main.renderer.DrawMode.Dynamic;
@@ -17,35 +10,40 @@ import static main.renderer.DrawMode.Dynamic;
 public class BoxCollider extends Collider {
     private Vector2d center;
     private Vector2d halfSize;
-
-
+    private transient Vector2d lastHalfSize;
 
     public BoxCollider(Vector2d halfSize){
         this.halfSize = halfSize;
         this.center = new Vector2d();
+        this.lastHalfSize = new Vector2d(halfSize.x, halfSize.y);
     }
-
-
 
     @Override
-    public void update(float dt){
-        Transform newTransform = getParent().getTransform();
-        center = new Vector2d(newTransform.getPosition()).add(getOffset());
-
-        if(getParent().isDirty()){
-            List<Line2D> lineList = getParent().getAllCompThisType(Line2D.class);
-
-            for(Line2D line: lineList){
-                line.markToRemove(true);
-                scene.removeComponentSafe(getParent(), line);
-            }
-
-            DebugDraw.addBox(center, new Vector2d(halfSize.x * 2, halfSize.y * 2), newTransform.getRotation(), colliderColor, colliderID, colliderZIndex, Dynamic, getParent());
-        }
-
-        if(resetFixtureNextFrame) resetFixture();
+    public void init(){
+        // call super method so that it initialize scene and physic
+        super.init();
+        this.lastHalfSize = new Vector2d(halfSize.x, halfSize.y);
     }
 
+    @Override
+    public void updateColliderLines() {
+        Transform t = getParent().getTransform();
+        center = new Vector2d(t.getPosition()).add(getOffset());
+        DebugDraw.addBox(center, new Vector2d(halfSize.x * 2, halfSize.y * 2), t.getRotation(), colliderColor, colliderID, colliderZIndex, Dynamic, getParent());
+    }
+
+    @Override
+    public boolean resize() {
+        if(lastHalfSize.x != halfSize.x || lastHalfSize.y != halfSize.y){
+            lastHalfSize = new Vector2d(halfSize.x, lastHalfSize.y);
+            resetFixture();
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
     public BoxCollider copy(){
         BoxCollider boxCollider = new BoxCollider(halfSize);
         boxCollider.setOffset(getOffset());

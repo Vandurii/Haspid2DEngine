@@ -12,6 +12,7 @@ import main.physics.events.Event;
 import main.physics.events.EventSystem;
 import main.physics.events.EventType;
 import main.renderer.DebugDraw;
+import main.renderer.DebugDrawEvents;
 import main.util.AssetPool;
 import main.util.SpriteSheet;
 import org.jbox2d.dynamics.contacts.Contact;

@@ -8,6 +8,7 @@ import main.haspid.GameObject;
 import main.haspid.MouseListener;
 import main.renderer.*;
 import main.util.AssetPool;
+import main.util.SpriteSheet;
 import main.util.Texture;
 import org.joml.Vector4f;
 
@@ -59,7 +60,8 @@ public class ResourcesManager {
             }
 
             if (ImGui.collapsingHeader("Resources")) {
-                displayAssets();
+                displayRenderTexture();
+                displayAssetPoolTexture();
                 displayStateMachine();
             }
 
@@ -102,16 +104,26 @@ public class ResourcesManager {
         }
     }
 
-    public void displayAssets(){
-        displayBulletTitle("Loaded Assets: ", colorGreyA);
-        List<RenderBatch> renderList = editorScene.getRenderer().getRenderBatchList();
+    public void displayRenderTexture(){
+        displayBulletTitle("Texture in Render: ", colorGreyA);
+        List<Texture> textureList = RenderBatch.getTextureList();
 
-        if(!renderList.isEmpty()){
-            for(Texture texture: renderList.get(0).getTextureList()){
-                ImGui.text("\t" + texture.getFilePath());
-            }
+        int i = 1;
+        for(Texture texture: textureList){
+            ImGui.text(String.format("\t Slot[%s] ID[%s] %s",i, texture.getTexID(), texture.getFilePath()));
+            i++;
         }
     }
+
+    public void displayAssetPoolTexture(){
+        displayBulletTitle("Texture in Assets Pool ", colorGreyA);
+
+        for(SpriteSheet spriteSheet: AssetPool.getAllSpriteSheet()){
+            Texture tex = spriteSheet.getParentTexture();
+            ImGui.text(String.format("\tID[%s] %s", tex.getTexID(), spriteSheet.getName()));
+        }
+    }
+
 
     public void displayStateMachine(){
         displayBulletTitle("State machine: ", colorGreyA);
@@ -259,7 +271,7 @@ public class ResourcesManager {
 
     public void resolveIfActive(GameObject gameObject, int index, boolean open){
         if(open){
-          //  editorScene.getMouseControls().setObjectActive(gameObject);
+            editorScene.getMouseControls().setObjectActive(gameObject);
             openNodeMap.put(index, true);
             ImGui.text(gameObject + "");
             ImGui.text(gameObject.getGameObjectID() + "");
@@ -267,7 +279,6 @@ public class ResourcesManager {
         }else if(openNodeMap.get(index) != null && openNodeMap.get(index)){
             editorScene.getMouseControls().unselectActiveObject(gameObject);
             openNodeMap.put(index, false);
-            System.out.println("clear: "  + index);
         }
     }
 
@@ -275,7 +286,6 @@ public class ResourcesManager {
         ImGui.sameLine();
         ImGui.pushID(Arrays.hashCode(vertexArray));
         if(ImGui.button(">_")){
-            System.out.println("print");
             ConsoleWindow.clear();
 
             for(int i = 0; i < vertexArray.length; i++){

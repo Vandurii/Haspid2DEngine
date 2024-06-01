@@ -2,8 +2,6 @@ package main.editor.gui;
 
 import imgui.ImGui;
 import imgui.ImVec2;
-import imgui.flag.ImGuiCol;
-import imgui.flag.ImGuiStyleVar;
 import main.components.SpriteRenderer;
 import main.components.physicsComponent.ColliderType;
 import main.editor.EditorScene;
@@ -14,12 +12,10 @@ import main.haspid.GameObject;
 import main.util.*;
 import org.joml.Vector2d;
 
-import java.awt.*;
 import java.util.List;
 
 import static main.Configuration.*;
-import static main.Configuration.imGuiTabActive;
-import static main.components.behaviour.QuestionBlockBeh.BlockType.Coin;
+import static main.games.mario.behaviour.QuestionBlockBeh.BlockType.Coin;
 
 public class PropertiesWindow {
 
@@ -99,7 +95,7 @@ public class PropertiesWindow {
             if (ImGui.imageButton(texID, (float) spriteWidth, (float) spriteHeight, (float) cords[3].x, (float) cords[3].y, (float) cords[1].x, (float) cords[1].y)) {
                 GameObject holdingObject = Prefabs.generateBopObject(sprite, spriteWidth, spriteHeight, ColliderType.Box);
                 // todo
-                if(index == 6){
+                if(spriteSheet.getName().equals("icons")){
                     switch (i){
                         case 0 -> holdingObject = Prefabs.generateMario(spriteWidth / 2, spriteHeight /2);
                         case 1 -> holdingObject = Prefabs.generateGoomba(spriteWidth / 2, spriteHeight / 2);

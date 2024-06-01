@@ -9,13 +9,13 @@ import main.renderer.DebugDraw;
 import main.editor.EditorScene;
 import org.joml.Vector2d;
 import org.joml.Vector3f;
+import org.joml.Vector4f;
 
 import java.util.*;
 
 import static main.Configuration.*;
 import static main.renderer.DebugDrawEvents.*;
 import static main.renderer.DrawMode.Dynamic;
-import static main.renderer.DrawMode.Static;
 import static org.lwjgl.glfw.GLFW.*;
 
 public class MouseControls extends Component {
@@ -209,14 +209,13 @@ public class MouseControls extends Component {
 
             for(Component c: draggingObject.getAllComponent()){
                 Component compClone = c.copy();
-                if(compClone != null) objectClone.addComponent(compClone);
+                if(compClone != null){
+                    objectClone.addComponent(compClone);
+                }
             }
+
             objectClone.setTransformFromItself();
             objectClone.getTransform().increaseZIndex();
-
-            // todo
-           //draggingObject.getTransform().increaseZIndex();
-           //draggingObject = objectClone;
 
             editorScene.addObjectToSceneSafe(objectClone);
         }
@@ -228,7 +227,7 @@ public class MouseControls extends Component {
     }
 
     public void gizmoAction(){
-        int index = gizmo.getGizmoIndex();
+        int index = gizmo.getGizmoToolIndex();
         GameObject activeGameObject = activeObjectList.get(0);
         Transform transform = activeGameObject.getTransform();
         Vector2d scale = transform.getScale();
@@ -333,11 +332,11 @@ public class MouseControls extends Component {
                 for(int id: idSet){
                    GameObject gameObject = editorScene.getObjectByID(id);
                    if(gameObject != null) {
-                       highLightObject(gameObject);
                        setObjectActive(gameObject);
                    }
                 }
             }
+
             startDraggingWMode = null;
             startDraggingVMode = null;
         }else if(wasDraggedLastFrame){
