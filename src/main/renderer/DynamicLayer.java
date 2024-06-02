@@ -97,6 +97,10 @@ public class DynamicLayer extends Layer {
     }
 
     public void draw(){;
+        if(!isEnabled()){
+            return;
+        }
+
         checkIfDirty();
 
         //  set the grid width

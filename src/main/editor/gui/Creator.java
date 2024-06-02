@@ -2,25 +2,27 @@ package main.editor.gui;
 
 import imgui.ImGui;
 import imgui.ImVec2;
-import imgui.type.ImString;
 import main.components.SpriteRenderer;
 import main.components.stateMachine.Animation;
 import main.components.stateMachine.Frame;
 import main.editor.EditorScene;
 import main.editor.JImGui;
 import main.util.AssetPool;
-import main.util.SpriteConfig;
 import main.util.SpriteSheet;
+import main.util.Texture;
 import org.joml.Vector2d;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static main.Configuration.*;
 
 public class Creator {
     private EditorScene editorScene;
+
+    private Texture tex;
+    private int iconSize;
+    private int buttonSize;
 
     private int index;
     private final double dt;
@@ -30,23 +32,26 @@ public class Creator {
     private int spriteImageSize;
     private int currentSpriteIndex;
     private double defaultFrameValue;
-    private SpriteConfig currentConfig;
+    private SpriteSheet currentSpriteSheet;
 
     private String animationName;
     private double frameTime;
     private boolean doesLoop;
     private List<Frame> frameList;
 
-    private List<String> errorList;
     private List<Animation> animationList;
     private List<FrameData> frameDataList;
-    private List<SpriteConfig> configList;
+    private List<SpriteSheet> spriteSheetList;
 
+    private List<String> errorList;
     private String titleError = "The title field can't be empty.";
     private String frameError = "Frame time can't be 0.";
     private String frameListError = "Animation must have at least one frame.";
 
     public Creator(EditorScene editorScene){
+        this.iconSize = 10;
+        this.buttonSize = 20;
+
         this.animationName = "";
         this.dt = 1d / 60d;
         this.spriteImageSize = 50;
@@ -55,10 +60,10 @@ public class Creator {
         this.editorScene = editorScene;
         this.frameList = new ArrayList<>();
         this.errorList = new ArrayList<>();
-        this.currentConfig = smallFormConfig;
         this.frameDataList = new ArrayList<>();
         this.animationList = new ArrayList<>();
-        this.configList = Arrays.asList(smallFormConfig, bigFormConfig, turtleConfig, itemsConfig, decorationAndBlockConfig, pipesConfig);
+        this.spriteSheetList = editorScene.getSpriteSheetFromProperties();
+        this.currentSpriteSheet = AssetPool.getSpriteSheet(smallFormConfig);
     }
 
     public void display(){
@@ -143,9 +148,9 @@ public class Creator {
         // add frame area
         //===============
         ImGui.bulletText("Frame Settings:");
-        SpriteSheet currentSpriteSheet = AssetPool.getSpriteSheet(currentConfig);
+      //  SpriteSheet currentSpriteSheet = AssetPool.getSpriteSheet(curentSpriteSheet);
 
-        frameTime = (float) JImGui.drawValue("  Frame Time: ", frameTime, this.hashCode() + "");
+        frameTime = (float) JImGui.drawValue("  Frame Time: ", frameTime);
 
         if(currentSpriteSheet.getSize() <= index) index = 0;
         SpriteRenderer sprite = currentSpriteSheet.getSprite(index);
@@ -166,13 +171,18 @@ public class Creator {
             }
         }
 
-        if(ImGui.beginCombo("##spriteSelector", currentConfig.name)){
-            for(int i = 0; i < configList.size(); i++){
-                if(ImGui.button(configList.get(i).name)){
-                    currentConfig = configList.get(i);
+        if(ImGui.beginCombo("##spriteSelector", currentSpriteSheet.getName())){
+            for(int i = 0; i < spriteSheetList.size(); i++){
+                if(ImGui.button(spriteSheetList.get(i).getName())){
+                    currentSpriteSheet = spriteSheetList.get(i);
                 }
             }
             ImGui.endCombo();
+        }
+
+        ImGui.sameLine();
+        if(createButton(loadImagePath, false)){
+            spriteSheetList = editorScene.getSpriteSheetFromProperties();
         }
 
         for (int i = 0; i < currentSpriteSheet.getSize(); i++) {
@@ -200,7 +210,7 @@ public class Creator {
         ImGui.sameLine();
         if(ImGui.checkbox("Loop",imBoolean)) doesLoop = !doesLoop;
 
-        animationName = (String) JImGui.drawValue("  Animaion Name: ", animationName, this.hashCode() + "");
+        animationName = (String) JImGui.drawValue("  Animaion Name: ", animationName);
         ImGui.text(" ");
         ImGui.sameLine();
 
@@ -328,6 +338,16 @@ public class Creator {
         float nextButton = lastButton.x + itemSpacing.x + buttonWidth;
 
         return nextButton < window;
+    }
+
+    public boolean createButton(String filePath, boolean flipped){
+        ImGui.sameLine();
+        tex = AssetPool.getTexture(filePath, flipped);
+        if (ImGui.imageButton(tex.getTexID(), buttonSize, buttonSize)) {
+            return true;
+        }
+
+        return false;
     }
 
     public class FrameData{

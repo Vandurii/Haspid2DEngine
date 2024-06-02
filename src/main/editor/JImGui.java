@@ -4,6 +4,7 @@ import imgui.ImGui;
 import imgui.flag.ImGuiCol;
 import imgui.flag.ImGuiStyleVar;
 import imgui.type.ImString;
+import main.components.Component;
 import org.joml.*;
 
 import java.awt.*;
@@ -11,21 +12,29 @@ import java.awt.*;
 import static main.Configuration.*;
 
 public class JImGui {
-    public static <T> Object drawValue(String label, T type, String hashName){
-        return drawValue(label, type ,hashName, 0);
+    public static <T> Object drawValue(String label, T type){
+        return drawValue(label, type, 0);
     }
 
-    public static <T> Object drawValue(String label, T type, String hashName, float resetValue){
-        String name = "##" + hashName + label;
-        ImGui.pushID(label);
+    public static <T> Object drawValue(String label, T type , float resetValue){
+        String name = "##" + label;
+        ImGui.pushID(EditorScene.generateID());
 
         ImGui.columns(2);
         ImGui.text(label);
         ImGui.nextColumn();
 
-        if(type instanceof Vector2f || type instanceof Vector3f || type instanceof Vector4f || type instanceof Vector2d || type instanceof Vector3d || type instanceof Vector4d){
+        if(Component.getSupportedVectors().contains(type.getClass())){
             ImGui.pushStyleVar(ImGuiStyleVar.ItemSpacing, inspectorXSpacing, inspectorYSpacing);
-            vec(type, resetValue);
+
+            if(type instanceof Vector2d[] vector2ds){
+                for(Vector2d v2d: vector2ds){
+                    vec(v2d, resetValue);
+                }
+            }else {
+                vec(type, resetValue);
+            }
+
             ImGui.popStyleVar();
         }else if(type instanceof Integer){
             int[] valArr = {(int)type};
@@ -103,6 +112,7 @@ public class JImGui {
             ImGui.pushStyleColor(ImGuiCol.ButtonHovered, hover.getRed(), hover.getGreen(), hover.getBlue(), hover.getAlpha());
             ImGui.pushStyleColor(ImGuiCol.ButtonActive, active.getRed(), active.getGreen(), active.getBlue(), active.getAlpha());
 
+            ImGui.pushID(EditorScene.generateID());
             if (ImGui.button(name, buttonSize.x, buttonSize.y)) {
                 if(values instanceof Vector2f || values instanceof Vector3f || values instanceof Vector4f) {
                     setVecF(values, i, resetValue);
@@ -110,6 +120,7 @@ public class JImGui {
                     setVecD(values, i, resetValue);
                 }
             }
+            ImGui.popID();
 
             float[] vecValues = {};
             if(values instanceof Vector2f || values instanceof Vector3f || values instanceof Vector4f) {

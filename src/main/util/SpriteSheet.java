@@ -1,13 +1,14 @@
 package main.util;
 
 import main.components.SpriteRenderer;
+import main.haspid.Writable;
 import org.joml.Vector2d;
 import org.joml.Vector2f;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SpriteSheet implements Properties{
+public class SpriteSheet implements Properties, Writable {
 
     private String name;
     private Texture parentTexture;

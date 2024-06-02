@@ -35,9 +35,11 @@ public class GridLines extends Component {
             // disable grid lines when screen is to narrow or dimension to large
             if (viewPort.getViewPortWidth() < minimalViewPortWidthForGrid || uProjectionDimension.x * currentZoomValue > maximalProjectionWidthForGrid) {
                 DebugDraw.notify(Disable, gridID);
+                DebugDraw.notify(Disable, colliderID);
                 return;
             } else if (!request(IsEnabled, gridID)) {
                 DebugDraw.notify(Enable, gridID);
+                DebugDraw.notify(Enable, colliderID);
             }
 
             // get current camera position in the world

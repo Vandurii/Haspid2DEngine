@@ -33,6 +33,7 @@ public class ViewPort {
         ImGui.pushStyleVar(ImGuiStyleVar.WindowPadding, 0f, 0f);
         ImGui.begin("View Port", ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse);
 
+        // update window pos and size every frame
         update();
 
         ImGui.setCursorPos(viewPortStartFromX, viewPortStartFromY);

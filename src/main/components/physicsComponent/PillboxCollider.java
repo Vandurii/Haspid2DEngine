@@ -66,8 +66,8 @@ public class PillboxCollider extends Collider {
     @Override
     public void dearGui(){
         super.dearGui();
-        float w = (float)JImGui.drawValue("width", width, this.hashCode() + "");
-        float h = (float)JImGui.drawValue("height", height, this.hashCode() + "");
+        float w = (float)JImGui.drawValue("width", width);
+        float h = (float)JImGui.drawValue("height", height);
         setWidth(w);
         setHeight(h);
     }

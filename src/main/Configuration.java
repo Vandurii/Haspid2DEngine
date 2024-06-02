@@ -48,6 +48,9 @@ public class Configuration {
     public static String addDocImagePath = Path.fromSys("addDoc.png");
     public static String removeDocImagePath = Path.fromSys("removeDoc.png");
     public static String listImagePath = Path.fromSys("list.png");
+    public static String loadImagePath = Path.fromSys("load.png");
+    public static String ideaImagePath = Path.fromSys("idea.png");
+
 
 
     //=====================
@@ -117,6 +120,7 @@ public class Configuration {
     //=====================
     // Window Settings
     //=====================
+    public static boolean maximize = true;
     public static int windowWidth = 1440;
     public static int windowHeight = 810;
     public static String windowTitle = "Haspid";
@@ -208,7 +212,7 @@ public class Configuration {
     public static String gridID = "grid";
     public static int gridLinesZIndex = 2;
     public static double gridSize = uProjectionDimension.x / 40;;
-    public static double minimalViewPortWidthForGrid = 400;
+    public static double minimalViewPortWidthForGrid = 600;
     public static double maximalProjectionWidthForGrid = gridSize * 140;
     public static Vector3f gridLinesColor = new Vector3f(0.2f, 0.2f, 0.2f);
 

@@ -1,7 +1,12 @@
 package main.editor.gui;
 
-import imgui.ImGui;
+import imgui.*;
 import main.editor.EditorScene;
+import main.haspid.Event;
+import main.util.AssetPool;
+import main.util.Texture;
+
+import static main.Configuration.ideaImagePath;
 
 public class HelpPanel {
     private EditorScene editorScene;
@@ -11,9 +16,19 @@ public class HelpPanel {
     }
 
     public void display(){
+
         ImGui.begin("Help Panel");
-        ImGui.text("Right-click on an object to activate it.");
-        ImGui.text("Use scroll to change the world scale.");
+
+
+        for(Event.Hint hint: Event.hintList){
+            Texture tex = AssetPool.getTexture(ideaImagePath, false);
+            ImGui.image(tex.getTexID(), 20, 20);
+            ImGui.sameLine();
+            ImGui.text(hint.getText());
+        }
+
+
+
         ImGui.end();
     }
 }

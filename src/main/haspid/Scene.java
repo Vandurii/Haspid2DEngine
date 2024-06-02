@@ -77,130 +77,6 @@ public abstract class Scene {
     }
 
     private void loadResources(){
-        //  State Machine
-        //===================================
-        List<Frame> frameList;
-        List<Animation> animList;
-        double defaultFrameTime = 0.23;
-
-        ArrayList<StateMachine> stateMachines = new ArrayList<>();
-        SpriteSheet smallFormSheet = AssetPool.getSpriteSheet(smallFormConfig);
-        SpriteSheet bigFormSheet = AssetPool.getSpriteSheet(bigFormConfig);
-        SpriteSheet itemsSheet = AssetPool.getSpriteSheet(itemsConfig);
-        SpriteSheet turtleSheet = AssetPool.getSpriteSheet(turtleConfig);
-
-        // small Mario
-        frameList = loadFrame(defaultFrameTime, smallFormSheet, 0, 2, 3, 2);
-        Animation run = new Animation("run", true, frameList);
-
-        frameList = loadFrame(0.2, smallFormSheet, 4);
-        Animation switchDirection = new Animation("switch", false, frameList);
-
-        frameList = loadFrame(1, smallFormSheet, 0);
-        Animation idle  = new Animation("idle", true, frameList);
-
-        frameList = loadFrame(0.1, smallFormSheet, 5);
-        Animation jump = new Animation("jump", true, frameList);
-
-        animList = Arrays.asList(run, switchDirection, idle, jump);
-        StateMachine smallMario = new StateMachine("smallMario", "idle", animList);
-        stateMachines.add(smallMario);
-
-
-        // big Mario
-        frameList = loadFrame(defaultFrameTime, bigFormSheet, 0, 1, 2, 3, 2, 1);
-        Animation bigRun = new Animation("run", true, frameList);
-
-        frameList = loadFrame(0.1, bigFormSheet, 4);
-        Animation bigSwitchDirection = new Animation("switch", false, frameList);
-
-        frameList = loadFrame(0.1, bigFormSheet, 0);
-        Animation bigIdle = new Animation("idle", true, frameList);
-
-        frameList = loadFrame(0.1, bigFormSheet, 5);
-        Animation bigJump = new Animation("jump", true, frameList);
-
-        animList = Arrays.asList(bigRun, bigIdle, bigJump, bigSwitchDirection);
-        StateMachine bigMario = new StateMachine("bigMario", "idle", animList);
-        stateMachines.add(bigMario);
-
-
-        // fire Mario
-        frameList = loadFrame(defaultFrameTime, bigFormSheet, 21, 22, 23, 24, 23, 22);
-        Animation fireRun = new Animation("run", true, frameList);
-
-        frameList = loadFrame(0.1, bigFormSheet, 25);
-        Animation fireSwitchDirection = new Animation("switch", false, frameList);
-
-        frameList = loadFrame(0.1, bigFormSheet, 21);
-        Animation fireIdle = new Animation("idle", true, frameList);
-
-        frameList = loadFrame(0.1, bigFormSheet, 26);
-        Animation fireJump = new Animation("jump", true, frameList);
-
-        animList = Arrays.asList(fireRun, fireIdle, fireJump, fireSwitchDirection);
-        StateMachine fireMario = new StateMachine("fireMario", "idle", animList);
-        stateMachines.add(fireMario);
-
-
-        // die Mario
-        frameList = loadFrame(0.1, smallFormSheet, 6);
-        Animation die = new Animation("die", true, frameList);
-
-        animList = Arrays.asList(die);
-        StateMachine dieMario = new StateMachine("dieMario", "die", animList);
-        stateMachines.add(dieMario);
-
-
-        // question block
-        frameList = loadFrame(0.57, itemsSheet, 0);
-        frameList.add(new Frame(itemsSheet.getSprite(1), 0.23));
-        frameList.add(new Frame(itemsSheet.getSprite(2), 0.23));
-        Animation active = new Animation("active", true, frameList);
-
-        frameList = loadFrame(0.1, itemsSheet, 3);
-        Animation inactive = new Animation("inactive", true, frameList);
-
-        animList = Arrays.asList(active, inactive);
-        StateMachine questionBlock = new StateMachine("questionBlock","active", animList);
-        stateMachines.add(questionBlock);
-
-
-        // coin flip
-        frameList = loadFrame(0.57, itemsSheet, 7);
-        frameList.add(new Frame(itemsSheet.getSprite(8), defaultFrameTime));
-        frameList.add(new Frame(itemsSheet.getSprite(9), defaultFrameTime));
-        Animation coinFlip = new Animation("coin", true, frameList);
-
-        animList = Arrays.asList(coinFlip);
-        StateMachine coin = new StateMachine("coin","coin", animList);
-        stateMachines.add(coin);
-
-
-        // goomba
-        frameList = loadFrame(defaultFrameTime, smallFormSheet, 14, 15);
-        Animation goombaWalk = new Animation("walk", true, frameList);
-
-        frameList = loadFrame(0.1, smallFormSheet, 16);
-        Animation goombaSquashed = new Animation("squashed", true, frameList);
-
-        animList = Arrays.asList(goombaWalk, goombaSquashed);
-        StateMachine goomba = new StateMachine("goomba","walk", animList);
-        stateMachines.add(goomba);
-
-        // trutle
-        frameList = loadFrame(defaultFrameTime, turtleSheet, 0, 1);
-        Animation turtleWalk = new Animation("walk", true, frameList);
-
-        frameList = loadFrame(0.1, turtleSheet, 2, 3);
-        Animation turtleSquashed = new Animation("squashed", true, frameList);
-
-        animList = Arrays.asList(turtleWalk, turtleSquashed);
-        StateMachine turtle = new StateMachine("turtle","walk", animList);
-        stateMachines.add(turtle);
-
-       // saveResources(stateMachinePath, stateMachines.toArray());
-
         //===================================
         //  shader
         //===================================
@@ -230,11 +106,13 @@ public abstract class Scene {
 
         SpriteConfig[] configList = gsonReader(resourcePath, SpriteConfig[].class);
 
-        for(SpriteConfig config: configList){
-            propertiesList.add(AssetPool.getSpriteSheet(config));
+        if(configList != null) {
+            for (SpriteConfig config : configList) {
+                propertiesList.add(AssetPool.getSpriteSheet(config));
+            }
         }
 
-      //  propertiesList.add(AssetPool.getAllSound());
+        propertiesList.add(AssetPool.getAllSound());
     }
 
     public abstract void init();
@@ -383,24 +261,76 @@ public abstract class Scene {
     private void removeProperties(){
         for(Properties prop: removePropertiesQueue){
             propertiesList.remove(prop);
+            SpriteConfig[] table = {findConfig(prop)};
+            if(table[0] == null){
+                System.out.println("can't find config: " + prop.getName());
+                removePropertiesQueue.clear();
+                return;
+            }
+            removeResource(resourcePath, table);
         }
 
         removePropertiesQueue.clear();
     }
 
-    public <T> void saveResources(String path, T[] resource){
+    public <T extends Writable> void saveResources(String path, T[] resource){
        T[] array = (T[]) gsonReader(path, resource.getClass());
 
        if(array != null) {
-           T[] concatenateArray = (T[]) Array.newInstance(array.getClass().getComponentType(), (array.length + resource.length));
-           System.arraycopy(array, 0, concatenateArray, 0, array.length);
-           System.arraycopy(resource, 0, concatenateArray, array.length, resource.length);
+           int duplicate = 0;
+           for(int i = 0; i < resource.length; i++){
+               for(T t: array){
+                   if(resource[i] != null && t.getName().equals(resource[i].getName())){
+                       resource[i] = null;
+                       duplicate ++;
+                       break;
+                   }
+               }
+           }
 
-           System.out.println(Arrays.toString(concatenateArray) + "<<");
+           T[] concatenateArray = (T[]) Array.newInstance(array.getClass().getComponentType(), (array.length + resource.length - duplicate));
+          // copy old files to new array
+           System.arraycopy(array, 0, concatenateArray, 0, array.length);
+
+           // copy new files to new array, skip null value, these are overwritten because were duplicate
+           int l = array.length;
+           for(int i = 0, j = 0; i < resource.length; i++){
+               if(resource[i] != null){
+                   concatenateArray[l + j] = resource[i];
+                   j++;
+               }
+           }
+
            gsonWriter(path, concatenateArray, false);
        }else{
            gsonWriter(path, resource, false);
        }
+    }
+
+    public <T extends Writable> void removeResource(String path, T[] objectsToRemove){
+        T[] array = (T[]) gsonReader(path, objectsToRemove.getClass());
+
+        T[] newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), (array.length - objectsToRemove.length));
+        for(int o = 0, n = 0; o < array.length; o++){
+
+            boolean found = false;
+            for(int r = 0; r < objectsToRemove.length; r++){
+
+                T obj = objectsToRemove[r];
+                if(obj != null && obj.getName().equals(array[o].getName())){
+                    found = true;
+
+                    objectsToRemove[r] = null;
+                }
+            }
+
+            if(!found){
+                newArray[n] = array[o];
+                n++;
+            }
+        }
+
+        gsonWriter(path, newArray, false);
     }
 
     public <T extends Writable> T loadResources(String path, Class<T[]> resource, String name){
@@ -465,6 +395,18 @@ public abstract class Scene {
         Renderer.resetInstance();
     }
 
+    public SpriteConfig findConfig(Properties properties){
+        SpriteConfig[] configList = gsonReader(resourcePath, SpriteConfig[].class);
+
+        if(configList != null) {
+            for (SpriteConfig config : configList) {
+                if(properties.getName().equals(config.getName())) return config;
+            }
+        }
+
+        return  null;
+    }
+
     public boolean isInEditMode(){
         return editorMode;
     }
@@ -508,6 +450,21 @@ public abstract class Scene {
 
     public List<Properties> getProperties(){
         return  propertiesList;
+    }
+
+    public void addProperties(Properties properties){
+        propertiesList.add(properties);
+    }
+
+    public List<SpriteSheet> getSpriteSheetFromProperties(){
+        List<SpriteSheet> spriteSheetList = new ArrayList<>();
+        for(Properties properties: propertiesList){
+            if(properties instanceof SpriteSheet){
+                spriteSheetList.add((SpriteSheet) properties);
+            }
+        }
+
+        return  spriteSheetList;
     }
 
     public SpriteSheet getProperties(String name){

@@ -7,6 +7,9 @@ import main.haspid.ImGuiLayer;
 import main.haspid.Window;
 import main.renderer.Renderer;
 import main.haspid.Scene;
+import main.util.Properties;
+
+import java.util.List;
 
 public class GameScene extends Scene {
 

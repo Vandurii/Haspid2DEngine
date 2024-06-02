@@ -31,8 +31,8 @@ public class PipeBeh extends Component {
     }
 
     public void dearGui(){
-        entranceTolerance = (float) JImGui.drawValue("Tolerance: ", entranceTolerance, this.hashCode() + "");
-        connectingPipeName = (String) JImGui.drawValue("Exit pipe name: ", connectingPipeName, this.hashCode() + "");
+        entranceTolerance = (float) JImGui.drawValue("Tolerance: ", entranceTolerance);
+        connectingPipeName = (String) JImGui.drawValue("Exit pipe name: ", connectingPipeName);
     }
 
     @Override

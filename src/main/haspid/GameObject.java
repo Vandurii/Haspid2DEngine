@@ -67,14 +67,6 @@ public class GameObject {
         dirty = false;
     }
 
-    public void updateDearGui(){
-        if(ImGui.collapsingHeader("Name")) setName();
-
-        for(Component c: componentList){
-            if(ImGui.collapsingHeader(c.getClass().getSimpleName())) c.dearGui();
-        }
-    }
-
     public GameObject copy(){
         GameObject clone = new GameObject(name);
         if(!isSerializable) clone.setNonSerializable();
@@ -91,29 +83,12 @@ public class GameObject {
         return clone;
     }
 
-    public void addComponent(Component c){
-        Console.addLog(new Log(Log.LogType.INFO, "Added component: " + c.getClass().getSimpleName() + " to: " + getName()));
-        c.setParent(this);
-        componentList.add(c);
-    }
+    public void updateDearGui(){
+        if(ImGui.collapsingHeader("Name")) setName();
 
-    public void removeComponent(Component component){
-       boolean removed = componentList.remove(component);
-       if(!removed) throw new IllegalStateException("Object doesn't extend the component: " + component);
-    }
-
-    public <T> void removeComponent(Class<T> component){
-        for(int i = 0; i < componentList.size(); i++){
-            Component c = componentList.get(i);
-            if(component.isAssignableFrom(c.getClass())){
-                componentList.remove(c);
-                return;
-            }
+        for(Component c: componentList){
+            if(ImGui.collapsingHeader(c.getClass().getSimpleName())) c.dearGui();
         }
-    }
-
-    public void destroyAllComponents(){
-        componentList.clear();
     }
 
     public boolean isSerializable(){
@@ -122,6 +97,21 @@ public class GameObject {
 
     public boolean isTriggerable(){
         return isTriggerable;
+    }
+
+    public void addComponent(Component c){
+        Console.addLog(new Log(Log.LogType.INFO, "Added component: " + c.getClass().getSimpleName() + " to: " + getName()));
+        c.setParent(this);
+        componentList.add(c);
+    }
+
+    public void removeComponent(Component component){
+        boolean removed = componentList.remove(component);
+        if(!removed) throw new IllegalStateException("Object doesn't extend the component: " + component);
+    }
+
+    public void destroyAllComponents(){
+        componentList.clear();
     }
 
     public <T extends Component> T getComponent(Class<T> component){
@@ -150,7 +140,7 @@ public class GameObject {
     }
 
     public void setName(){
-        name = (String) JImGui.drawValue("Name: ", name, this.hashCode() + "");
+        name = (String) JImGui.drawValue("Name: ", name);
     }
 
     public void setName(String name){

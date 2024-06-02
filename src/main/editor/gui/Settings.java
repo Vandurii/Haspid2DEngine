@@ -2,13 +2,13 @@ package main.editor.gui;
 
 import imgui.ImGui;
 import main.editor.EditorScene;
+import main.haspid.Event;
 
 public class Settings {
 
     private boolean console;
     private boolean resourcesMonitor;
     private boolean grid;
-
 
     private boolean display;
     private EditorScene editorScene;
@@ -40,8 +40,11 @@ public class Settings {
 
             if(ImGui.checkbox("Show Grid", grid)){
                 grid = !grid;
-                System.out.println(grid);
                 editorScene.displayGrid(grid);
+            }
+
+            if(ImGui.checkbox("Show Collider", Event.collider)){
+                Event.collider = !Event.collider;
             }
 
             ImGui.end();

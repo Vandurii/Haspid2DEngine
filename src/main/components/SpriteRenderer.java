@@ -73,11 +73,13 @@ public class SpriteRenderer extends Component implements Drawable {
 
     public void resetColor(){
         isHighLighted = false;
+       if(originalColor == null)throw new IllegalStateException("the color is null SG");
         setColor(originalColor);
     }
 
     public void dearGui() {
-        spriteID = (int) JImGui.drawValue("Texture Slot ID:", spriteID, this.hashCode() + "");
+        super.dearGui();
+        spriteID = (int) JImGui.drawValue("Texture Slot ID:", spriteID);
 
         float[] imColor = {color.x, color.y, color.z, color.w};
 

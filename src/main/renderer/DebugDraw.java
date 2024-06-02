@@ -1,8 +1,6 @@
 package main.renderer;
 
-import main.haspid.Console;
 import main.haspid.GameObject;
-import main.haspid.Log;
 import main.haspid.Window;
 import org.joml.Vector2d;
 import org.joml.Vector3f;
@@ -16,8 +14,10 @@ import static main.renderer.DrawMode.Static;
 
 public class DebugDraw {
 
+    private static int numberOfLineForCircle = 20;
     private static List<StaticLayer> staticLayerList = new ArrayList<>();
     private static List<DynamicLayer> dynamicLayerList = new ArrayList<>();
+
 
     public static void notify(DebugDrawEvents eventType, String ID){
         // select correct list
@@ -81,7 +81,6 @@ public class DebugDraw {
 
     public static void addLine2D(Vector2d from, Vector2d to, Vector3f color, String name, int zIndex, DrawMode drawMode, GameObject parent){
         Line2D line = new Line2D(from, to, color);
-      ///  line.setParent(parent); // todo
 
         // when object is not null add line component to it
         if(parent != null){
@@ -100,8 +99,6 @@ public class DebugDraw {
         for(Layer layer: layerList){
             if(layer.getID().equals(name)){
                 if(layer.getzIndex() == zIndex) {
-                    //if line list contain this line then return
-                   // if(layer.contains(line)) return;
                     layer.addLine(line);
                 }else{
                     throw new IllegalStateException("Unable to load the line, the z index is wrong");
@@ -133,7 +130,7 @@ public class DebugDraw {
     }
 
     public static void addCircle(Vector2d centre, double radius, Vector3f color,String destination, int zIndex, DrawMode drawMode, GameObject parent){
-        Vector2d[] points = new Vector2d[20];
+        Vector2d[] points = new Vector2d[numberOfLineForCircle];
         int increment = 360 / points.length;
 
         double currentAngle = 0;
@@ -206,6 +203,11 @@ public class DebugDraw {
         vec.y = yPrime;
     }
 
+    public static void reset(){
+        staticLayerList = new ArrayList<>();
+        dynamicLayerList = new ArrayList<>();
+    }
+
     private static DrawMode resolveMode(String ID){
 
         for(Layer layer: staticLayerList){
@@ -216,7 +218,6 @@ public class DebugDraw {
             if(layer.getID().equals(ID)) return Dynamic;
         }
 
-        Console.addLog(new Log(Log.LogType.ERROR, "Can't find draw mode for " + ID));
         return null;
     }
 
@@ -226,11 +227,6 @@ public class DebugDraw {
 
     public static List<DynamicLayer> getDynamicLayerList(){
         return dynamicLayerList;
-    }
-
-    public static void reset(){
-        staticLayerList = new ArrayList<>();
-        dynamicLayerList = new ArrayList<>();
     }
 }
 

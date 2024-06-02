@@ -2,6 +2,7 @@ package main.components.physicsComponent;
 
 import main.editor.JImGui;
 import main.components.Component;
+import main.haspid.Event;
 import main.haspid.Scene;
 import main.haspid.Window;
 import main.physics.Physics2D;
@@ -27,16 +28,18 @@ public abstract class Collider extends Component {
 
     @Override
     public void dearGui(){
-        JImGui.drawValue("offset", offset, this.hashCode() + "");
+        JImGui.drawValue("offset", offset);
     }
 
     @Override
     public void update(float dt) {
-        if(getParent().isDirty() || resize()) {
-            removeOldLines();
-        }
+        if(Event.collider) {
+            if (getParent().isDirty() || resize()) {
+                removeOldLines();
+            }
 
-        if(resetFixtureNextFrame) resetFixture();
+            if (resetFixtureNextFrame) resetFixture();
+        }
     }
 
     public void removeOldLines(){

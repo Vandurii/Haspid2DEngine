@@ -11,9 +11,13 @@ import main.haspid.Window;
 import main.renderer.DebugDraw;
 import main.renderer.Renderer;
 import main.haspid.Scene;
+import main.util.Properties;
+
+import java.util.List;
 
 import static main.Configuration.*;
 import static main.renderer.DebugDrawEvents.*;
+import static org.lwjgl.glfw.GLFW.glfwMaximizeWindow;
 
 public class EditorScene extends Scene {
 
@@ -23,7 +27,7 @@ public class EditorScene extends Scene {
     private HelpPanel helpPanel;
     private GridLines gridLines;
     private ImGuiLayer imGuiLayer;
-    private FileBrowser fileBrowser;
+    private FileDialog fileDialog;
     private KeyControls keyControls;
     private MouseListener mouseListener;
     private EditorMenuBar editorMenuBar;
@@ -35,8 +39,13 @@ public class EditorScene extends Scene {
     private PropertiesWindow propertiesWindow;
     private ResourcesManager resourcesManager;
 
+    private static int ID;
+
     @Override
     public void init() {
+        // todo
+        new Event();
+
         MouseListener.resetInstance();
         Renderer.resetInstance();
         mouseListener = MouseListener.getInstance();
@@ -63,7 +72,7 @@ public class EditorScene extends Scene {
         imGuiLayer = new ImGuiLayer(Window.getInstance().getGlfwWindow());
         imGuiLayer.init(new Configuration());
 
-        fileBrowser = new FileBrowser(this);
+        fileDialog = new FileDialog(this);
         consoleWindow = new ConsoleWindow();
         creator = new Creator(this);
         inspectorWindow = new InspectorWindow();
@@ -71,10 +80,14 @@ public class EditorScene extends Scene {
         resourcesManager = new ResourcesManager(this);
         propertiesWindow = new PropertiesWindow(this, mouseControls, getProperties());
         settings = new Settings(this);
+
+        if(maximize) editorMenuBar.maximize();
     }
 
     @Override
     public void update(float dt) {
+        resetID();
+
         levelEditorStuff.update(dt);
         sceneUpdate(dt);
         updateDearGui();
@@ -94,7 +107,9 @@ public class EditorScene extends Scene {
         getRenderer().render();
 
         // draw collider lines
-        DebugDraw.notify(Draw, colliderID);
+        if(Event.collider) {
+            DebugDraw.notify(Draw, colliderID);
+        }
 
         // draw gizmos on the top of everything
         getRenderer().renderLayer(gizmoZIndex);
@@ -111,7 +126,7 @@ public class EditorScene extends Scene {
         propertiesWindow.display();
         resourcesManager.Display();
         settings.display();
-        fileBrowser.display();
+        fileDialog.display();
         ViewPort.getInstance().display();
 
         imGuiLayer.endFrame();
@@ -136,7 +151,7 @@ public class EditorScene extends Scene {
     }
 
     public void displayFileBrowser(boolean display){
-        fileBrowser.setDisplay(display);
+        fileDialog.setDisplay(display);
     }
 
     public void displaySettings(boolean display){
@@ -161,5 +176,13 @@ public class EditorScene extends Scene {
 
     public boolean shouldGridDisplay(){
         return gridLines.shouldDisplay();
+    }
+
+    public static void resetID(){
+        ID = 0;
+    }
+
+    public static int generateID(){
+        return  ID++;
     }
 }

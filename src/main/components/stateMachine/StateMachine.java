@@ -74,23 +74,21 @@ public class StateMachine extends Component implements Writable {
 
     @Override
     public void dearGui(){
-        String title = (String) JImGui.drawValue("Default", defaultAnimationTitle, this.hashCode() + "");
+        String title = (String) JImGui.drawValue("Default", defaultAnimationTitle);
         if(findAnimation(title) != null) {
             defaultAnimationTitle = title;
             currentAnimationTitle = title;
         }
 
         for(Animation animation: animationList){
-            String hash = this.hashCode() + animation.getTitle();
-            animation.setTitle((String)JImGui.drawValue("State:", animation.getTitle(), hash));
+            animation.setTitle((String)JImGui.drawValue("State:", animation.getTitle()));
 
             int index = 0;
             for(Frame frame: animation.getFrameList()){
-                hash += frame.hashCode();
                 SpriteRenderer sprite = frame.getSpriteRenderer();
-                int ID = (int) JImGui.drawValue("Slot", sprite.getSpriteID(), hash);
+                int ID = (int) JImGui.drawValue("Slot", sprite.getSpriteID());
                 sprite.setSpriteID(ID);
-                frame.setFrameTime((float)JImGui.drawValue("Frame " + index++ + ": ", frame.getFrameTime(), hash));
+                frame.setFrameTime((float)JImGui.drawValue("Frame " + index++ + ": ", frame.getFrameTime()));
             }
         }
     }

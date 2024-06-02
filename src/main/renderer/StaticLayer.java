@@ -82,7 +82,6 @@ public class StaticLayer extends Layer {
 
     public void draw(){
         if(!isEnabled()){
-            Console.addLog(new Log(INFO, "Can't draw because layer is Disabled: "  + getID() + " :" + getzIndex()));
             return;
         }
 

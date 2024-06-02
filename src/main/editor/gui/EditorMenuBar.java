@@ -19,6 +19,7 @@ import static org.lwjgl.glfw.GLFW.*;
 
 public class EditorMenuBar {
 
+    private long glfw;
     private Texture tex;
     private ImVec2 windowPos;
     private ImVec2 windowSize;
@@ -27,11 +28,10 @@ public class EditorMenuBar {
 
     public EditorMenuBar(EditorScene editorScene){
         this.editorScene = editorScene;
+        this.glfw = Window.getInstance().getGlfwWindow();
     }
 
     public void display(){
-        long glfw = Window.getInstance().getGlfwWindow();
-
         ImGui.pushStyleVar(ImGuiStyleVar.FramePadding, 0, menuBarHeight);
         ImGui.beginMainMenuBar();
 
@@ -86,8 +86,7 @@ public class EditorMenuBar {
         ImGui.setCursorPos(ImGui.getWindowSizeX() - (menuBarButtonSize + menuBarButtonSpacing) * 2, 0);
         if(ImGui.button("M", menuBarButtonSize, menuBarButtonSize)){
             if(!maximizeMode) {
-                glfwMaximizeWindow(glfw);
-                maximizeMode = true;
+                maximize();
             }else{
                 glfwRestoreWindow(glfw);
                 maximizeMode = false;
@@ -113,6 +112,11 @@ public class EditorMenuBar {
     public void updatePos(){
         windowPos =  ImGui.getWindowPos();
         windowSize = ImGui.getWindowSize();
+    }
+
+    public void maximize(){
+        glfwMaximizeWindow(glfw);
+        maximizeMode = true;
     }
 
     public ImVec2 getWindowSize(){

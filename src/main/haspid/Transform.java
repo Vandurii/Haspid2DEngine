@@ -45,18 +45,18 @@ public class Transform extends Component {
 
     @Override
     public Transform copy(){
-        Transform t = new Transform(new Vector2d(this.position), new Vector2d(this.scale), rotation, zIndex);
-        t.setParent(getParent());
+        Transform clone = new Transform(new Vector2d(position.x, position.y), new Vector2d(scale.x, scale.y), rotation, zIndex);
+       // t.setParent(getParent());
 
-        return t;
+        return clone;
     }
 
-    public void copyTo(Transform to){
-        to.position.set(new Vector2d(this.position));
-        to.scale.set(new Vector2d(this.scale));
-        to.setRotation(rotation);
-        to.setZIndex(zIndex);
-        to.setParent(getParent());
+    public void copyTo(Transform transform){
+        transform.position.set(new Vector2d(position.x, position.y));
+        transform.scale.set(new Vector2d(scale.x, scale.y));
+        transform.setRotation(rotation);
+        transform.setZIndex(zIndex);
+      //  transform.setParent(getParent());
     }
 
     public void increaseZIndex(){
@@ -77,7 +77,6 @@ public class Transform extends Component {
 
     public void setPosition(Vector2d position) {
         this.position = new Vector2d(position.x, position.y);
-      //  System.out.println("updated position");
     }
 
     public void setPosition(double x, double y){

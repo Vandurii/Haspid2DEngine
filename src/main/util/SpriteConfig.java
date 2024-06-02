@@ -1,8 +1,9 @@
 package main.util;
 
+import main.haspid.Writable;
 import main.util.Texture;
 
-public class SpriteConfig {
+public class SpriteConfig implements Writable {
     public String name;
     public int spacing;
     public boolean flip;
@@ -20,5 +21,10 @@ public class SpriteConfig {
         this.numSprites = numSprites;
         this.spriteWidth = spriteWidth;
         this.spriteHeight = spriteHeight;
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 }

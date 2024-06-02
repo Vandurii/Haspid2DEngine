@@ -8,49 +8,51 @@ import main.haspid.GameObject;
 import main.haspid.Log;
 import org.jbox2d.dynamics.contacts.Contact;
 import org.joml.Vector2d;
+import org.joml.Vector3f;
 import org.joml.Vector4f;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Vector;
 
 public abstract class Component {
 
     private int componentID;
     private static int ID_COUNTER = -1;
     private transient GameObject parentObject;
+    private static List<Class> supportedVectors = List.of(Vector2d.class, Vector2d[].class, Vector3f.class, Vector4f.class);
+    private static List<Class> supportedNumbers = List.of(int.class, double.class, float.class);
 
     public Component(){
-        componentID = ++ID_COUNTER;
+        this.componentID = ++ID_COUNTER;
     }
 
     public void init(){}
 
     public abstract void update(float dt);
 
-    public Component copy(){
-        Console.addLog(new Log(Log.LogType.INFO, "Im not implemented: " + getClass().getSimpleName()));
-        return null;
-    };
-
     public void updateIDCounter(){
         ID_COUNTER = componentID;
     }
 
     public void beginCollision(GameObject collidingObject, Contact contact, Vector2d hitNormal){
-
     }
 
     public void endCollision(GameObject collidingObject, Contact contact, Vector2d hitNormal){
-
     }
 
     public void preSolve(GameObject collidingObject, Contact contact, Vector2d hitNormal){
-
     }
 
     public void postSolve(GameObject collidingObject, Contact contact, Vector2d hitNormal){
-
     }
+
+    public Component copy(){
+        System.out.println("Im not implemented: copy:" + getClass().getSimpleName());
+        return null;
+    };
 
     public void dearGui() {
         dearGui(null);
@@ -63,11 +65,12 @@ public abstract class Component {
         Field[] fields = obj.getClass().getDeclaredFields();
         for(Field f: fields){
             try {
+                // don't display fields that are static or transient
                 boolean isTransient = Modifier.isTransient(f.getModifiers());
                 boolean isStatic = Modifier.isStatic(f.getModifiers());
-                if(isTransient) continue;
-                if(isStatic) continue;
+                if(isTransient || isStatic) continue;
 
+                // allow private fields to be changed
                 boolean isPrivate = Modifier.isPrivate(f.getModifiers());
                 if(isPrivate) f.setAccessible(true);
 
@@ -75,8 +78,8 @@ public abstract class Component {
                 Object value = f.get(obj);
                 String name = f.getName();
 
-                if (clazz == int.class || clazz == float.class || clazz == double.class) {
-                    f.set(obj, JImGui.drawValue(f.getName(), value, obj.hashCode() + ""));
+                if (supportedNumbers.contains(clazz)) {
+                    f.set(obj, JImGui.drawValue(f.getName(), value));
                 }else if(clazz == boolean.class){
                     boolean imBoolean = (boolean) value;
                     if(ImGui.checkbox(name,imBoolean)) f.set(obj, !imBoolean);
@@ -85,17 +88,15 @@ public abstract class Component {
                     String enumName = ((Enum<?>) value).name();
                     ImInt index = new ImInt(getIndexOf(enumName, enumValues));
 
-                    if(ImGui.combo(f.getName(), index, enumValues, enumValues.length)){
+                    if(ImGui.combo("##" + f.getName(), index, enumValues, enumValues.length)){
                         f.set(obj, clazz.getEnumConstants()[index.get()]);
                     }
                 }else if(clazz == String.class){
-                    //todo
-                  //      f.set(obj, JImGui.drawValue("Name: ", name, obj.hashCode() + ""));
-
-                }else if(clazz == Vector2d.class || clazz == Vector4f.class){
-                    JImGui.drawValue(name, value, obj.hashCode() + "");
+                    f.set(obj, JImGui.drawValue("Name: ", name));
+                }else if(supportedVectors.contains(clazz)){
+                    JImGui.drawValue(name, value);
                 }else{
-                    System.out.println("Can't load value form this class: " + clazz);
+                    System.out.println("Can't load value from this class: " + clazz);
                 }
 
                 if(isPrivate) f.setAccessible(false);
@@ -131,15 +132,11 @@ public abstract class Component {
         return parentObject;
     }
 
-    public int getComponentID(){
-        return componentID;
-    }
-
-    public int getIDCounter(){
-        return ID_COUNTER;
-    }
-
     public void setParent(GameObject gameObject){
         this.parentObject = gameObject;
+    }
+
+    public static List<Class> getSupportedVectors() {
+        return supportedVectors;
     }
 }

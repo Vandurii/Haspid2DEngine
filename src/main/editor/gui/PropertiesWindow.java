@@ -1,7 +1,7 @@
 package main.editor.gui;
 
 import imgui.ImGui;
-import imgui.ImVec2;
+import imgui.flag.ImGuiStyleVar;
 import main.components.SpriteRenderer;
 import main.components.physicsComponent.ColliderType;
 import main.editor.EditorScene;
@@ -19,14 +19,14 @@ import static main.games.mario.behaviour.QuestionBlockBeh.BlockType.Coin;
 
 public class PropertiesWindow {
 
-    private boolean deleteMode;
-
     private float yPadding;
     private float buttonSize;
     private float itemYPadding;
     private float itemXPadding;
     private float buttonSpacing;
+    private float soundButtonScalar;
 
+    public int activeTab;
     private EditorScene editorScene;
     private List<Properties> tabList;
     private MouseControls mouseControls;
@@ -34,22 +34,47 @@ public class PropertiesWindow {
     public PropertiesWindow(EditorScene editorScene, MouseControls mouseControls, List<Properties> tabList){
         this.yPadding = 5;
         this.buttonSize = 20;
-        this.itemYPadding = 10;
         this.itemXPadding = 5;
+        this.itemYPadding = 7;
         this.buttonSpacing = 13;
         this.tabList = tabList;
+        this.soundButtonScalar = 1.75f;
         this.editorScene = editorScene;
         this.mouseControls = mouseControls;
     }
 
     public void display(){
+        ImGui.pushStyleVar(ImGuiStyleVar.ItemSpacing, itemXPadding, itemYPadding);
         ImGui.begin("Properties Window");
 
-        // add Button
+        if(ImGui.beginTabBar("Properties Bar")) {
+            for(int i = 0; i < tabList.size(); i++){
+                Properties properties = tabList.get(i);
+                if(ImGui.beginTabItem(properties.getName())){
+                    // initialize index for active tab
+                    if(ImGui.isItemActive()){
+                        activeTab = i;
+                    }
+                    if(properties instanceof SpriteSheet spriteSheet) {
+                        generateButtons(spriteSheet);
+                    }else if(properties instanceof AudioSheet audioSheet){
+                        generateButtons(audioSheet);
+                    }
+                    ImGui.endTabItem();
+                }
+            }
+            ImGui.endTabBar();
+        }
+
+        ImGui.newLine();
+
+        // delete Button
         Texture tex = AssetPool.getTexture(removeImagePath, false);
         ImGui.setCursorPos(ImGui.getContentRegionAvailX() - buttonSize, yPadding);
         if(ImGui.imageButton(tex.getTexID(), buttonSize, buttonSize)){
-            deleteMode = true;
+            if(!tabList.isEmpty() && activeTab <= tabList.size()) {
+                editorScene.removePropertiesSafe(tabList.get(activeTab));
+            }
         }
 
         // add Button
@@ -59,31 +84,11 @@ public class PropertiesWindow {
             editorScene.displayFileBrowser(true);
         }
 
-        if(ImGui.beginTabBar("Properties Bar")) {
-            int i = 1;
-            for(Properties tab: tabList){
-                if(deleteMode){
-                    editorScene.removePropertiesSafe(tab);
-                    deleteMode = false;
-                }
-
-                if(ImGui.beginTabItem(tab.getName())){
-                    if(tab instanceof SpriteSheet spriteSheet) {
-                        generateButtons(spriteSheet, i);
-                    }else if(tab instanceof AudioSheet audioSheet){
-                        generateButtons(audioSheet, i);
-                    }
-                    ImGui.endTabItem();
-                }
-                i++;
-            }
-            ImGui.endTabBar();
-        }
-
+        ImGui.popStyleVar(1);
         ImGui.end();
     }
 
-    public void generateButtons(SpriteSheet spriteSheet, int index){
+    public void generateButtons(SpriteSheet spriteSheet){
         for (int i = 0; i < spriteSheet.getSize(); i++) {
             SpriteRenderer sprite = spriteSheet.getSprite(i);
             double spriteWidth = sprite.getWidth();
@@ -91,7 +96,7 @@ public class PropertiesWindow {
             int texID = sprite.getTexID();
             Vector2d[] cords = sprite.getSpriteCords();
 
-            ImGui.pushID((index * 100) + i);
+            ImGui.pushID(EditorScene.generateID());
             if (ImGui.imageButton(texID, (float) spriteWidth, (float) spriteHeight, (float) cords[3].x, (float) cords[3].y, (float) cords[1].x, (float) cords[1].y)) {
                 GameObject holdingObject = Prefabs.generateBopObject(sprite, spriteWidth, spriteHeight, ColliderType.Box);
                 // todo
@@ -110,11 +115,11 @@ public class PropertiesWindow {
                         case 15 -> holdingObject = Prefabs.generateTurtle(spriteWidth / 2, spriteHeight / 2 / 10 * 14);
                         default -> holdingObject = Prefabs.generateBopObject(sprite, spriteWidth / 2, spriteHeight / 2, ColliderType.Box);
                     }
-                }else if(index == 2){
+                }else if(spriteSheet.getName().equals("items")){
                     if(i == 6){
                         holdingObject = Prefabs.generateFlag(sprite, 16, spriteHeight);
                     }
-                }else if(index == 4){
+                }else if(spriteSheet.getName().equals("blocks")){
                     if(i > 33){
                         holdingObject = Prefabs.generateSpriteObject(sprite, spriteWidth, spriteHeight);
                     }
@@ -123,15 +128,18 @@ public class PropertiesWindow {
             }
             ImGui.popID();
 
-            if (enoughSpaceForNextButton((float) spriteWidth)) ImGui.sameLine();
+            // check if there is enough space for next button in this line
+            spaceManager((float) spriteWidth);
         }
     }
 
-    public void generateButtons(AudioSheet audioSheet, int index){
+    public void generateButtons(AudioSheet audioSheet){
         for(Sound sound: audioSheet.getSoundList()) {
-            String p = sound.getFilePath();
-            String name = p.substring(p.lastIndexOf("/") + 1, p.lastIndexOf(".ogg"));
-            ImGui.pushID(index);
+            //Generate button name from path.
+            String path = sound.getFilePath();
+            String name = path.substring(path.lastIndexOf("/") + 1, path.lastIndexOf(".ogg"));
+
+            ImGui.pushID(EditorScene.generateID());
             if (ImGui.button(name)) {
                 if (!sound.isPlaying()) {
                     sound.play();
@@ -140,30 +148,26 @@ public class PropertiesWindow {
                 }
             }
 
-            float buttonWidth = name.length() * (ImGui.getFontSize() / 1.75f);
-            if(enoughSpaceForNextButton(buttonWidth)) ImGui.sameLine();
+            // check if there is enough space for next button in this line
+            float buttonWidth = name.length() * (ImGui.getFontSize() / soundButtonScalar);
+            spaceManager(buttonWidth);
+
             ImGui.popID();
         }
     }
 
-    public boolean enoughSpaceForNextButton(float buttonWidth){
-        ImVec2 windowPos = new ImVec2();
-        ImGui.getWindowPos(windowPos);
+    public void spaceManager(float buttonWidth){
+        float lastItemSpacingX = ImGui.getItemRectMaxX();
+        float itemSpacingX = ImGui.getStyle().getItemSpacingX();
 
-        ImVec2 windowSize = new ImVec2();
-        ImGui.getWindowSize(windowSize);
+        float windowPosX = ImGui.getWindowPosX();
+        float windowSizeX = ImGui.getWindowSizeX();
+        float windowEdgeX = windowPosX + windowSizeX;
 
-        ImVec2 itemSpacing = new ImVec2();
-        ImGui.getStyle().getItemSpacing(itemSpacing);
+        float nextButtonPosX = lastItemSpacingX + itemSpacingX + buttonWidth;
 
-        float window = windowPos.x + windowSize.x;
-
-
-        ImVec2 lastButton = new ImVec2();
-        ImGui.getItemRectMax(lastButton);
-        float nextButton = lastButton.x + itemSpacing.x + buttonWidth;
-
-        return nextButton < window;
+        if(nextButtonPosX < windowEdgeX){
+            ImGui.sameLine();
+        }
     }
-
 }
