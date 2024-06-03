@@ -1,6 +1,7 @@
 package main.editor;
 
 import main.components.Component;
+import main.editor.editorControl.EventController;
 import main.editor.gui.ViewPort;
 import main.haspid.Camera;
 import main.haspid.Window;
@@ -32,8 +33,8 @@ public class GridLines extends Component {
     @Override
     public void update(float dt) {
         if(display) {
-            // disable grid lines when screen is to narrow or dimension to large
-            if (viewPort.getViewPortWidth() < minimalViewPortWidthForGrid || uProjectionDimension.x * currentZoomValue > maximalProjectionWidthForGrid) {
+            // disable grid lines when screen is to narrow or dimension to large or Camera is in reset mode
+            if (viewPort.getViewPortWidth() < minimalViewPortWidthForGrid || uProjectionDimension.x * currentZoomValue > maximalProjectionWidthForGrid || EventController.resetMode) {
                 DebugDraw.notify(Disable, gridID);
                 DebugDraw.notify(Disable, colliderID);
                 return;

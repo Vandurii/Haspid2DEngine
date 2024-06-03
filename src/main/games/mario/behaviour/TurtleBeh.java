@@ -76,10 +76,9 @@ public class TurtleBeh extends Component {
                 playerController.powerDown();
             }else if (contactNormal.y > 0.3 && Math.abs(contactNormal.x) < 0.5) {
                 if(!die) {
-                    getParent().getComponent(StateMachine.class).switchAnimation("squashed");
-                    BoxCollider boxCollider = getParent().getComponent(BoxCollider.class);
-                    boxCollider.setHalfSize(new Vector2d(objectHalfSize, objectHalfSize));
-                    boxCollider.resetFixture();
+                    Vector2d scale = getParent().getTransform().getScale();
+                    scale.set(scale.x / 2, scale.y / 2);
+
                     currentSpeed = 0;
                     die = true;
                 }
@@ -99,8 +98,7 @@ public class TurtleBeh extends Component {
 
         if(playerController != null) return;
         if( Math.abs(contactNormal.x) > minContact){
-            Vector2d scale = getParent().getTransform().getScale();
-            scale.x = -scale.x;
+            getParent().getComponent(StateMachine.class).rotate();
             currentSpeed *= -1;
             if(isDie()){
                 AssetPool.getSound(bump).play();

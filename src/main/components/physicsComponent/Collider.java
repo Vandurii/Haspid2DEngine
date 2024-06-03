@@ -2,7 +2,7 @@ package main.components.physicsComponent;
 
 import main.editor.JImGui;
 import main.components.Component;
-import main.haspid.Event;
+import main.editor.editorControl.EventController;
 import main.haspid.Scene;
 import main.haspid.Window;
 import main.physics.Physics2D;
@@ -14,7 +14,6 @@ import java.util.List;
 public abstract class Collider extends Component {
     protected transient Scene scene;
     private transient Physics2D physics;
-    private Vector2d offset = new Vector2d();
     protected transient boolean resetFixtureNextFrame;
 
     @Override
@@ -27,13 +26,8 @@ public abstract class Collider extends Component {
     public abstract boolean resize();
 
     @Override
-    public void dearGui(){
-        JImGui.drawValue("offset", offset);
-    }
-
-    @Override
     public void update(float dt) {
-        if(Event.collider) {
+        if(EventController.collider) {
             if (getParent().isDirty() || resize()) {
                 removeOldLines();
             }
@@ -61,13 +55,5 @@ public abstract class Collider extends Component {
             RigidBody rigidBody = getParent().getComponent(RigidBody.class);
             if(rigidBody != null) physics.resetCollider(rigidBody, this);
         }
-    }
-
-    public void setOffset(Vector2d offset){
-        this.offset = offset;
-    }
-
-    public Vector2d getOffset(){
-        return offset;
     }
 }

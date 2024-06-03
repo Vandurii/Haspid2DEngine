@@ -1,23 +1,16 @@
 package main.editor;
 
 import imgui.app.Configuration;
-import main.editor.editorControl.CameraControl;
-import main.editor.editorControl.Gizmo;
-import main.editor.editorControl.KeyControls;
-import main.editor.editorControl.MouseControls;
+import main.editor.editorControl.*;
 import main.editor.gui.*;
 import main.haspid.*;
 import main.haspid.Window;
 import main.renderer.DebugDraw;
 import main.renderer.Renderer;
 import main.haspid.Scene;
-import main.util.Properties;
-
-import java.util.List;
 
 import static main.Configuration.*;
 import static main.renderer.DebugDrawEvents.*;
-import static org.lwjgl.glfw.GLFW.glfwMaximizeWindow;
 
 public class EditorScene extends Scene {
 
@@ -35,6 +28,7 @@ public class EditorScene extends Scene {
     private MouseControls mouseControls;
     private CameraControl cameraControl;
     private GameObject levelEditorStuff;
+    private EventController eventController;
     private InspectorWindow inspectorWindow;
     private PropertiesWindow propertiesWindow;
     private ResourcesManager resourcesManager;
@@ -43,8 +37,7 @@ public class EditorScene extends Scene {
 
     @Override
     public void init() {
-        // todo
-        new Event();
+        System.out.println(windowsScale);
 
         MouseListener.resetInstance();
         Renderer.resetInstance();
@@ -54,11 +47,13 @@ public class EditorScene extends Scene {
         loadSceneFromFile();
         editorMode = true;
 
+
         gridLines = new GridLines(this);
         gizmo = new Gizmo(this);
+        eventController = new EventController();
         helpPanel = new HelpPanel(this);
         mouseControls = new MouseControls(this, mouseListener, gizmo);
-        cameraControl = new CameraControl(camera, mouseControls);
+        cameraControl = new CameraControl(camera);
         keyControls = new KeyControls(mouseControls, cameraControl, this);
 
         levelEditorStuff = new GameObject("LevelEditorStuff");
@@ -68,6 +63,7 @@ public class EditorScene extends Scene {
         levelEditorStuff.addComponent(cameraControl);
         levelEditorStuff.addComponent(keyControls);
         levelEditorStuff.addComponent(gizmo);
+        levelEditorStuff.addComponent(eventController);
 
         imGuiLayer = new ImGuiLayer(Window.getInstance().getGlfwWindow());
         imGuiLayer.init(new Configuration());
@@ -94,11 +90,8 @@ public class EditorScene extends Scene {
     }
 
     public void render(float dt, boolean bufferIdMode){
-        // render grid and selector
-        if(!bufferIdMode){
-           DebugDraw.notify(Draw, gridID);
-           DebugDraw.notify(Draw, selectorID);
-        }
+        // render grid
+        if(!bufferIdMode) DebugDraw.notify(Draw, gridID);
 
         // don't draw gizmo because it will be draw on the top
         getRenderer().skipLayer(gizmoZIndex, true);
@@ -107,9 +100,11 @@ public class EditorScene extends Scene {
         getRenderer().render();
 
         // draw collider lines
-        if(Event.collider) {
+        if(EventController.collider && !bufferIdMode) {
             DebugDraw.notify(Draw, colliderID);
         }
+
+        if(!bufferIdMode) DebugDraw.notify(Draw, selectorID);
 
         // draw gizmos on the top of everything
         getRenderer().renderLayer(gizmoZIndex);

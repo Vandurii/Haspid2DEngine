@@ -4,8 +4,10 @@ import imgui.ImGui;
 import imgui.flag.ImGuiTreeNodeFlags;
 import main.components.SpriteRenderer;
 import main.editor.EditorScene;
+import main.editor.editorControl.EventController;
 import main.haspid.GameObject;
 import main.haspid.MouseListener;
+import main.physics.events.EventType;
 import main.renderer.*;
 import main.util.AssetPool;
 import main.util.SpriteSheet;
@@ -32,7 +34,7 @@ public class ResourcesManager {
     private HashMap<Integer, Boolean> openNodeMap;
 
     public ResourcesManager(EditorScene editorScene){
-        this.display = true;
+        this.display = EventController.resourcesMonitor;
         this.editorScene = editorScene;
         this.openNodeMap = new HashMap<>();
         this.renderer = Renderer.getInstance();

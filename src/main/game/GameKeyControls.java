@@ -36,7 +36,7 @@ public class GameKeyControls extends Component {
                     System.out.println(rb.getzIndex() + " : " +  rb.getSpriteCount()); // todo
                     for(SpriteRenderer sp: rb.getSpriteToRender()){
                         if(sp == null) continue;
-                        System.out.println(sp.getParent().getName() + "\t: " + sp + "\t: "  + sp.getTexture().getFilePath() + "\t:" + sp.getSpriteID());
+                        System.out.println(sp.getParent().getName() + "\t: " + sp + "\t: "  + sp.getTexture().getFilePath() + "\t:" + sp.getTextureSlotInRender());
                     }
                     System.out.println();
                 }

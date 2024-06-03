@@ -13,12 +13,13 @@ public class SpriteSheet implements Properties, Writable {
     private String name;
     private Texture parentTexture;
     private List<SpriteRenderer> spriteList;
+    private double worldScalar;
 
     protected SpriteSheet(SpriteConfig config){
         this.name = config.name;
         this.spriteList = new ArrayList<>();
         this.parentTexture = config.texture;
-
+        this.worldScalar = config.worldScalar;
 
         int spritesInColumn = parentTexture.getWidth() / config.spriteWidth;
         int spritesInRow = parentTexture.getHeight() / config.spriteHeight;
@@ -57,6 +58,10 @@ public class SpriteSheet implements Properties, Writable {
 
     public Texture getParentTexture(){
         return parentTexture;
+    }
+
+    public double getScalar(){
+        return worldScalar;
     }
 
     @Override

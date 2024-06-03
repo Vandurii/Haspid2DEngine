@@ -92,7 +92,7 @@ public class Physics2D {
         if(rawBody != null) {
             CircleShape shape = new CircleShape();
             shape.setRadius((float)circleCollider.getRadius());
-            shape.m_p.set((float) circleCollider.getOffset().x, (float) circleCollider.getOffset().y);
+            shape.m_p.set(new Vec2());
 
             rawBody.createFixture(createFixtureDef(shape, rigidBody));
         }
@@ -102,10 +102,11 @@ public class Physics2D {
         Body rawBody = rigidBody.getRawBody();
 
         if(rawBody != null) {
+            Vector2d scale = rigidBody.getParent().getTransform().getScale();
+            Vector2d halfSize = new Vector2d(scale.x / 2, scale.y / 2);
+
             PolygonShape shape = new PolygonShape();
-            Vector2d halfSize = new Vector2d(boxCollider.getHalfSize());
-            Vector2d offset = new Vector2d(boxCollider.getOffset());
-            shape.setAsBox((float) halfSize.x, (float) halfSize.y, new Vec2((float) offset.x, (float) offset.y), 0);
+            shape.setAsBox((float) halfSize.x, (float) halfSize.y, new Vec2(), 0);
 
             rawBody.createFixture(createFixtureDef(shape, rigidBody));
         }

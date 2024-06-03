@@ -5,7 +5,7 @@ import main.haspid.Window;
 
 import java.util.*;
 
-import static main.Configuration.stateMachinePath;
+import static main.Configuration.animationPath;
 
 public class AssetPool{
     private static Map<String, Shader> shaders = new HashMap<>();
@@ -65,7 +65,7 @@ public class AssetPool{
 
     public static StateMachine getStateMachine(String name){
         if(!stateMachineMap.containsKey(name)){
-            StateMachine stateMachine = Window.getInstance().getCurrentScene().loadResources(stateMachinePath, StateMachine[].class, name);
+            StateMachine stateMachine = Window.getInstance().getCurrentScene().loadResources(animationPath, StateMachine[].class, name);
             stateMachine.init();
             stateMachineMap.put(stateMachine.getName(), stateMachine);
         }

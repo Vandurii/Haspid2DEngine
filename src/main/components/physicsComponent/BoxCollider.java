@@ -8,34 +8,37 @@ import static main.Configuration.*;
 import static main.renderer.DrawMode.Dynamic;
 
 public class BoxCollider extends Collider {
-    private Vector2d center;
-    private Vector2d halfSize;
-    private transient Vector2d lastHalfSize;
-
-    public BoxCollider(Vector2d halfSize){
-        this.halfSize = halfSize;
-        this.center = new Vector2d();
-        this.lastHalfSize = new Vector2d(halfSize.x, halfSize.y);
-    }
+    private transient Vector2d pos;
+    private transient Vector2d scale;
+    private transient Vector2d lastScale;
+    private transient Transform transform;
 
     @Override
     public void init(){
         // call super method so that it initialize scene and physic
         super.init();
-        this.lastHalfSize = new Vector2d(halfSize.x, halfSize.y);
+
+        this.transform = getParent().getTransform();
+        this.scale = transform.getScale();
+        this.pos = transform.getPosition();
+        this.transform = getParent().getTransform();
+        this.lastScale = new Vector2d(scale.x, scale.y);
     }
 
     @Override
     public void updateColliderLines() {
-        Transform t = getParent().getTransform();
-        center = new Vector2d(t.getPosition()).add(getOffset());
-        DebugDraw.addBox(center, new Vector2d(halfSize.x * 2, halfSize.y * 2), t.getRotation(), colliderColor, colliderID, colliderZIndex, Dynamic, getParent());
+        this.transform = getParent().getTransform();
+        this.scale = transform.getScale();
+        this.pos = transform.getPosition();
+
+        DebugDraw.addBox(pos, scale, transform.getRotation(), colliderColor, colliderID, colliderZIndex, Dynamic, getParent());
     }
 
     @Override
     public boolean resize() {
-        if(lastHalfSize.x != halfSize.x || lastHalfSize.y != halfSize.y){
-            lastHalfSize = new Vector2d(halfSize.x, lastHalfSize.y);
+        if(lastScale.x != scale.x || lastScale.y != scale.y){
+            lastScale = new Vector2d(scale.x, scale.y);
+            System.out.println("reset fixture " + getParent().getName() );
             resetFixture();
             return true;
         }
@@ -45,11 +48,7 @@ public class BoxCollider extends Collider {
 
     @Override
     public BoxCollider copy(){
-        BoxCollider boxCollider = new BoxCollider(halfSize);
-        boxCollider.setOffset(getOffset());
-        boxCollider.setCenter(center);
-
-        return boxCollider;
+        return new BoxCollider();
     }
 
     @Override
@@ -59,25 +58,9 @@ public class BoxCollider extends Collider {
     }
 
     @Override
-    public boolean equals(Object o){
-        if(!(o instanceof BoxCollider box)) return false;
+    public boolean equals(Object o) {
+        if (!(o instanceof BoxCollider box)) return false;
 
-        return this.center == box.getCenter() && this.halfSize.x == box.halfSize.x && this.halfSize.y == box.halfSize.y;
-    }
-
-    public Vector2d getHalfSize(){
-        return halfSize;
-    }
-
-    public void setHalfSize(Vector2d halfSize){
-        this.halfSize = new Vector2d(halfSize);
-    }
-
-    public void setCenter(Vector2d center) {
-        this.center = new Vector2d(center);
-    }
-
-    public Vector2d getCenter() {
-        return center;
+        return this.pos.x == box.pos.x && this.pos.y == box.pos.y && this.scale.x == box.scale.x && this.scale.y == box.scale.y;
     }
 }

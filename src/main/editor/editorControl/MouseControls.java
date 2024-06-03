@@ -9,7 +9,6 @@ import main.renderer.DebugDraw;
 import main.editor.EditorScene;
 import org.joml.Vector2d;
 import org.joml.Vector3f;
-import org.joml.Vector4f;
 
 import java.util.*;
 
@@ -74,7 +73,7 @@ public class MouseControls extends Component {
             removeDraggingObject();
         }
 
-        if(draggingObject == null && mouse.isButtonPressed(GLFW_MOUSE_BUTTON_1) && !gizmo.isHot() &&  mouse.isCursorInsideViewPort()){
+        if(draggingObject == null && mouse.isButtonPressed(GLFW_MOUSE_BUTTON_1) && !gizmo.isHot() &&  mouse.isCursorInsideViewPort() && !activeObjectList.isEmpty()){
             unselectActiveObjects();
         }
 
@@ -224,6 +223,7 @@ public class MouseControls extends Component {
     public void pickupObject(GameObject holdingObject){
         editorScene.addObjectToSceneSafe(holdingObject);
         draggingObject = holdingObject;
+        unselectActiveObjects();
     }
 
     public void gizmoAction(){
@@ -269,8 +269,9 @@ public class MouseControls extends Component {
                 unselectActiveObjects();
             }
 
-            highLightObject(active);
-            if(!activeObjectList.contains(active)) setObjectActive(active);
+            if(!activeObjectList.contains(active)){
+                setObjectActive(active);
+            }
         }
 
         return id;
@@ -419,7 +420,7 @@ public class MouseControls extends Component {
         return objDistanceFromCursorMap != null;
     }
 
-    public void unselectActiveObjects(){
+    public static void unselectActiveObjects(){
         for(GameObject active: activeObjectList){
             SpriteRenderer spriteRenderer = active.getComponent(SpriteRenderer.class);
             if(spriteRenderer != null) spriteRenderer.resetColor();
@@ -436,15 +437,15 @@ public class MouseControls extends Component {
         draggingObject = null;
     }
 
-    public boolean hasDraggingObject(){
+    public static boolean hasDraggingObject(){
         return draggingObject != null;
     }
 
-    public boolean hasActiveObject(){
+    public static boolean hasActiveObject(){
         return !activeObjectList.isEmpty();
     }
 
-    public boolean hasDraggingOrActiveObject(){
+    public static boolean hasDraggingOrActiveObject(){
         return hasActiveObject() || hasDraggingObject();
     }
 

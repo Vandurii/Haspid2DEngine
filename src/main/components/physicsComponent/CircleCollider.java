@@ -17,15 +17,14 @@ public class CircleCollider extends Collider {
     @Override
     public void updateColliderLines(){
         Vector2d pos = getParent().getTransform().getPosition();
-        Vector2d offset = getOffset();
-        Vector2d center = new Vector2d(pos.x + offset.x, pos.y + offset.y);
-        DebugDraw.addCircle(center, radius, colliderColor, colliderID, colliderZIndex, Dynamic, getParent());
+        DebugDraw.addCircle(pos, radius, colliderColor, colliderID, colliderZIndex, Dynamic, getParent());
     }
 
     @Override
     public boolean resize() {
         if(lastRadius != radius){
             lastRadius = radius;
+            resetFixture();
             return true;
         }
 
@@ -34,10 +33,7 @@ public class CircleCollider extends Collider {
 
     @Override
     public CircleCollider copy(){
-        CircleCollider circleCollider = new CircleCollider(radius);
-        circleCollider.setOffset(getOffset());
-
-        return circleCollider;
+        return new CircleCollider(radius);
     }
 
     @Override

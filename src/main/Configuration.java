@@ -4,6 +4,7 @@ import main.util.AudioConfig;
 import main.util.Path;
 import main.util.SpriteConfig;
 import org.joml.*;
+import org.w3c.dom.ls.LSOutput;
 
 import java.awt.Color;
 
@@ -26,7 +27,7 @@ public class Configuration {
     // Paths
     //=====================
     public static String levelPath = Path.fromData("level.txt");
-    public static String stateMachinePath = Path.fromData("animation.txt");
+    public static String animationPath = Path.fromData("animation.txt");
     public static String spriteConfigPath = Path.fromData("spriteConfig.txt");
     public static String resourcePath = Path.fromData("res.txt");
 
@@ -66,14 +67,14 @@ public class Configuration {
     // Sprite Sheet Config
     //=====================
     public static int standardSpriteSize = 16;
-    public static SpriteConfig smallFormConfig = new SpriteConfig(Path.fromImages("smallForm.png"), standardSpriteSize, standardSpriteSize, 26, 0, "smallForm", true);
-    public static SpriteConfig decorationAndBlockConfig = new SpriteConfig(Path.fromImages("decorationsAndBlocks.png"), standardSpriteSize, standardSpriteSize, 81, 0, "blocks", true);
-    public static SpriteConfig gizmosConfig = new SpriteConfig(Path.fromImages("gizmos.png"), 24, 48, 3, 0, "gizmo", true);
-    public static SpriteConfig itemsConfig = new SpriteConfig(Path.fromImages("items.png"), standardSpriteSize, standardSpriteSize, 34, 0, "items", true);
-    public static SpriteConfig bigFormConfig = new SpriteConfig(Path.fromImages("bigForm.png"), 16, 32, 42, 0, "bigForm", true);
-    public static SpriteConfig pipesConfig = new SpriteConfig(Path.fromImages("pipes.png"), 32, 32, 6, 0, "pipes", true);
-    public static SpriteConfig turtleConfig = new SpriteConfig(Path.fromImages("turtle.png"), 16, 24, 4, 0, "turtle",true);// todo
-    public static SpriteConfig iconConfig = new SpriteConfig(Path.fromImages("icons.png"), 32, 32, 16, 0, "icons", true);// todo
+    public static SpriteConfig smallFormConfig = new SpriteConfig(Path.fromImages("smallForm.png"), standardSpriteSize, standardSpriteSize, 26, 0, 0.2, "smallForm", true);
+    public static SpriteConfig decorationAndBlockConfig = new SpriteConfig(Path.fromImages("decorationsAndBlocks.png"), standardSpriteSize, standardSpriteSize, 81, 0, 0.2, "blocks", true);
+    public static SpriteConfig gizmosConfig = new SpriteConfig(Path.fromImages("gizmos.png"), 24, 48, 3, 0, 0.2, "gizmo", true);
+    public static SpriteConfig itemsConfig = new SpriteConfig(Path.fromImages("items.png"), standardSpriteSize, standardSpriteSize, 34, 0, 0.2, "items", true);
+    public static SpriteConfig bigFormConfig = new SpriteConfig(Path.fromImages("bigForm.png"), 16, 32, 42, 0, 0.2, "bigForm", true);
+    public static SpriteConfig pipesConfig = new SpriteConfig(Path.fromImages("pipes.png"), 32, 32, 6, 0, 0.2, "pipes", true);
+    public static SpriteConfig turtleConfig = new SpriteConfig(Path.fromImages("turtle.png"), 16, 24, 4, 0, 0.2,  "turtle",true);// todo
+    public static SpriteConfig iconConfig = new SpriteConfig(Path.fromImages("icons.png"), 32, 32, 16, 0, 0.2, "icons", true);// todo
 
 
 
@@ -138,7 +139,6 @@ public class Configuration {
     public static Vector2d windowsScale = new Vector2d(windowWidth / uProjectionDimension.x, windowHeight /  uProjectionDimension.y);
 
 
-
     //******************************************************************************************************************
     //                                              === EDITOR ===
     //******************************************************************************************************************
@@ -148,7 +148,7 @@ public class Configuration {
     //=====================
     public static Color editorClearColor = new Color(60, 60, 60, 1);
     public static double keyShortCooldown = 0.07f;
-    public static double keyLongCooldown = 0.01;
+    public static double keyLongCooldown = 0.15;
     public static boolean isConsoleEnabled = false;
     public static double consoleDelay = 5;
     public static String consoleIntro = "\n" +
@@ -280,7 +280,7 @@ public class Configuration {
     //=====================
     // Rendering Settings
     //=====================
-    public static int batchSize = 10000;
+    public static int batchSize = 10;
     public static int startBatchSize = 10;
     public static int numberOfPointsInSquare = 4;
     public static int numberOfPointsIn2Triangles = 6;
@@ -303,9 +303,6 @@ public class Configuration {
     // Engine Settings
     //=====================
     public static Color currentClearColor = editorClearColor;
-    public static double spriteSize = gridSize / standardSpriteSize;
-    public static double objectHalfSize = gridSize / 2;
-
 
 
     //******************************************************************************************************************

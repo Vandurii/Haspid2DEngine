@@ -1,11 +1,11 @@
 package main.editor.editorControl;
 
-import main.Configuration;
+import imgui.ImGui;
 import main.components.Component;
+import main.components.SpriteRenderer;
 import main.haspid.*;
 import main.editor.EditorScene;
-import main.renderer.RenderBatch;
-import main.util.Texture;
+import org.joml.Vector2d;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,32 +15,32 @@ import static main.haspid.Direction.*;
 import static org.lwjgl.glfw.GLFW.*;
 
 public class KeyControls extends Component {
-    private double shortCooldown;
+
     private KeyListener keyboard;
-    private double resetDebounce;
     private EditorScene editorScene;
     private MouseControls mouseControls;
     private MouseListener mouseListener;
     private CameraControl cameraControl;
 
-    private double longCoolDown;
+    private double shortCooldown;
+    private double longCooldown;
+    private double resetShortDebounce;
     private double resetLongCollDown;
 
     public KeyControls(MouseControls mouseControls, CameraControl cameraControl, EditorScene editorScene){
         this.editorScene = editorScene;
-        this.shortCooldown = keyShortCooldown;
-        this.resetDebounce = shortCooldown;
         this.mouseControls = mouseControls;
         this.cameraControl = cameraControl;
         this.keyboard = KeyListener.getInstance();
         this.mouseListener = mouseControls.getMouseListener();
-        this.resetLongCollDown = Configuration.keyLongCooldown;
-        this.longCoolDown = resetLongCollDown;
+
+        this.resetShortDebounce = keyShortCooldown;
+        this.resetLongCollDown = keyLongCooldown;
     }
 
     @Override
     public void update(float dt) {
-        List<GameObject> activeObjectList = mouseControls.getAllActiveObjects();
+        List<GameObject> activeObjectList = MouseControls.getAllActiveObjects();
         Gizmo gizmo = mouseControls.getGizmo();
 
         if(shortCooldown < 0) {
@@ -49,7 +49,7 @@ public class KeyControls extends Component {
                 if(mouseControls.getDraggingObject() != null){
                     mouseControls.removeDraggingObject();
                 }else {
-                   mouseControls.unselectActiveObjects();
+                   MouseControls.unselectActiveObjects();
                 }
             }else if(keyboard.isKeyPressed(GLFW_KEY_1)){
                 gizmo.setGizmoToolIndex(0);
@@ -70,9 +70,9 @@ public class KeyControls extends Component {
             }else if(keyboard.isKeyPressed(GLFW_KEY_LEFT)){
                 move(Left);
             }else if(keyboard.isKeyPressed(GLFW_KEY_C)){
-                if(longCoolDown < 0) {
+                if(longCooldown < 0) {
                     copyObject();
-                    longCoolDown = resetLongCollDown;
+                    longCooldown = resetLongCollDown;
                 }
             }else if(keyboard.isKeyPressed(GLFW_KEY_Y)){
                 if(!mouseControls.isDistanceMapLoaded()){
@@ -81,9 +81,9 @@ public class KeyControls extends Component {
                 mouseControls.trackMouseMultiple();
             }else if(keyboard.isKeyPressed(GLFW_KEY_6)){
                 System.out.println("*** start ***");
-                for(Texture t: RenderBatch.getTextureList()){
-                    System.out.println(t.getFilePath());
-                }
+                System.out.println(MouseControls.getAllActiveObjects().size());
+                System.out.println("dragging: " + MouseControls.hasDraggingObject());
+                System.out.println(gizmo.isHot());
             }
 
             ///todo
@@ -91,8 +91,8 @@ public class KeyControls extends Component {
                  mouseControls.resetObjDistanceFromCursor();
              }
 
-            shortCooldown = resetDebounce;
-             longCoolDown -= dt;
+            shortCooldown = resetShortDebounce;
+             longCooldown -= dt;
         }
         shortCooldown -= dt;
     }
@@ -108,14 +108,14 @@ public class KeyControls extends Component {
             case Left -> xAxis = unit;
         }
 
-        for(GameObject g: mouseControls.getAllActiveObjects()){
+        for(GameObject g: MouseControls.getAllActiveObjects()){
             g.getTransform().setPosition(g.getTransform().getPosition().sub(xAxis, yAxis));
         }
     }
 
     public void copyObject(){
         List<GameObject> cloneList = new ArrayList<>();
-        List<GameObject> activeObjects = mouseControls.getAllActiveObjects();
+        List<GameObject> activeObjects = MouseControls.getAllActiveObjects();
 
         for(GameObject gameObject: activeObjects){
             GameObject copy = gameObject.copy();
@@ -130,6 +130,7 @@ public class KeyControls extends Component {
         for(GameObject active: activeObject) {
             editorScene.removeFromSceneSafe(active);
         }
-        mouseControls.unselectActiveObjects();
+
+        MouseControls.unselectActiveObjects();
     }
 }

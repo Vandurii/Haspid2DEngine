@@ -5,6 +5,7 @@ import main.components.SpriteRenderer;
 import main.editor.InactiveInEditor;
 import main.editor.JImGui;
 import main.components.Component;
+import main.renderer.RenderBatch;
 import main.util.Texture;
 import org.joml.Vector2d;
 
@@ -187,13 +188,20 @@ public class GameObject {
         return lastTransform;
     }
 
-    public void setSprite(SpriteRenderer spriteRenderer){
-        Texture newTexture = spriteRenderer.getTexture();
-        Vector2d[] newTexCords = spriteRenderer.getSpriteCords();
+    public void setSprite(SpriteRenderer newSpriteRender){
+        Texture newTexture = newSpriteRender.getTexture();
+        Vector2d[] newTexCords = newSpriteRender.getSpriteCords();
 
-        SpriteRenderer spriteRender = getComponent(SpriteRenderer.class);
-        spriteRender.setTexture(newTexture);
-        spriteRender.setSpriteCords(newTexCords);
-        spriteRender.setDirty();
+        SpriteRenderer originalSpriteRender = getComponent(SpriteRenderer.class);
+
+        // Change texture slot when the new sprite comes from another file.
+        if(!newTexture.getFilePath().equals(originalSpriteRender.getTexture().getFilePath())){
+            originalSpriteRender.setTexture(newTexture);
+            RenderBatch.initTextureInfo(originalSpriteRender);
+        }else {
+            originalSpriteRender.setTexture(newTexture);
+        }
+        originalSpriteRender.setSpriteCords(newTexCords);
+        originalSpriteRender.setDirty();
     }
 }

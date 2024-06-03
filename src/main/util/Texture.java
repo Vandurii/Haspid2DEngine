@@ -53,7 +53,6 @@ public class Texture{
             this.height = height.get(0);
 
             int channel = channels.get();
-       //     System.out.println(channel);
             if(channel == 3) {
                 glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width.get(0), height.get(0), 0, GL_RGB, GL_UNSIGNED_BYTE, image);;
             }else{

@@ -41,7 +41,6 @@ public class RenderBatch implements Comparable<RenderBatch> {
     private float[] vertexArray;
     private int vertexArrayBytes;
 
-    private boolean hasRoom;
     private int spriteCount;
     private SpriteRenderer[] spriteListToRender;
 
@@ -60,7 +59,6 @@ public class RenderBatch implements Comparable<RenderBatch> {
         this.uTextures = texturesSlots;
         this.initVertexAttribPointer(false);
 
-        this.hasRoom = true;
         this.maxBathSize = maxBathSize;
         this.currentBathSize = startBatchSize;
         this.spriteListToRender = new SpriteRenderer[currentBathSize];
@@ -202,7 +200,7 @@ public class RenderBatch implements Comparable<RenderBatch> {
                 vertexArray[offset + 6] = (float) texCords[j].x;
                 vertexArray[offset + 7] = (float) texCords[j].y;
 
-                vertexArray[offset + 8] = spriteRenderer.getSpriteID();
+                vertexArray[offset + 8] = spriteRenderer.getTextureSlotInRender();
 
                 vertexArray[offset + 9] = spriteRenderer.getParent().getGameObjectID();
 
@@ -212,6 +210,7 @@ public class RenderBatch implements Comparable<RenderBatch> {
     }
 
     public void addSprite(SpriteRenderer spriteRenderer){
+        // check if there is space for new sprite if not then extend the array
         if(spriteCount >= spriteListToRender.length){
             spriteListToRender = extendArray(spriteListToRender, percentageValByExtend);
             currentBathSize = spriteListToRender.length;
@@ -219,6 +218,7 @@ public class RenderBatch implements Comparable<RenderBatch> {
             resize();
         }
 
+        // check if there are free slots to reuse
         int index = spriteCount;
         boolean usedFreeSlots = false;
         if(!freeSlots.isEmpty()) {
@@ -226,29 +226,39 @@ public class RenderBatch implements Comparable<RenderBatch> {
             freeSlots.remove(0);
             usedFreeSlots = true;
         }
-        spriteListToRender[index] = spriteRenderer;
-        if(spriteCount + 1 >= maxBathSize) hasRoom = false;
 
-        if(spriteRenderer.hasTexture() ) {
+        // Add new sprite to renderList
+        spriteListToRender[index] = spriteRenderer;
+
+        // Init texture info if there is a texture.
+        initTextureInfo(spriteRenderer);
+
+        // Load date to vertex array.
+        loadDataToVertex(index);
+
+        // Increase sprite count if we didn't use free slot
+       if(!usedFreeSlots) spriteCount++;
+    }
+
+    public static void initTextureInfo(SpriteRenderer spriteRenderer){
+        if(spriteRenderer.hasTexture()) {
+            // If render contain texture from this object, find it in render get index from it  and set to the object.
+            // If doesn't contain then add to it to render then set index from it to the object.
             if(!textureList.contains(spriteRenderer.getTexture())){
                 int id = textureList.size() + 1;
-                spriteRenderer.setSpriteID(id);
+                spriteRenderer.setTextureSlotInRender(id);
                 textureList.add(spriteRenderer.getTexture());
             }else {
-                if(spriteRenderer.isIDDefault()) {
-                    for (int i = 0; i < textureList.size(); i++) {
-                        Texture texture = textureList.get(i);
-                        if (texture.equals(spriteRenderer.getTexture())) {
-                            spriteRenderer.setSpriteID(i + 1);
-                        }
+                for (int i = 0; i < textureList.size(); i++) {
+                    Texture texture = textureList.get(i);
+                    if (texture.equals(spriteRenderer.getTexture())) {
+                        spriteRenderer.setTextureSlotInRender(i + 1);
                     }
                 }
             }
         }
-
-        loadDataToVertex(index);
-       if(!usedFreeSlots) spriteCount++;
     }
+
 
     public  SpriteRenderer[] extendArray(SpriteRenderer[] array, int percentage){
         int capacity = array.length + Math.max((array.length / 100 * percentage), 200);
@@ -346,7 +356,7 @@ public class RenderBatch implements Comparable<RenderBatch> {
     }
 
     public boolean hasRoom(){
-        return hasRoom;
+        return spriteCount < maxBathSize;
     }
 
     public boolean hasTexture(Texture texture){

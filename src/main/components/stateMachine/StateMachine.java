@@ -4,7 +4,7 @@ import main.components.Component;
 import main.components.SpriteRenderer;
 import main.editor.JImGui;
 import main.haspid.Writable;
-import main.renderer.RenderBatch;
+import org.joml.Vector2d;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +62,24 @@ public class StateMachine extends Component implements Writable {
         this.currentAnimationTitle = title;
     }
 
+    public void rotate(){
+        for(Animation animation: animationList){
+            for(Frame frame: animation.getFrameList()){
+              Vector2d[] cords = frame.getSpriteRenderer().getSpriteCords();
+
+              Vector2d a = new Vector2d(cords[0].x, cords[0].y);
+              Vector2d b = new Vector2d(cords[1].x, cords[1].y);
+              Vector2d c = new Vector2d(cords[2].x, cords[2].y);
+              Vector2d d = new Vector2d(cords[3].x, cords[3].y);
+
+              cords[0] = new Vector2d(d.x, d.y);
+              cords[1] = new Vector2d(c.x, c.y);
+              cords[2] = new Vector2d(b.x, b.y);
+              cords[3] = new Vector2d(a.x, a.y);
+            }
+        }
+    }
+
     @Override
     public Component copy() {
         List<Animation> animList = new ArrayList<>();
@@ -86,8 +104,8 @@ public class StateMachine extends Component implements Writable {
             int index = 0;
             for(Frame frame: animation.getFrameList()){
                 SpriteRenderer sprite = frame.getSpriteRenderer();
-                int ID = (int) JImGui.drawValue("Slot", sprite.getSpriteID());
-                sprite.setSpriteID(ID);
+                int ID = (int) JImGui.drawValue("Slot", sprite.getTextureSlotInRender());
+                sprite.setTextureSlotInRender(ID);
                 frame.setFrameTime((float)JImGui.drawValue("Frame " + index++ + ": ", frame.getFrameTime()));
             }
         }

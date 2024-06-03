@@ -26,5 +26,4 @@ public class Frame {
     public SpriteRenderer getSpriteRenderer() {
         return spriteRenderer;
     }
-
 }

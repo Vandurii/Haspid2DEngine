@@ -2,6 +2,7 @@ package main.editor.gui;
 
 import imgui.ImGui;
 import imgui.flag.ImGuiCol;
+import imgui.type.ImDouble;
 import imgui.type.ImInt;
 import imgui.type.ImString;
 import main.editor.EditorScene;
@@ -36,6 +37,7 @@ public class FileDialog {
     private int spriteWidth;
     private int spriteHeight;
     private int spriteSpacing;
+    private double worldScalar;
 
     private String firstError;
     private String secondError;
@@ -52,7 +54,7 @@ public class FileDialog {
 
         this.errorList = new ArrayList<>();
         this.firstError = "The field can't be empty.";
-        this.secondError = "The width, height and count value can't be 0";
+        this.secondError = "The width, height, world scalar and count value can't be 0";
 
         this.configName = "";
         this.selectedPath = "";
@@ -89,6 +91,7 @@ public class FileDialog {
             spriteWidth = fillInt(spriteWidth, "Sprite Width");
             spriteHeight = fillInt(spriteHeight, "Sprite Height");
             spriteSpacing = fillInt(spriteSpacing, "Sprite Spacing");
+            worldScalar = filldouble(worldScalar, "World Scalar");
             configPath = fillString(selectedPath, "Path");
             configName = fillString(configName, "Name");
 
@@ -102,6 +105,7 @@ public class FileDialog {
                             spriteWidth = currentConfig.spriteWidth;
                             spriteHeight = currentConfig.spriteHeight;
                             spriteSpacing = currentConfig.spacing;
+                            worldScalar = currentConfig.worldScalar;
                             configName = currentConfig.name;
                             selectedPath = currentConfig.filePath;
                             flipped = currentConfig.flip;
@@ -146,12 +150,12 @@ public class FileDialog {
                     if(!errorList.contains(firstError)) errorList.add(firstError);
                     if(!errorList.contains(secondError)) errorList.add(secondError);
                 }else{
-                    SpriteConfig spriteConfig = new SpriteConfig(configPath, spriteWidth, spriteHeight, spriteCount, spriteSpacing, configName, flipped);
+                    SpriteConfig spriteConfig = new SpriteConfig(configPath, spriteWidth, spriteHeight, spriteCount, spriteSpacing, worldScalar, configName, flipped);
                     editorScene.addProperties(AssetPool.getSpriteSheet(spriteConfig));
 
-                    System.out.println(spriteConfig);
-                    SpriteConfig[] table = {spriteConfig};
+                    SpriteConfig[] table = {spriteConfig.getClone()};
                     editorScene.saveResources(resourcePath, table);
+                    if(table[0] == null) table[0] = spriteConfig.getClone();
                     editorScene.saveResources(spriteConfigPath, table);
                     reset();
                     display = false;
@@ -224,12 +228,21 @@ public class FileDialog {
         return intVal.get();
     }
 
+    public double filldouble(double val, String name){
+        ImGui.pushID(EditorScene.generateID());
+        ImDouble doubleVal = new ImDouble(val);
+        ImGui.inputDouble(name, doubleVal);
+        ImGui.popID();
+
+        return doubleVal.get();
+    }
+
     public String fillString(String val, String name){
-        ImGui.pushID("##" + this.hashCode());
+        ImGui.pushID(EditorScene.generateID());
         ImString stringVal = new ImString(val, 256);
         ImGui.inputText(name, stringVal);
-
         ImGui.popID();
+
         return stringVal.get();
     }
 

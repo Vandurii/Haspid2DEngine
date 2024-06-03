@@ -14,7 +14,7 @@ import static main.Configuration.*;
 
 public class Gizmo extends Component {
 
-    private int gizmoToolIndex;
+    private static int gizmoToolIndex;
     private MouseListener mouse;
     private GameObject lastActiveObject;
     private SpriteSheet gimzosSheet;
@@ -22,17 +22,17 @@ public class Gizmo extends Component {
     private KeyListener keyboard;
     private boolean active;
 
-    private SpriteRenderer xAxisSpriteRender;
     private GameObject xAxisBody;
     private double xAxisXPadding;
     private double xAxisYPadding;
-    private boolean isXAxisHot;
+    private static boolean isXAxisHot;
+    private static SpriteRenderer xAxisSpriteRender;
 
-    private SpriteRenderer yAxisSpriteRender;
     private GameObject yAxisBody;
     private double yAxisXPadding;
     private double yAxisYPadding;
-    private boolean isYAxisHot;
+    private static boolean isYAxisHot;
+    private static SpriteRenderer yAxisSpriteRender;
 
     public Gizmo(EditorScene editorScene){
 
@@ -43,8 +43,8 @@ public class Gizmo extends Component {
         this.editorScene = editorScene;
         this.mouse = MouseListener.getInstance();
         this.keyboard = KeyListener.getInstance();
-        this.gizmoToolIndex = gizmoStartToolIndex;
         this.gimzosSheet = editorScene.getProperties("gizmo");
+        Gizmo.gizmoToolIndex = gizmoStartToolIndex;
 
         this.xAxisBody = new GameObject("gizmoXAxis");
         this.xAxisBody.addComponent(new Transform(new Vector2d(), gizmoScale, xGizmoRotation, gizmoZIndex));
@@ -80,11 +80,9 @@ public class Gizmo extends Component {
 
     public void destroy(){
         active = false;
-        SpriteRenderer xAxisRender = xAxisBody.getComponent(SpriteRenderer.class);
-        if(xAxisRender != null) xAxisRender.markToRemove();
+        if(xAxisSpriteRender != null) xAxisSpriteRender.markToRemove();
 
-        SpriteRenderer yAxisRender = yAxisBody.getComponent(SpriteRenderer.class);
-        if(yAxisRender != null) yAxisRender.markToRemove();
+        if(yAxisSpriteRender != null) yAxisSpriteRender.markToRemove();
     }
 
     @Override
@@ -104,7 +102,7 @@ public class Gizmo extends Component {
 
         if(gameObjectList.size() == 1 && activeObject != lastActiveObject) {
             if(yAxisBody.getComponent(SpriteRenderer.class) == null) create();
-        }else if(gameObjectList.size() != 1){
+        }else if(gameObjectList.size() != 1 || MouseControls.hasDraggingObject()){
             destroy();
         }
 
@@ -147,16 +145,16 @@ public class Gizmo extends Component {
         lastActiveObject = activeObject;
     }
 
-    public boolean isHot(){
-        return isXAxisHot || isYAxisHot;
+    public static boolean isHot(){
+        return isXAxisHot() || isYAxisHot();
     }
 
-    public boolean isXAxisHot(){
-        return isXAxisHot;
+    public static boolean isXAxisHot(){
+        return isXAxisHot && !xAxisSpriteRender.isMarkedToRemove();
     }
 
-    public boolean isYAxisHot(){
-        return isYAxisHot;
+    public static boolean isYAxisHot(){
+        return isYAxisHot && !yAxisSpriteRender.isMarkedToRemove();
     }
 
     public boolean isGizmoActive(){
@@ -164,12 +162,12 @@ public class Gizmo extends Component {
     }
 
     public void setGizmoToolIndex(int index){
-        this.gizmoToolIndex = index;
+        Gizmo.gizmoToolIndex = index;
         destroy();
         create();
     }
 
-    public int getGizmoToolIndex(){
+    public static int getGizmoToolIndex(){
         return gizmoToolIndex;
     }
 }

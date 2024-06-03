@@ -1,6 +1,5 @@
 package main.components;
 
-import main.components.physicsComponent.BoxCollider;
 import main.components.stateMachine.StateMachine;
 import main.editor.InactiveInEditor;
 import main.editor.Prefabs;
@@ -12,7 +11,6 @@ import main.physics.events.Event;
 import main.physics.events.EventSystem;
 import main.physics.events.EventType;
 import main.renderer.DebugDraw;
-import main.renderer.DebugDrawEvents;
 import main.util.AssetPool;
 import main.util.SpriteSheet;
 import org.jbox2d.dynamics.contacts.Contact;
@@ -81,7 +79,34 @@ public class PlayerController extends Component implements InactiveInEditor {
         fire
     }
 
-    public PlayerController(){
+    @Override
+    public PlayerController copy(){
+        PlayerController playerController = new PlayerController();
+        playerController.setStartVelXM(startVelXM);
+        playerController.setStartVelYM(startVelYM);
+        playerController.setSpeedScalarM(speedScalarM);
+        playerController.setPlayerWidth(playerWidth);
+
+        playerController.setResetGainIterations(resetGainIterations);
+
+        playerController.setThresholdLS(thresholdLS);
+        playerController.setFrictionLS(frictionLS);
+        playerController.setStartVelYLS(startVelYLS);
+        playerController.setSpeedScalarLS(speedScalarLS);
+        playerController.setTerminalVelocity(terminalVelocity);
+
+        return playerController;
+    }
+
+    @Override
+    public void init(){
+        GameObject parent = getParent();
+        rigidBody = parent.getComponent(RigidBody.class);
+        stateMachine = parent.getComponent(StateMachine.class);
+        if(rigidBody != null) {
+            rigidBody.setGravityScale(0f);
+        }
+
         // hurt
         this.resetHurtTime = 5;
         this.hurtTime = resetHurtTime;
@@ -96,7 +121,7 @@ public class PlayerController extends Component implements InactiveInEditor {
         this.startVelXM = 2;
         this.startVelYM = 120;
         this.speedScalarM = 1.5;
-        this.playerWidth = objectHalfSize * 2;
+        this.playerWidth = parent.getTransform().getScale().x;
 
         // in air
         this.resetGainIterations = 15;
@@ -122,37 +147,8 @@ public class PlayerController extends Component implements InactiveInEditor {
         this.fireballList = new ArrayList<>();
         this.items = AssetPool.getSpriteSheet(itemsConfig);
 
-
-        this.keyboard = KeyListener.getInstance();
         this.physics = Window.getInstance().getCurrentScene().getPhysics();
-    }
-
-    @Override
-    public PlayerController copy(){
-        PlayerController playerController = new PlayerController();
-        playerController.setStartVelXM(startVelXM);
-        playerController.setStartVelYM(startVelYM);
-        playerController.setSpeedScalarM(speedScalarM);
-        playerController.setPlayerWidth(playerWidth);
-
-        playerController.setResetGainIterations(resetGainIterations);
-
-        playerController.setThresholdLS(thresholdLS);
-        playerController.setFrictionLS(frictionLS);
-        playerController.setStartVelYLS(startVelYLS);
-        playerController.setSpeedScalarLS(speedScalarLS);
-        playerController.setTerminalVelocity(terminalVelocity);
-
-        return playerController;
-    }
-
-    @Override
-    public void init(){
-        rigidBody = getParent().getComponent(RigidBody.class);
-        stateMachine = getParent().getComponent(StateMachine.class);
-        if(rigidBody != null) {
-            rigidBody.setGravityScale(0f);
-        }
+        this.keyboard = KeyListener.getInstance();
     }
 
     @Override
@@ -212,7 +208,7 @@ public class PlayerController extends Component implements InactiveInEditor {
         Vector2d scale = transform.getScale();
 
         double offset = scale.x > 0 ? gridSize : -gridSize;
-        GameObject fireBall = Prefabs.generateFireball(items.getSprite(32), 11, 11, this);
+        GameObject fireBall = Prefabs.generateFireball(items.getSprite(32), new Vector2d(11), this);
         fireBall.getTransform().setPosition(pos.x + offset, pos.y + gridSize / 10);
 
         fireballList.add(fireBall);
@@ -241,9 +237,9 @@ public class PlayerController extends Component implements InactiveInEditor {
                 if(!goingRight){
                     goingRight = true;
                     stateMachine.switchAnimation("switch");
+                    stateMachine.rotate();
                 }
 
-                scale.x = playerWidth;
                 if(velocity.x <= 0){
                     velocity.x = startVelXM;
                 }else{
@@ -253,10 +249,10 @@ public class PlayerController extends Component implements InactiveInEditor {
             case Left -> {
                 if(goingRight){
                     goingRight = false;
+                    stateMachine.rotate();
                     stateMachine.switchAnimation("switch");
                 }
 
-                scale.x = -playerWidth;
                 if(velocity.x >= 0){
                     velocity.x = -startVelXM;
                 }else{
@@ -384,9 +380,9 @@ public class PlayerController extends Component implements InactiveInEditor {
         if(playerState == PlayerState.small){
             Vector2d scale = getParent().getTransform().getScale();
             scale.set( new Vector2d(scale.x, scale.y * 2));
-            BoxCollider boxCollider = getParent().getComponent(BoxCollider.class);
-            boxCollider.setHalfSize(new Vector2d(objectHalfSize, objectHalfSize * 2));
-            boxCollider.resetFixture();
+//       todo     BoxCollider boxCollider = getParent().getComponent(BoxCollider.class);
+//            boxCollider.setHalfSize(new Vector2d(objectHalfSize, objectHalfSize * 2));
+//            boxCollider.resetFixture();
             stateMachine = AssetPool.getStateMachine("bigMario");
             playerState = PlayerState.big;
         } else if(playerState == PlayerState.big){
@@ -412,9 +408,9 @@ public class PlayerController extends Component implements InactiveInEditor {
 
             Vector2d scale = getParent().getTransform().getScale();
             scale.set( new Vector2d(scale.x, scale.y / 2));
-            BoxCollider boxCollider = getParent().getComponent(BoxCollider.class);
-            boxCollider.setHalfSize(new Vector2d(objectHalfSize, objectHalfSize / 2));
-            boxCollider.resetFixture();
+//       todo     BoxCollider boxCollider = getParent().getComponent(BoxCollider.class);
+//            boxCollider.setHalfSize(new Vector2d(objectHalfSize, objectHalfSize / 2));
+//            boxCollider.resetFixture();
         }else if(playerState == PlayerState.small){
             die();
         }

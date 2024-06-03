@@ -28,7 +28,7 @@ public class PillboxCollider extends Collider {
     public PillboxCollider(){
         this.width = pillboxWidth;
         this.height = pillboxHeight;
-        this.boxCollider = new BoxCollider(new Vector2d(0));
+        this.boxCollider = new BoxCollider();
         this.topCircle = new CircleCollider(0);
         this.bottomCircle = new CircleCollider(0);
 
@@ -83,18 +83,15 @@ public class PillboxCollider extends Collider {
     }
 
     public void recalculateColliders(){
-        Vector2d offset = getOffset();
         double circleRadius = width / 4f;
         double boxHeight = height - 2 * circleRadius;
 
         topCircle.setRadius(circleRadius);
-        topCircle.setOffset(new Vector2d(offset.x, offset.y + (boxHeight / 4f)));
 
         bottomCircle.setRadius(circleRadius);
-        bottomCircle.setOffset(new Vector2d(offset.x, offset.y - (boxHeight / 4f)));
 
-        boxCollider.setHalfSize(new Vector2d(width / 2.f, boxHeight / 2f));
-        boxCollider.setOffset(offset);
+
+
     }
 
     public void setWidth(double width){

@@ -101,8 +101,8 @@ public abstract class Scene {
         AssetPool.getSound(invincible);
 
         //===================================
-        //  Properties
-        //===================================
+        // Properties
+        // ===================================
 
         SpriteConfig[] configList = gsonReader(resourcePath, SpriteConfig[].class);
 
@@ -282,7 +282,7 @@ public abstract class Scene {
                for(T t: array){
                    if(resource[i] != null && t.getName().equals(resource[i].getName())){
                        resource[i] = null;
-                       duplicate ++;
+                       duplicate++;
                        break;
                    }
                }
@@ -301,8 +301,21 @@ public abstract class Scene {
                }
            }
 
+           // check if none of these is null
+           for(T t: concatenateArray){
+               if(t == null){
+                   throw new IllegalStateException("This value can't be null");
+               }
+           }
+
            gsonWriter(path, concatenateArray, false);
        }else{
+
+           // check if none of these is null
+           for(T t: resource){
+               if(t == null) throw new IllegalStateException("This value can't be null");
+           }
+
            gsonWriter(path, resource, false);
        }
     }

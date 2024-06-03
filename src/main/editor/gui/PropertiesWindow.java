@@ -72,7 +72,9 @@ public class PropertiesWindow {
         Texture tex = AssetPool.getTexture(removeImagePath, false);
         ImGui.setCursorPos(ImGui.getContentRegionAvailX() - buttonSize, yPadding);
         if(ImGui.imageButton(tex.getTexID(), buttonSize, buttonSize)){
-            if(!tabList.isEmpty() && activeTab <= tabList.size()) {
+            if(!tabList.isEmpty() && activeTab < tabList.size()) {
+                // otherwise last tab won't be deleted
+                if(tabList.size() == 1) activeTab = 0;
                 editorScene.removePropertiesSafe(tabList.get(activeTab));
             }
         }
@@ -93,35 +95,36 @@ public class PropertiesWindow {
             SpriteRenderer sprite = spriteSheet.getSprite(i);
             double spriteWidth = sprite.getWidth();
             double spriteHeight = sprite.getHeight();
+            Vector2d scale = new Vector2d(spriteWidth * spriteSheet.getScalar(), spriteHeight * spriteSheet.getScalar());
             int texID = sprite.getTexID();
             Vector2d[] cords = sprite.getSpriteCords();
 
             ImGui.pushID(EditorScene.generateID());
             if (ImGui.imageButton(texID, (float) spriteWidth, (float) spriteHeight, (float) cords[3].x, (float) cords[3].y, (float) cords[1].x, (float) cords[1].y)) {
-                GameObject holdingObject = Prefabs.generateBopObject(sprite, spriteWidth, spriteHeight, ColliderType.Box);
+                GameObject holdingObject = Prefabs.generateBopObject(sprite, scale, ColliderType.Box);
                 // todo
                 if(spriteSheet.getName().equals("icons")){
                     switch (i){
-                        case 0 -> holdingObject = Prefabs.generateMario(spriteWidth / 2, spriteHeight /2);
-                        case 1 -> holdingObject = Prefabs.generateGoomba(spriteWidth / 2, spriteHeight / 2);
-                        case 5 -> holdingObject = Prefabs.generatePipe(sprite, spriteWidth, spriteHeight, Direction.Down);
-                        case 6 -> holdingObject = Prefabs.generatePipe(sprite, spriteWidth, spriteHeight, Direction.Up);
-                        case 7 -> holdingObject = Prefabs.generatePipe(sprite, spriteWidth, spriteHeight, Direction.Right);
-                        case 8 -> holdingObject = Prefabs.generatePipe(sprite, spriteWidth, spriteHeight, Direction.Left);
-                        case 9 -> holdingObject = Prefabs.generateQuestionBlock(spriteWidth / 2, spriteHeight / 2, Coin);
-                        case 11 -> holdingObject = Prefabs.generateMushroom(spriteWidth / 2, spriteHeight / 2);
-                        case 13 -> holdingObject = Prefabs.generateFlower(spriteWidth / 2, spriteHeight / 2);
-                        case 14 -> holdingObject = Prefabs.generateCoin(spriteWidth /2, spriteHeight / 2);
-                        case 15 -> holdingObject = Prefabs.generateTurtle(spriteWidth / 2, spriteHeight / 2 / 10 * 14);
-                        default -> holdingObject = Prefabs.generateBopObject(sprite, spriteWidth / 2, spriteHeight / 2, ColliderType.Box);
+                        case 0 -> holdingObject = Prefabs.generateMario(scale);
+                        case 1 -> holdingObject = Prefabs.generateGoomba(scale);
+                        case 5 -> holdingObject = Prefabs.generatePipe(sprite,scale, Direction.Down);
+                        case 6 -> holdingObject = Prefabs.generatePipe(sprite, scale, Direction.Up);
+                        case 7 -> holdingObject = Prefabs.generatePipe(sprite, scale, Direction.Right);
+                        case 8 -> holdingObject = Prefabs.generatePipe(sprite, scale, Direction.Left);
+                        case 9 -> holdingObject = Prefabs.generateQuestionBlock(scale, Coin);
+                        case 11 -> holdingObject = Prefabs.generateMushroom(scale);
+                        case 13 -> holdingObject = Prefabs.generateFlower(scale);
+                        case 14 -> holdingObject = Prefabs.generateCoin(scale);
+                        case 15 -> holdingObject = Prefabs.generateTurtle(new Vector2d(scale.x, scale.y * 2)); // todo
+                        default -> holdingObject = Prefabs.generateBopObject(sprite, scale, ColliderType.Box);
                     }
                 }else if(spriteSheet.getName().equals("items")){
                     if(i == 6){
-                        holdingObject = Prefabs.generateFlag(sprite, 16, spriteHeight);
+                        holdingObject = Prefabs.generateFlag(sprite, scale);
                     }
                 }else if(spriteSheet.getName().equals("blocks")){
                     if(i > 33){
-                        holdingObject = Prefabs.generateSpriteObject(sprite, spriteWidth, spriteHeight);
+                        holdingObject = Prefabs.generateSpriteObject(sprite, scale);
                     }
                 }
                 mouseControls.pickupObject(holdingObject);

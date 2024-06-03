@@ -2,7 +2,7 @@ package main.editor.gui;
 
 import imgui.ImGui;
 import main.editor.EditorScene;
-import main.haspid.Event;
+import main.editor.editorControl.EventController;
 
 public class Settings {
 
@@ -43,8 +43,8 @@ public class Settings {
                 editorScene.displayGrid(grid);
             }
 
-            if(ImGui.checkbox("Show Collider", Event.collider)){
-                Event.collider = !Event.collider;
+            if(ImGui.checkbox("Show Collider", EventController.collider)){
+                EventController.collider = !EventController.collider;
             }
 
             ImGui.end();

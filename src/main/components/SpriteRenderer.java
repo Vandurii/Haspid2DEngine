@@ -21,9 +21,9 @@ public class SpriteRenderer extends Component implements Drawable {
     private String texturePath;
     private Vector2d[] texCords;
     private double width, height;
-    private transient int spriteID;
     private transient Texture texture;
     private transient  Vector4f originalColor;
+    private transient int textureSlotInRender;
 
     public SpriteRenderer() {
         this.isDirty = true;
@@ -73,13 +73,17 @@ public class SpriteRenderer extends Component implements Drawable {
 
     public void resetColor(){
         isHighLighted = false;
-       if(originalColor == null)throw new IllegalStateException("the color is null SG");
+
+       if(originalColor == null){
+           originalColor = new Vector4f(1, 1, 1, 1);
+       }
+
         setColor(originalColor);
     }
 
     public void dearGui() {
         super.dearGui();
-        spriteID = (int) JImGui.drawValue("Texture Slot ID:", spriteID);
+        textureSlotInRender = (int) JImGui.drawValue("Texture Slot ID:", textureSlotInRender);
 
         float[] imColor = {color.x, color.y, color.z, color.w};
 
@@ -120,10 +124,6 @@ public class SpriteRenderer extends Component implements Drawable {
 
     public boolean hasTexture() {
         return texture != null;
-    }
-
-    public boolean isIDDefault() {
-        return spriteID == 0;
     }
 
     public boolean isHighLighted(){
@@ -167,16 +167,16 @@ public class SpriteRenderer extends Component implements Drawable {
         }
     }
 
-    public int getSpriteID() {
-        return spriteID;
+    public int getTextureSlotInRender() {
+        return textureSlotInRender;
     }
 
     public Vector4f getColor() {
         return color;
     }
 
-    public void setSpriteID(int spriteID) {
-        this.spriteID = spriteID;
+    public void setTextureSlotInRender(int textureSlotInRender) {
+        this.textureSlotInRender = textureSlotInRender;
     }
 
     public int getTexID() {
