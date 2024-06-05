@@ -1,13 +1,16 @@
 package main.editor;
 
 import imgui.app.Configuration;
+import main.components.physicsComponent.BoxCollider;
 import main.editor.editorControl.*;
 import main.editor.gui.*;
 import main.haspid.*;
 import main.haspid.Window;
 import main.renderer.DebugDraw;
+import main.renderer.DebugDrawEvents;
 import main.renderer.Renderer;
 import main.haspid.Scene;
+import org.joml.Vector2d;
 
 import static main.Configuration.*;
 import static main.renderer.DebugDrawEvents.*;
@@ -37,16 +40,16 @@ public class EditorScene extends Scene {
 
     @Override
     public void init() {
-        System.out.println(windowsScale);
+        EventController.physic = false;
+        editorMode = true;
 
         MouseListener.resetInstance();
         Renderer.resetInstance();
         mouseListener = MouseListener.getInstance();
         DebugDraw.reset();
+        BoxCollider.reset();
 
         loadSceneFromFile();
-        editorMode = true;
-
 
         gridLines = new GridLines(this);
         gizmo = new Gizmo(this);
@@ -87,6 +90,8 @@ public class EditorScene extends Scene {
         levelEditorStuff.update(dt);
         sceneUpdate(dt);
         updateDearGui();
+
+       BoxCollider.build();
     }
 
     public void render(float dt, boolean bufferIdMode){
@@ -101,6 +106,7 @@ public class EditorScene extends Scene {
 
         // draw collider lines
         if(EventController.collider && !bufferIdMode) {
+            DebugDraw.notify(DebugDrawEvents.Draw, staticColliderID);
             DebugDraw.notify(Draw, colliderID);
         }
 

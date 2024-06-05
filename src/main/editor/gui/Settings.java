@@ -47,6 +47,10 @@ public class Settings {
                 EventController.collider = !EventController.collider;
             }
 
+            if(ImGui.checkbox("Physics", EventController.physic)){
+                EventController.physic = !EventController.physic;
+            }
+
             ImGui.end();
         }
     }

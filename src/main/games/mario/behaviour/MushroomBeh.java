@@ -19,6 +19,7 @@ public class MushroomBeh extends Component {
     private transient RigidBody rigidBody;
 
     public MushroomBeh(){
+        System.out.println("gentea");
         this.speed = 20;
         this.gravity = 100;
         this.minContact = 0.1;
@@ -34,6 +35,15 @@ public class MushroomBeh extends Component {
     @Override
     public void update(float dt) {
         rigidBody.setVelocityX(speed);
+    }
+
+    public MushroomBeh copy(){
+        MushroomBeh mushroomBeh = new MushroomBeh();
+        mushroomBeh.setGravity(gravity);
+        mushroomBeh.setSpeed(speed);
+        mushroomBeh.setMinContact(minContact);
+
+        return mushroomBeh;
     }
 
     @Override
@@ -53,5 +63,17 @@ public class MushroomBeh extends Component {
                 used = true;
             }
         }
+    }
+
+    public void setSpeed(double speed) {
+        this.speed = speed;
+    }
+
+    public void setGravity(double gravity) {
+        this.gravity = gravity;
+    }
+
+    public void setMinContact(double minContact) {
+        this.minContact = minContact;
     }
 }

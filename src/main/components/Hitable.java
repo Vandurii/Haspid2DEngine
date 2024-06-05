@@ -58,6 +58,7 @@ public class Hitable extends Component {
 
     @Override
     public void beginCollision(GameObject gameObject, Contact contact, Vector2d contactNormal){
+        System.out.println("now");
         playerController = gameObject.getComponent(PlayerController.class);
         if(playerController != null && contactNormal.y < -0.8f){
             active = true;

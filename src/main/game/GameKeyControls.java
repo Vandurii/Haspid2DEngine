@@ -30,16 +30,6 @@ public class GameKeyControls extends Component {
     public void update(float dt) {
         if(keyDebounce < 0) {
             if (keyboard.isKeyPressed(GLFW_KEY_2)) {
-            List<RenderBatch> rList = Window.getInstance().getCurrentScene().getRenderer().getRenderBatchList();
-
-                for(RenderBatch rb: rList){
-                    System.out.println(rb.getzIndex() + " : " +  rb.getSpriteCount()); // todo
-                    for(SpriteRenderer sp: rb.getSpriteToRender()){
-                        if(sp == null) continue;
-                        System.out.println(sp.getParent().getName() + "\t: " + sp + "\t: "  + sp.getTexture().getFilePath() + "\t:" + sp.getTextureSlotInRender());
-                    }
-                    System.out.println();
-                }
             }else if(keyboard.isKeyPressed(GLFW_KEY_ESCAPE)){
                 EventSystem.notify(null, new Event(EventType.GameEngineStop));
                 glfwRestoreWindow(Window.getInstance().getGlfwWindow());

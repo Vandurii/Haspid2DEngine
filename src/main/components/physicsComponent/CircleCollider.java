@@ -15,13 +15,14 @@ public class CircleCollider extends Collider {
     }
 
     @Override
-    public void updateColliderLines(){
+    public void drawNewLines(){
         Vector2d pos = getParent().getTransform().getPosition();
         DebugDraw.addCircle(pos, radius, colliderColor, colliderID, colliderZIndex, Dynamic, getParent());
     }
 
     @Override
     public boolean resize() {
+        radius = getParent().getTransform().getScale().x / 2;
         if(lastRadius != radius){
             lastRadius = radius;
             resetFixture();

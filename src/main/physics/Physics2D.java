@@ -1,6 +1,7 @@
 package main.physics;
 
 import main.components.physicsComponent.*;
+import main.editor.editorControl.EventController;
 import main.haspid.GameObject;
 import main.haspid.Transform;
 import org.jbox2d.collision.shapes.CircleShape;
@@ -9,7 +10,6 @@ import org.jbox2d.collision.shapes.Shape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.*;
 import org.joml.Vector2d;
-import org.joml.Vector2f;
 import org.jbox2d.dynamics.BodyType;
 
 public class Physics2D {
@@ -33,10 +33,12 @@ public class Physics2D {
 
 
     public void update(float dt){
-        physicsTime += dt;
-        if(physicsTime >= 0f){
-            physicsTime -= physicsTimeStep;
-            world.step(physicsTimeStep, velocityIterations, positionIterations);
+        if(EventController.physic) {
+            physicsTime += dt;
+            if (physicsTime >= 0f) {
+                physicsTime -= physicsTimeStep;
+                world.step(physicsTimeStep, velocityIterations, positionIterations);
+            }
         }
     }
 
@@ -44,10 +46,12 @@ public class Physics2D {
         RigidBody rigidBody = gameObject.getComponent(RigidBody.class);
         if(rigidBody != null){
             Transform transform = gameObject.getTransform();
+            Vector2d pos = transform.getPosition();
+            Vector2d scale = transform.getScale();
 
             BodyDef bodyDef = new BodyDef();
             bodyDef.angle = (float)Math.toRadians(transform.getRotation());
-            bodyDef.position.set((float) transform.getPosition().x, (float) transform.getPosition().y);
+            bodyDef.position.set((float) pos.x, (float) pos.y);
             bodyDef.angularDamping = (float) rigidBody.getAngularDamping();
             bodyDef.linearDamping = (float) rigidBody.getLinearDamping();
             bodyDef.fixedRotation = rigidBody.isFixedRotation();
@@ -184,54 +188,5 @@ public class Physics2D {
 
     public boolean isLocked(){
         return world.isLocked();
-    }
-
-
-    public Vector2f getGravity() {
-        return new Vector2f(world.getGravity().x, world.getGravity().y);
-    }
-
-    public void setGravity(Vec2 gravity) {
-        this.gravity = gravity;
-    }
-
-    public World getWorld() {
-        return world;
-    }
-
-    public void setWorld(World world) {
-        this.world = world;
-    }
-
-    public float getPhysicsTime() {
-        return physicsTime;
-    }
-
-    public void setPhysicsTime(float physicsTime) {
-        this.physicsTime = physicsTime;
-    }
-
-    public float getPhysicsTimeStep() {
-        return physicsTimeStep;
-    }
-
-    public void setPhysicsTimeStep(float physicsTimeStep) {
-        this.physicsTimeStep = physicsTimeStep;
-    }
-
-    public int getVelocityIterations() {
-        return velocityIterations;
-    }
-
-    public void setVelocityIterations(int velocityIterations) {
-        this.velocityIterations = velocityIterations;
-    }
-
-    public int getPositionIterations() {
-        return positionIterations;
-    }
-
-    public void setPositionIterations(int positionIterations) {
-        this.positionIterations = positionIterations;
     }
 }

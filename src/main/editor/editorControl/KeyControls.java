@@ -3,6 +3,7 @@ package main.editor.editorControl;
 import imgui.ImGui;
 import main.components.Component;
 import main.components.SpriteRenderer;
+import main.components.physicsComponent.BoxCollider;
 import main.haspid.*;
 import main.editor.EditorScene;
 import org.joml.Vector2d;
@@ -80,10 +81,6 @@ public class KeyControls extends Component {
                 }
                 mouseControls.trackMouseMultiple();
             }else if(keyboard.isKeyPressed(GLFW_KEY_6)){
-                System.out.println("*** start ***");
-                System.out.println(MouseControls.getAllActiveObjects().size());
-                System.out.println("dragging: " + MouseControls.hasDraggingObject());
-                System.out.println(gizmo.isHot());
             }
 
             ///todo

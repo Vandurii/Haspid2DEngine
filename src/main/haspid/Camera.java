@@ -38,12 +38,13 @@ public class Camera {
     public void decreaseZoom(){
         double defaultZoomVal = 1;
 
-        // decrease or increase zoom value until equalize value
-        if(currentZoomValue > defaultZoomVal){
-            currentZoomValue -= resetCameraZoomSpeed;
-        }else{
-            currentZoomValue += resetCameraZoomSpeed;
-        }
+        double val = currentZoomValue < defaultZoomVal ? resetCameraZoomSpeed : -resetCameraZoomSpeed;
+        currentZoomValue += val;
+
+        // if abs value from 1 is less now then next frame then set default value
+        double distance = currentZoomValue - defaultZoomVal;
+        if((currentZoomValue + val - defaultZoomVal) > distance) currentZoomValue = defaultZoomVal;
+
 
         // if value is close to default then set default value
         if(Math.abs(Math.abs(currentZoomValue) - defaultZoomVal) < equalizeZoomBy){

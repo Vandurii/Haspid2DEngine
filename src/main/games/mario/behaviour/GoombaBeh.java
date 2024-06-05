@@ -2,14 +2,18 @@ package main.games.mario.behaviour;
 
 import main.components.Component;
 import main.components.PlayerController;
+import main.components.physicsComponent.CircleCollider;
 import main.components.physicsComponent.RigidBody;
 import main.components.stateMachine.StateMachine;
+import main.editor.EditorScene;
 import main.haspid.GameObject;
 import main.haspid.Window;
+import main.physics.BodyType;
 import main.util.AssetPool;
 import org.jbox2d.dynamics.contacts.Contact;
 import org.joml.Vector2d;
 
+import static main.Configuration.gridSize;
 import static main.Configuration.powerUpAppears;
 
 public class GoombaBeh extends Component {
@@ -63,11 +67,13 @@ public class GoombaBeh extends Component {
 
         PlayerController playerController = gameObject.getComponent(PlayerController.class);
         if (playerController != null && !playerController.isHurt()) {
-            if (Math.abs(contactNormal.x) > 0.8) {
+            if (!die && Math.abs(contactNormal.x) > 0.8) {
                 playerController.powerDown();
             }else if (contactNormal.y > 0.3 && Math.abs(contactNormal.x) < 0.5) {
                 getParent().getComponent(StateMachine.class).switchAnimation("squashed");
                 die();
+                rigidBody.setBodyType(BodyType.Static);
+                rigidBody.setSensor(true);
             }
         }
 

@@ -2,9 +2,9 @@ package main.games.mario.behaviour;
 
 import main.components.Component;
 import main.components.PlayerController;
-import main.components.physicsComponent.BoxCollider;
 import main.components.physicsComponent.RigidBody;
 import main.components.stateMachine.StateMachine;
+import main.editor.editorControl.MouseControls;
 import main.haspid.GameObject;
 import main.haspid.Window;
 import main.util.AssetPool;
@@ -40,6 +40,7 @@ public class TurtleBeh extends Component {
 
     @Override
     public TurtleBeh copy(){
+        System.out.println("copy run");
         TurtleBeh turtleBeh = new TurtleBeh();
         turtleBeh.setSpeed(speed);
         turtleBeh.setGravity(gravity);
@@ -64,21 +65,26 @@ public class TurtleBeh extends Component {
 
     @Override
     public void beginCollision(GameObject gameObject, Contact contact, Vector2d contactNormal){
+        double contactX = formatDouble(contactNormal.x);
+        double contactY = formatDouble(contactNormal.y);
+        System.out.println(gameObject);
+
+        System.out.println(String.format("x: " + contactX + "y: " + contactY));
+
         // die from fireball
         FireballBeh fireballBeh = gameObject.getComponent(FireballBeh.class);
         if(fireballBeh != null){
             die();
         }
-
         PlayerController playerController = gameObject.getComponent(PlayerController.class);
-        if (playerController != null && !playerController.isHurt()) {
-            if (Math.abs(contactNormal.x) > 0.8) {
-                playerController.powerDown();
-            }else if (contactNormal.y > 0.3 && Math.abs(contactNormal.x) < 0.5) {
-                if(!die) {
-                    Vector2d scale = getParent().getTransform().getScale();
-                    scale.set(scale.x / 2, scale.y / 2);
 
+        if (playerController != null && !playerController.isHurt()) {
+            if (contactX > contactY) {
+                playerController.powerDown();
+            }else if (contactY > contactX) {
+                if(!die) {
+                    getParent().getComponent(StateMachine.class).switchAnimation("squashed");
+                    getParent().shrink(false, true, 40);
                     currentSpeed = 0;
                     die = true;
                 }
@@ -97,13 +103,17 @@ public class TurtleBeh extends Component {
         }
 
         if(playerController != null) return;
-        if( Math.abs(contactNormal.x) > minContact){
-            getParent().getComponent(StateMachine.class).rotate();
+        if( contactX > minContact){
+            getParent().getComponent(StateMachine.class).rotateCornets();
             currentSpeed *= -1;
             if(isDie()){
                 AssetPool.getSound(bump).play();
             }
         }
+    }
+
+    public double formatDouble(double value){
+        return Math.abs(Math.floor(value * 100) / 100);
     }
 
     public boolean isDie(){

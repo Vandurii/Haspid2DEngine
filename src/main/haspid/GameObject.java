@@ -111,6 +111,10 @@ public class GameObject {
         if(!removed) throw new IllegalStateException("Object doesn't extend the component: " + component);
     }
 
+    public void removeComponent(Class component){
+      componentList.remove( getComponent(component));
+    }
+
     public void destroyAllComponents(){
         componentList.clear();
     }
@@ -164,6 +168,39 @@ public class GameObject {
         return transform;
     }
 
+    public void grown(boolean grownX, boolean grownY, int percentage){
+        Vector2d scale = transform.getScale();
+        double x = scale.x;
+        double y = scale.y;
+
+        if(grownX){
+            x += (x / 100) * percentage;
+        }
+
+        if(grownY){
+            y += (y / 100) * percentage;
+        }
+
+        transform.setScale(new Vector2d(x, y));
+    }
+
+    public void shrink(boolean grownX, boolean grownY, int percentage){
+        Vector2d scale = transform.getScale();
+        double x = scale.x;
+        double y = scale.y;
+
+        if(grownX){
+            x -= (x / 100) * percentage;
+        }
+
+        if(grownY){
+            y -= (y / 100) * percentage;
+        }
+
+        transform.setScale(new Vector2d(x, y));
+    }
+
+
     public String getName(){
         return name;
     }
@@ -195,6 +232,7 @@ public class GameObject {
         SpriteRenderer originalSpriteRender = getComponent(SpriteRenderer.class);
 
         // Change texture slot when the new sprite comes from another file.
+        if(originalSpriteRender == null) return;
         if(!newTexture.getFilePath().equals(originalSpriteRender.getTexture().getFilePath())){
             originalSpriteRender.setTexture(newTexture);
             RenderBatch.initTextureInfo(originalSpriteRender);

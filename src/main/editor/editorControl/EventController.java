@@ -7,9 +7,11 @@ import java.util.HashMap;
 
 public class EventController extends Component {
 
+
+    public static boolean physic = false;
     public static boolean collider = true;
-    public static boolean resourcesMonitor = false;
     public static boolean resetMode = false;
+    public static boolean resourcesMonitor = true;
 
     public static MouseListener mouseListener;
     public static HashMap<String, Hint> hintMap = new HashMap<>();

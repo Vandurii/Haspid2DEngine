@@ -115,7 +115,7 @@ public class PropertiesWindow {
                         case 11 -> holdingObject = Prefabs.generateMushroom(scale);
                         case 13 -> holdingObject = Prefabs.generateFlower(scale);
                         case 14 -> holdingObject = Prefabs.generateCoin(scale);
-                        case 15 -> holdingObject = Prefabs.generateTurtle(new Vector2d(scale.x, scale.y * 2)); // todo
+                        case 15 -> holdingObject = Prefabs.generateTurtle(new Vector2d(scale.x, scale.y * 1.5)); // todo
                         default -> holdingObject = Prefabs.generateBopObject(sprite, scale, ColliderType.Box);
                     }
                 }else if(spriteSheet.getName().equals("items")){

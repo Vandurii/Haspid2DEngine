@@ -73,8 +73,8 @@ public class Configuration {
     public static SpriteConfig itemsConfig = new SpriteConfig(Path.fromImages("items.png"), standardSpriteSize, standardSpriteSize, 34, 0, 0.2, "items", true);
     public static SpriteConfig bigFormConfig = new SpriteConfig(Path.fromImages("bigForm.png"), 16, 32, 42, 0, 0.2, "bigForm", true);
     public static SpriteConfig pipesConfig = new SpriteConfig(Path.fromImages("pipes.png"), 32, 32, 6, 0, 0.2, "pipes", true);
-    public static SpriteConfig turtleConfig = new SpriteConfig(Path.fromImages("turtle.png"), 16, 24, 4, 0, 0.2,  "turtle",true);// todo
-    public static SpriteConfig iconConfig = new SpriteConfig(Path.fromImages("icons.png"), 32, 32, 16, 0, 0.2, "icons", true);// todo
+    public static SpriteConfig turtleConfig = new SpriteConfig(Path.fromImages("turtle.png"), 16, 24, 4, 0, 0.2,  "turtle",true);
+    public static SpriteConfig iconConfig = new SpriteConfig(Path.fromImages("icons.png"), 32, 32, 16, 0, 0.2, "icons", true);
 
 
 
@@ -273,14 +273,15 @@ public class Configuration {
     public static double pillboxWidth = 0;
     public static double pillboxHeight = 0;
     public static String colliderID = "collider";
-    public static Vector3f colliderColor = new Vector3f(1.0f, 1f, 1.0f);
+    public static String staticColliderID = "staticCollider";
+    public static Vector3f colliderColor = new Vector3f(1f, 1f, 1f);
 
 
 
     //=====================
     // Rendering Settings
     //=====================
-    public static int batchSize = 10;
+    public static int batchSize = 10000;
     public static int startBatchSize = 10;
     public static int numberOfPointsInSquare = 4;
     public static int numberOfPointsIn2Triangles = 6;

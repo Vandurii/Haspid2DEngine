@@ -5,10 +5,9 @@ import com.google.gson.GsonBuilder;
 import main.components.Component;
 import main.components.SpriteRenderer;
 import main.components.ComponentSerializer;
+import main.components.physicsComponent.BoxCollider;
 import main.components.physicsComponent.RigidBody;
-import main.components.stateMachine.Animation;
-import main.components.stateMachine.Frame;
-import main.components.stateMachine.StateMachine;
+import main.physics.BodyType;
 import main.physics.Physics2D;
 import main.renderer.*;
 import main.util.*;
@@ -57,6 +56,7 @@ public abstract class Scene {
 
          this.gson = new GsonBuilder().
                 registerTypeAdapter(Component.class, new ComponentSerializer()).
+                 setPrettyPrinting().
                 registerTypeAdapter(GameObject.class, new GameObjectDeserializer()).
                 enableComplexMapKeySerialization().
                 create();
@@ -64,16 +64,6 @@ public abstract class Scene {
         Component.resetCounter();
         Renderer.resetInstance();
         loadResources();
-    }
-
-    public List<Frame> loadFrame(double frameTime, SpriteSheet spriteSheet, int ...index){
-        List<Frame> frameList = new ArrayList<>();
-
-        for(int i: index){
-            frameList.add(new Frame(spriteSheet.getSprite(i), frameTime));
-        }
-
-        return frameList;
     }
 
     private void loadResources(){
@@ -131,6 +121,7 @@ public abstract class Scene {
 
         removeComponentFromObject();
         addComponentToObject();
+
 
         removeDeadObject();
         addGameObjectToScene();
@@ -233,6 +224,12 @@ public abstract class Scene {
                 }
             }
 
+            //remove data from colliderList
+            BoxCollider boxCollider = gameObject.getComponent(BoxCollider.class);
+            if(boxCollider != null){
+                BoxCollider.removeFromStaticCollierList(boxCollider);
+            }
+
             // remove object date from physic engine
             physics.destroyGameObject(gameObject);
 
@@ -248,7 +245,11 @@ public abstract class Scene {
 
         for(GameObject gameObject: addObjectQueue) {
             sceneObjectList.add(gameObject);
-            physics.add(gameObject);
+
+            RigidBody rigidBody = gameObject.getComponent(RigidBody.class);
+            if(rigidBody != null && rigidBody.getBodyType() != BodyType.Static) {
+                physics.add(gameObject);
+            }
 
             // init it and add to Render
             gameObject.init();

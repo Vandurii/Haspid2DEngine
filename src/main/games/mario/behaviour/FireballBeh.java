@@ -12,15 +12,17 @@ public class FireballBeh extends Component {
     private double speed;
     private double gravity;
     private double minContact;
+    private boolean goingRight;
+    private RigidBody rigidBody;
     private double fireBallLifeTime;
     private PlayerController playerController;
-    private RigidBody rigidBody;
 
-    public FireballBeh(PlayerController playerController){
+    public FireballBeh(PlayerController playerController, boolean goingRight){
         this.speed = 100;
         this.gravity = 1;
         this.minContact = 0.4;
         this.fireBallLifeTime = 1;
+        this.goingRight = goingRight;
         this.playerController = playerController;
     }
 
@@ -29,8 +31,7 @@ public class FireballBeh extends Component {
         this.rigidBody = getParent().getComponent(RigidBody.class);
         rigidBody.setGravityScale(gravity);
 
-        Vector2d scale = playerController.getParent().getTransform().getScale();
-        speed = scale.x > 0 ? speed : -speed;
+        speed = goingRight ? speed : -speed;
         rigidBody.setVelocityX(speed);
     }
 

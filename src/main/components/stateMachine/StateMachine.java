@@ -62,7 +62,7 @@ public class StateMachine extends Component implements Writable {
         this.currentAnimationTitle = title;
     }
 
-    public void rotate(){
+    public void rotateCornets(){
         for(Animation animation: animationList){
             for(Frame frame: animation.getFrameList()){
               Vector2d[] cords = frame.getSpriteRenderer().getSpriteCords();

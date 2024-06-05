@@ -1,15 +1,24 @@
 package main.game;
 
 import imgui.app.Configuration;
+import main.components.Hitable;
+import main.components.physicsComponent.BoxCollider;
+import main.components.physicsComponent.Collider;
+import main.components.physicsComponent.RigidBody;
+import main.editor.editorControl.EventController;
 import main.editor.gui.ViewPort;
-import main.haspid.GameObject;
-import main.haspid.ImGuiLayer;
-import main.haspid.Window;
+import main.haspid.*;
+import main.physics.BodyType;
+import main.renderer.DebugDraw;
 import main.renderer.Renderer;
-import main.haspid.Scene;
-import main.util.Properties;
 
-import java.util.List;
+
+import javax.swing.border.EmptyBorder;
+
+import static main.Configuration.colliderID;
+import static main.Configuration.staticColliderID;
+import static main.renderer.DebugDrawEvents.Clear;
+import static main.renderer.DebugDrawEvents.Draw;
 
 public class GameScene extends Scene {
 
@@ -19,6 +28,14 @@ public class GameScene extends Scene {
 
     @Override
     public void init() {
+        for(Transform t: BoxCollider.getColliderData()) {
+            physics.add(createColliderObject(t));
+        }
+
+        BoxCollider.reset();
+        DebugDraw.notify(Clear, colliderID);
+
+        EventController.physic = true;
         GameKeyControls gameControls = new GameKeyControls();
 
         gameSceneStuff = new GameObject("gameSceneStuff");
@@ -28,6 +45,18 @@ public class GameScene extends Scene {
         imGuiLayer.init(new Configuration());
 
         loadSceneFromFile();
+    }
+
+    public GameObject createColliderObject(Transform transform){
+        GameObject gameObject = new GameObject("Collider custom");
+        gameObject.addComponent(transform);
+        gameObject.setTransformFromItself();
+        gameObject.addComponent(new BoxCollider());
+        RigidBody rigidBody = new RigidBody();
+        rigidBody.setBodyType(BodyType.Static);
+        gameObject.addComponent(rigidBody);
+
+        return gameObject;
     }
 
     @Override
@@ -40,6 +69,7 @@ public class GameScene extends Scene {
     @Override
     public void render(float dt, boolean bufferIDMode) {
         Renderer.getInstance().render();;
+     //   DebugDraw.notify(Draw, colliderID);
     }
 
     public void dearGui(){

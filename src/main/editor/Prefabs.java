@@ -113,7 +113,7 @@ public class Prefabs {
     }
 
     public static GameObject generateGoomba(Vector2d scale){
-        GameObject goomba = generateDynamicObject(new SpriteRenderer(), scale, ColliderType.Circle);
+        GameObject goomba = generateDynamicObject(new SpriteRenderer(), scale, ColliderType.Box);
         goomba.addComponent(AssetPool.getStateMachine("goomba"));
         goomba.addComponent(new GoombaBeh());
         goomba.setName("goomba");
@@ -187,9 +187,9 @@ public class Prefabs {
         return flag;
     }
 
-    public static GameObject generateFireball(SpriteRenderer spriteRenderer, Vector2d scale, PlayerController playerController){
+    public static GameObject generateFireball(SpriteRenderer spriteRenderer, Vector2d scale, PlayerController playerController, boolean goingRight){
         GameObject fireball = generateDynamicObject(spriteRenderer, scale, ColliderType.Circle);
-        fireball.addComponent(new FireballBeh(playerController));
+        fireball.addComponent(new FireballBeh(playerController, goingRight));
         fireball.setName("fireball");
 
         return fireball;

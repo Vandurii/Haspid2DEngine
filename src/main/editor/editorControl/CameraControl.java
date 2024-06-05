@@ -1,11 +1,8 @@
 package main.editor.editorControl;
 
 import main.components.Component;
-import main.editor.GridLines;
 import main.haspid.Camera;
 import main.haspid.MouseListener;
-import main.renderer.DebugDraw;
-import main.renderer.DebugDrawEvents;
 import org.joml.Vector2d;
 
 import static main.Configuration.*;
@@ -42,7 +39,6 @@ public class CameraControl extends Component {
                 double yPos = camera.getPosition().y * resetCameraPosSpeed;
 
                 if(camera.getPosition().x != 0 && camera.getPosition().y != 0) {
-                    System.out.println("case 1");
                     camera.getPosition().sub(xPos, yPos);
                     if (Math.abs(camera.getPosition().x) <= equalizeCameraBy && Math.abs(camera.getPosition().y) <= equalizeCameraBy) camera.resetPosition();
                 }else{

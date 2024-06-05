@@ -73,7 +73,7 @@ public class MouseControls extends Component {
             removeDraggingObject();
         }
 
-        if(draggingObject == null && mouse.isButtonPressed(GLFW_MOUSE_BUTTON_1) && !gizmo.isHot() &&  mouse.isCursorInsideViewPort() && !activeObjectList.isEmpty()){
+        if(draggingObject == null && mouse.isButtonPressed(GLFW_MOUSE_BUTTON_1) && !Gizmo.isHot() &&  mouse.isCursorInsideViewPort() && !activeObjectList.isEmpty()){
             unselectActiveObjects();
         }
 
@@ -133,13 +133,14 @@ public class MouseControls extends Component {
                 &&  mouse.getY() > startY && mouse.getY() < startY + height;
     }
 
-    public void highLightObject(GameObject gameObject){
+    public static void highLightObject(GameObject gameObject){
         SpriteRenderer spriteRenderer = gameObject.getComponent(SpriteRenderer.class);
+        if(spriteRenderer == null) return;
         spriteRenderer.setHighLight(true);
         spriteRenderer.setColor(selectorHoverColor);
     }
 
-    public void highLightObject(List<GameObject> objectList){
+    public static void highLightObject(List<GameObject> objectList){
         for(GameObject gameObject: objectList){
             highLightObject(gameObject);
         }
@@ -220,7 +221,9 @@ public class MouseControls extends Component {
         }
     }
 
+
     public void pickupObject(GameObject holdingObject){
+        holdingObject.setNonSerializable();
         editorScene.addObjectToSceneSafe(holdingObject);
         draggingObject = holdingObject;
         unselectActiveObjects();
@@ -389,7 +392,7 @@ public class MouseControls extends Component {
         yBuffer = 0;
     }
 
-    public void setObjectActive(GameObject active){
+    public static void setObjectActive(GameObject active){
         if(!activeObjectList.contains(active)) activeObjectList.add(active);
 
         // highLight when there is more then 1 active object

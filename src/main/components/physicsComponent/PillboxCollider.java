@@ -54,7 +54,7 @@ public class PillboxCollider extends Collider {
     }
 
     @Override
-    public void updateColliderLines() {
+    public void drawNewLines() {
 
     }
 
